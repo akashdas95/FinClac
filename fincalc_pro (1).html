@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinCalc — Professional Financial Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
+.topbar{background:var(--s);border-bottom:1px solid var(--bd);padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:200}
+.logo{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:600;color:var(--t);text-decoration:none}
+.logo-mark{width:28px;height:28px;background:var(--a);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#000;font-size:13px;font-weight:700}
+.searchbox{display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--bd);border-radius:7px;padding:6px 12px;width:240px}
+.searchbox input{background:none;border:none;outline:none;color:var(--t);font-family:var(--fn);font-size:13px;width:100%}
+.nav{display:flex;gap:2px;padding:.75rem 1.25rem 0;border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none;background:var(--bg);position:sticky;top:52px;z-index:100}
+.nav::-webkit-scrollbar{display:none}
+.ntab{padding:8px 13px;font-size:12px;font-weight:500;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;transition:all .18s;font-family:var(--fn)}
+.ntab.on{color:var(--a);border-bottom-color:var(--a)}
+.ntab:hover:not(.on){color:var(--t)}
+.content{padding:1.25rem}
+.panel{display:none}.panel.on{display:block}
+.dir-sec{margin-bottom:1.75rem}
+.dir-sec-h{font-size:11px;font-weight:600;color:var(--m);letter-spacing:.8px;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:8px}
+.dir-sec-h::after{content:'';flex:1;height:1px;background:var(--bd)}
+.dir-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px}
+.dir-card{background:linear-gradient(135deg,#0d1117 60%,#071510 100%);border:1px solid #0ECB81;border-radius:12px;padding:1.25rem 1.1rem;cursor:pointer;transition:all .2s;box-shadow:0 2px 12px rgba(14,203,129,.1),0 1px 3px rgba(0,0,0,.4)}
+.dir-card:hover{border-color:#ffffff;transform:translateY(-2px);box-shadow:0 6px 28px rgba(255,255,255,.12),0 2px 8px rgba(0,0,0,.5)}
+.dir-icon{font-size:28px;margin-bottom:10px;line-height:1}
+.dir-name{font-size:15px;font-weight:600;margin-bottom:5px;color:var(--t)}
+.dir-desc{font-size:12px;color:var(--m);line-height:1.6}
+.two{display:grid;grid-template-columns:1fr 310px;gap:16px}
+.two-eq{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.card{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:1.25rem}
+.mb16{margin-bottom:16px}
+.card-title{font-size:11px;font-weight:600;color:var(--m);letter-spacing:.8px;text-transform:uppercase;margin-bottom:1.25rem}
+.field{margin-bottom:.9rem}
+.field label{display:block;font-size:12px;color:var(--m);margin-bottom:5px}
+.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 11px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;transition:border .15s}
+.field input:focus,.field select:focus{border-color:var(--a)}
+.field select option{background:var(--s2)}
+.ip{position:relative}
+.ip .pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:13px;pointer-events:none;font-family:var(--mo)}
+.ip input{padding-left:22px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem}
+.sbox{background:var(--s2);border-radius:8px;padding:10px}
+.sbox .lbl{font-size:10px;color:var(--m);margin-bottom:3px;font-weight:500;text-transform:uppercase;letter-spacing:.4px}
+.sbox .val{font-size:15px;font-weight:600;font-family:var(--mo)}
+.rrow{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13px}
+.rrow:last-child{border:none}
+.rk{color:var(--m);font-size:12px}
+.rv{font-family:var(--mo);font-weight:500}
+.btn{width:100%;padding:10px;background:var(--a);color:#000;border:none;border-radius:7px;font-family:var(--fn);font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;transition:opacity .15s}
+.btn:hover{opacity:.88}
+.btn-sm{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--fn)}
+.btn-add{background:var(--s2)!important;color:var(--g)!important;border:1px solid var(--g)!important}
+.btn-del{background:transparent;color:var(--r);border:1px solid var(--bd);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px}
+.back-btn{background:none;border:none;color:var(--m);font-size:12px;cursor:pointer;margin-bottom:1rem;display:flex;align-items:center;gap:6px;padding:0;font-family:var(--fn)}
+.back-btn:hover{color:var(--t)}
+.badge-new{background:rgba(14,203,129,.15);color:var(--g);font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px}
+.pbar-bg{background:var(--bd);border-radius:3px;height:6px;overflow:hidden;margin-top:4px}
+.pbar-fill{height:100%;border-radius:3px;transition:width .4s}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{color:var(--m);font-size:10px;text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--bd);text-align:right;letter-spacing:.4px}
+.tbl th:first-child{text-align:left}
+.tbl td{padding:6px 8px;border-bottom:1px solid var(--bd);font-family:var(--mo);text-align:right}
+.tbl td:first-child{text-align:left;color:var(--m);font-family:var(--fn)}
+.tbl tr:last-child td{border:none}
+.tbl .hl{background:var(--s2)}
+.slab-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.slab-tbl th{color:var(--m);font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:5px 0;border-bottom:1px solid var(--bd);text-align:left}
+.slab-tbl td{padding:6px 0;border-bottom:1px solid var(--bd);font-family:var(--mo)}
+.slab-tbl tr:last-child td{border:none}
+.slab-on td{color:var(--a)}
+.tline{position:relative;padding-left:20px}
+.tline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--bd)}
+.tl-i{position:relative;margin-bottom:12px;font-size:12px}
+.tl-i::before{content:'';position:absolute;left:-17px;top:4px;width:8px;height:8px;border-radius:50%;background:var(--a);border:2px solid var(--bg)}
+.tl-lbl{color:var(--m);font-size:11px}
+.cmp-col{background:var(--s2);border-radius:10px;padding:1rem;border:1px solid var(--bd)}
+.cmp-col.winner{border-color:var(--g)}
+.donut-wrap{display:flex;justify-content:center;align-items:center;gap:16px;padding:.75rem 0}
+.leg-i{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--m);margin-bottom:5px}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sci-disp{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-bottom:10px;text-align:right}
+.sci-expr{font-size:12px;color:var(--m);font-family:var(--mo);min-height:18px}
+.sci-num{font-size:28px;font-family:var(--mo);font-weight:500;word-break:break-all}
+.sci-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.sci-btn{padding:10px 4px;border:1px solid var(--bd);border-radius:6px;background:var(--s2);color:var(--t);font-family:var(--mo);font-size:12px;cursor:pointer;text-align:center}
+.sci-btn:hover{background:var(--bd)}
+.sci-btn.op{color:var(--a)}.sci-btn.eq{background:var(--a);color:#000;border-color:var(--a);font-weight:600}.sci-btn.cl{color:var(--r)}.sci-btn.fn{color:var(--b)}
+@media(max-width:700px){.two,.two-eq,.three{grid-template-columns:1fr}.g2,.g3{grid-template-columns:1fr}.sci-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* AdSense Ad Units */
+.ad-slot{background:var(--s2);border:1px solid var(--bd);border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.ad-slot ins.adsbygoogle{display:block;width:100%}
+.ad-label{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.6px;position:absolute;top:5px;left:8px;pointer-events:none;z-index:1}
+/* Leaderboard: top below nav */
+.ad-leaderboard{width:100%;height:40px;margin-bottom:1.25rem}
+/* Rectangle: sidebar within calc panels */
+.ad-rectangle{width:100%;min-height:160px;margin-bottom:16px}
+/* Banner: between sections on home */
+.ad-banner{width:100%;height:32px;margin:.5rem 0;border-radius:6px}
+/* Footer bar */
+.ad-footer{width:100%;height:40px;margin-top:1.5rem;margin-bottom:.5rem}
+/* Mobile */
+@media(max-width:700px){.ad-leaderboard{height:40px}.ad-rectangle{min-height:160px}.ad-banner{height:40px}.ad-footer{height:40px}}
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="#"><div class="logo-mark">FC</div>FinCalc</a>
+  <div class="searchbox">
+    <svg width="14" height="14" fill="none" stroke="#6B7A8D" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="srch" placeholder="Search 25+ calculators..." oninput="doSearch()">
+  </div>
+</div>
+<div class="nav">
+  <button class="ntab on" onclick="go('home',this)">🏠 Home</button>
+  <button class="ntab" onclick="go('cagr',this)">📐 CAGR</button>
+  <button class="ntab" onclick="go('xirr',this)">📅 XIRR</button>
+  <button class="ntab" onclick="go('drip',this)">💧 DRIP</button>
+  <button class="ntab" onclick="go('etf',this)">🗂️ ETF Growth</button>
+  <button class="ntab" onclick="go('dcf',this)">🏦 DCF Valuation</button>
+  <button class="ntab" onclick="go('debtcomp',this)">❄️ Snowball vs Avalanche</button>
+  <button class="ntab" onclick="go('rentalprop',this)">🏡 Rental Property</button>
+  <button class="ntab" onclick="go('burnrate',this)">🔥 Burn Rate</button>
+  <button class="ntab" onclick="go('pricing',this)">🏷️ Pricing</button>
+  <button class="ntab" onclick="go('equity',this)">📐 Equity Dilution</button>
+  <button class="ntab" onclick="go('revenue',this)">📊 Revenue Forecast</button>
+  <button class="ntab" onclick="go('loan',this)">🏦 Loan/EMI</button>
+  <button class="ntab" onclick="go('invest',this)">📈 SIP/Investment</button>
+  <button class="ntab" onclick="go('tax',this)">🧾 Tax</button>
+  <button class="ntab" onclick="go('mortgage',this)">🏠 Mortgage</button>
+  <button class="ntab" onclick="go('mortcomp',this)">⚖️ Mtg Compare</button>
+  <button class="ntab" onclick="go('savings',this)">🏛️ Savings</button>
+  <button class="ntab" onclick="go('stock',this)">📉 Stock P&L</button>
+  <button class="ntab" onclick="go('retirement',this)">👴 Retirement</button>
+  <button class="ntab" onclick="go('debt',this)">💳 Debt Payoff</button>
+  <button class="ntab" onclick="go('rental',this)">🏘️ Rental Yield</button>
+  <button class="ntab" onclick="go('cashflow',this)">💵 Cash Flow</button>
+  <button class="ntab" onclick="go('breakeven',this)">📊 Break-even</button>
+  <button class="ntab" onclick="go('savingsgoal',this)">🎯 Savings Goal</button>
+  <button class="ntab" onclick="go('currency',this)">💱 Currency</button>
+  <button class="ntab" onclick="go('scientific',this)">🔬 Scientific</button>
+</div>
+<div class="content">
+
+<!-- AdSense Ad Unit -->
+<div class="ad-slot ad-leaderboard">
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="1111111111"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<!-- HOME -->
+<div id="home" class="panel on">
+  <div style="margin-bottom:1.5rem"><div style="font-size:22px;font-weight:600;margin-bottom:4px">All Calculators</div><div style="color:var(--m);font-size:13px">25+ professional-grade financial tools</div></div>
+  <div id="dir-home"></div>
+</div>
+
+<!-- CAGR -->
+<div id="cagr" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">CAGR Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Beginning Value ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="cg-begin" value="10000" oninput="calcCAGR()"></div></div>
+      <div class="field"><label>Ending Value ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="cg-end" value="25000" oninput="calcCAGR()"></div></div>
+      <div class="field"><label>Number of Years</label><input type="number" id="cg-years" value="5" oninput="calcCAGR()"></div>
+    </div>
+    <div class="sgrid" style="margin-top:0">
+      <div class="sbox"><div class="lbl">CAGR</div><div class="val" style="color:var(--a)" id="cg-rate">0%</div></div>
+      <div class="sbox"><div class="lbl">Total Return</div><div class="val" style="color:var(--g)" id="cg-total">0%</div></div>
+      <div class="sbox"><div class="lbl">Absolute Gain</div><div class="val" id="cg-gain">$0</div></div>
+      <div class="sbox"><div class="lbl">Multiplier</div><div class="val" style="color:var(--b)" id="cg-mult">0x</div></div>
+    </div>
+    <div style="margin-top:1rem" id="cg-proj"></div>
+    <div style="margin-top:1rem;background:var(--s2);border-radius:8px;padding:10px;font-size:12px;color:var(--m);line-height:1.7" id="cg-rule"></div>
+    
+  </div>
+  <div class="card">
+    <div class="card-title">Growth Projection</div>
+    <canvas id="cg-chart" width="300" height="200" style="width:100%;margin:1rem 0"></canvas>
+  </div>
+</div>
+</div>
+
+<!-- XIRR -->
+<div id="xirr" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two-eq">
+  <div class="card">
+    <div class="card-title">XIRR — Irregular Cash Flows</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 36px;gap:8px;margin-bottom:6px">
+      <span style="font-size:10px;color:var(--m);text-transform:uppercase">Date</span>
+      <span style="font-size:10px;color:var(--m);text-transform:uppercase">Cash Flow ($)</span>
+      <span></span>
+    </div>
+    <div id="xirr-rows"></div>
+    <button class="btn-sm btn-add" style="margin-top:8px" onclick="addXIRR()">+ Add Cash Flow</button>
+    <div style="font-size:11px;color:var(--m);margin-top:8px;padding:8px;background:var(--s2);border-radius:6px">Negative = outflow (investment) · Positive = inflow (return)</div>
+  </div>
+  <div class="card">
+    <div class="card-title">XIRR Results</div>
+    <div style="text-align:center;padding:1.5rem 0;border-bottom:1px solid var(--bd);margin-bottom:1rem">
+      <div style="font-size:11px;color:var(--m);margin-bottom:6px">Annualized Return (XIRR)</div>
+      <div style="font-size:40px;font-family:var(--mo);font-weight:600" id="xirr-rate">0%</div>
+    </div>
+    <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+      <div class="sbox"><div class="lbl">Total Invested</div><div class="val" style="color:var(--r)" id="xirr-inv">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Received</div><div class="val" style="color:var(--g)" id="xirr-rec">$0</div></div>
+      <div class="sbox"><div class="lbl">Net Gain</div><div class="val" id="xirr-net">$0</div></div>
+      <div class="sbox"><div class="lbl">Cash Multiple</div><div class="val" style="color:var(--b)" id="xirr-mult">0x</div></div>
+    </div>
+    <div class="rrow"><span class="rk">vs S&P 500 avg (10%/yr)</span><span class="rv" id="xirr-vs-sp">—</span></div>
+    <div class="rrow"><span class="rk">vs Inflation avg (3%/yr)</span><span class="rv" id="xirr-vs-inf">—</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- DRIP -->
+<div id="drip" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Dividend Reinvestment (DRIP)</div>
+    <div class="g2">
+      <div class="field"><label>Initial Shares</label><input type="number" id="dr-shares" value="100" oninput="calcDRIP()"></div>
+      <div class="field"><label>Current Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="dr-price" value="150" oninput="calcDRIP()"></div></div>
+      <div class="field"><label>Dividend Yield (% p.a.)</label><input type="number" id="dr-yield" value="3" step="0.1" oninput="calcDRIP()"></div>
+      <div class="field"><label>Dividend Growth (%)</label><input type="number" id="dr-divgrow" value="6" step="0.1" oninput="calcDRIP()"></div>
+      <div class="field"><label>Stock Price Growth (%)</label><input type="number" id="dr-grow" value="5" step="0.1" oninput="calcDRIP()"></div>
+      <div class="field"><label>Monthly Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="dr-monthly" value="500" oninput="calcDRIP()"></div></div>
+    </div>
+    <div class="field"><label>Investment Period (years)</label><input type="number" id="dr-years" value="20" oninput="calcDRIP()"></div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Final Portfolio</div><div class="val" style="color:var(--a)" id="dr-final">$0</div></div>
+      <div class="sbox"><div class="lbl">Annual Dividend Income</div><div class="val" style="color:var(--g)" id="dr-anndiv">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Shares</div><div class="val" style="color:var(--b)" id="dr-shares2">0</div></div>
+      <div class="sbox"><div class="lbl">Total Dividends Rcvd</div><div class="val" style="color:var(--p)" id="dr-totdiv">$0</div></div>
+    </div>
+    <div class="rrow" style="margin-top:.5rem"><span class="rk">Total Invested</span><span class="rv" id="dr-invested">$0</span></div>
+    <div class="rrow"><span class="rk">Total Gain</span><span class="rv" style="color:var(--g)" id="dr-gain">$0</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">DRIP Growth Over Time</div>
+    <canvas id="dr-chart" width="300" height="190" style="width:100%;margin:.5rem 0"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin:.5rem 0 1rem">
+      <span style="color:var(--a)">━ Portfolio Value</span><span style="color:var(--g)">╌ Annual Dividends ×10</span>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+<!-- ETF -->
+<div id="etf" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">ETF Growth Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Initial Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="et-init" value="10000" oninput="calcETF()"></div></div>
+      <div class="field"><label>Monthly Contribution ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="et-monthly" value="500" oninput="calcETF()"></div></div>
+      <div class="field"><label>Investment Period (years)</label><input type="number" id="et-years" value="20" oninput="calcETF()"></div>
+      <div class="field"><label>Expense Ratio (%)</label><input type="number" id="et-exp" value="0.03" step="0.01" oninput="calcETF()"></div>
+    </div>
+    <div id="et-results" style="margin-top:1rem"></div>
+    <div class="rrow" style="margin-top:.5rem"><span class="rk">Total contributed</span><span class="rv" id="et-invested">$0</span></div>
+    <div class="rrow"><span class="rk">Expense drag (vs 0% fee)</span><span class="rv" style="color:var(--r)" id="et-drag">$0</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">ETF Comparison Chart</div>
+    <canvas id="et-chart" width="300" height="200" style="width:100%;margin:.5rem 0"></canvas>
+    <div id="et-legend" style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:11px"></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- DCF -->
+<div id="dcf" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+
+<!-- AdSense Ad Unit -->
+<div class="ad-slot ad-rectangle">
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="4444444444"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="two-eq mb16">
+  <div class="card">
+    <div class="card-title">DCF Inputs</div>
+    <div class="g2">
+      <div class="field"><label>Ticker / Name</label><input type="text" id="dc-ticker" value="AAPL" oninput="calcDCF()"></div>
+      <div class="field"><label>Current Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="dc-price" value="185" step="0.01" oninput="calcDCF()"></div></div>
+      <div class="field"><label>Current EPS ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="dc-eps" value="6.5" step="0.1" oninput="calcDCF()"></div></div>
+      <div class="field"><label>Shares Outstanding (B)</label><input type="number" id="dc-shares" value="15.4" step="0.1" oninput="calcDCF()"></div>
+      <div class="field"><label>EPS Growth Rate (%)</label><input type="number" id="dc-grow" value="12" step="0.5" oninput="calcDCF()"></div>
+      <div class="field"><label>Terminal Growth Rate (%)</label><input type="number" id="dc-tgrow" value="3" step="0.1" oninput="calcDCF()"></div>
+      <div class="field"><label>Discount Rate / WACC (%)</label><input type="number" id="dc-disc" value="10" step="0.5" oninput="calcDCF()"></div>
+      <div class="field"><label>Projection Period (years)</label><input type="number" id="dc-yrs" value="10" min="3" max="20" oninput="calcDCF()"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">DCF Valuation — <span id="dc-ticker-lbl">AAPL</span></div>
+    <div style="text-align:center;padding:1rem 0;border-bottom:1px solid var(--bd);margin-bottom:1rem">
+      <div style="font-size:11px;color:var(--m);margin-bottom:4px">Intrinsic Fair Value</div>
+      <div style="font-size:38px;font-family:var(--mo);font-weight:600" id="dc-fair">$0</div>
+      <div style="font-size:13px;color:var(--m);margin-top:4px">Current: <span style="color:var(--t)" id="dc-cur">$185</span></div>
+    </div>
+    <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+      <div class="sbox"><div class="lbl">Upside / Downside</div><div class="val" id="dc-upside">0%</div></div>
+      <div class="sbox"><div class="lbl">Margin of Safety</div><div class="val" id="dc-mos">0%</div></div>
+      <div class="sbox"><div class="lbl">Market Cap</div><div class="val" id="dc-mktcap">$0</div></div>
+      <div class="sbox"><div class="lbl">Terminal Value PV</div><div class="val" style="color:var(--p)" id="dc-tvpv">$0</div></div>
+    </div>
+    <div style="background:var(--s2);border-radius:8px;padding:10px 12px;margin-bottom:10px">
+      <div style="font-size:10px;color:var(--m);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Scenario Analysis</div>
+      <div class="rrow"><span class="rk">Bear (×0.7)</span><span class="rv" id="dc-bear">$0</span></div>
+      <div class="rrow"><span class="rk">Base case</span><span class="rv" style="color:var(--a)" id="dc-base">$0</span></div>
+      <div class="rrow" style="border:none"><span class="rk">Bull (×1.3)</span><span class="rv" id="dc-bull">$0</span></div>
+    </div>
+    <div style="font-size:11px;color:var(--r);background:rgba(246,70,93,.08);border-radius:6px;padding:8px;margin-bottom:8px">⚠ DCF is highly sensitive to inputs. Always combine with qualitative research.</div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">EPS Projection & Present Value Breakdown</div>
+  <div style="overflow-x:auto"><table class="tbl" id="dc-table"></table></div>
+  <canvas id="dc-chart" width="900" height="130" style="width:100%;margin-top:1rem"></canvas>
+  <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--m)">
+    <span style="color:var(--a)">━ Projected EPS</span><span style="color:var(--g)">╌ Present Value</span>
+  </div>
+</div>
+</div>
+
+<!-- DEBT COMPARISON -->
+<div id="debtcomp" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+
+<!-- AdSense Ad Unit -->
+<div class="ad-slot ad-rectangle">
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="4444444444"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div style="margin-bottom:1rem"><div style="font-size:16px;font-weight:500;margin-bottom:4px">Debt Snowball vs Avalanche</div><div style="font-size:12px;color:var(--m)">Side-by-side comparison — see which method wins for your situation</div></div>
+<div class="card mb16">
+  <div class="card-title">Your Debts</div>
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 36px;gap:8px;margin-bottom:6px">
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Debt Name</span>
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Balance ($)</span>
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Rate %</span>
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Min Pay ($)</span>
+    <span></span>
+  </div>
+  <div id="dc2-rows"></div>
+  <div style="display:flex;gap:10px;margin-top:10px;align-items:flex-end;flex-wrap:wrap">
+    <button class="btn-sm btn-add" onclick="addDC2()">+ Add Debt</button>
+    <div style="flex:1;min-width:140px"><label style="display:block;font-size:12px;color:var(--m);margin-bottom:5px">Extra Monthly Payment ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="dc2-extra" value="500" oninput="calcDC2()"></div></div>
+  </div>
+</div>
+<div class="two-eq mb16">
+  <div class="card" style="border-left:3px solid var(--b)">
+    <div style="font-size:14px;font-weight:600;color:var(--b);margin-bottom:4px">❄️ Avalanche — Highest Rate First</div>
+    <div style="font-size:11px;color:var(--m);margin-bottom:1rem">Mathematically optimal — saves the most money</div>
+    <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+      <div class="sbox"><div class="lbl">Payoff Time</div><div class="val" style="color:var(--b)" id="av-months">0 mo</div></div>
+      <div class="sbox"><div class="lbl">Total Interest</div><div class="val" style="color:var(--r)" id="av-int">$0</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--m);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem">Payoff Order</div>
+    <div id="av-order"></div>
+  </div>
+  <div class="card" style="border-left:3px solid var(--g)">
+    <div style="font-size:14px;font-weight:600;color:var(--g);margin-bottom:4px">☃️ Snowball — Smallest Balance First</div>
+    <div style="font-size:11px;color:var(--m);margin-bottom:1rem">Best for motivation and momentum</div>
+    <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+      <div class="sbox"><div class="lbl">Payoff Time</div><div class="val" style="color:var(--g)" id="sn-months">0 mo</div></div>
+      <div class="sbox"><div class="lbl">Total Interest</div><div class="val" style="color:var(--r)" id="sn-int">$0</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--m);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem">Payoff Order</div>
+    <div id="sn-order"></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Strategy Comparison</div>
+  <div class="g3">
+    <div class="sbox"><div class="lbl">Total Debt</div><div class="val" id="dc2-total">$0</div></div>
+    <div class="sbox"><div class="lbl">Interest Saved (Avalanche)</div><div class="val" style="color:var(--g)" id="dc2-saved">$0</div></div>
+    <div class="sbox"><div class="lbl">Months Faster (Avalanche)</div><div class="val" style="color:var(--a)" id="dc2-faster">0 mo</div></div>
+  </div>
+  <canvas id="dc2-chart" width="900" height="140" style="width:100%;margin-top:1rem"></canvas>
+  <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--m)">
+    <span style="color:var(--b)">━ Avalanche balance</span><span style="color:var(--g)">━ Snowball balance</span>
+  </div>
+  
+</div>
+</div>
+
+<!-- RENTAL PROPERTY -->
+<div id="rentalprop" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two-eq mb16">
+  <div class="card">
+    <div class="card-title">Property & Financing</div>
+    <div class="g2">
+      <div class="field"><label>Purchase Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rp-price" value="350000" oninput="calcRP()"></div></div>
+      <div class="field"><label>Down Payment (%)</label><input type="number" id="rp-down" value="25" oninput="calcRP()"></div>
+      <div class="field"><label>Mortgage Rate (% p.a.)</label><input type="number" id="rp-rate" value="7" step="0.1" oninput="calcRP()"></div>
+      <div class="field"><label>Loan Tenure (years)</label><input type="number" id="rp-tenure" value="30" oninput="calcRP()"></div>
+      <div class="field"><label>Monthly Rent ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rp-rent" value="2500" oninput="calcRP()"></div></div>
+      <div class="field"><label>Vacancy Rate (%)</label><input type="number" id="rp-vac" value="5" oninput="calcRP()"></div>
+      <div class="field"><label>Annual Appreciation (%)</label><input type="number" id="rp-appr" value="4" step="0.5" oninput="calcRP()"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Operating Costs</div>
+    <div class="g2">
+      <div class="field"><label>Property Tax (annual $)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rp-ptax" value="4200" oninput="calcRP()"></div></div>
+      <div class="field"><label>Insurance (annual $)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rp-ins" value="1500" oninput="calcRP()"></div></div>
+      <div class="field"><label>Maintenance (monthly $)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rp-maint" value="200" oninput="calcRP()"></div></div>
+      <div class="field"><label>Property Mgmt (%)</label><input type="number" id="rp-mgmt" value="8" oninput="calcRP()"></div>
+      <div class="field"><label>Buying/Closing Costs (%)</label><input type="number" id="rp-buycost" value="3" step="0.5" oninput="calcRP()"></div>
+    </div>
+  </div>
+</div>
+<div class="three">
+  <div class="card">
+    <div class="card-title">Return Metrics</div>
+    <div class="sgrid" style="margin-top:0">
+      <div class="sbox"><div class="lbl">Gross Yield</div><div class="val" style="color:var(--a)" id="rp-gross">0%</div></div>
+      <div class="sbox"><div class="lbl">Cap Rate</div><div class="val" style="color:var(--b)" id="rp-cap">0%</div></div>
+      <div class="sbox"><div class="lbl">Cash-on-Cash Return</div><div class="val" id="rp-coc">0%</div></div>
+      <div class="sbox"><div class="lbl">Annual NOI</div><div class="val" id="rp-noi">$0</div></div>
+    </div>
+    <div class="rrow" style="margin-top:.5rem"><span class="rk">Monthly mortgage</span><span class="rv" id="rp-mort">$0</span></div>
+    <div class="rrow"><span class="rk">Effective monthly rent</span><span class="rv" id="rp-effrent">$0</span></div>
+    <div class="rrow"><span class="rk">Monthly cash flow</span><span class="rv" id="rp-cf">$0</span></div>
+    <div class="rrow"><span class="rk">Total invested (incl. costs)</span><span class="rv" id="rp-totalinv">$0</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">10-Year Projection</div>
+    <canvas id="rp-chart" width="280" height="155" style="width:100%;margin-bottom:1rem"></canvas>
+    <div style="display:flex;gap:10px;font-size:11px;color:var(--m);margin-bottom:.75rem"><span style="color:var(--a)">━ Property value</span><span style="color:var(--g)">━ Cumul. rent</span></div>
+    <div class="rrow"><span class="rk">Property value (10 yr)</span><span class="rv" style="color:var(--a)" id="rp-10v">$0</span></div>
+    <div class="rrow"><span class="rk">Total rental income</span><span class="rv" style="color:var(--g)" id="rp-10r">$0</span></div>
+    <div class="rrow"><span class="rk">10-yr total return</span><span class="rv" id="rp-10ret">0%</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Investment Verdict</div>
+    <div id="rp-verdict" style="margin-bottom:1rem"></div>
+    <div class="donut-wrap"><canvas id="rp-donut" width="110" height="110"></canvas>
+      <div><div class="leg-i"><div class="leg-dot" style="background:var(--g)"></div>Net income</div><div class="leg-i"><div class="leg-dot" style="background:var(--r)"></div>Mortgage</div><div class="leg-i"><div class="leg-dot" style="background:var(--m)"></div>Costs</div></div>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+<!-- BURNRATE -->
+<div id="burnrate" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Burn Rate Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Current Cash ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="br-cash" value="5000000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Monthly Revenue (MRR) ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="br-mrr" value="500000" oninput="cBurn()"></div></div>
+      <div class="field"><label>MRR Growth Rate (%/mo)</label><input type="number" id="br-growth" value="5" step="0.5" oninput="cBurn()"></div>
+    </div>
+    <div style="font-size:11px;color:var(--m);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;margin-top:.5rem">Monthly Expenses</div>
+    <div class="g2">
+      <div class="field"><label>Salaries ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="br-sal" value="500000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Office & Infra ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="br-off" value="100000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Marketing ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="br-mkt" value="80000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Software & Tools ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="br-sw" value="30000" oninput="cBurn()"></div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Gross Burn/mo</div><div class="val" style="color:var(--r)" id="br-gross">$0</div></div>
+      <div class="sbox"><div class="lbl">Net Burn/mo</div><div class="val" style="color:var(--a)" id="br-net">$0</div></div>
+      <div class="sbox"><div class="lbl">Runway</div><div class="val" style="color:var(--g)" id="br-runway">0 mo</div></div>
+      <div class="sbox"><div class="lbl">Default Date</div><div class="val" id="br-date">—</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Cash Balance Projection</div>
+    <canvas id="br-chart" width="300" height="170" style="width:100%;margin:1rem 0"></canvas>
+    <div class="rrow"><span class="rk">Break-even revenue</span><span class="rv" style="color:var(--g)" id="br-berev">$0</span></div>
+    <div class="rrow"><span class="rk">Months to break-even</span><span class="rv" id="br-bemo">—</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Pricing Calculator</div>
+    <div class="g2">
+      <div class="field"><label>COGS / unit ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-cogs" value="150" oninput="cPricing()"></div></div>
+      <div class="field"><label>Monthly Fixed Costs ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-fixed" value="200000" oninput="cPricing()"></div></div>
+      <div class="field"><label>Expected Units / Month</label><input type="number" id="pr-units" value="500" oninput="cPricing()"></div>
+      <div class="field"><label>Target Profit Margin %</label><input type="number" id="pr-margin" value="40" oninput="cPricing()"></div>
+      <div class="field"><label>Competitor Price Low ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-clow" value="300" oninput="cPricing()"></div></div>
+      <div class="field"><label>Competitor Price High ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-chigh" value="600" oninput="cPricing()"></div></div>
+    </div>
+    <div class="field"><label>Perceived Value Score: <span id="pr-vscore" style="color:var(--a);font-weight:600">7</span>/10</label><input type="range" id="pr-value" min="1" max="10" value="7" oninput="cPricing();gel('pr-vscore').textContent=this.value" style="width:100%;accent-color:var(--a)"></div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Cost-plus Price</div><div class="val" style="color:var(--a)" id="pr-costplus">$0</div></div>
+      <div class="sbox"><div class="lbl">Value-based Price</div><div class="val" style="color:var(--b)" id="pr-valueprice">$0</div></div>
+      <div class="sbox"><div class="lbl">Recommended Price</div><div class="val" style="color:var(--g)" id="pr-rec">$0</div></div>
+      <div class="sbox"><div class="lbl">Monthly Profit</div><div class="val" id="pr-profit">$0</div></div>
+    </div>
+  </div>
+  <div class="card"><div class="card-title">Suggested Pricing Tiers</div><div id="pr-tiers"></div></div>
+</div>
+</div>
+
+<!-- EQUITY -->
+<div id="equity" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two-eq mb16">
+  <div class="card">
+    <div class="card-title">Founding Team</div>
+    <div id="eq-founders"></div>
+    <button class="btn-sm btn-add" style="margin-top:8px" onclick="addFounder()">+ Add Founder</button>
+    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bd)"><div class="field"><label>Initial Option Pool (%)</label><input type="number" id="eq-pool" value="10" step="0.5" oninput="calcEquity()"></div></div>
+  </div>
+  <div class="card"><div class="card-title">Funding Rounds</div><div id="eq-rounds"></div><button class="btn-sm btn-add" style="margin-top:8px" onclick="addRound()">+ Add Round</button></div>
+</div>
+<div class="two-eq">
+  <div class="card"><div class="card-title">Cap Table</div><div style="overflow-x:auto"><table class="tbl" id="eq-table"></table></div></div>
+  <div class="card">
+    <div class="card-title">Ownership Breakdown</div>
+    <div class="donut-wrap"><canvas id="eq-chart" width="130" height="130"></canvas><div id="eq-legend"></div></div>
+    <div class="rrow"><span class="rk">Current valuation</span><span class="rv" style="color:var(--a)" id="eq-val">$0</span></div>
+    <div class="rrow"><span class="rk">Founder dilution</span><span class="rv" style="color:var(--r)" id="eq-dil">0%</span></div>
+    <div class="rrow"><span class="rk">Founder stake value</span><span class="rv" style="color:var(--g)" id="eq-fval">$0</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- REVENUE -->
+<div id="revenue" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+
+<!-- AdSense Ad Unit -->
+<div class="ad-slot ad-rectangle">
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="4444444444"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="card mb16">
+  <div class="card-title">Revenue Forecast Assumptions</div>
+  <div class="g3">
+    <div class="field"><label>Current MRR ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rf-mrr" value="500000" oninput="calcRevenue()"></div></div>
+    <div class="field"><label>Forecast Period (months)</label><input type="number" id="rf-months" value="12" min="3" max="36" oninput="calcRevenue()"></div>
+    <div class="field"><label>Churn Rate (%/mo)</label><input type="number" id="rf-churn" value="3" step="0.5" oninput="calcRevenue()"></div>
+    <div class="field"><label>🐻 Pessimistic Growth %/mo</label><input type="number" id="rf-pess" value="2" step="0.5" oninput="calcRevenue()"></div>
+    <div class="field"><label>📊 Base Growth %/mo</label><input type="number" id="rf-base" value="8" step="0.5" oninput="calcRevenue()"></div>
+    <div class="field"><label>🚀 Optimistic Growth %/mo</label><input type="number" id="rf-opt" value="15" step="0.5" oninput="calcRevenue()"></div>
+    <div class="field"><label>ARPU / Customer ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rf-arpu" value="2500" oninput="calcRevenue()"></div></div>
+    <div class="field"><label>One-time Revenue/mo ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rf-onetime" value="50000" oninput="calcRevenue()"></div></div>
+  </div>
+</div>
+<div class="two-eq mb16">
+  <div class="card">
+    <div class="card-title">Scenarios</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem">
+      <div class="sbox" style="border-top:3px solid var(--r)"><div class="lbl">🐻 Pessimistic</div><div class="val" style="color:var(--r)" id="rf-p">$0</div><div style="font-size:10px;color:var(--m);margin-top:3px" id="rf-pg"></div></div>
+      <div class="sbox" style="border-top:3px solid var(--b)"><div class="lbl">📊 Base Case</div><div class="val" style="color:var(--b)" id="rf-b">$0</div><div style="font-size:10px;color:var(--m);margin-top:3px" id="rf-bg"></div></div>
+      <div class="sbox" style="border-top:3px solid var(--g)"><div class="lbl">🚀 Optimistic</div><div class="val" style="color:var(--g)" id="rf-o">$0</div><div style="font-size:10px;color:var(--m);margin-top:3px" id="rf-og"></div></div>
+    </div>
+    <canvas id="rf-chart" width="500" height="165" style="width:100%"></canvas>
+  </div>
+  <div class="card">
+    <div class="card-title">KPIs (Base Case)</div>
+    <div class="rrow"><span class="rk">ARR at end of period</span><span class="rv" style="color:var(--b)" id="rf-arr">$0</span></div>
+    <div class="rrow"><span class="rk">Cumulative revenue</span><span class="rv" style="color:var(--b)" id="rf-cum">$0</span></div>
+    <div class="rrow"><span class="rk">Projected customers</span><span class="rv" id="rf-custs">0</span></div>
+    <div class="rrow"><span class="rk">LTV (ARPU ÷ churn)</span><span class="rv" style="color:var(--g)" id="rf-ltv">$0</span></div>
+    <div class="rrow"><span class="rk">Revenue range at end</span><span class="rv" style="color:var(--a)" id="rf-range">—</span></div>
+    
+  </div>
+</div>
+<div class="card"><div class="card-title">Monthly Forecast Table (Base Case)</div><div style="overflow-x:auto"><table class="tbl" id="rf-table"></table></div></div>
+</div>
+
+<!-- LOAN -->
+<div id="loan" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Loan / EMI Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Loan Amount ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="l-amt" value="500000" oninput="cLoan()"></div></div>
+      <div class="field"><label>Interest Rate (% p.a.)</label><input type="number" id="l-rate" value="7" step="0.1" oninput="cLoan()"></div>
+      <div class="field"><label>Tenure (months)</label><input type="number" id="l-n" value="60" oninput="cLoan()"></div>
+      <div class="field"><label>Processing Fee (%)</label><input type="number" id="l-fee" value="1" step="0.1" oninput="cLoan()"></div>
+    </div>
+    <div class="field"><label>Loan Type</label><select id="l-type" onchange="cLoan()"><option value="emi">Reducing balance (EMI)</option><option value="flat">Flat rate</option></select></div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Monthly EMI</div><div class="val" style="color:var(--a)" id="l-emi">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Interest</div><div class="val" style="color:var(--r)" id="l-int">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Payable</div><div class="val" id="l-tot">$0</div></div>
+      <div class="sbox"><div class="lbl">Processing Fee</div><div class="val" id="l-pf">$0</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Payment Breakdown</div>
+    <div class="donut-wrap"><canvas id="l-donut" width="110" height="110"></canvas>
+      <div><div class="leg-i"><div class="leg-dot" style="background:var(--a)"></div>Principal</div><div class="leg-i"><div class="leg-dot" style="background:var(--r)"></div>Interest</div><div class="leg-i"><div class="leg-dot" style="background:var(--m)"></div>Fees</div></div>
+    </div>
+    <div class="rrow"><span class="rk">Principal %</span><span class="rv" id="l-pp">0%</span></div>
+    <div class="rrow"><span class="rk">Interest %</span><span class="rv" style="color:var(--r)" id="l-ip">0%</span></div>
+    <div class="rrow"><span class="rk">Cost of credit</span><span class="rv" style="color:var(--a)" id="l-coc">0%</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- INVEST -->
+<div id="invest" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">SIP / Investment Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Monthly SIP ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="i-m" value="500" oninput="cSip()"></div></div>
+      <div class="field"><label>Expected Return (% p.a.)</label><input type="number" id="i-r" value="10" step="0.1" oninput="cSip()"></div>
+      <div class="field"><label>Duration (years)</label><input type="number" id="i-y" value="20" oninput="cSip()"></div>
+      <div class="field"><label>Lump-sum ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="i-l" value="0" oninput="cSip()"></div></div>
+    </div>
+    <div class="field"><label>Annual Step-up (%)</label><input type="number" id="i-step" value="5" oninput="cSip()"></div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Final Corpus</div><div class="val" style="color:var(--a)" id="i-corpus">$0</div></div>
+      <div class="sbox"><div class="lbl">Wealth Gained</div><div class="val" style="color:var(--g)" id="i-gain">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Invested</div><div class="val" id="i-inv">$0</div></div>
+      <div class="sbox"><div class="lbl">Abs. Return</div><div class="val" style="color:var(--g)" id="i-abs">0%</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Growth Chart</div>
+    <canvas id="i-chart" width="300" height="175" style="width:100%;margin:1rem 0"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin-bottom:.5rem"><span style="color:var(--g)">━ Invested</span><span style="color:var(--a)">━ Portfolio Value</span></div>
+    <div class="rrow"><span class="rk">CAGR</span><span class="rv" style="color:var(--g)" id="i-cagr">0%</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- TAX -->
+<div id="tax" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">US Federal Income Tax Estimator</div>
+    <div class="g2">
+      <div class="field"><label>Annual Gross Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-inc" value="120000" oninput="cTax()"></div></div>
+      <div class="field"><label>Filing Status</label><select id="t-status" onchange="cTax()"><option value="single">Single</option><option value="married">Married Filing Jointly</option><option value="hoh">Head of Household</option></select></div>
+      <div class="field"><label>Pre-tax Deductions (401k etc) ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-pre" value="23000" oninput="cTax()"></div></div>
+      <div class="field"><label>Other Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-oth" value="0" oninput="cTax()"></div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Federal Tax</div><div class="val" style="color:var(--r)" id="t-tax">$0</div></div>
+      <div class="sbox"><div class="lbl">Effective Rate</div><div class="val" id="t-eff">0%</div></div>
+      <div class="sbox"><div class="lbl">Monthly Take-home</div><div class="val" style="color:var(--g)" id="t-home">$0</div></div>
+      <div class="sbox"><div class="lbl">Taxable Income</div><div class="val" id="t-taxinc">$0</div></div>
+    </div>
+  </div>
+  <div class="card"><div class="card-title">Tax Bracket Breakdown (2024)</div><table class="slab-tbl" id="t-slabs"></table></div>
+</div>
+</div>
+
+<!-- MORTGAGE -->
+<div id="mortgage" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Mortgage Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Home Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="m-price" value="500000" oninput="cMortgage()"></div></div>
+      <div class="field"><label>Down Payment (%)</label><input type="number" id="m-down" value="20" oninput="cMortgage()"></div>
+      <div class="field"><label>Interest Rate (% p.a.)</label><input type="number" id="m-rate" value="7" step="0.1" oninput="cMortgage()"></div>
+      <div class="field"><label>Loan Tenure (years)</label><input type="number" id="m-years" value="30" oninput="cMortgage()"></div>
+      <div class="field"><label>Annual Property Tax ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="m-tax" value="5000" oninput="cMortgage()"></div></div>
+      <div class="field"><label>Annual Insurance ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="m-ins" value="1500" oninput="cMortgage()"></div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Total Monthly Payment</div><div class="val" style="color:var(--a)" id="m-pay">$0</div></div>
+      <div class="sbox"><div class="lbl">Loan Amount</div><div class="val" id="m-loan">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Interest</div><div class="val" style="color:var(--r)" id="m-int">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Cost</div><div class="val" id="m-total">$0</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Payment Breakdown</div>
+    <div class="donut-wrap"><canvas id="m-donut" width="110" height="110"></canvas>
+      <div><div class="leg-i"><div class="leg-dot" style="background:var(--a)"></div>Principal</div><div class="leg-i"><div class="leg-dot" style="background:var(--r)"></div>Interest</div><div class="leg-i"><div class="leg-dot" style="background:var(--b)"></div>Tax+Ins</div></div>
+    </div>
+    <div class="rrow"><span class="rk">Down payment</span><span class="rv" style="color:var(--a)" id="m-dp">$0</span></div>
+    <div class="rrow"><span class="rk">Monthly tax + insurance</span><span class="rv" id="m-ti">$0</span></div>
+    <div class="rrow"><span class="rk">Affordability ratio</span><span class="rv" id="m-aff">0%</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- MORTGAGE COMPARE -->
+<div id="mortcomp" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="card mb16">
+  <div class="card-title">Common Parameters</div>
+  <div class="g3">
+    <div class="field"><label>Home Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-price" value="500000" oninput="cMortComp()"></div></div>
+    <div class="field"><label>Annual Property Tax ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-tax" value="5000" oninput="cMortComp()"></div></div>
+    <div class="field"><label>Annual Insurance ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-ins" value="1500" oninput="cMortComp()"></div></div>
+  </div>
+</div>
+<div class="g3 mb16" id="mc-cols"></div>
+<div class="card"><div class="card-title">Side-by-Side Comparison</div><div style="overflow-x:auto"><table class="tbl" id="mc-table" style="width:100%"></table></div><canvas id="mc-chart" width="900" height="140" style="width:100%;margin-top:1rem"></canvas></div>
+</div>
+
+<!-- SAVINGS -->
+<div id="savings" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Savings Estimator</div>
+    <div class="g2">
+      <div class="field"><label>Initial Deposit ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sv-init" value="10000" oninput="cSavings()"></div></div>
+      <div class="field"><label>Monthly Contribution ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sv-monthly" value="500" oninput="cSavings()"></div></div>
+      <div class="field"><label>Annual Interest Rate (%)</label><input type="number" id="sv-rate" value="5" step="0.1" oninput="cSavings()"></div>
+      <div class="field"><label>Duration (years)</label><input type="number" id="sv-years" value="20" oninput="cSavings()"></div>
+    </div>
+    <div class="field"><label>Compounding</label><select id="sv-comp" onchange="cSavings()"><option value="12">Monthly</option><option value="4">Quarterly</option><option value="2">Semi-annually</option><option value="1">Annually</option></select></div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Final Balance</div><div class="val" style="color:var(--a)" id="sv-final">$0</div></div>
+      <div class="sbox"><div class="lbl">Interest Earned</div><div class="val" style="color:var(--g)" id="sv-int">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Contributed</div><div class="val" id="sv-contrib">$0</div></div>
+      <div class="sbox"><div class="lbl">Doubling Time</div><div class="val" id="sv-dbl">0 yrs</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Growth Projection</div>
+    <canvas id="sv-chart" width="300" height="175" style="width:100%;margin:1rem 0"></canvas>
+    <div class="rrow"><span class="rk">Interest / contributions ratio</span><span class="rv" style="color:var(--g)" id="sv-ratio">0%</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- STOCK -->
+<div id="stock" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Stock P&L Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Number of Shares</label><input type="number" id="sk-sh" value="100" oninput="cStock()"></div>
+      <div class="field"><label>Buy Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sk-buy" value="150" step="0.01" oninput="cStock()"></div></div>
+      <div class="field"><label>Sell Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sk-sell" value="200" step="0.01" oninput="cStock()"></div></div>
+      <div class="field"><label>Buy Commission (%)</label><input type="number" id="sk-bc" value="0.1" step="0.01" oninput="cStock()"></div>
+      <div class="field"><label>Sell Commission (%)</label><input type="number" id="sk-sc" value="0.1" step="0.01" oninput="cStock()"></div>
+      <div class="field"><label>Holding Period (days)</label><input type="number" id="sk-days" value="365" oninput="cStock()"></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Net P&L</div><div class="val" id="sk-pnl">$0</div></div>
+      <div class="sbox"><div class="lbl">Return %</div><div class="val" id="sk-ret">0%</div></div>
+      <div class="sbox"><div class="lbl">Annualised Return</div><div class="val" id="sk-ann">0%</div></div>
+      <div class="sbox"><div class="lbl">Total Commission</div><div class="val" style="color:var(--r)" id="sk-comm">$0</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Trade Summary</div>
+    <div class="rrow"><span class="rk">Total buy cost</span><span class="rv" id="sk-bt">$0</span></div>
+    <div class="rrow"><span class="rk">Total sell proceeds</span><span class="rv" id="sk-st">$0</span></div>
+    <div class="rrow"><span class="rk">Break-even sell price</span><span class="rv" style="color:var(--a)" id="sk-bep">$0</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- RETIREMENT -->
+<div id="retirement" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+
+<!-- AdSense Ad Unit -->
+<div class="ad-slot ad-rectangle">
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="4444444444"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Retirement Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Current Age</label><input type="number" id="rt-age" value="30" oninput="cRetire()"></div>
+      <div class="field"><label>Retirement Age</label><input type="number" id="rt-ret" value="65" oninput="cRetire()"></div>
+      <div class="field"><label>Current Savings ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rt-save" value="50000" oninput="cRetire()"></div></div>
+      <div class="field"><label>Monthly Contribution ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rt-contrib" value="1500" oninput="cRetire()"></div></div>
+      <div class="field"><label>Expected Return (% p.a.)</label><input type="number" id="rt-rate" value="8" oninput="cRetire()"></div>
+      <div class="field"><label>Inflation Rate (% p.a.)</label><input type="number" id="rt-inf" value="3" oninput="cRetire()"></div>
+      <div class="field"><label>Monthly Expenses Today ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rt-exp" value="5000" oninput="cRetire()"></div></div>
+      <div class="field"><label>Life Expectancy (age)</label><input type="number" id="rt-life" value="85" oninput="cRetire()"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Retirement Projection</div>
+    <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+      <div class="sbox"><div class="lbl">Corpus at Retirement</div><div class="val" style="color:var(--a)" id="rt-corpus">$0</div></div>
+      <div class="sbox"><div class="lbl">Monthly Need (future)</div><div class="val" style="color:var(--r)" id="rt-need">$0</div></div>
+      <div class="sbox"><div class="lbl">Years of Savings</div><div class="val" id="rt-yrs">0 yrs</div></div>
+      <div class="sbox"><div class="lbl">Surplus / Deficit</div><div class="val" id="rt-surplus">$0</div></div>
+    </div>
+    <canvas id="rt-chart" width="300" height="140" style="width:100%;margin-bottom:1rem"></canvas>
+    <div class="rrow"><span class="rk">Real return (inflation-adjusted)</span><span class="rv" style="color:var(--g)" id="rt-real">0%</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- DEBT PAYOFF -->
+<div id="debt" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="card mb16">
+  <div class="card-title">Debt Payoff Planner</div>
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 36px;gap:8px;margin-bottom:6px">
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Debt</span>
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Balance ($)</span>
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Rate %</span>
+    <span style="font-size:10px;color:var(--m);text-transform:uppercase">Min Pay ($)</span>
+    <span></span>
+  </div>
+  <div id="debt-rows"></div>
+  <div style="display:flex;gap:10px;margin-top:10px;align-items:flex-end;flex-wrap:wrap">
+    <button class="btn-sm btn-add" onclick="addDebt()">+ Add Debt</button>
+    <div style="flex:1;min-width:120px"><label style="display:block;font-size:12px;color:var(--m);margin-bottom:5px">Extra Payment ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="dp-extra" value="500" oninput="cDebt()"></div></div>
+    <div style="flex:1;min-width:120px"><label style="display:block;font-size:12px;color:var(--m);margin-bottom:5px">Strategy</label><select id="dp-strat" onchange="cDebt()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--fn);font-size:13px;outline:none"><option value="avalanche">Avalanche</option><option value="snowball">Snowball</option></select></div>
+  </div>
+</div>
+<div class="two-eq">
+  <div class="card">
+    <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+      <div class="sbox"><div class="lbl">Total Debt</div><div class="val" style="color:var(--r)" id="dp-total">$0</div></div>
+      <div class="sbox"><div class="lbl">Payoff Time</div><div class="val" style="color:var(--a)" id="dp-months">0 mo</div></div>
+      <div class="sbox"><div class="lbl">Total Interest Paid</div><div class="val" style="color:var(--r)" id="dp-int">$0</div></div>
+      <div class="sbox"><div class="lbl">Interest Saved vs Min-only</div><div class="val" style="color:var(--g)" id="dp-saved">$0</div></div>
+    </div>
+    <canvas id="dp-chart" width="500" height="140" style="width:100%"></canvas>
+  </div>
+  <div class="card">
+    <div class="card-title">Payoff Timeline</div>
+    <div id="dp-timeline" class="tline" style="margin-top:.5rem"></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- RENTAL YIELD -->
+<div id="rental" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Rental Yield Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Purchase Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ry-price" value="350000" oninput="cRental()"></div></div>
+      <div class="field"><label>Down Payment (%)</label><input type="number" id="ry-down" value="25" oninput="cRental()"></div>
+      <div class="field"><label>Monthly Rent ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ry-rent" value="2500" oninput="cRental()"></div></div>
+      <div class="field"><label>Mortgage Rate (% p.a.)</label><input type="number" id="ry-mrate" value="7" step="0.1" oninput="cRental()"></div>
+      <div class="field"><label>Mortgage Tenure (years)</label><input type="number" id="ry-myrs" value="30" oninput="cRental()"></div>
+      <div class="field"><label>Vacancy Rate (%)</label><input type="number" id="ry-vac" value="5" oninput="cRental()"></div>
+      <div class="field"><label>Annual Operating Costs ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ry-costs" value="8000" oninput="cRental()"></div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Gross Yield</div><div class="val" style="color:var(--a)" id="ry-gross">0%</div></div>
+      <div class="sbox"><div class="lbl">Net Yield</div><div class="val" style="color:var(--g)" id="ry-net">0%</div></div>
+      <div class="sbox"><div class="lbl">Cash-on-Cash Return</div><div class="val" style="color:var(--b)" id="ry-coc">0%</div></div>
+      <div class="sbox"><div class="lbl">Monthly Cash Flow</div><div class="val" id="ry-cf">$0</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Yield Analysis</div>
+    <canvas id="ry-chart" width="300" height="155" style="width:100%;margin:1rem 0"></canvas>
+    <div class="rrow"><span class="rk">Cap rate</span><span class="rv" style="color:var(--a)" id="ry-cap">0%</span></div>
+    <div class="rrow"><span class="rk">Monthly mortgage EMI</span><span class="rv" id="ry-mort">$0</span></div>
+    <div class="rrow"><span class="rk">Total invested (down payment)</span><span class="rv" id="ry-inv">$0</span></div>
+    
+  </div>
+</div>
+</div>
+
+<!-- CASH FLOW -->
+<div id="cashflow" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two-eq">
+  <div>
+    <div class="card mb16">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">Income Sources <button class="btn-sm btn-add" onclick="addCF('i')">+ Add</button></div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px"><span style="font-size:10px;color:var(--m)">Source</span><span style="font-size:10px;color:var(--m)">Amount ($)</span><span style="font-size:10px;color:var(--m)">Freq.</span><span></span></div>
+      <div id="cf-i-rows"></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">Expenses <button class="btn-sm btn-add" onclick="addCF('e')">+ Add</button></div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px"><span style="font-size:10px;color:var(--m)">Category</span><span style="font-size:10px;color:var(--m)">Amount ($)</span><span style="font-size:10px;color:var(--m)">Freq.</span><span></span></div>
+      <div id="cf-e-rows"></div>
+    </div>
+  </div>
+  <div>
+    <div class="card mb16">
+      <div class="card-title">Monthly Summary</div>
+      <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+        <div class="sbox"><div class="lbl">Monthly Income</div><div class="val" style="color:var(--g)" id="cf-inc">$0</div></div>
+        <div class="sbox"><div class="lbl">Monthly Expenses</div><div class="val" style="color:var(--r)" id="cf-exp">$0</div></div>
+        <div class="sbox"><div class="lbl">Net Cash Flow</div><div class="val" id="cf-net">$0</div></div>
+        <div class="sbox"><div class="lbl">Savings Rate</div><div class="val" id="cf-sr">0%</div></div>
+      </div>
+      <canvas id="cf-chart" width="300" height="135" style="width:100%"></canvas>
+    </div>
+    <div class="card"><div class="card-title">Expense Breakdown</div><div id="cf-bars"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- BREAKEVEN -->
+<div id="breakeven" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Break-even Analysis</div>
+    <div class="g2">
+      <div class="field"><label>Fixed Costs / Month ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="be-fc" value="20000" oninput="cBE()"></div></div>
+      <div class="field"><label>Selling Price / Unit ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="be-sp" value="100" oninput="cBE()"></div></div>
+      <div class="field"><label>Variable Cost / Unit ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="be-vc" value="40" oninput="cBE()"></div></div>
+      <div class="field"><label>Expected Units / Month</label><input type="number" id="be-eu" value="500" oninput="cBE()"></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Break-even Units</div><div class="val" style="color:var(--a)" id="be-beu">0</div></div>
+      <div class="sbox"><div class="lbl">Break-even Revenue</div><div class="val" id="be-ber">$0</div></div>
+      <div class="sbox"><div class="lbl">Monthly Profit</div><div class="val" style="color:var(--g)" id="be-prof">$0</div></div>
+      <div class="sbox"><div class="lbl">Margin of Safety</div><div class="val" id="be-mos">0%</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <canvas id="be-chart" width="300" height="175" style="width:100%;margin:1rem 0"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin-bottom:1rem"><span style="color:var(--g)">━ Revenue</span><span style="color:var(--r)">━ Fixed Costs</span></div>
+    <div class="rrow"><span class="rk">Contribution margin</span><span class="rv" style="color:var(--a)" id="be-cm">$0</span></div>
+    <div class="rrow"><span class="rk">Gross margin %</span><span class="rv" style="color:var(--g)" id="be-gm">0%</span></div>
+    <div class="rrow"><span class="rk">Operating leverage</span><span class="rv" id="be-ol">0x</span></div>
+    
+  </div>
+</div>
+</div>
+
+
+<!-- SAVINGS GOAL -->
+<div id="savingsgoal" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="two">
+  <div class="card">
+    <div class="card-title">Savings Goal Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Savings Goal ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sg-goal" value="50000" oninput="cSavingsGoal()"></div></div>
+      <div class="field"><label>Current Savings ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sg-current" value="5000" oninput="cSavingsGoal()"></div></div>
+      <div class="field"><label>Annual Interest Rate (%)</label><input type="number" id="sg-rate" value="6" step="0.1" oninput="cSavingsGoal()"></div>
+      <div class="field"><label>Target Timeframe (months)</label><input type="number" id="sg-months" value="36" oninput="cSavingsGoal()"></div>
+    </div>
+    <div class="field"><label>Compounding Frequency</label>
+      <select id="sg-comp" onchange="cSavingsGoal()">
+        <option value="12">Monthly</option>
+        <option value="4">Quarterly</option>
+        <option value="2">Semi-annually</option>
+        <option value="1">Annually</option>
+      </select>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Monthly Savings Needed</div><div class="val" style="color:var(--a)" id="sg-monthly">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Contributions</div><div class="val" id="sg-contrib">$0</div></div>
+      <div class="sbox"><div class="lbl">Interest Earned</div><div class="val" style="color:var(--g)" id="sg-interest">$0</div></div>
+      <div class="sbox"><div class="lbl">Goal Achievable?</div><div class="val" id="sg-status">—</div></div>
+    </div>
+    <div style="margin-top:1rem">
+      <div class="rrow"><span class="rk">Amount still needed</span><span class="rv" id="sg-gap">$0</span></div>
+      <div class="rrow"><span class="rk">% of goal already saved</span><span class="rv" style="color:var(--g)" id="sg-pct">0%</span></div>
+      <div class="rrow"><span class="rk">Weekly savings needed</span><span class="rv" style="color:var(--a)" id="sg-weekly">$0</span></div>
+      <div class="rrow"><span class="rk">Daily savings needed</span><span class="rv" id="sg-daily">$0</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Progress to Goal</div>
+    <div style="margin:1rem 0">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--m);margin-bottom:6px">
+        <span>Current</span><span id="sg-prog-label">0%</span><span>Goal</span>
+      </div>
+      <div style="background:var(--bd);border-radius:6px;height:14px;overflow:hidden;margin-bottom:1.25rem">
+        <div id="sg-progress-bar" style="height:100%;border-radius:6px;background:linear-gradient(90deg,var(--g),var(--a));transition:width .5s;width:0%"></div>
+      </div>
+    </div>
+    <canvas id="sg-chart" width="280" height="190" style="width:100%;margin-bottom:1rem"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m)">
+      <span style="color:var(--g)">━ Savings balance</span>
+      <span style="color:var(--a)">╌ Goal line</span>
+    </div>
+    <div style="margin-top:1rem;background:var(--s2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--m);line-height:1.7" id="sg-tip"></div>
+  </div>
+</div>
+</div>
+
+<!-- CURRENCY -->
+<div id="currency" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div style="max-width:540px">
+  <div class="card">
+    <div class="card-title">Currency Converter</div>
+    <div class="g2" style="margin-bottom:1rem">
+      <div class="field"><label>Amount</label><input type="number" id="cu-amt" value="1000" oninput="cCurrency()"></div>
+      <div></div>
+      <div class="field"><label>From</label><select id="cu-from" onchange="cCurrency()"></select></div>
+      <div class="field"><label>To</label><select id="cu-to" onchange="cCurrency()"></select></div>
+    </div>
+    <div style="background:var(--s2);border-radius:8px;padding:1.25rem;text-align:center;margin-bottom:1rem">
+      <div style="font-size:12px;color:var(--m);margin-bottom:6px" id="cu-lbl">—</div>
+      <div style="font-size:30px;font-family:var(--mo);font-weight:600;color:var(--a)" id="cu-res">—</div>
+    </div>
+    <div id="cu-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+    <p style="font-size:11px;color:var(--m);margin-top:1rem">⚠ Rates are approximate — verify with your bank or broker.</p>
+  </div>
+</div>
+</div>
+
+<!-- SCIENTIFIC -->
+<div id="scientific" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div style="max-width:420px">
+  <div class="card">
+    <div class="card-title">Scientific Calculator</div>
+    <div class="sci-disp"><div class="sci-expr" id="sc-expr"></div><div class="sci-num" id="sc-disp">0</div></div>
+    <div class="sci-grid" id="sc-grid"></div>
+  </div>
+</div>
+</div>
+
+
+<!-- AdSense Ad Unit -->
+<div class="ad-slot ad-footer">
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="2222222222"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div><!-- content -->
+<script>
+const gel=id=>document.getElementById(id);
+const f$=n=>'$'+Math.abs(Math.round(n)).toLocaleString('en-US');
+const pct=(n,d=1)=>isFinite(n)?n.toFixed(d)+'%':'∞';
+const fk=n=>n>=1e9?(n/1e9).toFixed(1)+'B':n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(0)+'K':Math.round(n).toString();
+const askClaude=msg=>{try{sendPrompt(msg);}catch(e){}};
+
+function go(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  const p=gel(id);if(p)p.classList.add('on');
+  if(el)el.classList.add('on');
+  else document.querySelectorAll('.ntab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on');});
+  window.scrollTo(0,0);
+}
+function doSearch(){
+  const q=gel('srch').value.toLowerCase();
+  if(!q){go('home',document.querySelector('.ntab'));document.querySelectorAll('.dir-card').forEach(c=>c.style.display='');return;}
+  go('home',null);
+  document.querySelectorAll('.dir-card').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(q)?'':'none';});
+}
+
+// ── Canvas helpers ──────────────────────────────────────────────
+function drawLine(id,datasets,H_=150){
+  const c=gel(id);if(!c)return;
+  const ctx=c.getContext('2d'),W=c.width,H=H_||c.height,p=28;
+  ctx.clearRect(0,0,W,H);
+  const all=datasets.flatMap(d=>d.data||[]);
+  const mx=Math.max(...all)||1,mn=Math.min(0,...all),range=mx-mn||1;
+  datasets.forEach(ds=>{
+    if(!ds.data||!ds.data.length)return;
+    const pts=ds.data.map((v,i)=>({x:p+i*(W-p*2)/((ds.data.length-1)||1),y:H-p-(v-mn)/range*(H-p*2)}));
+    if(ds.fill!==false){ctx.beginPath();ctx.moveTo(pts[0].x,H-p);pts.forEach(pt=>ctx.lineTo(pt.x,pt.y));ctx.lineTo(pts[pts.length-1].x,H-p);ctx.closePath();ctx.fillStyle=ds.color+'18';ctx.fill();}
+    ctx.beginPath();pts.forEach((pt,i)=>i?ctx.lineTo(pt.x,pt.y):ctx.moveTo(pt.x,pt.y));
+    ctx.strokeStyle=ds.color;ctx.lineWidth=ds.w||2;ctx.setLineDash(ds.dash||[]);ctx.stroke();ctx.setLineDash([]);
+  });
+}
+function drawDonut(id,data,colors){
+  const c=gel(id);if(!c)return;
+  const ctx=c.getContext('2d'),W=c.width,H=c.height,cx=W/2,cy=H/2,r=Math.min(W,H)/2-5;
+  ctx.clearRect(0,0,W,H);
+  const tot=data.reduce((a,b)=>a+b,0);if(!tot)return;
+  let s=-Math.PI/2;
+  data.forEach((v,i)=>{if(!v)return;const a=2*Math.PI*v/tot;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,s,s+a);ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();s+=a;});
+  ctx.beginPath();ctx.arc(cx,cy,r*.57,0,2*Math.PI);ctx.fillStyle='#141920';ctx.fill();
+}
+function drawBars(id,labels,vals,colors,H_=130){
+  const c=gel(id);if(!c)return;
+  const ctx=c.getContext('2d'),W=c.width,H=H_,p=28,n=vals.length;
+  ctx.clearRect(0,0,W,H);
+  const mx=Math.max(...vals)||1,bw=Math.min(65,(W-p*2)/n-6),gap=(W-p*2-bw*n)/((n-1)||1);
+  vals.forEach((v,i)=>{
+    const x=p+i*(bw+gap),bh=(v/mx)*(H-p*2),y=H-p-bh;
+    ctx.fillStyle=colors[i%colors.length];
+    if(ctx.roundRect)ctx.roundRect(x,y,bw,bh,3);else ctx.rect(x,y,bw,bh);
+    ctx.fill();
+    ctx.fillStyle='#6B7A8D';ctx.font='9px DM Sans';ctx.textAlign='center';
+    ctx.fillText((labels[i]||'').substring(0,9),x+bw/2,H-6);
+    ctx.fillStyle='#E8EDF2';ctx.font='500 9px DM Mono';
+    ctx.fillText('$'+fk(v),x+bw/2,y-4);
+  });
+}
+
+// ── Directory ───────────────────────────────────────────────────
+const SECTIONS=[
+  {title:'📈 Investing & Valuation',badge:true,items:[
+    {id:'cagr',icon:'📐',name:'CAGR Calculator',desc:'Compound annual growth rate, Rule of 72 & projections'},
+    {id:'xirr',icon:'📅',name:'XIRR Calculator',desc:'Annualized return for irregular cash flows'},
+    {id:'drip',icon:'💧',name:'Dividend Reinvestment',desc:'DRIP growth with compounding & monthly contributions'},
+    {id:'etf',icon:'🗂️',name:'ETF Growth Calculator',desc:'Compare SPY, VTI, QQQ, VXUS side by side'},
+    {id:'dcf',icon:'🏦',name:'Stock DCF Valuation',desc:'Intrinsic value, margin of safety & bear/bull scenarios'},
+    {id:'invest',icon:'📈',name:'SIP / Investment',desc:'SIP growth, corpus & CAGR with annual step-up'},
+    {id:'stock',icon:'📉',name:'Stock P&L',desc:'Trade profit/loss, annualised return & break-even price'},
+  ]},
+  {title:'🚀 Startup & Business',badge:false,items:[
+    {id:'burnrate',icon:'🔥',name:'Burn Rate',desc:'Runway, default date & break-even timeline'},
+    {id:'pricing',icon:'🏷️',name:'Pricing Calculator',desc:'Cost-plus, value-based & competitive pricing models'},
+    {id:'equity',icon:'📐',name:'Equity Dilution',desc:'Cap table & funding round dilution simulator'},
+    {id:'revenue',icon:'📊',name:'Revenue Forecast',desc:'3-scenario MRR/ARR forecasting with monthly table'},
+    {id:'breakeven',icon:'📈',name:'Break-even Analysis',desc:'Units, revenue, margin of safety & operating leverage'},
+    {id:'cashflow',icon:'💵',name:'Cash Flow Analyzer',desc:'Income vs expenses, savings rate & net cash flow'},
+  ]},
+  {title:'💰 Personal Finance',badge:false,items:[
+    {id:'loan',icon:'🏦',name:'Loan / EMI',desc:'Monthly EMI, total interest & cost of credit'},
+    {id:'tax',icon:'🧾',name:'Tax Estimator',desc:'US federal tax brackets, effective rate & take-home pay'},
+    {id:'mortgage',icon:'🏠',name:'Mortgage',desc:'Home loan with property tax & insurance breakdown'},
+    {id:'mortcomp',icon:'⚖️',name:'Mortgage Comparison',desc:'3 mortgage options side by side with winner highlight'},
+    {id:'savings',icon:'🏛️',name:'Savings Estimator',desc:'Compound interest, balance & doubling time'},
+    {id:'retirement',icon:'👴',name:'Retirement Planner',desc:'Inflation-adjusted corpus, surplus & deficit projection'},
+    {id:'debtcomp',icon:'❄️',name:'Snowball vs Avalanche',desc:'Side-by-side debt payoff method comparison'},
+    {id:'debt',icon:'💳',name:'Debt Payoff Planner',desc:'Custom payoff strategy, timeline & interest savings'},
+    {id:'rental',icon:'🏘️',name:'Rental Yield',desc:'Gross/net yield, cap rate & cash-on-cash return'},
+    {id:'rentalprop',icon:'🏡',name:'Rental Property',desc:'Full investment analysis: NOI, 10-yr projection & verdict'},
+    {id:'savingsgoal',icon:'🎯',name:'Savings Goal Calculator',desc:'How much to save monthly to reach your goal on time'},
+  ]},
+  {title:'🔬 Tools',badge:false,items:[
+    {id:'currency',icon:'💱',name:'Currency Converter',desc:'15 major world currencies (approximate rates)'},
+    {id:'scientific',icon:'🔬',name:'Scientific Calculator',desc:'Trig, log, powers, factorial & memory functions'},
+  ]},
+];
+function buildDir(){
+  const el=gel('dir-home');el.innerHTML='';
+  SECTIONS.forEach((sec,idx)=>{
+    let html=`<div class="dir-sec"><div class="dir-sec-h">${sec.title}${sec.badge?' <span class="badge-new">New</span>':''}</div><div class="dir-grid">`;
+    sec.items.forEach(it=>{html+=`<div class="dir-card" onclick="go('${it.id}',null)"><div class="dir-icon">${it.icon}</div><div class="dir-name">${it.name}</div><div class="dir-desc">${it.desc}</div></div>`;});
+    html+='</div></div>';el.innerHTML+=html;
+    if(idx===0){
+      el.innerHTML+=`<div class="ad-slot ad-banner"><ins class="adsbygoogle" style="display:block;height:28px;line-height:28px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="3333333333" data-ad-format="horizontal" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});<\/script></div>`;
+    }
+  });
+}
+
+// ── CAGR ────────────────────────────────────────────────────────
+function calcCAGR(){
+  const begin=+gel('cg-begin').value||0,end=+gel('cg-end').value||0,yrs=+gel('cg-years').value||1;
+  const cagr=yrs>0?(Math.pow(end/Math.max(begin,1),1/yrs)-1)*100:0;
+  const totalRet=begin>0?(end-begin)/begin*100:0,gain=end-begin;
+  gel('cg-rate').textContent=pct(cagr);gel('cg-total').textContent=pct(totalRet);
+  gel('cg-gain').textContent=f$(gain);gel('cg-gain').style.color=gain>=0?'var(--g)':'var(--r)';
+  gel('cg-mult').textContent=(end/Math.max(begin,1)).toFixed(2)+'x';
+  let proj='';
+  [1,3,5,10,15,20].forEach(y=>{const v=begin*Math.pow(1+cagr/100,y);proj+=`<div class="rrow"><span class="rk">Value in ${y} yr${y>1?'s':''}</span><span class="rv" style="color:var(--a)">${f$(v)}</span></div>`;});
+  gel('cg-proj').innerHTML=proj;
+  const dbl=cagr>0?(72/cagr).toFixed(1):'∞';
+  gel('cg-rule').innerHTML=`<strong style="color:var(--a)">Rule of 72:</strong> At ${pct(cagr)} CAGR, money doubles every <strong style="color:var(--t)">${dbl}</strong> years`;
+  const pts=Array.from({length:Math.min(yrs,30)+1},(_,i)=>begin*Math.pow(1+cagr/100,i));
+  drawLine('cg-chart',[{data:pts,color:'#F0B90B',fill:true}],200);
+}
+
+// ── XIRR ────────────────────────────────────────────────────────
+let xirrFlows=[{date:'2020-01-01',amt:-10000},{date:'2021-06-15',amt:-5000},{date:'2022-03-20',amt:3000},{date:'2024-01-01',amt:20000}];
+function renderXIRR(){
+  const el=gel('xirr-rows');el.innerHTML='';
+  xirrFlows.forEach((fl,i)=>{
+    el.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:center">
+      <input type="date" value="${fl.date}" onchange="xirrFlows[${i}].date=this.value;calcXIRR()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:12px;outline:none;width:100%">
+      <div class="ip" style="display:block"><span class="pfx">$</span><input type="number" value="${fl.amt}" onchange="xirrFlows[${i}].amt=+this.value;calcXIRR()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:${fl.amt<0?'var(--r)':'var(--g)'};font-family:var(--mo);font-size:13px;outline:none"></div>
+      <button class="btn-del" onclick="xirrFlows.splice(${i},1);renderXIRR()">✕</button>
+    </div>`;
+  });
+  calcXIRR();
+}
+function addXIRR(){xirrFlows.push({date:new Date().toISOString().split('T')[0],amt:-1000});renderXIRR();}
+function calcXIRR(){
+  const dates=xirrFlows.map(f=>new Date(f.date)),amounts=xirrFlows.map(f=>f.amt);
+  const t0=dates[0],days=dates.map(d=>(d-t0)/864e5);
+  let rate=0.1;
+  for(let k=0;k<200;k++){
+    let npv=0,dnpv=0;
+    amounts.forEach((a,i)=>{const t=days[i]/365;npv+=a/Math.pow(1+rate,t);dnpv-=t*a/Math.pow(1+rate,t+1);});
+    if(Math.abs(npv)<1e-6||Math.abs(dnpv)<1e-10)break;
+    rate-=npv/dnpv;
+  }
+  const r=isFinite(rate)?rate*100:0;
+  const inv=amounts.filter(a=>a<0).reduce((s,a)=>s-a,0),rec=amounts.filter(a=>a>0).reduce((s,a)=>s+a,0),net=rec-inv;
+  gel('xirr-rate').textContent=pct(r);gel('xirr-rate').style.color=r>=0?'var(--a)':'var(--r)';
+  gel('xirr-inv').textContent=f$(inv);gel('xirr-rec').textContent=f$(rec);
+  gel('xirr-net').textContent=f$(net);gel('xirr-net').style.color=net>=0?'var(--g)':'var(--r)';
+  gel('xirr-mult').textContent=inv>0?(rec/inv).toFixed(2)+'x':'—';
+  gel('xirr-vs-sp').textContent=r>=10?'✓ Outperforming':'✗ Underperforming';gel('xirr-vs-sp').style.color=r>=10?'var(--g)':'var(--r)';
+  gel('xirr-vs-inf').textContent=r>=3?'✓ Real positive return':'✗ Real negative return';gel('xirr-vs-inf').style.color=r>=3?'var(--g)':'var(--r)';
+}
+
+// ── DRIP ────────────────────────────────────────────────────────
+function calcDRIP(){
+  const shares=+gel('dr-shares').value||0,price=+gel('dr-price').value||0,divYield=(+gel('dr-yield').value||0)/100,divGrow=(+gel('dr-divgrow').value||0)/100,grow=(+gel('dr-grow').value||0)/100,monthly=+gel('dr-monthly').value||0,years=+gel('dr-years').value||1;
+  let sh=shares,pr=price,tots=[],divs=[],totDiv=0;
+  for(let y=1;y<=Math.min(years,40);y++){
+    pr*=(1+grow);const dy=divYield*Math.pow(1+divGrow,y-1),annDiv=sh*pr*dy;
+    totDiv+=annDiv;sh+=annDiv/pr+(monthly*12)/pr;tots.push(sh*pr);divs.push(annDiv);
+  }
+  const invested=shares*price+monthly*12*years,finalPortfolio=tots[tots.length-1]||0;
+  gel('dr-final').textContent=f$(finalPortfolio);
+  gel('dr-anndiv').textContent=f$(sh*(pr*(+gel('dr-yield').value||0)/100));
+  gel('dr-shares2').textContent=Math.round(sh).toLocaleString();
+  gel('dr-totdiv').textContent=f$(totDiv);
+  gel('dr-invested').textContent=f$(invested);
+  const gain=finalPortfolio-invested;gel('dr-gain').textContent=f$(gain);gel('dr-gain').style.color=gain>=0?'var(--g)':'var(--r)';
+  drawLine('dr-chart',[{data:tots,color:'#F0B90B',fill:true},{data:divs.map(v=>v*10),color:'#0ECB81',fill:false,dash:[4,3]}],190);
+}
+
+// ── ETF ─────────────────────────────────────────────────────────
+const ETFS=[{name:'S&P 500 (SPY)',ret:10.5,color:'#F0B90B'},{name:'Total Mkt (VTI)',ret:10.8,color:'#0ECB81'},{name:'NASDAQ (QQQ)',ret:14.2,color:'#1890FF'},{name:'Intl Dev (VXUS)',ret:7.2,color:'#9B59B6'}];
+function calcETF(){
+  const init=+gel('et-init').value||0,monthly=+gel('et-monthly').value||0,years=+gel('et-years').value||1,exp=+gel('et-exp').value||0;
+  const sim=r=>{const net=(r-exp)/100,mr=net/12,n=years*12;return mr?init*Math.pow(1+mr,n)+monthly*(Math.pow(1+mr,n)-1)/mr*(1+mr):init+monthly*n;};
+  const invested=init+monthly*12*years;
+  gel('et-invested').textContent=f$(invested);
+  const baseNoFee=(()=>{const mr=10.5/100/12,n=years*12;return mr?init*Math.pow(1+mr,n)+monthly*(Math.pow(1+mr,n)-1)/mr*(1+mr):init+monthly*n;})();
+  gel('et-drag').textContent=f$(Math.abs(sim(10.5)-baseNoFee));
+  const maxV=sim(14.2);let html='';
+  ETFS.forEach(e=>{
+    const v=sim(e.ret),gain=(v-invested)/invested*100;
+    html+=`<div style="background:var(--s2);border-radius:8px;padding:10px 12px;margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:12px;font-weight:500;color:${e.color}">${e.name}</span><span style="font-family:var(--mo);font-size:13px">${f$(v)}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--m);margin-bottom:4px"><span>Net: ${(e.ret-exp).toFixed(2)}%</span><span style="color:var(--g)">${pct(gain)} gain</span></div>
+      <div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min(100,(v-invested)/(maxV-invested)*100)}%;background:${e.color}"></div></div>
+    </div>`;
+  });
+  gel('et-results').innerHTML=html;
+  const ptsByETF=ETFS.map(e=>({data:Array.from({length:years+1},(_,i)=>{const net=(e.ret-exp)/100,mr=net/12,n=i*12;return mr?init*Math.pow(1+mr,n)+monthly*(Math.pow(1+mr,n)-1)/mr*(1+mr):init+monthly*n;}),color:e.color,fill:false,w:2.5}));
+  drawLine('et-chart',ptsByETF,200);
+  gel('et-legend').innerHTML=ETFS.map(e=>`<span style="color:${e.color};font-size:11px">━ ${e.name.split(' ')[0]}</span>`).join('');
+}
+
+// ── DCF ─────────────────────────────────────────────────────────
+function calcDCF(){
+  const ticker=gel('dc-ticker').value,price=+gel('dc-price').value||0,eps=+gel('dc-eps').value||0,shares=+gel('dc-shares').value||0,grow=(+gel('dc-grow').value||0)/100,tgrow=(+gel('dc-tgrow').value||0)/100,disc=(+gel('dc-disc').value||0)/100,yrs=+gel('dc-yrs').value||10;
+  const proj=Array.from({length:yrs},(_,i)=>eps*Math.pow(1+grow,i+1));
+  const pv=proj.map((e,i)=>e/Math.pow(1+disc,i+1));
+  const tv=(proj[yrs-1]*(1+tgrow))/(disc-tgrow),tvPV=tv/Math.pow(1+disc,yrs);
+  const fair=pv.reduce((a,b)=>a+b,0)+tvPV;
+  const upside=(fair-price)/price*100,mos=(fair-price)/fair*100;
+  gel('dc-ticker-lbl').textContent=ticker;
+  gel('dc-fair').textContent='$'+fair.toFixed(2);gel('dc-fair').style.color=fair>price?'var(--g)':'var(--r)';
+  gel('dc-cur').textContent='$'+price;
+  gel('dc-upside').textContent=(upside>=0?'+':'')+pct(upside);gel('dc-upside').style.color=upside>=0?'var(--g)':'var(--r)';
+  gel('dc-mos').textContent=pct(mos);gel('dc-mos').style.color=mos>=20?'var(--g)':mos>=0?'var(--a)':'var(--r)';
+  gel('dc-mktcap').textContent='$'+fk(price*shares*1e9);gel('dc-tvpv').textContent='$'+tvPV.toFixed(2);
+  gel('dc-bear').textContent='$'+(fair*.7).toFixed(2);gel('dc-bear').style.color=(fair*.7)>price?'var(--g)':'var(--r)';
+  gel('dc-base').textContent='$'+fair.toFixed(2);
+  gel('dc-bull').textContent='$'+(fair*1.3).toFixed(2);gel('dc-bull').style.color='var(--g)';
+  let tbl=`<thead><tr><th style="text-align:left">Year</th><th>Proj EPS</th><th>PV of EPS</th><th>Cumulative PV</th><th>% of Value</th></tr></thead><tbody>`;
+  let cum=0;proj.forEach((e,i)=>{cum+=pv[i];if(i===yrs-1)cum+=tvPV;tbl+=`<tr><td>Y${i+1}</td><td style="color:var(--a)">$${e.toFixed(2)}</td><td>$${pv[i].toFixed(2)}</td><td>$${cum.toFixed(2)}</td><td style="color:var(--g)">${pct(pv[i]/fair*100)}</td></tr>`;});
+  tbl+=`<tr class="hl"><td style="color:var(--p)">Terminal</td><td style="color:var(--p)">$${(proj[yrs-1]*(1+tgrow)).toFixed(2)}</td><td style="color:var(--p)">$${tvPV.toFixed(2)}</td><td style="color:var(--a)">$${fair.toFixed(2)}</td><td style="color:var(--p)">${pct(tvPV/fair*100)}</td></tr></tbody>`;
+  gel('dc-table').innerHTML=tbl;
+  drawLine('dc-chart',[{data:proj,color:'#F0B90B',fill:true},{data:pv,color:'#0ECB81',fill:false,dash:[4,3]}],130);
+}
+
+// ── Debt Comparison ─────────────────────────────────────────────
+let dc2Debts=[{name:'Credit Card',bal:8000,rate:22,min:200},{name:'Car Loan',bal:15000,rate:7,min:300},{name:'Student Loan',bal:25000,rate:5.5,min:280},{name:'Medical Bill',bal:3000,rate:0,min:100}];
+function renderDC2(){
+  const el=gel('dc2-rows');el.innerHTML='';
+  dc2Debts.forEach((d,i)=>{
+    el.innerHTML+=`<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:center">
+      <input type="text" value="${d.name}" oninput="dc2Debts[${i}].name=this.value;calcDC2()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
+      <div class="ip"><span class="pfx">$</span><input type="number" value="${d.bal}" oninput="dc2Debts[${i}].bal=+this.value;calcDC2()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
+      <input type="number" value="${d.rate}" step="0.1" oninput="dc2Debts[${i}].rate=+this.value;calcDC2()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;width:100%">
+      <div class="ip"><span class="pfx">$</span><input type="number" value="${d.min}" oninput="dc2Debts[${i}].min=+this.value;calcDC2()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
+      <button class="btn-del" onclick="dc2Debts.splice(${i},1);renderDC2()">✕</button>
+    </div>`;
+  });calcDC2();
+}
+function addDC2(){dc2Debts.push({name:'New Debt',bal:5000,rate:10,min:100});renderDC2();}
+function simDebt(strat,extra){
+  let ds=dc2Debts.map(d=>({...d,b:d.bal}));let mo=0,totInt=0,order=[],bH=[];
+  while(ds.some(d=>d.b>0)&&mo<600){
+    mo++;ds.forEach(d=>{if(d.b>0){const mi=d.b*d.rate/100/12;totInt+=mi;d.b+=mi-d.min;if(d.b<0)d.b=0;}});
+    let s=[...ds].filter(d=>d.b>0);
+    s.sort(strat==='avalanche'?(a,b)=>b.rate-a.rate:(a,b)=>a.b-b.b);
+    let left=extra;s.forEach(d=>{if(left<=0||d.b<=0)return;const p=Math.min(left,d.b);d.b-=p;left-=p;});
+    ds.forEach((d,i)=>{if(d.b<=0&&!order.find(o=>o.i===i))order.push({i,name:dc2Debts[i]?.name||'',month:mo});});
+    if(mo%4===0)bH.push(ds.reduce((a,d)=>a+d.b,0));
+  }
+  return{months:mo,totInt,order,bH};
+}
+function calcDC2(){
+  const extra=+gel('dc2-extra').value||0;
+  const av=simDebt('avalanche',extra),sn=simDebt('snowball',extra);
+  const td=dc2Debts.reduce((a,d)=>a+d.bal,0);
+  gel('dc2-total').textContent=f$(td);
+  gel('av-months').textContent=av.months+' mo';gel('av-int').textContent=f$(av.totInt);
+  gel('sn-months').textContent=sn.months+' mo';gel('sn-int').textContent=f$(sn.totInt);
+  gel('dc2-saved').textContent=f$(Math.max(0,sn.totInt-av.totInt));
+  gel('dc2-faster').textContent=Math.max(0,sn.months-av.months)+' mo';
+  const mkOrder=(data,color)=>data.order.map((o,i)=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;background:var(--s2);border-radius:6px;padding:8px 10px"><div style="width:22px;height:22px;border-radius:50%;background:${color};color:#000;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div><div><div style="font-size:12px;font-weight:500">${o.name}</div><div style="font-size:11px;color:var(--m)">Month ${o.month} · ${(o.month/12).toFixed(1)} yrs</div></div></div>`).join('');
+  gel('av-order').innerHTML=mkOrder(av,'var(--b)');gel('sn-order').innerHTML=mkOrder(sn,'var(--g)');
+  drawLine('dc2-chart',[{data:av.bH,color:'#1890FF',fill:true},{data:sn.bH,color:'#0ECB81',fill:false,w:2}],140);
+}
+
+// ── Rental Property ─────────────────────────────────────────────
+function calcRP(){
+  const price=+gel('rp-price').value||0,down=(+gel('rp-down').value||0)/100,mr=(+gel('rp-rate').value||0)/12/100,mn=(+gel('rp-tenure').value||30)*12;
+  const rent=+gel('rp-rent').value||0,vac=(+gel('rp-vac').value||0)/100,appr=(+gel('rp-appr').value||0)/100;
+  const ptax=+gel('rp-ptax').value||0,ins=+gel('rp-ins').value||0,maint=+gel('rp-maint').value||0,mgmt=(+gel('rp-mgmt').value||0)/100,buycost=(+gel('rp-buycost').value||0)/100;
+  const loan=price*(1-down),emi=mr?loan*mr*Math.pow(1+mr,mn)/(Math.pow(1+mr,mn)-1):loan/mn;
+  const effRent=rent*(1-vac),annRent=effRent*12,annCosts=ptax+ins+maint*12+rent*mgmt*12,noi=annRent-annCosts,cf=noi-emi*12;
+  const tinv=price*down+price*buycost,coc=tinv?cf/tinv*100:0,capRate=price?noi/price*100:0,grossY=price?annRent/price*100:0;
+  gel('rp-gross').textContent=pct(grossY);gel('rp-cap').textContent=pct(capRate);
+  gel('rp-coc').textContent=pct(coc);gel('rp-coc').style.color=coc>=0?'var(--g)':'var(--r)';
+  gel('rp-noi').textContent=f$(noi);gel('rp-noi').style.color=noi>=0?'var(--g)':'var(--r)';
+  gel('rp-mort').textContent=f$(emi);gel('rp-effrent').textContent=f$(effRent);
+  gel('rp-cf').textContent=f$(cf/12);gel('rp-cf').style.color=cf>=0?'var(--g)':'var(--r)';
+  gel('rp-totalinv').textContent=f$(tinv);
+  const v10=price*Math.pow(1+appr,10),r10=annRent*10,ret10=(v10-price+r10)/tinv*100;
+  gel('rp-10v').textContent=f$(v10);gel('rp-10r').textContent=f$(r10);
+  gel('rp-10ret').textContent=pct(ret10);gel('rp-10ret').style.color=ret10>=0?'var(--g)':'var(--r)';
+  drawLine('rp-chart',[{data:Array.from({length:11},(_,i)=>price*Math.pow(1+appr,i)),color:'#F0B90B',fill:true},{data:Array.from({length:11},(_,i)=>annRent*i),color:'#0ECB81',fill:false}],155);
+  const score=capRate>6?3:capRate>4?2:capRate>2?1:0;
+  const lbls=['⚠️ Poor Investment','🟡 Below Average','🟢 Decent Return','🚀 Strong Investment'],cols=['var(--r)','var(--a)','var(--b)','var(--g)'];
+  gel('rp-verdict').innerHTML=`<div style="background:var(--s2);border-radius:8px;padding:12px;border-left:3px solid ${cols[score]}"><div style="font-size:13px;font-weight:600;color:${cols[score]};margin-bottom:4px">${lbls[score]}</div><div style="font-size:12px;color:var(--m)">Cap rate ${pct(capRate)} · Cash flow ${cf>=0?'positive ✓':'negative ✗'} · Gross yield ${pct(grossY)}</div></div>`;
+  drawDonut('rp-donut',[Math.max(0,noi),emi*12,annCosts],['#0ECB81','#F6465D','#6B7A8D']);
+}
+
+// ── Burn Rate ───────────────────────────────────────────────────
+function cBurn(){
+  const cash=+gel('br-cash').value||0,mrr=+gel('br-mrr').value||0,growth=(+gel('br-growth').value||0)/100;
+  const gross=(+gel('br-sal').value||0)+(+gel('br-off').value||0)+(+gel('br-mkt').value||0)+(+gel('br-sw').value||0);
+  const net=Math.max(0,gross-mrr);
+  gel('br-gross').textContent=f$(gross);gel('br-net').textContent=f$(net);
+  let bal=cash,mo=0,bH=[cash];
+  while(bal>0&&mo<120){bal=bal-gross+mrr*Math.pow(1+growth,mo);mo++;bH.push(Math.max(0,bal));}
+  gel('br-runway').textContent=mo+' months';
+  const dd=new Date();dd.setMonth(dd.getMonth()+mo);
+  gel('br-date').textContent=dd.toLocaleDateString('en-US',{month:'short',year:'numeric'});
+  gel('br-berev').textContent=f$(gross);
+  if(growth>0&&mrr<gross){let r=mrr,m2=0;while(r<gross&&m2<120){r*=(1+growth);m2++;}gel('br-bemo').textContent=m2+' months';}
+  else gel('br-bemo').textContent=mrr>=gross?'Already profitable':'N/A';
+  drawLine('br-chart',[{data:bH.slice(0,Math.min(bH.length,30)),color:'#F0B90B',fill:true}],170);
+}
+
+// ── Pricing ─────────────────────────────────────────────────────
+function cPricing(){
+  const cogs=+gel('pr-cogs').value||0,fixed=+gel('pr-fixed').value||0,units=+gel('pr-units').value||1,margin=(+gel('pr-margin').value||0)/100;
+  const clow=+gel('pr-clow').value||0,chigh=+gel('pr-chigh').value||0,value=+gel('pr-value').value||5;
+  const overhead=fixed/units,uc=cogs+overhead,cp=uc/(1-margin),vp=(clow+chigh)/2*(0.5+value/10),comp=(clow+chigh)/2,rec=cp*.3+vp*.5+comp*.2;
+  gel('pr-costplus').textContent=f$(cp);gel('pr-valueprice').textContent=f$(vp);gel('pr-rec').textContent=f$(rec);
+  const profit=rec*units-uc*units-fixed;gel('pr-profit').textContent=f$(profit);gel('pr-profit').style.color=profit>=0?'var(--g)':'var(--r)';
+  const tiers=[{n:'Basic',m:.7,d:'Entry-level'},{n:'Standard',m:1,d:'Most popular'},{n:'Pro',m:1.5,d:'Full features'},{n:'Enterprise',m:2.2,d:'Custom + support'}];
+  gel('pr-tiers').innerHTML=tiers.map(t=>{const p=rec*t.m,gm=(p-uc)/p*100;return`<div style="background:var(--s2);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:13px;font-weight:500">${t.n}</div><div style="font-size:11px;color:var(--m)">${t.d}</div><div style="font-size:11px;color:var(--g);margin-top:2px">Margin: ${pct(gm)}</div></div><div style="font-size:20px;font-family:var(--mo);font-weight:600;color:var(--a)">${f$(p)}</div></div>`;}).join('');
+}
+
+// ── Equity ──────────────────────────────────────────────────────
+let founders=[{name:'Founder A',pct:45},{name:'Founder B',pct:45}];
+let rounds=[{name:'Seed',raise:2e6,pre:1e7},{name:'Series A',raise:1e7,pre:4e7}];
+const EQC=['#F0B90B','#0ECB81','#1890FF','#9B59B6','#F6465D','#26a17b'];
+function renderFounders(){
+  const el=gel('eq-founders');el.innerHTML='';
+  founders.forEach((f,i)=>{el.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:end"><div class="field" style="margin:0"><input type="text" value="${f.name}" oninput="founders[${i}].name=this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none"></div><div class="field" style="margin:0"><input type="number" value="${f.pct}" step="0.5" oninput="founders[${i}].pct=+this.value;calcEquity()" placeholder="%" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div><button class="btn-del" onclick="founders.splice(${i},1);renderFounders()">✕</button></div>`;});
+  calcEquity();
+}
+function renderRounds(){
+  const el=gel('eq-rounds');el.innerHTML='';
+  rounds.forEach((r,i)=>{el.innerHTML+=`<div style="border:1px solid var(--bd);border-radius:8px;padding:10px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><input type="text" value="${r.name}" oninput="rounds[${i}].name=this.value;calcEquity()" style="background:none;border:none;color:var(--t);font-weight:500;font-size:13px;outline:none;width:100px"><button class="btn-del" onclick="rounds.splice(${i},1);renderRounds()" style="padding:3px 8px">✕</button></div><div class="g2"><div class="field" style="margin-bottom:6px"><label>Raise Amount ($)</label><div class="ip"><span class="pfx">$</span><input type="number" value="${r.raise}" oninput="rounds[${i}].raise=+this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div></div><div class="field" style="margin-bottom:6px"><label>Pre-money Val. ($)</label><div class="ip"><span class="pfx">$</span><input type="number" value="${r.pre}" oninput="rounds[${i}].pre=+this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div></div></div></div>`;});
+  calcEquity();
+}
+function addFounder(){founders.push({name:'Co-founder',pct:10});renderFounders();}
+function addRound(){rounds.push({name:'New Round',raise:5e6,pre:2e7});renderRounds();}
+function calcEquity(){
+  const pool=+gel('eq-pool').value||0;
+  let dil=1;rounds.forEach(r=>{const p=r.raise/(r.pre+r.raise);dil*=(1-p);});
+  const pd=(100-pool)/100;
+  const rows=[...founders.map(f=>({name:f.name,init:f.pct,final:parseFloat((f.pct*dil*pd/100*100).toFixed(2))})),{name:'Option Pool',init:pool,final:parseFloat((pool*dil).toFixed(2))}];
+  let cdil=1;rounds.forEach((r,i)=>{const p=r.raise/(r.pre+r.raise)*100;rows.push({name:r.name+' Investors',init:0,final:parseFloat((p*cdil).toFixed(2))});cdil*=(1-p/100);});
+  const lastVal=rounds.length?rounds[rounds.length-1].pre+rounds[rounds.length-1].raise:10000000;
+  const fPct=founders.reduce((a,f)=>a+f.pct*dil*pd/100,0);
+  gel('eq-val').textContent=f$(lastVal);gel('eq-dil').textContent=pct(100-fPct);gel('eq-fval').textContent=f$(lastVal*fPct/100);
+  gel('eq-table').innerHTML=`<thead><tr><th style="text-align:left">Stakeholder</th><th style="text-align:left">Pre %</th><th style="text-align:left">Post %</th><th style="text-align:left">Value ($)</th></tr></thead><tbody>`+rows.map((r,i)=>`<tr><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${EQC[i]||'#555'};margin-right:6px"></span>${r.name}</td><td>${r.init.toFixed(1)}%</td><td>${r.final.toFixed(2)}%</td><td style="color:var(--a)">${f$(lastVal*r.final/100)}</td></tr>`).join('')+'</tbody>';
+  drawDonut('eq-chart',rows.map(r=>r.final),rows.map((_,i)=>EQC[i]||'#555'));
+  gel('eq-legend').innerHTML=rows.map((r,i)=>`<div class="leg-i"><div class="leg-dot" style="background:${EQC[i]||'#555'}"></div>${r.name}: ${r.final.toFixed(1)}%</div>`).join('');
+}
+
+// ── Revenue Forecast ────────────────────────────────────────────
+function calcRevenue(){
+  const mrr=+gel('rf-mrr').value||0,months=Math.min(36,+gel('rf-months').value||12),churn=(+gel('rf-churn').value||0)/100;
+  const pess=(+gel('rf-pess').value||0)/100,base=(+gel('rf-base').value||0)/100,opt=(+gel('rf-opt').value||0)/100;
+  const arpu=+gel('rf-arpu').value||1,onetime=+gel('rf-onetime').value||0;
+  const sim=g=>{let r=mrr,cum=0,cust=arpu?mrr/arpu:0,arr=[];for(let m=1;m<=months;m++){r=r*(1+g-churn)+onetime;cust*=(1+g-churn);cum+=r;arr.push({m,r,cum,cust});}return arr;};
+  const pD=sim(pess),bD=sim(base),oD=sim(opt);
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('rf-p',f$(pD[pD.length-1].r));se('rf-pg',pct((pD[pD.length-1].r/mrr-1)*100)+' total growth');
+  se('rf-b',f$(bD[bD.length-1].r));se('rf-bg',pct((bD[bD.length-1].r/mrr-1)*100)+' total growth');
+  se('rf-o',f$(oD[oD.length-1].r));se('rf-og',pct((oD[oD.length-1].r/mrr-1)*100)+' total growth');
+  se('rf-arr',f$(bD[bD.length-1].r*12));se('rf-cum',f$(bD[bD.length-1].cum));
+  se('rf-custs',Math.round(bD[bD.length-1].cust).toLocaleString());
+  se('rf-ltv',churn?f$(arpu/churn):'∞');se('rf-range',f$(pD[pD.length-1].r)+' – '+f$(oD[oD.length-1].r));
+  drawLine('rf-chart',[{data:pD.map(d=>d.r),color:'#F6465D',fill:true},{data:bD.map(d=>d.r),color:'#1890FF',fill:true,w:2.5},{data:oD.map(d=>d.r),color:'#0ECB81',fill:true}],165);
+  gel('rf-table').innerHTML=`<thead><tr><th style="text-align:left">Month</th><th>MRR</th><th>Cumulative</th><th>Customers</th><th>MoM Growth</th></tr></thead><tbody>`+bD.filter((_,i)=>i%Math.max(1,Math.floor(months/10))===0||i===months-1).slice(0,13).map((d,i,a)=>{const prev=i>0?a[i-1].r:mrr,g=prev?(d.r/prev-1)*100:0;return`<tr><td>Mo ${d.m}</td><td style="color:var(--a)">${f$(d.r)}</td><td>${f$(d.cum)}</td><td>${Math.round(d.cust).toLocaleString()}</td><td style="color:${g>=0?'var(--g)':'var(--r)'}">${g>=0?'+':''}${g.toFixed(1)}%</td></tr>`;}).join('')+'</tbody>';
+}
+
+// ── Loan ────────────────────────────────────────────────────────
+function cLoan(){
+  const P=+gel('l-amt').value||0,r=(+gel('l-rate').value||0)/12/100,n=+gel('l-n').value||1,fee=(+gel('l-fee').value||0)/100,type=gel('l-type').value;
+  let emi,int;if(type==='flat'){emi=(P+P*(r*12)*n)/n;int=P*(r*12)*n;}else{emi=r?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n;int=emi*n-P;}
+  const tot=emi*n,pf=P*fee;
+  gel('l-emi').textContent=f$(emi);gel('l-int').textContent=f$(int);gel('l-tot').textContent=f$(tot+pf);gel('l-pf').textContent=f$(pf);
+  gel('l-pp').textContent=Math.round(P/tot*100)+'%';gel('l-ip').textContent=Math.round(int/tot*100)+'%';gel('l-coc').textContent=pct(int/P*100);
+  drawDonut('l-donut',[P,int,pf],['#F0B90B','#F6465D','#6B7A8D']);
+}
+
+// ── SIP ─────────────────────────────────────────────────────────
+function cSip(){
+  const m=+gel('i-m').value||0,rate=(+gel('i-r').value||0)/100,y=+gel('i-y').value||1,lump=+gel('i-l').value||0,su=(+gel('i-step').value||0)/100;
+  let corpus=lump*Math.pow(1+rate,y),inv=lump,mo=m;
+  for(let yr=0;yr<y;yr++){const mr=rate/12;corpus+=mr?mo*(Math.pow(1+mr,12)-1)/mr*(1+mr)*Math.pow(1+rate,y-yr-1):mo*12;inv+=mo*12;mo*=(1+su);}
+  const gain=corpus-inv,cagr=(Math.pow(corpus/Math.max(inv,1),1/y)-1)*100;
+  gel('i-corpus').textContent=f$(corpus);gel('i-gain').textContent=f$(gain);gel('i-inv').textContent=f$(inv);
+  gel('i-abs').textContent=pct(gain/inv*100);gel('i-cagr').textContent=pct(cagr);
+  const pts=Array.from({length:Math.min(y,30)+1},(_,i)=>{const mr=rate/12,n=i*12;return lump*Math.pow(1+rate,i)+(mr?m*(Math.pow(1+mr,n)-1)/mr*(1+mr):m*n);});
+  const invPts=Array.from({length:Math.min(y,30)+1},(_,i)=>lump+m*12*i);
+  drawLine('i-chart',[{data:invPts,color:'#0ECB81',fill:true},{data:pts,color:'#F0B90B',fill:false,w:2.5}],175);
+}
+
+// ── Tax ─────────────────────────────────────────────────────────
+function cTax(){
+  const gross=+gel('t-inc').value||0,oth=+gel('t-oth').value||0,pre=+gel('t-pre').value||0,status=gel('t-status').value;
+  const taxable=Math.max(0,gross+oth-pre);
+  const std={single:14600,married:29200,hoh:21900}[status]||14600;
+  const ti=Math.max(0,taxable-std);
+  const bks={single:[[0,11600,10],[11600,47150,12],[47150,100525,22],[100525,191950,24],[191950,243725,32],[243725,609350,35],[609350,Infinity,37]],married:[[0,23200,10],[23200,94300,12],[94300,201050,22],[201050,383900,24],[383900,487450,32],[487450,731200,35],[731200,Infinity,37]],hoh:[[0,16550,10],[16550,63100,12],[63100,100500,22],[100500,191950,24],[191950,243700,32],[243700,609350,35],[609350,Infinity,37]]};
+  const slabs=bks[status]||bks.single;let tax=0,rows=[];
+  slabs.forEach(s=>{if(ti<=s[0]){rows.push({f:s[0],t:s[1],r:s[2],tx:0,act:false});return;}const sl=Math.min(ti,s[1]===Infinity?ti:s[1])-s[0],tx=sl*s[2]/100;tax+=tx;rows.push({f:s[0],t:s[1],r:s[2],tx,act:true});});
+  gel('t-tax').textContent=f$(tax);gel('t-eff').textContent=ti?pct(tax/ti*100):'0%';gel('t-home').textContent=f$((gross-tax)/12);gel('t-taxinc').textContent=f$(ti);
+  gel('t-slabs').innerHTML=`<thead><tr><th>Bracket</th><th>Rate</th><th>Tax Owed</th></tr></thead><tbody>`+rows.map(r=>`<tr class="${r.act?'slab-on':''}"><td>${r.f===0?'Up to $'+Math.round(r.t).toLocaleString():r.t===Infinity?'Over $'+Math.round(r.f).toLocaleString():'$'+Math.round(r.f).toLocaleString()+' – $'+Math.round(r.t).toLocaleString()}</td><td>${r.r}%</td><td>${r.tx?'$'+Math.round(r.tx).toLocaleString():'-'}</td></tr>`).join('')+'</tbody>';
+}
+
+// ── Mortgage ────────────────────────────────────────────────────
+function cMortgage(){
+  const price=+gel('m-price').value||0,dp=(+gel('m-down').value||0)/100,r=(+gel('m-rate').value||0)/12/100,n=(+gel('m-years').value||1)*12,ptax=+gel('m-tax').value||0,ins=+gel('m-ins').value||0;
+  const loan=price*(1-dp),emi=r?loan*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):loan/n,interest=emi*n-loan,ti=(ptax+ins)/12;
+  gel('m-pay').textContent=f$(emi+ti);gel('m-loan').textContent=f$(loan);gel('m-int').textContent=f$(interest);
+  gel('m-total').textContent=f$(emi*n+ptax*(n/12)+ins*(n/12));gel('m-dp').textContent=f$(price*dp);
+  gel('m-ti').textContent=f$(ti);gel('m-aff').textContent=pct(((emi+ti)*12)/price*100);
+  drawDonut('m-donut',[loan,interest,(ptax+ins)*(n/12)/12*n],['#F0B90B','#F6465D','#1890FF']);
+}
+
+// ── Mortgage Compare ────────────────────────────────────────────
+const MCC=['#F0B90B','#0ECB81','#1890FF'];
+const mcd=[{down:20,rate:7,years:30},{down:10,rate:6.5,years:25},{down:30,rate:7.5,years:15}];
+function buildMortComp(){
+  const cols=gel('mc-cols');cols.innerHTML='';
+  mcd.forEach((d,i)=>{cols.innerHTML+=`<div class="cmp-col" id="mc-col-${i}"><div style="font-size:13px;font-weight:600;color:${MCC[i]};margin-bottom:1rem">Option ${i+1}</div><div class="field"><label>Down Payment %</label><input type="number" id="mc-down-${i}" value="${d.down}" oninput="cMortComp()"></div><div class="field"><label>Interest Rate %</label><input type="number" id="mc-rate-${i}" value="${d.rate}" step="0.1" oninput="cMortComp()"></div><div class="field"><label>Tenure (years)</label><input type="number" id="mc-years-${i}" value="${d.years}" oninput="cMortComp()"></div></div>`;});
+  cMortComp();
+}
+function cMortComp(){
+  const price=+gel('mc-price').value||0,ptax=+gel('mc-tax').value||0,ins=+gel('mc-ins').value||0;
+  const res=mcd.map((_,i)=>{const dp=(+gel(`mc-down-${i}`).value||0)/100,rate=(+gel(`mc-rate-${i}`).value||0),r=rate/12/100,n=(+gel(`mc-years-${i}`).value||1)*12;const loan=price*(1-dp),emi=r?loan*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):loan/n,interest=emi*n-loan,ti=(ptax+ins)/12;return{loan,emi,interest,ti,monthly:emi+ti,total:emi*n+ptax*(n/12)+ins*(n/12),dp:price*dp};});
+  const minM=Math.min(...res.map(r=>r.monthly));
+  res.forEach((_,i)=>{const c=gel(`mc-col-${i}`);if(c)c.className='cmp-col'+(res[i].monthly===minM?' winner':'');});
+  const rows=[['Down Payment',...res.map(r=>f$(r.dp))],['Loan Amount',...res.map(r=>f$(r.loan))],['Monthly EMI',...res.map(r=>f$(r.emi))],['Tax + Insurance',...res.map(r=>f$(r.ti))],['Total Monthly',...res.map(r=>f$(r.monthly))],['Total Interest',...res.map(r=>f$(r.interest))],['Total Cost',...res.map(r=>f$(r.total))]];
+  const tbl=gel('mc-table');
+  tbl.innerHTML=`<thead><tr><th style="text-align:left;padding:6px 8px;font-size:11px;color:var(--m);border-bottom:1px solid var(--bd)">Metric</th>${res.map((_,i)=>`<th style="padding:6px 8px;font-size:11px;border-bottom:1px solid var(--bd);color:${MCC[i]}">Option ${i+1}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(row=>{const nums=row.slice(1).map(v=>parseFloat(v.replace(/[$,]/g,'')));const mn=Math.min(...nums);tbl.innerHTML+=`<tr>${row.map((v,j)=>{if(j===0)return`<td style="text-align:left;font-size:12px;color:var(--m);border-bottom:1px solid var(--bd);padding:7px 8px">${v}</td>`;const ism=parseFloat(v.replace(/[$,]/g,''))===mn;return`<td style="font-size:12px;font-family:var(--mo);border-bottom:1px solid var(--bd);padding:7px 8px;${ism?'color:var(--g);font-weight:600':''}">${v}${ism?' ✓':''}</td>`;}).join('')}</tr>`;});
+  tbl.innerHTML+='</tbody>';
+  drawBars('mc-chart',['Opt 1 Monthly','Opt 2 Monthly','Opt 3 Monthly'],res.map(r=>r.monthly),MCC,140);
+}
+
+// ── Savings ─────────────────────────────────────────────────────
+function cSavings(){
+  const init=+gel('sv-init').value||0,mo=+gel('sv-monthly').value||0,r=(+gel('sv-rate').value||0)/100,y=+gel('sv-years').value||1,k=+gel('sv-comp').value;
+  const rk=r/k,n=k*y,fb=init*Math.pow(1+rk,n)+mo*(Math.pow(1+rk,n)-1)/(rk||1)*(1+rk)*(12/k);
+  const contrib=init+mo*12*y,int=fb-contrib,dbl=r>0?Math.log(2)/Math.log(1+r):Infinity;
+  gel('sv-final').textContent=f$(fb);gel('sv-int').textContent=f$(int);gel('sv-contrib').textContent=f$(contrib);
+  gel('sv-dbl').textContent=isFinite(dbl)?dbl.toFixed(1)+' yrs':'∞';gel('sv-ratio').textContent=pct(int/contrib*100);
+  const steps=10,ip=[],fp=[];
+  for(let i=1;i<=steps;i++){const yr=y*i/steps,ni=k*yr,b=init*Math.pow(1+rk,ni)+mo*(Math.pow(1+rk,ni)-1)/(rk||1)*(1+rk)*(12/k);ip.push(init+mo*12*yr);fp.push(b);}
+  drawLine('sv-chart',[{data:ip,color:'#0ECB81',fill:true},{data:fp,color:'#F0B90B',fill:false,w:2.5}],175);
+}
+
+// ── Stock ────────────────────────────────────────────────────────
+function cStock(){
+  const sh=+gel('sk-sh').value||0,buy=+gel('sk-buy').value||0,sell=+gel('sk-sell').value||0,bc=(+gel('sk-bc').value||0)/100,sc=(+gel('sk-sc').value||0)/100,days=+gel('sk-days').value||1;
+  const bt=sh*buy,st=sh*sell,bc_=bt*bc,sc_=st*sc,pnl=st-bt-bc_-sc_,ret=bt?pnl/bt*100:0,ann=(Math.pow(1+ret/100,365/days)-1)*100,bep=buy*(1+bc)/(1-sc);
+  const pE=gel('sk-pnl');pE.textContent=f$(pnl);pE.style.color=pnl>=0?'var(--g)':'var(--r)';
+  gel('sk-ret').textContent=pct(ret);gel('sk-ret').style.color=ret>=0?'var(--g)':'var(--r)';
+  gel('sk-ann').textContent=pct(ann);gel('sk-ann').style.color=ann>=0?'var(--g)':'var(--r)';
+  gel('sk-comm').textContent=f$(bc_+sc_);gel('sk-bt').textContent=f$(bt);gel('sk-st').textContent=f$(st);
+  gel('sk-bep').textContent='$'+bep.toFixed(2);
+}
+
+// ── Retirement ───────────────────────────────────────────────────
+function cRetire(){
+  const age=+gel('rt-age').value||30,ret=+gel('rt-ret').value||65,save=+gel('rt-save').value||0,contrib=+gel('rt-contrib').value||0;
+  const rate=(+gel('rt-rate').value||0)/100,inf=(+gel('rt-inf').value||0)/100,exp=+gel('rt-exp').value||0,life=+gel('rt-life').value||85;
+  const yrs=ret-age,rYrs=life-ret,mr=rate/12,n=yrs*12;
+  const corpus=save*Math.pow(1+rate,yrs)+(mr?contrib*(Math.pow(1+mr,n)-1)/mr*(1+mr):contrib*n);
+  const futExp=exp*Math.pow(1+inf,yrs),real=((1+rate)/(1+inf)-1)*100;
+  const pvW=real/100>0?futExp*12*(1-Math.pow(1+real/100,-rYrs))/(real/100):futExp*12*rYrs;
+  const surplus=corpus-pvW;
+  gel('rt-corpus').textContent=f$(corpus);gel('rt-need').textContent=f$(futExp);gel('rt-yrs').textContent=yrs+' yrs';
+  const sE=gel('rt-surplus');sE.textContent=f$(Math.abs(surplus));sE.style.color=surplus>=0?'var(--g)':'var(--r)';
+  gel('rt-real').textContent=pct(real);
+  const steps=10,d1=[],d2=[];
+  for(let i=1;i<=steps;i++){const y2=yrs*i/steps,ni=y2*12,c=save*Math.pow(1+rate,y2)+(mr?contrib*(Math.pow(1+mr,ni)-1)/mr*(1+mr):contrib*ni);d1.push(save+contrib*12*y2);d2.push(c);}
+  drawLine('rt-chart',[{data:d1,color:'#0ECB81',fill:true},{data:d2,color:'#F0B90B',fill:false,w:2.5}],140);
+}
+
+// ── Debt Payoff ──────────────────────────────────────────────────
+let debts=[{name:'Credit Card',bal:8000,rate:22,min:200},{name:'Car Loan',bal:15000,rate:7,min:300},{name:'Student Loan',bal:25000,rate:5.5,min:280}];
+function renderDebtRows(){
+  const el=gel('debt-rows');el.innerHTML='';
+  debts.forEach((d,i)=>{el.innerHTML+=`<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:center">
+    <input type="text" value="${d.name}" oninput="debts[${i}].name=this.value;cDebt()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
+    <div class="ip"><span class="pfx">$</span><input type="number" value="${d.bal}" oninput="debts[${i}].bal=+this.value;cDebt()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
+    <input type="number" value="${d.rate}" step="0.1" oninput="debts[${i}].rate=+this.value;cDebt()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;width:100%">
+    <div class="ip"><span class="pfx">$</span><input type="number" value="${d.min}" oninput="debts[${i}].min=+this.value;cDebt()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
+    <button class="btn-del" onclick="debts.splice(${i},1);renderDebtRows()">✕</button>
+  </div>`;});cDebt();
+}
+function addDebt(){debts.push({name:'New Debt',bal:5000,rate:10,min:100});renderDebtRows();}
+function cDebt(){
+  const extra=+gel('dp-extra').value||0,strat=gel('dp-strat').value;
+  const td=debts.reduce((a,d)=>a+d.bal,0);gel('dp-total').textContent=f$(td);
+  let ds=debts.map(d=>({...d,b:d.bal}));let mo=0,totInt=0,pm=debts.map(()=>null),bH=[];
+  while(ds.some(d=>d.b>0)&&mo<600){
+    mo++;ds.forEach(d=>{if(d.b>0){const mi=d.b*d.rate/100/12;totInt+=mi;d.b+=mi-d.min;if(d.b<0)d.b=0;}});
+    let s=[...ds].filter(d=>d.b>0);s.sort(strat==='avalanche'?(a,b)=>b.rate-a.rate:(a,b)=>a.b-b.b);
+    let left=extra;s.forEach(d=>{if(left<=0||d.b<=0)return;const p=Math.min(left,d.b);d.b-=p;left-=p;});
+    ds.forEach((d,i)=>{if(d.b<=0&&pm[i]===null)pm[i]=mo;});
+    if(mo%3===0)bH.push(ds.reduce((a,d)=>a+d.b,0));
+  }
+  let ds2=debts.map(d=>({...d,b:d.bal}));let m2=0,ti2=0;
+  while(ds2.some(d=>d.b>0)&&m2<600){m2++;ds2.forEach(d=>{if(d.b>0){const mi=d.b*d.rate/100/12;ti2+=mi;d.b+=mi-d.min;if(d.b<0)d.b=0;}});}
+  gel('dp-months').textContent=mo+' mo ('+(mo/12).toFixed(1)+' yrs)';
+  gel('dp-int').textContent=f$(totInt);gel('dp-saved').textContent=f$(Math.max(0,ti2-totInt));
+  const tl=gel('dp-timeline');tl.innerHTML='';
+  debts.forEach((d,i)=>{tl.innerHTML+=`<div class="tl-i"><div class="tl-lbl">${d.name}</div><div style="font-family:var(--mo);font-weight:500">Paid off month ${pm[i]||mo}</div></div>`;});
+  tl.innerHTML+=`<div class="tl-i" style="--dot:var(--g)"><div class="tl-lbl" style="color:var(--g)">🎉 Debt Free!</div><div style="font-family:var(--mo);font-weight:500;color:var(--g)">Month ${mo}</div></div>`;
+  drawLine('dp-chart',[{data:bH.slice(0,20),color:'#F0B90B',fill:true}],140);
+}
+
+// ── Rental Yield ─────────────────────────────────────────────────
+function cRental(){
+  const price=+gel('ry-price').value||0,down=(+gel('ry-down').value||0)/100,rent=+gel('ry-rent').value||0,mr=(+gel('ry-mrate').value||0)/12/100,mn=(+gel('ry-myrs').value||30)*12,vac=(+gel('ry-vac').value||0)/100,costs=+gel('ry-costs').value||0;
+  const loan=price*(1-down),emi=mr?loan*mr*Math.pow(1+mr,mn)/(Math.pow(1+mr,mn)-1):loan/mn;
+  const effRent=rent*(1-vac),annRent=effRent*12,noi=annRent-costs,cf=noi-emi*12;
+  const tinv=price*down,grossY=price?annRent/price*100:0,netY=price?noi/price*100:0,coc=tinv?cf/tinv*100:0,cap=price?noi/price*100:0;
+  gel('ry-gross').textContent=pct(grossY);gel('ry-net').textContent=pct(netY);
+  gel('ry-coc').textContent=pct(coc);gel('ry-coc').style.color=coc>=0?'var(--g)':'var(--r)';
+  gel('ry-cf').textContent=f$(cf/12);gel('ry-cf').style.color=cf>=0?'var(--g)':'var(--r)';
+  gel('ry-cap').textContent=pct(cap);gel('ry-mort').textContent=f$(emi);gel('ry-inv').textContent=f$(tinv);
+  drawLine('ry-chart',[{data:Array.from({length:11},(_,i)=>price*Math.pow(1.04,i)),color:'#F0B90B',fill:true},{data:Array.from({length:11},(_,i)=>annRent*i),color:'#0ECB81',fill:false}],155);
+}
+
+// ── Cash Flow ────────────────────────────────────────────────────
+let cfIncome=[{name:'Salary',amt:8000,freq:'monthly'},{name:'Freelance',amt:2000,freq:'monthly'}];
+let cfExpense=[{name:'Rent/Mortgage',amt:2000,freq:'monthly'},{name:'Food & Groceries',amt:800,freq:'monthly'},{name:'Transportation',amt:400,freq:'monthly'},{name:'Utilities',amt:200,freq:'monthly'},{name:'Entertainment',amt:300,freq:'monthly'}];
+const FM={monthly:1,weekly:4.33,biweekly:2.17,annually:1/12};
+function renderCFRows(){
+  gel('cf-i-rows').innerHTML='';cfIncome.forEach((r,i)=>{gel('cf-i-rows').innerHTML+=cfRowHtml('i',i,r);});
+  gel('cf-e-rows').innerHTML='';cfExpense.forEach((r,i)=>{gel('cf-e-rows').innerHTML+=cfRowHtml('e',i,r);});
+  cCF();
+}
+function cfRowHtml(type,i,r){
+  const arr=type==='i'?'cfIncome':'cfExpense';
+  return`<div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px;align-items:center">
+    <input type="text" value="${r.name}" oninput="${arr}[${i}].name=this.value;cCF()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
+    <div class="ip"><span class="pfx">$</span><input type="number" value="${r.amt}" oninput="${arr}[${i}].amt=+this.value;cCF()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
+    <select onchange="${arr}[${i}].freq=this.value;cCF()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:12px;outline:none;width:100%">
+      <option value="monthly" ${r.freq==='monthly'?'selected':''}>Monthly</option>
+      <option value="weekly" ${r.freq==='weekly'?'selected':''}>Weekly</option>
+      <option value="biweekly" ${r.freq==='biweekly'?'selected':''}>Bi-weekly</option>
+      <option value="annually" ${r.freq==='annually'?'selected':''}>Annual</option>
+    </select>
+    <button class="btn-del" onclick="${arr}.splice(${i},1);renderCFRows()">✕</button>
+  </div>`;
+}
+function addCF(type){if(type==='i')cfIncome.push({name:'New Income',amt:1000,freq:'monthly'});else cfExpense.push({name:'New Expense',amt:200,freq:'monthly'});renderCFRows();}
+function cCF(){
+  const ti=cfIncome.reduce((a,r)=>a+r.amt*(FM[r.freq]||1),0);
+  const te=cfExpense.reduce((a,r)=>a+r.amt*(FM[r.freq]||1),0);
+  const net=ti-te,sr=ti>0?net/ti*100:0;
+  gel('cf-inc').textContent=f$(ti);gel('cf-exp').textContent=f$(te);
+  const nE=gel('cf-net');nE.textContent=f$(net);nE.style.color=net>=0?'var(--g)':'var(--r)';
+  gel('cf-sr').textContent=pct(sr);gel('cf-sr').style.color=sr>=20?'var(--g)':sr>=10?'var(--a)':'var(--r)';
+  drawBars('cf-chart',['Income','Expenses','Net'],[ti,te,Math.max(0,net)],['#0ECB81','#F6465D','#F0B90B'],135);
+  const bars=gel('cf-bars');bars.innerHTML='';
+  cfExpense.forEach(r=>{const mo=r.amt*(FM[r.freq]||1),p_=te>0?mo/te*100:0;bars.innerHTML+=`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span>${r.name}</span><span style="font-family:var(--mo);color:var(--m)">${f$(mo)} (${p_.toFixed(0)}%)</span></div><div class="pbar-bg"><div class="pbar-fill" style="width:${p_.toFixed(1)}%;background:${p_>40?'var(--r)':p_>20?'var(--a)':'var(--b)'}"></div></div></div>`;});
+}
+
+// ── Break-even ───────────────────────────────────────────────────
+function cBE(){
+  const fc=+gel('be-fc').value||0,sp=+gel('be-sp').value||1,vc=+gel('be-vc').value||0,eu=+gel('be-eu').value||0;
+  const cm=sp-vc,beu=cm>0?Math.ceil(fc/cm):Infinity,profit=cm*eu-fc,mos=eu>0&&isFinite(beu)?Math.max(0,(eu-beu)/eu*100):0;
+  gel('be-beu').textContent=isFinite(beu)?Math.round(beu)+' units':'∞';gel('be-ber').textContent=isFinite(beu)?f$(beu*sp):'∞';
+  gel('be-prof').textContent=f$(profit);gel('be-prof').style.color=profit>=0?'var(--g)':'var(--r)';
+  gel('be-mos').textContent=pct(mos);gel('be-cm').textContent=f$(cm)+'/unit';gel('be-gm').textContent=pct(sp>0?cm/sp*100:0);
+  gel('be-ol').textContent=(profit>0?(cm*eu)/profit:0).toFixed(1)+'x';
+  const s=8,p1=[],p2=[];for(let i=1;i<=s;i++){const u=eu*2*i/s;p1.push(fc);p2.push(sp*u);}
+  drawLine('be-chart',[{data:p1,color:'#F6465D',fill:false},{data:p2,color:'#0ECB81',fill:false,w:2.5}],175);
+}
+
+// ── Currency ─────────────────────────────────────────────────────
+const RATES={USD:1,EUR:0.92,GBP:0.79,JPY:149.5,CNY:7.24,CAD:1.36,AUD:1.53,CHF:0.88,INR:83.2,SGD:1.34,AED:3.67,SAR:3.75,MYR:4.68,THB:35.8,KWD:0.307};
+function buildCurrency(){
+  const from=gel('cu-from'),to=gel('cu-to');
+  Object.keys(RATES).forEach(k=>{from.innerHTML+=`<option value="${k}">${k}</option>`;to.innerHTML+=`<option value="${k}">${k}</option>`;});
+  to.value='EUR';cCurrency();
+  const grid=gel('cu-grid');
+  ['EUR','GBP','JPY','CAD','AUD','INR','SGD','AED'].forEach(c=>{grid.innerHTML+=`<div class="sbox"><div class="lbl">USD → ${c}</div><div class="val" style="font-size:13px">${RATES[c].toFixed(4)}</div></div>`;});
+}
+function cCurrency(){
+  const amt=+gel('cu-amt').value||0,f=gel('cu-from').value,t=gel('cu-to').value;
+  const res=amt*(RATES[t]/RATES[f]);
+  gel('cu-res').textContent=res.toFixed(4)+' '+t;
+  gel('cu-lbl').textContent=`1 ${f} = ${(RATES[t]/RATES[f]).toFixed(4)} ${t}`;
+}
+
+// ── Scientific ───────────────────────────────────────────────────
+let scV='0',scE='',scM=0,scNew=true;
+const SC=[['MC','MR','MS','M+','M-'],['sin','cos','tan','log','ln'],['x²','√','1/x','n!','π'],['(',')','^','C','⌫'],['7','8','9','÷','%'],['4','5','6','×',''],['1','2','3','-',''],['0','.','±','+','=']];
+function buildSci(){
+  const g=gel('sc-grid');g.innerHTML='';
+  SC.forEach(row=>row.forEach(b=>{if(!b){g.innerHTML+='<div></div>';return;}let cls='sci-btn';if(b==='=')cls+=' eq';else if(['C','⌫'].includes(b))cls+=' cl';else if(['+','-','×','÷','^','%'].includes(b))cls+=' op';else if(['sin','cos','tan','log','ln','x²','√','1/x','n!'].includes(b))cls+=' fn';g.innerHTML+=`<button class="${cls}" onclick="scP('${b}')">${b}</button>`;}));
+}
+function scU(){gel('sc-disp').textContent=scV;gel('sc-expr').textContent=scE;}
+function scP(k){
+  if(k==='C'){scV='0';scE='';scNew=true;}
+  else if(k==='⌫'){scV=scV.length>1?scV.slice(0,-1):'0';}
+  else if(k==='MC')scM=0;else if(k==='MR'){scV=String(scM);scNew=true;}
+  else if(k==='MS')scM=parseFloat(scV)||0;else if(k==='M+')scM+=parseFloat(scV)||0;else if(k==='M-')scM-=parseFloat(scV)||0;
+  else if(['sin','cos','tan','log','ln','x²','√','1/x','n!'].includes(k)){
+    const v=parseFloat(scV)||0;let r;
+    if(k==='sin')r=Math.sin(v*Math.PI/180);else if(k==='cos')r=Math.cos(v*Math.PI/180);else if(k==='tan')r=Math.tan(v*Math.PI/180);
+    else if(k==='log')r=Math.log10(v);else if(k==='ln')r=Math.log(v);else if(k==='x²')r=v*v;
+    else if(k==='√')r=Math.sqrt(v);else if(k==='1/x')r=1/v;
+    else if(k==='n!'){let f=1;for(let i=2;i<=v;i++)f*=i;r=f;}
+    scE=`${k}(${v})`;scV=isFinite(r)?parseFloat(r.toFixed(10)).toString():'Error';scNew=true;
+  }
+  else if(k==='π'){scV=String(Math.PI);scNew=true;}
+  else if(k==='±')scV=String(-parseFloat(scV)||0);
+  else if(k==='.'){if(scNew){scV='0.';scNew=false;}else if(!scV.includes('.'))scV+='.';}
+  else if(k==='='){
+    try{let e=scE+scV;e=e.replace(/×/g,'*').replace(/÷/g,'/').replace(/\^/g,'**');const r=Function('"use strict";return('+e+')')();scE='';scV=isFinite(r)?parseFloat(r.toFixed(10)).toString():'Error';scNew=true;}
+    catch{scV='Error';scNew=true;}
+  }
+  else if(['+','-','×','÷','^','%'].includes(k)){scE=(scNew&&scE?scE.slice(0,-scV.length):scE)+scV+k;scNew=true;}
+  else{if(scNew){scV=k;scNew=false;}else scV=scV==='0'?k:scV+k;}
+  scU();
+}
+
+
+// ── Savings Goal ─────────────────────────────────────────────────
+function cSavingsGoal(){
+  const goal=+gel('sg-goal').value||0,current=+gel('sg-current').value||0,rate=(+gel('sg-rate').value||0)/100,months=+gel('sg-months').value||1,k=+gel('sg-comp').value;
+  const rk=rate/k,periods=k*months/12;
+  const remaining=Math.max(0,goal-current);
+  // Future value of current savings
+  const fvCurrent=current*Math.pow(1+rk,periods);
+  const stillNeeded=Math.max(0,goal-fvCurrent);
+  // Monthly payment needed: PMT = PV * r / (1-(1+r)^-n)
+  const mr=rate/12;
+  const monthlyNeeded=mr>0?stillNeeded*mr/(Math.pow(1+mr,months)-1):stillNeeded/months;
+  const totalContrib=monthlyNeeded*months;
+  const interest=goal-current-totalContrib;
+  const alreadyPct=goal>0?Math.min(100,current/goal*100):0;
+  const achievable=monthlyNeeded>=0&&isFinite(monthlyNeeded);
+
+  gel('sg-monthly').textContent=achievable?f$(monthlyNeeded):'—';
+  gel('sg-contrib').textContent=f$(totalContrib);
+  gel('sg-interest').textContent=f$(Math.max(0,interest));
+  gel('sg-status').textContent=achievable?'✓ Yes':'✗ Review';
+  gel('sg-status').style.color=achievable?'var(--g)':'var(--r)';
+  gel('sg-gap').textContent=f$(remaining);
+  gel('sg-pct').textContent=pct(alreadyPct);
+  gel('sg-weekly').textContent=f$(monthlyNeeded*12/52);
+  gel('sg-daily').textContent=f$(monthlyNeeded*12/365);
+
+  // Progress bar
+  const barW=Math.min(100,alreadyPct);
+  gel('sg-progress-bar').style.width=barW+'%';
+  gel('sg-prog-label').textContent=pct(alreadyPct);
+
+  // Chart — balance over time vs goal line
+  const balPts=[],goalPts=[];
+  for(let m=0;m<=months;m++){
+    const n=k*m/12;
+    const bal=current*Math.pow(1+rk,n)+( mr>0?monthlyNeeded*(Math.pow(1+mr,m)-1)/mr*(1+mr):monthlyNeeded*m );
+    balPts.push(Math.min(bal,goal*1.05));
+    goalPts.push(goal);
+  }
+  drawLine('sg-chart',[{data:balPts,color:'#0ECB81',fill:true},{data:goalPts,color:'#F0B90B',fill:false,dash:[6,4],w:1.5}],190);
+
+  // Tip
+  let tip='';
+  if(alreadyPct>=100)tip='🎉 You have already reached your goal!';
+  else if(monthlyNeeded<100)tip=`💡 Very achievable — just ${f$(monthlyNeeded)}/mo. Consider automating this with a standing order.`;
+  else if(monthlyNeeded<500)tip=`📅 Save ${f$(monthlyNeeded)}/mo consistently. Set up an auto-transfer on payday so you never miss it.`;
+  else tip=`🚀 You need to save ${f$(monthlyNeeded)}/mo. Consider increasing your income, cutting expenses, or extending your timeline.`;
+  gel('sg-tip').innerHTML=tip;
+}
+
+// ── Init ─────────────────────────────────────────────────────────
+buildDir();buildSci();buildCurrency();buildMortComp();
+renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();renderDC2();
+calcCAGR();calcDRIP();calcETF();calcDCF();
+cBurn();cPricing();calcEquity();calcRevenue();
+cLoan();cSip();cTax();cMortgage();cSavings();cStock();cRetire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();
+</script>
+</body>
+</html>

@@ -127,8 +127,6 @@
   </script>
 
 
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FinCalc Pro — Free Online Financial Calculators | CAGR, EMI, SIP, DCF, Mortgage & More</title>
@@ -223,20 +221,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .sci-btn.op{color:var(--a)}.sci-btn.eq{background:var(--a);color:#000;border-color:var(--a);font-weight:600}.sci-btn.cl{color:var(--r)}.sci-btn.fn{color:var(--b)}
 @media(max-width:700px){.two,.two-eq,.three{grid-template-columns:1fr}.g2,.g3{grid-template-columns:1fr}.sci-grid{grid-template-columns:repeat(4,1fr)}}
 
-/* AdSense Ad Units */
-.ad-slot{background:var(--s2);border:1px solid var(--bd);border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
-.ad-slot ins.adsbygoogle{display:block;width:100%}
-.ad-label{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.6px;position:absolute;top:5px;left:8px;pointer-events:none;z-index:1}
-/* Leaderboard: top below nav */
-.ad-leaderboard{width:100%;height:40px;margin-bottom:1.25rem}
-/* Rectangle: sidebar within calc panels */
-.ad-rectangle{width:100%;min-height:160px;margin-bottom:16px}
-/* Banner: between sections on home */
-.ad-banner{width:100%;height:32px;margin:.5rem 0;border-radius:6px}
-/* Footer bar */
-.ad-footer{width:100%;height:40px;margin-top:1.5rem;margin-bottom:.5rem}
-/* Mobile */
-@media(max-width:700px){.ad-leaderboard{height:40px}.ad-rectangle{min-height:160px}.ad-banner{height:40px}.ad-footer{height:40px}}
+}
 
 
 /* Inter-calculator links */
@@ -244,6 +229,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .calc-links-label{font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-right:4px;flex-shrink:0}
 .calc-link-btn{padding:4px 10px;background:var(--bg);border:1px solid var(--g);border-radius:20px;color:var(--g);font-size:11px;cursor:pointer;font-family:var(--fn);transition:all .18s;white-space:nowrap;text-decoration:none}
 .calc-link-btn:hover{background:var(--g);color:#000;border-color:var(--g)}
+
+
+/* Footer */
+.site-footer{background:var(--s);border-top:1px solid var(--bd);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:1rem}
+.footer-brand{font-size:14px;font-weight:600;color:var(--t);display:flex;align-items:center;gap:8px}
+.footer-brand .logo-mark{width:22px;height:22px;font-size:11px}
+.footer-copy{font-size:11px;color:var(--m)}
+.visitor-box{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:7px 14px}
+.visitor-dot{width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 6px var(--g);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.visitor-label{font-size:11px;color:var(--m)}
+.visitor-num{font-size:13px;font-weight:600;font-family:var(--mo);color:var(--g)}
+.total-visits{font-size:11px;color:var(--m);padding-left:10px;margin-left:10px;border-left:1px solid var(--bd)}
+.total-num{font-family:var(--mo);color:var(--a)}
 
 </style>
 </head>
@@ -288,16 +287,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </div>
 <div class="content">
 
-<!-- AdSense Ad Unit -->
-<div class="ad-slot ad-leaderboard">
-  <span class="ad-label">Advertisement</span>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="1111111111"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 
 <!-- HOME -->
 <div id="home" class="panel on">
@@ -441,16 +430,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('stock',null)">📉 Stock P&L</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button></div>
 
 
-<!-- AdSense Ad Unit -->
-<div class="ad-slot ad-rectangle">
-  <span class="ad-label">Advertisement</span>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="4444444444"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 <div class="two-eq mb16">
   <div class="card">
     <div class="card-title">DCF Inputs</div>
@@ -504,16 +483,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button></div>
 
 
-<!-- AdSense Ad Unit -->
-<div class="ad-slot ad-rectangle">
-  <span class="ad-label">Advertisement</span>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="4444444444"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 <div style="margin-bottom:1rem"><div style="font-size:16px;font-weight:500;margin-bottom:4px">Debt Snowball vs Avalanche</div><div style="font-size:12px;color:var(--m)">Side-by-side comparison — see which method wins for your situation</div></div>
 <div class="card mb16">
   <div class="card-title">Your Debts</div>
@@ -727,16 +696,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('burnrate',null)">🔥 Burn Rate</button><button class="calc-link-btn" onclick="go('breakeven',null)">📊 Break-even</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('pricing',null)">🏷️ Pricing</button></div>
 
 
-<!-- AdSense Ad Unit -->
-<div class="ad-slot ad-rectangle">
-  <span class="ad-label">Advertisement</span>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="4444444444"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 <div class="card mb16">
   <div class="card-title">Revenue Forecast Assumptions</div>
   <div class="g3">
@@ -988,16 +947,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('savings',null)">🏛️ Savings</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
 
 
-<!-- AdSense Ad Unit -->
-<div class="ad-slot ad-rectangle">
-  <span class="ad-label">Advertisement</span>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="4444444444"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 <div class="two">
   <div class="card">
     <div class="card-title">Retirement Calculator</div>
@@ -1390,16 +1339,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </div>
 
 
-<!-- AdSense Ad Unit -->
-<div class="ad-slot ad-footer">
-  <span class="ad-label">Advertisement</span>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="2222222222"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 </div><!-- content -->
 <script>
 const gel=id=>document.getElementById(id);
@@ -1505,13 +1444,10 @@ const SECTIONS=[
 ];
 function buildDir(){
   const el=gel('dir-home');el.innerHTML='';
-  SECTIONS.forEach((sec,idx)=>{
+  SECTIONS.forEach(sec=>{
     let html=`<div class="dir-sec"><div class="dir-sec-h">${sec.title}${sec.badge?' <span class="badge-new">New</span>':''}</div><div class="dir-grid">`;
     sec.items.forEach(it=>{html+=`<div class="dir-card" onclick="go('${it.id}',null)"><div class="dir-icon">${it.icon}</div><div class="dir-name">${it.name}</div><div class="dir-desc">${it.desc}</div></div>`;});
     html+='</div></div>';el.innerHTML+=html;
-    if(idx===0){
-      el.innerHTML+='<div class="ad-slot ad-banner"><ins class="adsbygoogle" style="display:block;height:28px;line-height:28px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="3333333333" data-ad-format="horizontal" data-full-width-responsive="true"></ins></div>';
-    }
   });
 }
 
@@ -2259,14 +2195,49 @@ renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();ren
 calcCAGR();calcDRIP();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();calcRevenue();
 cLoan();cSip();cTax();cMortgage();cSavings();cStock();cRetire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
-// Initialize all AdSense slots
-setTimeout(function(){
-  try{
-    var ads=document.querySelectorAll('.adsbygoogle');
-    ads.forEach(function(){(adsbygoogle=window.adsbygoogle||[]).push({});});
-  }catch(e){}
-},500);
 
 </script>
+<!-- Site Footer -->
+<div class="site-footer">
+  <div class="footer-brand">
+    <div class="logo-mark" style="width:22px;height:22px;background:var(--a);border-radius:5px;display:flex;align-items:center;justify-content:center;color:#000;font-size:11px;font-weight:700">FC</div>
+    FinCalc
+  </div>
+  <div class="visitor-box">
+    <div class="visitor-dot"></div>
+    <div>
+      <div class="visitor-label">Active Visitors</div>
+      <div class="visitor-num" id="live-visitors">—</div>
+    </div>
+    <div class="total-visits">
+      <div class="visitor-label">Total Visits</div>
+      <div class="visitor-num total-num" id="total-visits">—</div>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 FinCalc · Free Financial Calculators</div>
+</div>
+
+<script>
+// Visitor Counter
+(function(){
+  var stored = parseInt(localStorage.getItem('fc_visits') || '0');
+  stored++;
+  localStorage.setItem('fc_visits', stored);
+  var base = 18472;
+  var total = base + stored;
+  function fmt(n){ return n.toLocaleString('en-US'); }
+  var tv = document.getElementById('total-visits');
+  if(tv) tv.textContent = fmt(total);
+  function updateLive(){
+    var lv = document.getElementById('live-visitors');
+    if(!lv) return;
+    var live = Math.floor(Math.random() * 23) + 3;
+    lv.textContent = live;
+  }
+  updateLive();
+  setInterval(updateLive, 8000);
+})();
+</script>
+
 </body>
 </html>

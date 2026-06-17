@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
 <meta charset="UTF-8">
 
   <!-- Primary SEO Meta Tags -->
   <meta name="title" content="FinCalc Pro — Free Online Financial Calculator Suite">
-  <meta name="description" content="Free professional financial calculators: CAGR, XIRR, SIP, EMI, Mortgage, DCF Stock Valuation, Retirement Planner, Tax Estimator, ETF Growth, Dividend DRIP, Debt Payoff, Savings Goal & 25+ more. No signup required.">
+  <meta name="description" id="meta-description" content="Free professional financial calculators: CAGR, XIRR, SIP, EMI, Mortgage, DCF Stock Valuation, Retirement Planner, Tax Estimator, ETF Growth, Dividend DRIP, Debt Payoff, Savings Goal & 25+ more. No signup required.">
   <meta name="keywords" content="financial calculator, CAGR calculator, XIRR calculator, SIP calculator, EMI calculator, mortgage calculator, loan calculator, retirement calculator, tax calculator, DCF valuation, stock valuation, ETF calculator, dividend reinvestment calculator, DRIP calculator, debt payoff calculator, savings goal calculator, break even calculator, equity dilution calculator, burn rate calculator, revenue forecast, cash flow analyzer, rental yield calculator, rental property calculator, mortgage comparison, investment calculator, compound interest calculator, free financial tools, online calculator">
   <meta name="author" content="FinCalc Pro">
   <meta name="robots" content="index, follow">
@@ -18,7 +18,7 @@
   <meta property="og:title" content="FinCalc Pro — 25+ Free Professional Financial Calculators">
   <meta property="og:description" content="Calculate CAGR, XIRR, SIP returns, EMI, mortgage payments, stock DCF valuation, retirement corpus, tax liability and more. Free, fast, no signup.">
   <meta property="og:image" content="https://yourdomain.com/og-image.png">
-  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:url" id="og-url-tag" content="https://yourdomain.com/en/">
   <meta property="og:site_name" content="FinCalc Pro">
 
   <!-- Twitter Card -->
@@ -27,8 +27,14 @@
   <meta name="twitter:description" content="CAGR, XIRR, SIP, EMI, DCF, Mortgage, Retirement, Tax, ETF, DRIP & more. Free online financial calculators.">
   <meta name="twitter:image" content="https://yourdomain.com/og-image.png">
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://yourdomain.com">
+  <!-- Canonical URL (updated dynamically per-calculator by JS — see updateSEOTags() near end of script) -->
+  <link rel="canonical" id="canonical-tag" href="https://yourdomain.com/en/">
+
+  <!-- Hreflang — language/region alternates. Update yourdomain.com once real per-language pages exist. -->
+  <link rel="alternate" hreflang="en" id="hreflang-en" href="https://yourdomain.com/en/">
+  <link rel="alternate" hreflang="es" id="hreflang-es" href="https://yourdomain.com/es/">
+  <link rel="alternate" hreflang="hi" id="hreflang-hi" href="https://yourdomain.com/hi/">
+  <link rel="alternate" hreflang="x-default" id="hreflang-default" href="https://yourdomain.com/en/">
 
   <!-- Structured Data — WebApplication (JSON-LD) -->
   <script type="application/ld+json">
@@ -36,10 +42,12 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "FinCalc Pro",
-    "url": "https://yourdomain.com",
+    "url": "https://yourdomain.com/en/",
+    "inLanguage": "en",
     "description": "Professional suite of 25+ free financial calculators including CAGR, XIRR, SIP, EMI, Mortgage, DCF Stock Valuation, Retirement Planner, Tax Estimator, ETF Growth, Dividend DRIP, Debt Payoff Snowball vs Avalanche, Savings Goal and more.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web Browser",
+    "availableLanguage": ["en", "es", "hi"],
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -129,7 +137,10 @@
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinCalc Pro — Free Online Financial Calculators | CAGR, EMI, SIP, DCF, Mortgage & More</title>
+<meta property="og:locale" id="og-locale-tag" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="hi_IN">
+<title id="page-title">FinCalc Pro — Free Online Financial Calculators | CAGR, EMI, SIP, DCF, Mortgage & More</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -236,13 +247,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .footer-brand{font-size:14px;font-weight:600;color:var(--t);display:flex;align-items:center;gap:8px}
 .footer-brand .logo-mark{width:22px;height:22px;font-size:11px}
 .footer-copy{font-size:11px;color:var(--m)}
-.visitor-box{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:7px 14px}
-.visitor-dot{width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 6px var(--g);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
-.visitor-label{font-size:11px;color:var(--m)}
-.visitor-num{font-size:13px;font-weight:600;font-family:var(--mo);color:var(--g)}
-.total-visits{font-size:11px;color:var(--m);padding-left:10px;margin-left:10px;border-left:1px solid var(--bd)}
-.total-num{font-family:var(--mo);color:var(--a)}
 
 
 /* Calculator Guide Articles */
@@ -267,6 +271,21 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .guide-steps{counter-reset:step;margin:.75rem 0}
 .guide-step{display:flex;gap:12px;margin-bottom:10px;font-size:13px;color:var(--m);line-height:1.7}
 .guide-step-num{width:22px;height:22px;border-radius:50%;background:var(--g);color:#000;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+
+
+/* FAQ Section */
+.faq-section{margin-top:2rem;border-top:1px solid var(--bd);padding-top:1.5rem}
+.faq-section-title{font-size:13px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.faq-section-title::after{content:'';flex:1;height:1px;background:var(--bd)}
+.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:8px;overflow:hidden;transition:border-color .2s}
+.faq-item:hover{border-color:var(--g)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t);user-select:none;gap:12px}
+.faq-q .faq-icon{font-size:16px;color:var(--a);transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 14px 14px;font-size:12px;color:var(--m);line-height:1.8;border-top:1px solid var(--bd)}
+.faq-item.open .faq-a{display:block}
+.faq-a strong{color:var(--t)}
+.faq-a .faq-formula{background:var(--s2);border-left:3px solid var(--a);border-radius:0 6px 6px 0;padding:8px 12px;font-family:var(--mo);font-size:12px;color:var(--a);margin:.5rem 0;display:block}
 
 </style>
 </head>
@@ -369,6 +388,52 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="card-title">Growth Projection</div>
     <canvas id="cg-chart" width="300" height="200" style="width:100%;margin:1rem 0"></canvas>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is CAGR?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">CAGR stands for <strong>Compound Annual Growth Rate</strong>. It tells you the steady annual rate at which an investment grew from a starting value to an ending value over a given period, smoothing out any ups and downs along the way.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the CAGR formula?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">CAGR = (Ending Value / Beginning Value) ^ (1 / Years) − 1</span>For example, if you invested $10,000 and it grew to $25,000 in 5 years, your CAGR is (25000/10000)^(1/5) − 1 = <strong>20.1%</strong>.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How is CAGR different from average annual return?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Average annual return simply averages yearly gains/losses. CAGR shows the actual compounded rate. If a stock drops 50% one year and rises 100% the next, the average return is 25% — but your CAGR is 0% because you’re back where you started.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a good CAGR?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">It depends on the asset class. The S&amp;P 500 has historically delivered ~10–11% CAGR. For a business, 15–25% CAGR is considered strong. Anything above 20% over a long period is exceptional and often unsustainable.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the Rule of 72?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Doubling Time (years) ≈ 72 / CAGR%</span>At a 10% CAGR, your investment doubles every ~7.2 years. At 6%, it doubles every 12 years. It’s a quick mental math shortcut to estimate how fast money grows.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Can CAGR be negative?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Yes. If your ending value is less than your beginning value, the CAGR will be negative. For example, investing $10,000 and ending with $7,000 after 5 years gives a CAGR of about −6.7% per year.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -431,6 +496,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">vs Inflation avg (3%/yr)</span><span class="rv" id="xirr-vs-inf">—</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is XIRR?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">XIRR (Extended Internal Rate of Return) calculates the <strong>true annualized return</strong> for investments with irregular cash flows — like monthly SIPs, partial withdrawals, or business income that doesn’t follow a fixed schedule.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between CAGR and XIRR?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">CAGR works for a single lump-sum investment with one start and end date. XIRR handles <strong>multiple investments and withdrawals at different dates</strong>. For real-world investing like mutual funds or SIPs, XIRR is more accurate.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why do I enter negative values in XIRR?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">In XIRR, money you <strong>invest (outflow)</strong> is entered as a <strong>negative number</strong>, and money you <strong>receive back (inflow)</strong> is entered as a <strong>positive number</strong>. Your current portfolio value is typically the last positive entry.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a good XIRR for mutual funds?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">For equity mutual funds, an XIRR above 12% is generally considered good over a long period. Compare your XIRR to the benchmark index XIRR for the same dates — that tells you whether the fund added value over just buying the index.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why is my XIRR very high or very low?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">XIRR is sensitive to the timing of cash flows. A large recent withdrawal or a short investment period can distort the result significantly. Always interpret XIRR over a period of at least 3 years for meaningful results.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -494,6 +598,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a DRIP?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">DRIP stands for <strong>Dividend Reinvestment Plan</strong>. Instead of receiving dividends as cash, they’re automatically used to purchase more shares. This creates powerful compounding over time.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How does dividend reinvestment increase returns?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">By reinvesting dividends, you buy more shares. Those new shares earn their own dividends, which buy even more shares. Over decades, <strong>the majority of your total return can come from reinvested dividends</strong>, not stock price growth.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is dividend yield?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Dividend Yield = Annual Dividend Per Share / Current Share Price × 100%</span>A stock priced at $100 paying $3/year has a 3% dividend yield. Higher yield isn’t always better — a very high yield can signal the stock price has fallen sharply.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I reinvest dividends or take them as cash?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">If you don’t need the income now, reinvesting almost always leads to a larger portfolio long-term due to compounding. If you’re retired and living off investments, taking dividends as cash income makes more sense.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Are DRIP dividends taxable?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">In most countries, <strong>yes</strong> — dividends are taxable even when reinvested, because you still technically received them. In tax-advantaged accounts like a Roth IRA or ISA, reinvested dividends grow tax-free.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -544,6 +687,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div id="et-legend" style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:11px"></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is an ETF?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">An ETF (Exchange-Traded Fund) is a basket of securities that trades on an exchange just like a single share. It offers instant diversification at very low cost, making it ideal for most long-term investors.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is an expense ratio?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Annual Cost = Investment × Expense Ratio%</span>A $100,000 investment in an ETF with a 0.03% expense ratio costs just $30/year. Over 30 years at 10% returns, the difference between a 0.03% and 1% fee is over <strong>$400,000</strong> in lost wealth.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between SPY, VTI, and QQQ?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><strong>SPY</strong> tracks the S&amp;P 500 (500 large US companies). <strong>VTI</strong> tracks the entire US stock market. <strong>QQQ</strong> tracks the NASDAQ-100, heavily weighted toward tech. VTI offers the broadest diversification; QQQ has higher potential but more volatility.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Is it better to invest a lump sum or monthly in ETFs?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Research shows lump-sum investing beats dollar-cost averaging about 2/3 of the time because markets trend upward. However, monthly investing is practical for salaried investors and removes the emotional burden of timing the market.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How does ETF compounding work?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Your returns are earned on the growing balance, not just the original amount. $500/month into an ETF returning 10% for 30 years turns $180,000 of contributions into over <strong>$1 million</strong>, with $820,000 coming purely from compound growth.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -619,6 +801,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--m)">
     <span style="color:var(--a)">━ Projected EPS</span><span style="color:var(--g)">╌ Present Value</span>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is DCF valuation?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">DCF (Discounted Cash Flow) estimates a stock’s <strong>intrinsic value</strong> by projecting future earnings and discounting them to today’s money. If intrinsic value is higher than the current price, the stock may be undervalued.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a discount rate (WACC)?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The discount rate represents your <strong>required rate of return</strong> — the minimum you expect to justify the risk. For stocks, most investors use 8–12%. A higher discount rate gives a lower, more conservative intrinsic value.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is terminal value in DCF?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Terminal value captures all earnings <strong>beyond the projection period</strong>, assuming the company grows at a stable rate forever (usually 2–3%, matching long-term GDP growth). It often makes up 60–80% of the total DCF value.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is margin of safety?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Margin of Safety = (Intrinsic Value − Current Price) / Intrinsic Value × 100%</span>Warren Buffett popularized buying stocks with a 20–30% margin of safety — so even if your projections are off, you still make money.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why is DCF so sensitive to inputs?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Small changes in growth rate or discount rate create large swings because of compounding over many years. A 1% change in the discount rate can shift valuation by 20–30%. Always run bear and bull scenarios, never rely on a single estimate.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -700,6 +921,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <span style="color:var(--b)">━ Avalanche balance</span><span style="color:var(--g)">━ Snowball balance</span>
   </div>
   
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the Debt Snowball method?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Pay off your <strong>smallest debt first</strong>, regardless of interest rate. Once it’s paid, roll that payment into the next smallest. It creates quick psychological wins that build motivation to keep going.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the Debt Avalanche method?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Pay off your <strong>highest interest rate debt first</strong>. This saves the most money in interest over time and is mathematically optimal, though it may take longer before you see your first debt fully paid off.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Which is better — Snowball or Avalanche?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Avalanche <strong>saves more money</strong>. Snowball provides <strong>faster psychological wins</strong>. Research shows many people succeed more with Snowball because motivation matters. The best method is the one you will actually stick to.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a debt-to-income ratio?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Debt-to-Income Ratio = Monthly Debt Payments / Gross Monthly Income × 100%</span>Lenders prefer this below 36%. Above 50% indicates financial stress. This calculator shows how fast each strategy gets you to a healthier ratio.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How much extra should I pay toward debt?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">First, cover minimum payments on all debts. Then direct all extra money toward your target debt. Even an extra $100–200/month can shave years off your timeline and save thousands in interest charges.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -786,6 +1046,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is cash-on-cash return?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Cash-on-Cash Return = Annual Pre-Tax Cash Flow / Total Cash Invested × 100%</span>This measures how much cash you earn relative to the cash you put in (down payment + closing costs). A CoC of 8–12% is generally considered strong for rental properties.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is cap rate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Cap Rate = Net Operating Income / Property Value × 100%</span>Cap rate tells you the return a property would generate if bought with all cash. A higher cap rate means higher return but often higher risk or location risk.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is NOI (Net Operating Income)?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">NOI = Gross Rental Income − Operating Expenses (taxes, insurance, maintenance, management). It <strong>excludes mortgage payments</strong>. NOI is used to calculate cap rate and is the key metric for evaluating rental property income.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is vacancy rate and why does it matter?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Vacancy rate is the percentage of time your property sits empty. A 5% vacancy rate means ~18 days of lost income per year. Always include a realistic vacancy buffer (5–10%) in projections rather than assuming 100% occupancy.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the 1% rule in real estate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The 1% rule says monthly rent should be at least <strong>1% of the purchase price</strong>. A $200,000 property should rent for $2,000/month. It’s a quick screening filter — always run full numbers including taxes, maintenance, and financing costs.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -844,6 +1143,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Months to break-even</span><span class="rv" id="br-bemo">—</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is burn rate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Burn rate is how much cash a startup <strong>spends per month</strong>. <strong>Gross burn</strong> is total monthly spending. <strong>Net burn</strong> is monthly spending minus revenue. It tells you how fast you’re consuming your cash reserves.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is runway?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Runway (months) = Cash in Bank / Monthly Net Burn</span>Runway is how many months your startup can operate before running out of money. Most investors recommend maintaining 12–18 months of runway, and fundraising when you have 6+ months left.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a good burn rate for a startup?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">There’s no universal number — it depends on stage and team size. The key question is whether you’re growing revenue faster than you’re increasing burn. A rising revenue-to-burn ratio signals a healthy trajectory.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do I reduce burn rate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Common levers: reduce or defer hires, cut non-essential SaaS subscriptions, renegotiate vendor contracts, move to remote work to cut office costs, or pivot to higher-margin revenue. Every $10K saved extends your runway.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is burn multiple?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Burn Multiple = Net Burn / Net New ARR</span>It measures how much you’re spending to generate each new dollar of recurring revenue. Below 1x is excellent. Above 2x is a warning sign. Above 4x is unsustainable for most startups.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -894,6 +1232,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
   </div>
   <div class="card"><div class="card-title">Suggested Pricing Tiers</div><div id="pr-tiers"></div></div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is gross margin?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Gross Margin = (Revenue − COGS) / Revenue × 100%</span>Gross margin tells you how much profit remains after direct costs. SaaS companies typically target 70–80%+ gross margin. Manufacturing businesses might operate at 30–50%.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between markup and margin?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><strong>Markup</strong> is the percentage added to cost. <strong>Margin</strong> is profit as a percentage of revenue. A 50% markup gives a 33% margin. A 100% markup gives a 50% margin. Margin is the standard business metric.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do I set the right price?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Three main approaches: <strong>Cost-plus</strong> (add markup to cost), <strong>Competitive</strong> (price relative to competitors), and <strong>Value-based</strong> (price based on customer willingness to pay). Value-based pricing almost always yields the highest margins.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is price elasticity?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Price elasticity measures how much demand changes when price changes. If a 10% price increase causes sales to drop 20%, demand is elastic. Essential products tend to be inelastic; luxury/discretionary items tend to be more elastic.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is contribution margin?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Contribution Margin = Revenue − Variable Costs</span>Contribution margin is what’s left to cover fixed costs and profit after variable costs. Each unit with a positive contribution margin helps pay down your fixed overhead.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -944,6 +1321,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Founder stake value</span><span class="rv" style="color:var(--g)" id="eq-fval">$0</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is equity dilution?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Equity dilution happens when a company issues new shares — during fundraising or employee option grants. Your ownership <strong>percentage decreases</strong> even though you still hold the same number of shares.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Does dilution mean I lose money?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Not necessarily. If the new funding increases the company’s total value, your smaller percentage can be worth more in absolute dollars. The key question is whether the new capital creates enough value to offset the dilution.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is pre-money vs post-money valuation?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Post-Money Valuation = Pre-Money Valuation + Investment Amount</span><strong>Pre-money</strong> is the company’s value before new investment. <strong>Post-money</strong> is after. If a company is valued at $4M pre-money and raises $1M, the post-money is $5M, and the investor owns 20%.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a cap table?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A capitalization table (cap table) lists all shareholders, how many shares each holds, and their ownership percentage. It tracks how dilution changes with each funding round, option grant, or convertible note conversion.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a pro-rata right?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A pro-rata right gives existing investors the option to <strong>maintain their ownership percentage</strong> in future funding rounds by investing their proportional share. It protects early investors from being diluted by later rounds.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1008,6 +1424,30 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   </div>
 </div>
 <div class="card"><div class="card-title">Monthly Forecast Table (Base Case)</div><div style="overflow-x:auto"><table class="tbl" id="rf-table"></table></div></div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is ARR vs MRR?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a"><strong>MRR (Monthly Recurring Revenue)</strong> is predictable monthly subscription revenue. <strong>ARR (Annual Recurring Revenue)</strong> is simply MRR × 12. ARR is the standard metric for SaaS valuations and growth benchmarking.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is a good revenue growth rate?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a">For early-stage SaaS startups, investors often look for the <strong>T2D3 framework</strong> (triple, triple, double, double, double growth years). For established companies, 20–30% annual growth is considered strong.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is revenue churn?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a"><span class="faq-formula">Revenue Churn Rate = Lost MRR / Beginning MRR × 100%</span>Churn measures subscription revenue lost monthly from cancellations or downgrades. World-class SaaS achieves <strong>negative churn</strong> — expansion revenue from existing customers exceeds losses.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is LTV (Lifetime Value)?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a"><span class="faq-formula">LTV = Average Revenue Per Customer / Monthly Churn Rate</span>LTV is the total expected revenue from a customer over their lifetime. A healthy SaaS business has an <strong>LTV:CAC ratio of 3:1 or higher</strong>.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is CAC (Customer Acquisition Cost)?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a"><span class="faq-formula">CAC = Total Sales &amp; Marketing Spend / New Customers Acquired</span>CAC tells you how much you spend to acquire one customer. Combined with LTV, it tells you whether your business model is profitable at scale.</div>
+</div>
+</div>
 </div>
 
 <!-- LOAN -->
@@ -1063,6 +1503,52 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Cost of credit</span><span class="rv" style="color:var(--a)" id="l-coc">0%</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is EMI?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">EMI (Equated Monthly Installment) is the <strong>fixed monthly payment</strong> you make to repay a loan. It includes both a principal component (reducing your debt) and an interest component. Over time, the interest portion shrinks and the principal portion grows.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the EMI formula?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">EMI = P × r × (1 + r)ⁿ / ((1 + r)ⁿ − 1)</span>Where <strong>P</strong> = Principal, <strong>r</strong> = monthly interest rate (annual rate ÷ 12), <strong>n</strong> = loan tenure in months.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How can I reduce my EMI?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">You have three options: <strong>1)</strong> Increase your loan tenure (lower EMI but more total interest). <strong>2)</strong> Make a larger down payment to reduce the principal. <strong>3)</strong> Negotiate a lower interest rate or refinance when rates drop.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is an amortization schedule?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">An amortization schedule shows the breakdown of each EMI payment across the loan term — how much goes to interest and how much reduces principal. In early months, most of your EMI is interest. Toward the end, most goes to principal.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between flat rate and reducing balance interest?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">In a <strong>flat rate</strong> loan, interest is calculated on the original loan amount throughout the tenure. In a <strong>reducing balance</strong> loan, interest is calculated only on the outstanding principal — making it significantly cheaper overall.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Does prepaying a loan save money?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Yes, significantly. Every extra payment above your EMI goes directly to reduce the principal, which reduces all future interest. A single large prepayment in the early years can shave years off your loan tenure.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1118,6 +1604,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">CAGR</span><span class="rv" style="color:var(--g)" id="i-cagr">0%</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is SIP?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">SIP (Systematic Investment Plan) means investing a <strong>fixed amount at regular intervals</strong> in a mutual fund or ETF. It’s a disciplined way to build wealth and reduces the risk of investing at a market peak.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is rupee/dollar cost averaging in SIP?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Because you invest a fixed amount regularly, you automatically buy <strong>more units when prices are low</strong> and fewer when prices are high. Over time, this averages out your purchase cost and reduces the impact of market volatility.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How does compounding work in SIP?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Your returns generate their own returns. Investing $500/month at 12% annual return for 20 years turns $120,000 of contributions into over <strong>$480,000</strong> — with the majority coming purely from compounding, not your contributions.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between lump sum and SIP?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A <strong>lump sum</strong> invests all at once — better if markets are low. A <strong>SIP</strong> spreads investment over time — better for salaried investors and removes the emotional burden of timing the market.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is XIRR in the SIP context?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">When evaluating SIP returns, use XIRR (not simple returns) because you invested at different times and prices. XIRR gives the true annualized return accounting for the timing and size of each installment. Use the XIRR calculator on this site.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1167,6 +1692,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
   </div>
   <div class="card"><div class="card-title">Tax Bracket Breakdown (2024)</div><table class="slab-tbl" id="t-slabs"></table></div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How does the US federal income tax work?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The US uses a <strong>progressive tax system</strong> with brackets. You pay different rates on different portions of income — not a single flat rate on everything. Only the income within each bracket is taxed at that bracket’s rate.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between marginal and effective tax rate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Your <strong>marginal rate</strong> is the tax rate on your last dollar of income (your top bracket). Your <strong>effective rate</strong> is the actual average you pay on all income. Most people’s effective rate is significantly lower than their marginal rate.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the standard deduction?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The standard deduction reduces your taxable income without itemizing. For 2024, it’s <strong>$14,600 for single filers</strong> and <strong>$29,200 for married filing jointly</strong>. Most people take the standard deduction unless itemized deductions exceed it.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is AGI (Adjusted Gross Income)?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">AGI is your total income minus certain above-the-line deductions like student loan interest, IRA contributions, and self-employment taxes. AGI matters because many tax credits and deductions phase out at higher AGI levels.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is FICA tax?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">FICA taxes fund <strong>Social Security (6.2%)</strong> and <strong>Medicare (1.45%)</strong>, totaling 7.65% of wages up to the SS wage base. Your employer matches this. Self-employed individuals pay the full 15.3% as self-employment tax.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1226,6 +1790,52 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Affordability ratio</span><span class="rv" id="m-aff">0%</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a mortgage?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A mortgage is a loan used to <strong>purchase real estate</strong>, where the property itself serves as collateral. You repay it in fixed monthly payments (principal + interest) over a set term, typically 15 or 30 years.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between principal and interest in a mortgage?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Each monthly payment has two parts: <strong>Principal</strong> reduces your loan balance. <strong>Interest</strong> is the cost of borrowing. In early years, most of your payment is interest. As years pass, more goes to principal. This is called amortization.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is PMI (Private Mortgage Insurance)?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">PMI is required when your down payment is <strong>less than 20%</strong> of the home’s price. It protects the lender if you default. PMI typically costs 0.5–1.5% of the loan per year and is canceled once you reach 20% equity.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is APR vs interest rate on a mortgage?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The <strong>interest rate</strong> is the basic cost of borrowing. The <strong>APR</strong> includes the interest rate plus other costs like points and origination fees. APR gives a more complete picture of the true cost of the loan.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I choose a 15-year or 30-year mortgage?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A <strong>15-year mortgage</strong> has higher monthly payments but a lower rate and you pay far less total interest. A <strong>30-year mortgage</strong> has lower payments but you pay significantly more interest overall. Use the mortgage comparison calculator to see exact numbers.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is refinancing?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Refinancing replaces your existing mortgage with a new one — typically to get a <strong>lower interest rate</strong> or shorter term. It generally makes sense when rates have dropped at least 0.5–1% below your current rate.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1266,6 +1876,30 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </div>
 <div class="g3 mb16" id="mc-cols"></div>
 <div class="card"><div class="card-title">Side-by-Side Comparison</div><div style="overflow-x:auto"><table class="tbl" id="mc-table" style="width:100%"></table></div><canvas id="mc-chart" width="900" height="140" style="width:100%;margin-top:1rem"></canvas></div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is a fixed-rate mortgage?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a">A fixed-rate mortgage keeps the same interest rate for the entire loan term. Your monthly principal + interest payment <strong>never changes</strong>, making budgeting straightforward. It's the most popular choice for long-term homeowners.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is an ARM (Adjustable Rate Mortgage)?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a">An ARM starts with a fixed rate for an initial period (e.g., 5 or 7 years), then adjusts periodically based on a benchmark rate. Initial rates are often lower, but your payment can rise significantly after the fixed period ends.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What are mortgage points?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a">1 point = 1% of the loan amount paid upfront to buy down the interest rate. <span class="faq-formula">Break-even = Points Cost / Monthly Savings</span>If paying 1 point saves $80/month and costs $3,000, you break even in 37.5 months. Worth it if you stay in the home longer.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>What is the total cost of a mortgage?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a">Total cost = all principal repaid + all interest paid over the loan's life. On a $300,000 loan at 7% for 30 years, you pay over <strong>$418,000 in interest alone</strong> — more than the original loan amount. This comparison tool shows that full picture side-by-side.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)"><span>How does a larger down payment help?</span><span class="faq-icon">+</span></div>
+  <div class="faq-a">A larger down payment reduces your principal (less interest over time), eliminates PMI at 20%, and often qualifies you for better rates. The trade-off is the opportunity cost of that capital not being invested elsewhere.</div>
+</div>
+</div>
 </div>
 
 <!-- SAVINGS -->
@@ -1317,6 +1951,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Interest / contributions ratio</span><span class="rv" style="color:var(--g)" id="sv-ratio">0%</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is compound interest?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">A = P × (1 + r/n)^(n×t)</span>Compound interest means you earn interest on your interest. $10,000 at 5% compounded annually for 20 years grows to $26,533 — without adding a single extra dollar. More frequent compounding accelerates growth.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between APR and APY?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><strong>APR (Annual Percentage Rate)</strong> is the simple interest rate. <strong>APY (Annual Percentage Yield)</strong> accounts for compounding within the year. A 5% APR compounded monthly gives an APY of 5.12%. Always compare APYs when evaluating savings accounts.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How much should I have in savings?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Financial guidelines suggest: <strong>Emergency fund</strong>: 3–6 months of expenses in a liquid account. <strong>Short-term goals (1–3 years)</strong>: savings account or CDs. <strong>Long-term goals (5+ years)</strong>: consider investing in stocks/ETFs for higher returns.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a high-yield savings account?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A high-yield savings account pays significantly more interest than standard savings — often 4–5% APY vs 0.01–0.5% at traditional banks. They’re offered by online banks, are FDIC insured, and are ideal for emergency funds and short-term savings goals.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the 50/30/20 budget rule?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The rule suggests: <strong>50%</strong> of after-tax income to needs (rent, food, utilities), <strong>30%</strong> to wants (entertainment, dining), <strong>20%</strong> to savings and debt repayment. Adjust ratios to fit your situation.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1371,6 +2044,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Break-even sell price</span><span class="rv" style="color:var(--a)" id="sk-bep">$0</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is P&amp;L in stock trading?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">P&L = (Selling Price − Buying Price) × Quantity − Brokerage Fees</span>P&amp;L shows how much you made or lost on a trade. <strong>Realized P&amp;L</strong> is from closed positions. <strong>Unrealized P&amp;L</strong> is from positions you still hold.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is brokerage and how does it affect returns?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Brokerage is the commission paid per trade. On small investments, brokerage can significantly eat into returns. A 2% round-trip brokerage means the stock needs to gain at least 4% just to break even on that trade.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between short-term and long-term capital gains?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">In the US, stocks held <strong>less than 1 year</strong> are taxed as ordinary income (up to 37%). Stocks held <strong>more than 1 year</strong> are taxed at long-term capital gains rates (0%, 15%, or 20%). Holding longer is almost always more tax-efficient.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a stop loss?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A stop loss is an order to automatically sell a stock if it falls to a certain price, limiting your maximum loss. Buying at $100 with a stop loss at $90 caps your loss at 10%. It removes emotion from loss-cutting decisions.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the break-even price after a loss?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Break-even Return Needed = Loss% / (1 − Loss%)</span>If a stock drops 50%, you need a 100% gain just to get back to even. A 20% loss needs a 25% gain. This asymmetry is why limiting losses is more important than chasing gains.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1429,6 +2141,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Real return (inflation-adjusted)</span><span class="rv" style="color:var(--g)" id="rt-real">0%</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How much do I need to retire?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The most common rule is the <strong>25x Rule</strong>: save 25 times your annual expenses. This supports a 4% annual withdrawal rate indefinitely based on historical market returns. If you spend $50,000/year, you need ~$1.25 million.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the 4% withdrawal rule?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The 4% rule says you can withdraw 4% of your portfolio in year one, then adjust for inflation each year, and your portfolio has historically lasted 30+ years. It assumes a balanced portfolio of roughly 60% stocks / 40% bonds.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a 401(k)?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A 401(k) is a US employer-sponsored retirement account where contributions are made <strong>pre-tax</strong>, reducing your taxable income now. Money grows tax-deferred until withdrawal. Many employers match contributions — always contribute at least enough to get the full match.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between Traditional IRA and Roth IRA?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><strong>Traditional IRA</strong>: contribute pre-tax, pay tax on withdrawals in retirement. <strong>Roth IRA</strong>: contribute after-tax, all growth and withdrawals are tax-free. Roth is generally better if you expect to be in a higher tax bracket in retirement.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>When should I start saving for retirement?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">As early as possible. A 25-year-old investing $200/month at 8% will have far more at 65 than a 35-year-old investing $400/month — even investing less total money. <strong>Time in market is the single biggest factor in retirement wealth.</strong></div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1494,6 +2245,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div id="dp-timeline" class="tline" style="margin-top:.5rem"></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the Debt Snowball method?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Pay off your <strong>smallest balance first</strong> while making minimum payments on all others. Once paid, roll the freed-up payment into the next smallest. This builds momentum and psychological wins to keep you on track.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the Debt Avalanche method?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Pay off your <strong>highest interest rate debt first</strong> while making minimums on others. Mathematically optimal and saves the most in interest, but may take longer before you see your first debt fully eliminated.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do I calculate payoff time?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Months = −log(1 − (r × Balance / Payment)) / log(1 + r)</span>Where r = monthly interest rate. This calculator does that math for all your debts simultaneously, comparing both strategies side by side.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I invest or pay off debt first?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">If your debt’s interest rate is <strong>higher than expected investment returns</strong> (~7–10%), pay off the debt first. If lower, consider investing — especially with employer 401(k) matching. High-interest credit card debt (20%+) should almost always be paid first.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is debt consolidation?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Debt consolidation combines multiple debts into a single loan, ideally at a lower interest rate. It simplifies payments and can save on interest — but only helps if you don’t accumulate new debt afterward.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1551,6 +2341,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Total invested (down payment)</span><span class="rv" id="ry-inv">$0</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is gross rental yield?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Gross Rental Yield = Annual Rent / Property Value × 100%</span>Gross yield ignores expenses. A property worth $200,000 renting for $1,500/month has a gross yield of 9%. Always also calculate <strong>net yield</strong> after expenses for a realistic picture.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is net rental yield?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Net Yield = (Annual Rent − Annual Expenses) / Property Value × 100%</span>Net yield accounts for taxes, insurance, maintenance, management fees, and vacancy. A gross yield of 9% often becomes a net yield of 5–6% after all expenses.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What expenses should I include in rental calculations?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Include: property tax, insurance, maintenance (budget 1–2% of property value/year), property management fees (8–10% of rent), vacancy loss (5–10%), and HOA fees if applicable. Missing any of these leads to overstating returns.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Is rental income taxable?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Yes, in most countries. However, you can typically deduct mortgage interest, depreciation, property taxes, insurance, repairs, and management fees. <strong>Depreciation</strong> is a powerful non-cash deduction — consult a tax professional to optimize it.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a good rental yield?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">It varies by market. In high-cost cities, 3–4% net yield is common. In smaller cities or emerging markets, 6–8%+ is achievable. Always compare yield to local risk-free rates (government bonds) as the baseline.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1606,6 +2435,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     <div class="card"><div class="card-title">Expense Breakdown</div><div id="cf-bars"></div></div>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is cash flow?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Cash flow is the movement of money <strong>in and out</strong> of a business or personal budget. Positive cash flow means more is coming in than going out. Negative cash flow means you’re depleting savings or taking on debt.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the difference between profit and cash flow?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A business can be profitable on paper but still run out of cash. <strong>Profit</strong> is an accounting concept (revenue minus expenses). <strong>Cash flow</strong> is actual money in the bank. Many businesses fail not from lack of profit, but from poor cash flow timing.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is operating cash flow?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Operating Cash Flow = Net Income + Non-Cash Expenses − Working Capital Changes</span>Operating cash flow shows how much cash the core business generates and is considered a more reliable measure of financial health than reported profit.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a cash flow forecast?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A cash flow forecast projects expected inflows and outflows over a future period. It helps you identify potential shortfalls in advance so you can arrange financing, delay expenses, or accelerate collections <strong>before a crisis hits</strong>.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is net cash flow?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Net Cash Flow = Cash Inflows − Cash Outflows</span>Net cash flow tells you whether you ended a period with more or less cash than you started. Consistently negative net cash flow is a warning sign that expenses are outpacing income.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1660,6 +2528,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Operating leverage</span><span class="rv" id="be-ol">0x</span></div>
     
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is break-even analysis?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Break-even analysis finds the point where <strong>total revenue equals total costs</strong> — you’re making neither a profit nor a loss. Sales above break-even generate profit; below it, you’re losing money. It’s essential for pricing and business planning.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the break-even formula?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Break-even Units = Fixed Costs / (Selling Price − Variable Cost Per Unit)</span>If fixed costs are $10,000/month, you sell at $50, and variable cost is $20, your break-even is 10,000 / (50−20) = <strong>334 units/month</strong>.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is contribution margin?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Contribution Margin = Selling Price − Variable Costs Per Unit</span>Contribution margin is the portion of each sale that covers fixed costs and then generates profit. The higher your contribution margin, the fewer units you need to break even.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What are fixed vs variable costs?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><strong>Fixed costs</strong> stay the same regardless of production volume (rent, salaries, insurance). <strong>Variable costs</strong> change with volume (materials, packaging, commissions). Understanding this distinction is the foundation of break-even analysis.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How does break-even help with pricing decisions?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">By modeling different price points, break-even analysis shows the sales volume required to be profitable at each price. Raising prices reduces your break-even point. It quantifies the risk of pricing decisions before you make them.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1738,6 +2645,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     <div style="margin-top:1rem;background:var(--s2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--m);line-height:1.7" id="sg-tip"></div>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a savings goal calculator?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A savings goal calculator determines how much you need to save regularly to reach a specific financial goal by a target date, accounting for interest earned along the way. It turns a big number into a manageable monthly action.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do I set a realistic savings goal?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Make your goal <strong>SMART</strong>: Specific (exact amount), Measurable, Achievable (given your income), Relevant (meaningful), and Time-bound (clear deadline). Work backward to find the required monthly savings, then adjust until the number is feasible.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How does interest rate affect my savings goal?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Higher returns mean you need to save less each month. Saving $10,000 in 3 years at 0% requires $278/month. At 5% APY, only $258/month — interest does some of the work. For goals 10+ years away, the impact is dramatic.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I use a regular or high-yield account for savings goals?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">For goals <strong>within 1–2 years</strong>, a high-yield savings account is ideal — safe and accessible. For goals <strong>3+ years away</strong>, consider index funds for higher potential returns, accepting some short-term volatility for greater long-term growth.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What if I can’t meet my monthly savings goal amount?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">You have three levers: <strong>1)</strong> Reduce the target amount. <strong>2)</strong> Extend the timeline. <strong>3)</strong> Choose a higher-return investment account. Often, small adjustments across all three makes a goal achievable.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1825,6 +2771,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
     <div style="background:var(--s2);border-radius:8px;padding:12px;font-size:12px;line-height:1.7" id="ef-verdict"></div>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is an emergency fund?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">An emergency fund is money set aside for <strong>unexpected expenses</strong> — job loss, medical bills, major repairs. It prevents you from going into debt when life surprises you. The standard recommendation is 3–6 months of living expenses in a liquid account.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How much should my emergency fund be?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><strong>3 months</strong>: dual income household, stable job, no dependents. <strong>6 months</strong>: single income, variable income, or with dependents. <strong>9–12 months</strong>: self-employed, freelancers, or specialized careers where finding new work takes longer.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Where should I keep my emergency fund?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Your emergency fund needs to be <strong>safe, accessible, and earning some interest</strong>. Best options: high-yield savings accounts (HYSA), money market accounts, or short-term CDs. Avoid investing it in stocks — markets can drop 30–50% exactly when you might need the money most.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I invest or build an emergency fund first?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Build the emergency fund first — at least 1 month’s expenses as a starter. Without it, one unexpected bill forces you to sell investments at a loss or take on high-interest debt. Once you have 3+ months saved, then invest aggressively.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Is it okay to use a credit card as an emergency fund?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">No. Credit card debt carries 20%+ interest. A true emergency (like job loss) may mean you can’t pay the card off quickly, turning a temporary crisis into months of expensive debt. A cash emergency fund is the only reliable safety net.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1916,6 +2901,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem">Recommendations</div>
     <div id="hs-tips"></div>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a financial health score?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A financial health score is a single number (0–100) measuring the overall strength of your finances across multiple dimensions — savings rate, debt load, emergency fund, retirement readiness, net worth, and insurance coverage.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a good savings rate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Financial guidelines recommend saving at least <strong>20% of your gross income</strong>. This includes retirement contributions, emergency fund additions, and other savings. Those pursuing FIRE (Financial Independence) often aim for 40–60%.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a healthy debt-to-income ratio?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">Debt-to-Income Ratio = Monthly Debt Payments / Gross Monthly Income × 100%</span>Lenders consider <strong>below 36%</strong> healthy. <strong>Below 20%</strong> is excellent. <strong>Above 50%</strong> indicates financial stress and affects your ability to qualify for loans.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why is emergency fund coverage important for health score?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">An emergency fund is your financial immune system. Without it, any unexpected expense forces you into debt or liquidating investments. Covering 3–6 months of expenses protects all your other financial goals from being derailed.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How can I quickly improve my financial health score?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Focus on the highest-weight areas: <strong>Savings rate (25%)</strong> — automate transfers on payday. <strong>Debt-to-income (20%)</strong> — pay down high-rate debt aggressively. <strong>Emergency fund (20%)</strong> — open a HYSA and build to 3 months. Small improvements across these three move your score significantly.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1959,6 +2983,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div id="cu-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
     <p style="font-size:11px;color:var(--m);margin-top:1rem">⚠ Rates are approximate — verify with your bank or broker.</p>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why do exchange rates change?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Exchange rates fluctuate based on <strong>supply and demand</strong> for currencies, driven by: interest rate differences between countries, inflation rates, trade balances, political stability, and market speculation. Rates can change daily or swing dramatically during economic crises.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the mid-market rate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The mid-market rate is the <strong>midpoint between buy and sell prices</strong> for a currency pair. It’s the ‘true’ exchange rate. Banks and money changers add a markup (spread) to this rate when exchanging money — that spread is their profit.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do banks make money on currency conversion?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">They charge a spread — the difference between the rate they buy currency at and the rate they sell to you. A tourist exchange booth might offer USD/EUR at 0.90 when the real rate is 0.93, pocketing the 3% difference. Online services like Wise use mid-market rates with transparent small fees.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is currency hedging?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Currency hedging uses financial instruments (like forward contracts) to <strong>lock in an exchange rate</strong> for a future transaction. Businesses importing/exporting use hedging to protect against rate fluctuations that could make costs unpredictable.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What does it mean when a currency is strong or weak?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A <strong>strong currency</strong> buys more foreign goods and services (good for importers and travelers). A <strong>weak currency</strong> makes exports cheaper for foreign buyers (good for exporters). Both have advantages and disadvantages for an economy.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1998,6 +3061,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="sci-disp"><div class="sci-expr" id="sc-expr"></div><div class="sci-num" id="sc-disp">0</div></div>
     <div class="sci-grid" id="sc-grid"></div>
   </div>
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>When would I use a scientific calculator for finance?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Scientific calculators are useful for: <strong>compound interest</strong> (uses exponents), <strong>logarithms</strong> for calculating time periods (how long to double?), <strong>present/future value</strong> formulas, and bond pricing calculations. The ln and log functions are especially common in finance.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the order of operations?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Calculators follow PEMDAS/BODMAS: <strong>P</strong>arentheses first, then <strong>E</strong>xponents, then <strong>M</strong>ultiplication and <strong>D</strong>ivision (left to right), then <strong>A</strong>ddition and <strong>S</strong>ubtraction. Always use parentheses when in doubt.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do I calculate compound interest manually?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">A = P × (1 + r/n)^(n×t)</span>Where P = principal, r = annual rate, n = compounds per year, t = years. Example: $10,000 at 8% compounded monthly for 10 years = 10,000 × (1 + 0.08/12)^120 = <strong>$22,196</strong>.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is ln (natural logarithm) used for in finance?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">In finance, ln is used in <strong>continuous compounding</strong> (A = Pe^(rt)), <strong>Black-Scholes option pricing</strong>, and calculating growth rates. How long to double at rate r with continuous compounding: t = ln(2)/r ≈ 0.693/r.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do I calculate the number of periods to reach a goal?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a"><span class="faq-formula">n = log(FV/PV) / log(1 + r)</span>To find years to grow $10,000 to $20,000 at 7%: n = log(2) / log(1.07) = 10.24 years. This is the math behind the Rule of 72 approximation.</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2038,6 +3140,80 @@ const pct=(n,d=1)=>isFinite(n)?n.toFixed(d)+'%':'∞';
 const fk=n=>n>=1e9?(n/1e9).toFixed(1)+'B':n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(0)+'K':Math.round(n).toString();
 const askClaude=msg=>{try{sendPrompt(msg);}catch(e){}};
 
+// ── SEO: per-calculator metadata + dynamic canonical/hreflang ────
+// Languages currently supported for hreflang/SEO purposes (UI text itself
+// is still English-only — this just tells search engines which language
+// version maps to which URL once those language pages exist).
+const SEO_LANGS = ['en','es','hi'];
+const SEO_DOMAIN = 'https://yourdomain.com';
+
+// id -> {title, description} for every panel. Used to set <title>,
+// meta description, canonical and hreflang URLs as the user navigates.
+// NOTE: canonical/hreflang URLs below assume each calculator becomes its
+// own static page at /<lang>/<id>/ (e.g. /en/loan/, /es/loan/, /hi/loan/).
+// Until those pages exist, the tags simply describe the intended URL.
+const SEO_META = {
+  home:        {title:'FinCalc Pro — Free Online Financial Calculators | CAGR, EMI, SIP, DCF, Mortgage & More', desc:'Free professional financial calculators: CAGR, XIRR, SIP, EMI, Mortgage, DCF Stock Valuation, Retirement Planner, Tax Estimator and 25+ more. No signup required.'},
+  cagr:        {title:'CAGR Calculator — Compound Annual Growth Rate | FinCalc Pro', desc:'Calculate CAGR instantly with our free Compound Annual Growth Rate calculator. Includes Rule of 72 doubling time and historical benchmark comparisons.'},
+  xirr:        {title:'XIRR Calculator — Annualized Return for Irregular Cash Flows | FinCalc Pro', desc:'Calculate XIRR for SIPs, mutual funds, and irregular investments. Free online XIRR calculator with cash flow table and benchmark comparison.'},
+  drip:        {title:'Dividend Reinvestment (DRIP) Calculator | FinCalc Pro', desc:'Project long-term portfolio growth with dividend reinvestment. Free DRIP calculator with dividend growth and compounding chart.'},
+  etf:         {title:'ETF Growth Calculator | FinCalc Pro', desc:'Estimate long-term ETF portfolio growth with monthly contributions, expense ratio, and compounding. Free ETF growth calculator.'},
+  dcf:         {title:'DCF Stock Valuation Calculator | FinCalc Pro', desc:'Calculate intrinsic stock value with our free Discounted Cash Flow calculator. Includes WACC, terminal value, and bear/bull scenarios.'},
+  debtcomp:    {title:'Debt Snowball vs Avalanche Calculator | FinCalc Pro', desc:'Compare Debt Snowball and Debt Avalanche payoff strategies side by side. Free calculator shows total interest and payoff timeline for both.'},
+  rentalprop:  {title:'Rental Property Calculator — Cap Rate & Cash-on-Cash Return | FinCalc Pro', desc:'Analyze rental property returns with cap rate, cash-on-cash return, and NOI. Free rental property investment calculator.'},
+  burnrate:    {title:'Startup Burn Rate & Runway Calculator | FinCalc Pro', desc:'Calculate your startup\u2019s monthly burn rate and cash runway. Free burn rate calculator for founders and finance teams.'},
+  pricing:     {title:'Pricing & Margin Calculator | FinCalc Pro', desc:'Calculate gross margin, markup, and contribution margin for your product pricing. Free pricing calculator for businesses.'},
+  equity:      {title:'Equity Dilution Calculator | FinCalc Pro', desc:'Model startup equity dilution across funding rounds. Free cap table and dilution calculator for founders and investors.'},
+  revenue:     {title:'Revenue Forecast Calculator | FinCalc Pro', desc:'Forecast SaaS revenue with bear, base, and bull growth scenarios. Free revenue forecasting tool with ARR and LTV metrics.'},
+  loan:        {title:'Loan & EMI Calculator | FinCalc Pro', desc:'Calculate your loan EMI instantly with full amortization schedule. Free EMI calculator for personal, auto, and business loans.'},
+  invest:      {title:'SIP & Investment Calculator | FinCalc Pro', desc:'Calculate SIP returns with monthly contributions and compounding. Free systematic investment plan (SIP) calculator.'},
+  tax:         {title:'US Federal Tax Estimator | FinCalc Pro', desc:'Estimate your US federal income tax with marginal and effective tax rates. Free tax calculator (US federal only).'},
+  mortgage:    {title:'Mortgage Calculator | FinCalc Pro', desc:'Calculate your monthly mortgage payment, total interest, and amortization schedule. Free mortgage calculator with PMI support.'},
+  mortcomp:    {title:'Mortgage Comparison Tool — 15yr vs 30yr & Rate Comparison | FinCalc Pro', desc:'Compare multiple mortgage options side by side including 15-year vs 30-year terms and different rates. Free mortgage comparison calculator.'},
+  savings:     {title:'Savings & Compound Interest Calculator | FinCalc Pro', desc:'Calculate compound interest growth on your savings with regular contributions. Free savings calculator with APY comparison.'},
+  stock:       {title:'Stock Profit & Loss Calculator | FinCalc Pro', desc:'Calculate stock trading profit and loss including brokerage fees and break-even price. Free stock P&L calculator.'},
+  retirement:  {title:'Retirement Calculator — How Much Do You Need to Retire | FinCalc Pro', desc:'Calculate your retirement corpus using the 25x rule and 4% withdrawal rate. Free retirement planning calculator.'},
+  debt:        {title:'Debt Payoff Calculator | FinCalc Pro', desc:'Calculate how long it will take to pay off your debts and compare snowball vs avalanche strategies. Free debt payoff planner.'},
+  rental:      {title:'Rental Yield Calculator | FinCalc Pro', desc:'Calculate gross and net rental yield for any property investment. Free rental yield calculator with expense breakdown.'},
+  cashflow:    {title:'Cash Flow Calculator | FinCalc Pro', desc:'Analyze personal or business cash flow with inflows, outflows, and net cash position. Free cash flow analyzer.'},
+  breakeven:   {title:'Break-even Point Calculator | FinCalc Pro', desc:'Calculate your business break-even point in units and revenue. Free break-even analysis calculator with contribution margin.'},
+  savingsgoal: {title:'Savings Goal Calculator | FinCalc Pro', desc:'Calculate how much to save monthly to reach any financial goal by your target date. Free savings goal calculator.'},
+  emergencyfund:{title:'Emergency Fund Calculator | FinCalc Pro', desc:'Calculate how much you need in your emergency fund based on monthly expenses. Free emergency fund calculator.'},
+  healthscore: {title:'Financial Health Score Calculator | FinCalc Pro', desc:'Get a 0-100 financial health score based on savings rate, debt-to-income, and emergency fund coverage. Free financial health check.'},
+  currency:    {title:'Currency Converter | FinCalc Pro', desc:'Convert between major world currencies with up-to-date exchange rates. Free currency converter tool.'},
+  scientific:  {title:'Scientific Calculator | FinCalc Pro', desc:'Free online scientific calculator with trigonometric, logarithmic, and exponential functions for financial math.'}
+};
+
+function updateSEOTags(id){
+  const meta = SEO_META[id] || SEO_META.home;
+  const path = id === 'home' ? '' : id + '/';
+
+  // <title> and meta description
+  const titleTag = gel('page-title'); if(titleTag) titleTag.textContent = meta.title;
+  const descTag = gel('meta-description'); if(descTag) descTag.setAttribute('content', meta.desc);
+
+  // Canonical — defaults to English version of this calculator's intended URL
+  const canonicalUrl = `${SEO_DOMAIN}/en/${path}`;
+  const canonicalTag = gel('canonical-tag'); if(canonicalTag) canonicalTag.setAttribute('href', canonicalUrl);
+
+  // Open Graph URL mirrors canonical
+  const ogUrlTag = gel('og-url-tag'); if(ogUrlTag) ogUrlTag.setAttribute('content', canonicalUrl);
+
+  // Hreflang alternates — one per supported language, plus x-default
+  SEO_LANGS.forEach(lang=>{
+    const tag = gel('hreflang-' + lang);
+    if(tag) tag.setAttribute('href', `${SEO_DOMAIN}/${lang}/${path}`);
+  });
+  const defaultTag = gel('hreflang-default');
+  if(defaultTag) defaultTag.setAttribute('href', `${SEO_DOMAIN}/en/${path}`);
+
+  // Keep the URL hash in sync so each calculator is bookmarkable/shareable
+  if(history.replaceState){
+    const hash = id === 'home' ? '' : '#' + id;
+    history.replaceState(null, '', window.location.pathname + hash);
+  }
+}
+
 function go(id,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
@@ -2045,6 +3221,7 @@ function go(id,el){
   if(el)el.classList.add('on');
   else document.querySelectorAll('.ntab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on');});
   window.scrollTo(0,0);
+  updateSEOTags(id);
 }
 function doSearch(){
   const q=gel('srch').value.toLowerCase();
@@ -2887,12 +4064,32 @@ function toggleGuide(el){
   body.classList.toggle('open');
 }
 
+
+function toggleFAQ(el){
+  el.parentElement.classList.toggle('open');
+}
+
 // ── Init ─────────────────────────────────────────────────────────
 buildDir();buildSci();buildCurrency();buildMortComp();
 renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();renderDC2();
 calcCAGR();calcDRIP();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();calcRevenue();
 cLoan();cSip();cTax();cMortgage();cSavings();cStock();cRetire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
+
+// Deep-link support: opening yourdomain.com/#loan lands directly on that
+// calculator (also keeps canonical/hreflang/title tags correct on load).
+(function(){
+  const deepLinkId = window.location.hash.replace('#','');
+  if(deepLinkId && SEO_META[deepLinkId]){
+    go(deepLinkId, null);
+  } else {
+    updateSEOTags('home');
+  }
+})();
+window.addEventListener('hashchange', function(){
+  const id = window.location.hash.replace('#','');
+  if(id && SEO_META[id]) go(id, null);
+});
 
 </script>
 <!-- Site Footer -->
@@ -2901,41 +4098,8 @@ cLoan();cSip();cTax();cMortgage();cSavings();cStock();cRetire();cDebt();cRental(
     <div class="logo-mark" style="width:22px;height:22px;background:var(--a);border-radius:5px;display:flex;align-items:center;justify-content:center;color:#000;font-size:11px;font-weight:700">FC</div>
     FinCalc
   </div>
-  <div class="visitor-box">
-    <div class="visitor-dot"></div>
-    <div>
-      <div class="visitor-label">Active Visitors</div>
-      <div class="visitor-num" id="live-visitors">—</div>
-    </div>
-    <div class="total-visits">
-      <div class="visitor-label">Total Visits</div>
-      <div class="visitor-num total-num" id="total-visits">—</div>
-    </div>
-  </div>
   <div class="footer-copy">© 2025 FinCalc · Free Financial Calculators</div>
 </div>
-
-<script>
-// Visitor Counter
-(function(){
-  var stored = parseInt(localStorage.getItem('fc_visits') || '0');
-  stored++;
-  localStorage.setItem('fc_visits', stored);
-  var base = 18472;
-  var total = base + stored;
-  function fmt(n){ return n.toLocaleString('en-US'); }
-  var tv = document.getElementById('total-visits');
-  if(tv) tv.textContent = fmt(total);
-  function updateLive(){
-    var lv = document.getElementById('live-visitors');
-    if(!lv) return;
-    var live = Math.floor(Math.random() * 23) + 3;
-    lv.textContent = live;
-  }
-  updateLive();
-  setInterval(updateLive, 8000);
-})();
-</script>
 
 </body>
 </html>

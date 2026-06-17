@@ -68,6 +68,7 @@
       "Break-even Analysis",
       "Cash Flow Analyzer",
       "Loan EMI Calculator",
+      "Loan Prepayment Calculator",
       "US Federal Tax Estimator",
       "Mortgage Calculator",
       "Mortgage Comparison Tool",
@@ -167,7 +168,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .dir-icon{font-size:28px;margin-bottom:10px;line-height:1}
 .dir-name{font-size:15px;font-weight:600;margin-bottom:5px;color:var(--t)}
 .dir-desc{font-size:12px;color:var(--m);line-height:1.6}
-.two{display:grid;grid-template-columns:1fr 310px;gap:16px}
+.two{display:grid;grid-template-columns:1fr 310px;gap:16px;margin-top:.5rem}
 .two-eq{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -236,7 +237,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 
 /* Inter-calculator links */
-.calc-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.25rem;padding:10px 12px;background:var(--s2);border-radius:8px;border-left:3px solid var(--g);align-items:center}
+.calc-links{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 2.5rem;padding:10px 12px;background:var(--s2);border-radius:8px;border-left:3px solid var(--g);align-items:center}
 .calc-links-label{font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-right:4px;flex-shrink:0}
 .calc-link-btn{padding:4px 10px;background:var(--bg);border:1px solid var(--g);border-radius:20px;color:var(--g);font-size:11px;cursor:pointer;font-family:var(--fn);transition:all .18s;white-space:nowrap;text-decoration:none}
 .calc-link-btn:hover{background:var(--g);color:#000;border-color:var(--g)}
@@ -342,6 +343,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('xirr',null)">📅 XIRR</button><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button><button class="calc-link-btn" onclick="go('dcf',null)">🏦 Stock DCF</button></div>
 
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">CAGR Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Beginning Value ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="cg-begin" value="10000" oninput="calcCAGR()"></div></div>
+      <div class="field"><label>Ending Value ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="cg-end" value="25000" oninput="calcCAGR()"></div></div>
+      <div class="field"><label>Number of Years</label><input type="number" id="cg-years" value="5" oninput="calcCAGR()"></div>
+    </div>
+    <div class="sgrid" style="margin-top:0">
+      <div class="sbox"><div class="lbl">CAGR</div><div class="val" style="color:var(--a)" id="cg-rate">0%</div></div>
+      <div class="sbox"><div class="lbl">Total Return</div><div class="val" style="color:var(--g)" id="cg-total">0%</div></div>
+      <div class="sbox"><div class="lbl">Absolute Gain</div><div class="val" id="cg-gain">$0</div></div>
+      <div class="sbox"><div class="lbl">Multiplier</div><div class="val" style="color:var(--b)" id="cg-mult">0x</div></div>
+    </div>
+    <div style="margin-top:1rem" id="cg-proj"></div>
+    <div style="margin-top:1rem;background:var(--s2);border-radius:8px;padding:10px;font-size:12px;color:var(--m);line-height:1.7" id="cg-rule"></div>
+    
+  </div>
+  <div class="card">
+    <div class="card-title">Growth Projection</div>
+    <canvas id="cg-chart" width="300" height="200" style="width:100%;margin:1rem 0"></canvas>
+  </div>
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 CAGR — Compound Annual Growth Rate</div>
@@ -366,28 +390,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   </div>
 </div>
 
-<div class="two">
-  <div class="card">
-    <div class="card-title">CAGR Calculator</div>
-    <div class="g2">
-      <div class="field"><label>Beginning Value ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="cg-begin" value="10000" oninput="calcCAGR()"></div></div>
-      <div class="field"><label>Ending Value ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="cg-end" value="25000" oninput="calcCAGR()"></div></div>
-      <div class="field"><label>Number of Years</label><input type="number" id="cg-years" value="5" oninput="calcCAGR()"></div>
-    </div>
-    <div class="sgrid" style="margin-top:0">
-      <div class="sbox"><div class="lbl">CAGR</div><div class="val" style="color:var(--a)" id="cg-rate">0%</div></div>
-      <div class="sbox"><div class="lbl">Total Return</div><div class="val" style="color:var(--g)" id="cg-total">0%</div></div>
-      <div class="sbox"><div class="lbl">Absolute Gain</div><div class="val" id="cg-gain">$0</div></div>
-      <div class="sbox"><div class="lbl">Multiplier</div><div class="val" style="color:var(--b)" id="cg-mult">0x</div></div>
-    </div>
-    <div style="margin-top:1rem" id="cg-proj"></div>
-    <div style="margin-top:1rem;background:var(--s2);border-radius:8px;padding:10px;font-size:12px;color:var(--m);line-height:1.7" id="cg-rule"></div>
-    
-  </div>
-  <div class="card">
-    <div class="card-title">Growth Projection</div>
-    <canvas id="cg-chart" width="300" height="200" style="width:100%;margin:1rem 0"></canvas>
-  </div>
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -442,31 +444,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('drip',null)">💧 DRIP</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 XIRR — Returns on Irregular Cash Flows</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">XIRR calculates the true annualized return when investments happen at irregular intervals — like monthly SIPs, partial withdrawals, or business cash flows. It is more accurate than CAGR for real-world investing.</div>
-<div class="guide-h3">CAGR vs XIRR — When to Use Which</div>
-<table class="guide-table"><thead><tr><th>Situation</th><th>Use</th></tr></thead><tbody>
-<tr><td>Lump sum investment, single end date</td><td>CAGR</td></tr>
-<tr><td>Monthly SIP with final redemption</td><td>XIRR</td></tr>
-<tr><td>Multiple buys and sells on different dates</td><td>XIRR</td></tr>
-<tr><td>Business with irregular cash flows</td><td>XIRR</td></tr>
-</tbody></table>
-<div class="guide-h3">How to Enter Cash Flows</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>Enter <strong>negative values</strong> for money you invest (outflows).</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>Enter <strong>positive values</strong> for money you receive (returns/withdrawals).</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>The last entry is usually your current portfolio value (positive).</div></div>
-</div>
-<div class="guide-tip">💡 Most mutual fund apps report returns as XIRR. Compare it to your benchmark index XIRR for the same period.</div>
-
-  </div>
-</div>
 
 <div class="two-eq">
   <div class="card">
@@ -496,6 +473,32 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">vs Inflation avg (3%/yr)</span><span class="rv" id="xirr-vs-inf">—</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 XIRR — Returns on Irregular Cash Flows</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">XIRR calculates the true annualized return when investments happen at irregular intervals — like monthly SIPs, partial withdrawals, or business cash flows. It is more accurate than CAGR for real-world investing.</div>
+<div class="guide-h3">CAGR vs XIRR — When to Use Which</div>
+<table class="guide-table"><thead><tr><th>Situation</th><th>Use</th></tr></thead><tbody>
+<tr><td>Lump sum investment, single end date</td><td>CAGR</td></tr>
+<tr><td>Monthly SIP with final redemption</td><td>XIRR</td></tr>
+<tr><td>Multiple buys and sells on different dates</td><td>XIRR</td></tr>
+<tr><td>Business with irregular cash flows</td><td>XIRR</td></tr>
+</tbody></table>
+<div class="guide-h3">How to Enter Cash Flows</div>
+<div class="guide-steps">
+<div class="guide-step"><div class="guide-step-num">1</div><div>Enter <strong>negative values</strong> for money you invest (outflows).</div></div>
+<div class="guide-step"><div class="guide-step-num">2</div><div>Enter <strong>positive values</strong> for money you receive (returns/withdrawals).</div></div>
+<div class="guide-step"><div class="guide-step-num">3</div><div>The last entry is usually your current portfolio value (positive).</div></div>
+</div>
+<div class="guide-tip">💡 Most mutual fund apps report returns as XIRR. Compare it to your benchmark index XIRR for the same period.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -543,31 +546,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('xirr',null)">📅 XIRR</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Dividend Reinvestment (DRIP) — How It Works</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">A DRIP automatically reinvests dividends to buy more shares instead of paying you cash. This creates a powerful compounding effect — you earn dividends on your dividends, year after year.</div>
-<div class="guide-h3">DRIP Compounding in Action</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>You hold shares that pay quarterly dividends.</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>Instead of cash, dividends buy more shares automatically.</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>More shares = more dividends next quarter.</div></div>
-<div class="guide-step"><div class="guide-step-num">4</div><div>Repeat for decades — the snowball grows exponentially.</div></div>
-</div>
-<div class="guide-h3">Key Inputs Explained</div>
-<table class="guide-table"><thead><tr><th>Input</th><th>What It Means</th></tr></thead><tbody>
-<tr><td>Dividend Yield</td><td>Annual dividend as % of current share price</td></tr>
-<tr><td>Dividend Growth</td><td>Rate dividends increase each year (historically 5–8% for quality stocks)</td></tr>
-<tr><td>Stock Price Growth</td><td>Expected annual capital appreciation</td></tr>
-</tbody></table>
-<div class="guide-warn">⚠ Dividends are taxable in most countries even when reinvested. Factor in your effective tax rate for real projections.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -598,6 +576,32 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Dividend Reinvestment (DRIP) — How It Works</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">A DRIP automatically reinvests dividends to buy more shares instead of paying you cash. This creates a powerful compounding effect — you earn dividends on your dividends, year after year.</div>
+<div class="guide-h3">DRIP Compounding in Action</div>
+<div class="guide-steps">
+<div class="guide-step"><div class="guide-step-num">1</div><div>You hold shares that pay quarterly dividends.</div></div>
+<div class="guide-step"><div class="guide-step-num">2</div><div>Instead of cash, dividends buy more shares automatically.</div></div>
+<div class="guide-step"><div class="guide-step-num">3</div><div>More shares = more dividends next quarter.</div></div>
+<div class="guide-step"><div class="guide-step-num">4</div><div>Repeat for decades — the snowball grows exponentially.</div></div>
+</div>
+<div class="guide-h3">Key Inputs Explained</div>
+<table class="guide-table"><thead><tr><th>Input</th><th>What It Means</th></tr></thead><tbody>
+<tr><td>Dividend Yield</td><td>Annual dividend as % of current share price</td></tr>
+<tr><td>Dividend Growth</td><td>Rate dividends increase each year (historically 5–8% for quality stocks)</td></tr>
+<tr><td>Stock Price Growth</td><td>Expected annual capital appreciation</td></tr>
+</tbody></table>
+<div class="guide-warn">⚠ Dividends are taxable in most countries even when reinvested. Factor in your effective tax rate for real projections.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -645,6 +649,26 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('drip',null)">💧 DRIP</button><button class="calc-link-btn" onclick="go('dcf',null)">🏦 Stock DCF</button></div>
 
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">ETF Growth Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Initial Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="et-init" value="10000" oninput="calcETF()"></div></div>
+      <div class="field"><label>Monthly Contribution ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="et-monthly" value="500" oninput="calcETF()"></div></div>
+      <div class="field"><label>Investment Period (years)</label><input type="number" id="et-years" value="20" oninput="calcETF()"></div>
+      <div class="field"><label>Expense Ratio (%)</label><input type="number" id="et-exp" value="0.03" step="0.01" oninput="calcETF()"></div>
+    </div>
+    <div id="et-results" style="margin-top:1rem"></div>
+    <div class="rrow" style="margin-top:.5rem"><span class="rk">Total contributed</span><span class="rv" id="et-invested">$0</span></div>
+    <div class="rrow"><span class="rk">Expense drag (vs 0% fee)</span><span class="rv" style="color:var(--r)" id="et-drag">$0</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">ETF Comparison Chart</div>
+    <canvas id="et-chart" width="300" height="200" style="width:100%;margin:.5rem 0"></canvas>
+    <div id="et-legend" style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:11px"></div>
+    
+  </div>
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 ETF Growth Calculator — Understanding ETFs</div>
@@ -668,25 +692,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   </div>
 </div>
 
-<div class="two">
-  <div class="card">
-    <div class="card-title">ETF Growth Calculator</div>
-    <div class="g2">
-      <div class="field"><label>Initial Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="et-init" value="10000" oninput="calcETF()"></div></div>
-      <div class="field"><label>Monthly Contribution ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="et-monthly" value="500" oninput="calcETF()"></div></div>
-      <div class="field"><label>Investment Period (years)</label><input type="number" id="et-years" value="20" oninput="calcETF()"></div>
-      <div class="field"><label>Expense Ratio (%)</label><input type="number" id="et-exp" value="0.03" step="0.01" oninput="calcETF()"></div>
-    </div>
-    <div id="et-results" style="margin-top:1rem"></div>
-    <div class="rrow" style="margin-top:.5rem"><span class="rk">Total contributed</span><span class="rv" id="et-invested">$0</span></div>
-    <div class="rrow"><span class="rk">Expense drag (vs 0% fee)</span><span class="rv" style="color:var(--r)" id="et-drag">$0</span></div>
-  </div>
-  <div class="card">
-    <div class="card-title">ETF Comparison Chart</div>
-    <canvas id="et-chart" width="300" height="200" style="width:100%;margin:.5rem 0"></canvas>
-    <div id="et-legend" style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:11px"></div>
-    
-  </div>
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -734,28 +739,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('stock',null)">📉 Stock P&L</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Stock DCF Valuation — Finding Intrinsic Value</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">DCF (Discounted Cash Flow) estimates a stock's true intrinsic value by projecting future earnings and discounting them back to today's dollars. If intrinsic value &gt; current price, the stock may be undervalued.</div>
-<div class="guide-h3">Key Inputs &amp; Where to Find Them</div>
-<table class="guide-table"><thead><tr><th>Input</th><th>Description</th><th>Where to Find</th></tr></thead><tbody>
-<tr><td>EPS</td><td>Earnings Per Share (annual)</td><td>Yahoo Finance, company reports</td></tr>
-<tr><td>EPS Growth Rate</td><td>Expected annual earnings growth</td><td>Analyst estimates, company guidance</td></tr>
-<tr><td>Discount Rate (WACC)</td><td>Your required rate of return</td><td>Typically 8–12% for stocks</td></tr>
-<tr><td>Terminal Growth Rate</td><td>Long-term stable growth forever</td><td>Usually GDP growth ~2–3%</td></tr>
-</tbody></table>
-<div class="guide-h3">Margin of Safety</div>
-<div class="guide-formula">Margin of Safety = (Intrinsic Value − Current Price) / Intrinsic Value × 100%<br>Target: 20–30% buffer before buying</div>
-<div class="guide-warn">⚠ DCF is extremely sensitive to inputs. A 1% change in growth rate can swing valuation by 30%+. Use it as one tool among many, not as gospel.</div>
-
-  </div>
-</div>
-
 
 <div class="two-eq mb16">
   <div class="card">
@@ -801,6 +784,28 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--m)">
     <span style="color:var(--a)">━ Projected EPS</span><span style="color:var(--g)">╌ Present Value</span>
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Stock DCF Valuation — Finding Intrinsic Value</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">DCF (Discounted Cash Flow) estimates a stock's true intrinsic value by projecting future earnings and discounting them back to today's dollars. If intrinsic value &gt; current price, the stock may be undervalued.</div>
+<div class="guide-h3">Key Inputs &amp; Where to Find Them</div>
+<table class="guide-table"><thead><tr><th>Input</th><th>Description</th><th>Where to Find</th></tr></thead><tbody>
+<tr><td>EPS</td><td>Earnings Per Share (annual)</td><td>Yahoo Finance, company reports</td></tr>
+<tr><td>EPS Growth Rate</td><td>Expected annual earnings growth</td><td>Analyst estimates, company guidance</td></tr>
+<tr><td>Discount Rate (WACC)</td><td>Your required rate of return</td><td>Typically 8–12% for stocks</td></tr>
+<tr><td>Terminal Growth Rate</td><td>Long-term stable growth forever</td><td>Usually GDP growth ~2–3%</td></tr>
+</tbody></table>
+<div class="guide-h3">Margin of Safety</div>
+<div class="guide-formula">Margin of Safety = (Intrinsic Value − Current Price) / Intrinsic Value × 100%<br>Target: 20–30% buffer before buying</div>
+<div class="guide-warn">⚠ DCF is extremely sensitive to inputs. A 1% change in growth rate can swing valuation by 30%+. Use it as one tool among many, not as gospel.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -847,28 +852,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div id="debtcomp" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button></div>
-
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Snowball vs Avalanche — Which Is Right for You?</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Both methods work — the difference is psychology vs mathematics. This tool shows you the exact numbers for your debts so you can make an informed choice.</div>
-<div class="guide-h3">Method Comparison</div>
-<table class="guide-table"><thead><tr><th></th><th>❄️ Avalanche</th><th>☃️ Snowball</th></tr></thead><tbody>
-<tr><td>Priority</td><td>Highest interest rate first</td><td>Smallest balance first</td></tr>
-<tr><td>Total Interest</td><td>Minimum — mathematically optimal</td><td>Slightly more</td></tr>
-<tr><td>Time to First Win</td><td>Longer (if highest rate has big balance)</td><td>Faster</td></tr>
-<tr><td>Best For</td><td>Disciplined savers, large interest gaps</td><td>Those who need motivation milestones</td></tr>
-</tbody></table>
-<div class="guide-h3">When Interest Difference is Small</div>
-<div class="guide-p">If the avalanche saves less than $500 vs snowball for your specific debts, choose snowball — the motivation factor outweighs the small mathematical disadvantage.</div>
-<div class="guide-tip">💡 Hybrid approach: pay off 1–2 tiny debts first for a quick win (snowball), then switch to avalanche for the rest.</div>
-
-  </div>
-</div>
 
 
 <div style="margin-bottom:1rem"><div style="font-size:16px;font-weight:500;margin-bottom:4px">Debt Snowball vs Avalanche</div><div style="font-size:12px;color:var(--m)">Side-by-side comparison — see which method wins for your situation</div></div>
@@ -921,6 +904,28 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <span style="color:var(--b)">━ Avalanche balance</span><span style="color:var(--g)">━ Snowball balance</span>
   </div>
   
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Snowball vs Avalanche — Which Is Right for You?</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Both methods work — the difference is psychology vs mathematics. This tool shows you the exact numbers for your debts so you can make an informed choice.</div>
+<div class="guide-h3">Method Comparison</div>
+<table class="guide-table"><thead><tr><th></th><th>❄️ Avalanche</th><th>☃️ Snowball</th></tr></thead><tbody>
+<tr><td>Priority</td><td>Highest interest rate first</td><td>Smallest balance first</td></tr>
+<tr><td>Total Interest</td><td>Minimum — mathematically optimal</td><td>Slightly more</td></tr>
+<tr><td>Time to First Win</td><td>Longer (if highest rate has big balance)</td><td>Faster</td></tr>
+<tr><td>Best For</td><td>Disciplined savers, large interest gaps</td><td>Those who need motivation milestones</td></tr>
+</tbody></table>
+<div class="guide-h3">When Interest Difference is Small</div>
+<div class="guide-p">If the avalanche saves less than $500 vs snowball for your specific debts, choose snowball — the motivation factor outweighs the small mathematical disadvantage.</div>
+<div class="guide-tip">💡 Hybrid approach: pay off 1–2 tiny debts first for a quick win (snowball), then switch to avalanche for the rest.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -968,29 +973,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('rental',null)">🏘️ Rental Yield</button><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Rental Property Investment — Full Analysis Guide</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Rental property combines 4 return streams: rental income, mortgage paydown by tenants, property appreciation, and tax deductions. Analysing all four gives you the true picture.</div>
-<div class="guide-h3">The 1% Rule (Quick Screen)</div>
-<div class="guide-p">Monthly rent should be at least 1% of purchase price. A $200,000 property should rent for $2,000+/month. This is a rough filter — always run full numbers.</div>
-<div class="guide-h3">Hidden Costs New Investors Miss</div>
-<table class="guide-table"><thead><tr><th>Cost</th><th>Typical Amount</th></tr></thead><tbody>
-<tr><td>Vacancy</td><td>5–10% of annual rent</td></tr>
-<tr><td>Maintenance &amp; Repairs</td><td>1–2% of property value/year</td></tr>
-<tr><td>Property Management</td><td>8–12% of rent collected</td></tr>
-<tr><td>CapEx Reserve</td><td>$1,000–3,000/year (roof, HVAC, appliances)</td></tr>
-</tbody></table>
-<div class="guide-h3">Target Metrics</div>
-<div class="guide-p">• Cap Rate &gt;5% &nbsp;• Cash-on-Cash &gt;8% &nbsp;• Monthly cash flow positive after ALL expenses</div>
-<div class="guide-warn">⚠ Never invest based on gross yield alone. Always verify positive cash flow after every realistic expense.</div>
-
-  </div>
-</div>
 
 <div class="two-eq mb16">
   <div class="card">
@@ -1046,6 +1028,30 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Rental Property Investment — Full Analysis Guide</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Rental property combines 4 return streams: rental income, mortgage paydown by tenants, property appreciation, and tax deductions. Analysing all four gives you the true picture.</div>
+<div class="guide-h3">The 1% Rule (Quick Screen)</div>
+<div class="guide-p">Monthly rent should be at least 1% of purchase price. A $200,000 property should rent for $2,000+/month. This is a rough filter — always run full numbers.</div>
+<div class="guide-h3">Hidden Costs New Investors Miss</div>
+<table class="guide-table"><thead><tr><th>Cost</th><th>Typical Amount</th></tr></thead><tbody>
+<tr><td>Vacancy</td><td>5–10% of annual rent</td></tr>
+<tr><td>Maintenance &amp; Repairs</td><td>1–2% of property value/year</td></tr>
+<tr><td>Property Management</td><td>8–12% of rent collected</td></tr>
+<tr><td>CapEx Reserve</td><td>$1,000–3,000/year (roof, HVAC, appliances)</td></tr>
+</tbody></table>
+<div class="guide-h3">Target Metrics</div>
+<div class="guide-p">• Cap Rate &gt;5% &nbsp;• Cash-on-Cash &gt;8% &nbsp;• Monthly cash flow positive after ALL expenses</div>
+<div class="guide-warn">⚠ Never invest based on gross yield alone. Always verify positive cash flow after every realistic expense.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1093,26 +1099,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('revenue',null)">📊 Revenue Forecast</button><button class="calc-link-btn" onclick="go('breakeven',null)">📈 Break-even</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('pricing',null)">🏷️ Pricing</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Startup Burn Rate — Know Your Runway</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Burn rate is how fast your startup spends money. Running out of cash is the #1 reason startups fail. Know your runway at all times and start fundraising well before you need the money.</div>
-<div class="guide-h3">Gross Burn vs Net Burn</div>
-<table class="guide-table"><thead><tr><th>Metric</th><th>Formula</th><th>What It Shows</th></tr></thead><tbody>
-<tr><td>Gross Burn</td><td>Total monthly expenses</td><td>Total cash consumed regardless of revenue</td></tr>
-<tr><td>Net Burn</td><td>Gross Burn − Monthly Revenue</td><td>True monthly cash consumption</td></tr>
-<tr><td>Runway</td><td>Cash ÷ Net Burn</td><td>Months until you run out of money</td></tr>
-</tbody></table>
-<div class="guide-h3">Runway Guidelines</div>
-<div class="guide-p">• &lt;6 months — Emergency, fundraise immediately &nbsp;• 6–12 months — Raise now &nbsp;• 12–18 months — Healthy, begin next raise &nbsp;• 18+ months — Strong position</div>
-<div class="guide-tip">💡 Start fundraising at 9–12 months of runway. Fundraising takes 3–6 months. Never negotiate from a position of desperation.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -1143,6 +1129,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Months to break-even</span><span class="rv" id="br-bemo">—</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Startup Burn Rate — Know Your Runway</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Burn rate is how fast your startup spends money. Running out of cash is the #1 reason startups fail. Know your runway at all times and start fundraising well before you need the money.</div>
+<div class="guide-h3">Gross Burn vs Net Burn</div>
+<table class="guide-table"><thead><tr><th>Metric</th><th>Formula</th><th>What It Shows</th></tr></thead><tbody>
+<tr><td>Gross Burn</td><td>Total monthly expenses</td><td>Total cash consumed regardless of revenue</td></tr>
+<tr><td>Net Burn</td><td>Gross Burn − Monthly Revenue</td><td>True monthly cash consumption</td></tr>
+<tr><td>Runway</td><td>Cash ÷ Net Burn</td><td>Months until you run out of money</td></tr>
+</tbody></table>
+<div class="guide-h3">Runway Guidelines</div>
+<div class="guide-p">• &lt;6 months — Emergency, fundraise immediately &nbsp;• 6–12 months — Raise now &nbsp;• 12–18 months — Healthy, begin next raise &nbsp;• 18+ months — Strong position</div>
+<div class="guide-tip">💡 Start fundraising at 9–12 months of runway. Fundraising takes 3–6 months. Never negotiate from a position of desperation.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1190,6 +1197,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('breakeven',null)">📊 Break-even</button><button class="calc-link-btn" onclick="go('burnrate',null)">🔥 Burn Rate</button><button class="calc-link-btn" onclick="go('revenue',null)">📊 Revenue Forecast</button></div>
 
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">Pricing Calculator</div>
+    <div class="g2">
+      <div class="field"><label>COGS / unit ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-cogs" value="150" oninput="cPricing()"></div></div>
+      <div class="field"><label>Monthly Fixed Costs ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-fixed" value="200000" oninput="cPricing()"></div></div>
+      <div class="field"><label>Expected Units / Month</label><input type="number" id="pr-units" value="500" oninput="cPricing()"></div>
+      <div class="field"><label>Target Profit Margin %</label><input type="number" id="pr-margin" value="40" oninput="cPricing()"></div>
+      <div class="field"><label>Competitor Price Low ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-clow" value="300" oninput="cPricing()"></div></div>
+      <div class="field"><label>Competitor Price High ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-chigh" value="600" oninput="cPricing()"></div></div>
+    </div>
+    <div class="field"><label>Perceived Value Score: <span id="pr-vscore" style="color:var(--a);font-weight:600">7</span>/10</label><input type="range" id="pr-value" min="1" max="10" value="7" oninput="cPricing();gel('pr-vscore').textContent=this.value" style="width:100%;accent-color:var(--a)"></div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Cost-plus Price</div><div class="val" style="color:var(--a)" id="pr-costplus">$0</div></div>
+      <div class="sbox"><div class="lbl">Value-based Price</div><div class="val" style="color:var(--b)" id="pr-valueprice">$0</div></div>
+      <div class="sbox"><div class="lbl">Recommended Price</div><div class="val" style="color:var(--g)" id="pr-rec">$0</div></div>
+      <div class="sbox"><div class="lbl">Monthly Profit</div><div class="val" id="pr-profit">$0</div></div>
+    </div>
+  </div>
+  <div class="card"><div class="card-title">Suggested Pricing Tiers</div><div id="pr-tiers"></div></div>
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 Product Pricing — 3 Models to Find Your Price</div>
@@ -1212,26 +1240,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   </div>
 </div>
 
-<div class="two">
-  <div class="card">
-    <div class="card-title">Pricing Calculator</div>
-    <div class="g2">
-      <div class="field"><label>COGS / unit ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-cogs" value="150" oninput="cPricing()"></div></div>
-      <div class="field"><label>Monthly Fixed Costs ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-fixed" value="200000" oninput="cPricing()"></div></div>
-      <div class="field"><label>Expected Units / Month</label><input type="number" id="pr-units" value="500" oninput="cPricing()"></div>
-      <div class="field"><label>Target Profit Margin %</label><input type="number" id="pr-margin" value="40" oninput="cPricing()"></div>
-      <div class="field"><label>Competitor Price Low ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-clow" value="300" oninput="cPricing()"></div></div>
-      <div class="field"><label>Competitor Price High ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pr-chigh" value="600" oninput="cPricing()"></div></div>
-    </div>
-    <div class="field"><label>Perceived Value Score: <span id="pr-vscore" style="color:var(--a);font-weight:600">7</span>/10</label><input type="range" id="pr-value" min="1" max="10" value="7" oninput="cPricing();gel('pr-vscore').textContent=this.value" style="width:100%;accent-color:var(--a)"></div>
-    <div class="sgrid">
-      <div class="sbox"><div class="lbl">Cost-plus Price</div><div class="val" style="color:var(--a)" id="pr-costplus">$0</div></div>
-      <div class="sbox"><div class="lbl">Value-based Price</div><div class="val" style="color:var(--b)" id="pr-valueprice">$0</div></div>
-      <div class="sbox"><div class="lbl">Recommended Price</div><div class="val" style="color:var(--g)" id="pr-rec">$0</div></div>
-      <div class="sbox"><div class="lbl">Monthly Profit</div><div class="val" id="pr-profit">$0</div></div>
-    </div>
-  </div>
-  <div class="card"><div class="card-title">Suggested Pricing Tiers</div><div id="pr-tiers"></div></div>
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1279,6 +1287,26 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('burnrate',null)">🔥 Burn Rate</button><button class="calc-link-btn" onclick="go('revenue',null)">📊 Revenue Forecast</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button></div>
 
+
+<div class="two-eq mb16">
+  <div class="card">
+    <div class="card-title">Founding Team</div>
+    <div id="eq-founders"></div>
+    <button class="btn-sm btn-add" style="margin-top:8px" onclick="addFounder()">+ Add Founder</button>
+    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bd)"><div class="field"><label>Initial Option Pool (%)</label><input type="number" id="eq-pool" value="10" step="0.5" oninput="calcEquity()"></div></div>
+  </div>
+  <div class="card"><div class="card-title">Funding Rounds</div><div id="eq-rounds"></div><button class="btn-sm btn-add" style="margin-top:8px" onclick="addRound()">+ Add Round</button></div>
+</div>
+<div class="two-eq">
+  <div class="card"><div class="card-title">Cap Table</div><div style="overflow-x:auto"><table class="tbl" id="eq-table"></table></div></div>
+  <div class="card">
+    <div class="card-title">Ownership Breakdown</div>
+    <div class="donut-wrap"><canvas id="eq-chart" width="130" height="130"></canvas><div id="eq-legend"></div></div>
+    <div class="rrow"><span class="rk">Current valuation</span><span class="rv" style="color:var(--a)" id="eq-val">$0</span></div>
+    <div class="rrow"><span class="rk">Founder dilution</span><span class="rv" style="color:var(--r)" id="eq-dil">0%</span></div>
+    <div class="rrow"><span class="rk">Founder stake value</span><span class="rv" style="color:var(--g)" id="eq-fval">$0</span></div>
+    
+  </div>
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 Founder Equity Dilution — Protecting Your Stake</div>
@@ -1302,25 +1330,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   </div>
 </div>
 
-<div class="two-eq mb16">
-  <div class="card">
-    <div class="card-title">Founding Team</div>
-    <div id="eq-founders"></div>
-    <button class="btn-sm btn-add" style="margin-top:8px" onclick="addFounder()">+ Add Founder</button>
-    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bd)"><div class="field"><label>Initial Option Pool (%)</label><input type="number" id="eq-pool" value="10" step="0.5" oninput="calcEquity()"></div></div>
-  </div>
-  <div class="card"><div class="card-title">Funding Rounds</div><div id="eq-rounds"></div><button class="btn-sm btn-add" style="margin-top:8px" onclick="addRound()">+ Add Round</button></div>
-</div>
-<div class="two-eq">
-  <div class="card"><div class="card-title">Cap Table</div><div style="overflow-x:auto"><table class="tbl" id="eq-table"></table></div></div>
-  <div class="card">
-    <div class="card-title">Ownership Breakdown</div>
-    <div class="donut-wrap"><canvas id="eq-chart" width="130" height="130"></canvas><div id="eq-legend"></div></div>
-    <div class="rrow"><span class="rk">Current valuation</span><span class="rv" style="color:var(--a)" id="eq-val">$0</span></div>
-    <div class="rrow"><span class="rk">Founder dilution</span><span class="rv" style="color:var(--r)" id="eq-dil">0%</span></div>
-    <div class="rrow"><span class="rk">Founder stake value</span><span class="rv" style="color:var(--g)" id="eq-fval">$0</span></div>
-    
-  </div>
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1368,27 +1377,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('burnrate',null)">🔥 Burn Rate</button><button class="calc-link-btn" onclick="go('breakeven',null)">📊 Break-even</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('pricing',null)">🏷️ Pricing</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Revenue Forecasting — 3-Scenario Planning</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Revenue forecasting helps you plan hiring, spending, and fundraising. The three-scenario approach (pessimistic, base, optimistic) is used at every serious startup and gives you a realistic range of outcomes.</div>
-<div class="guide-h3">Key SaaS Metrics in This Calculator</div>
-<table class="guide-table"><thead><tr><th>Metric</th><th>Healthy Benchmark</th></tr></thead><tbody>
-<tr><td>Monthly MRR Growth</td><td>5–15% for early stage startups</td></tr>
-<tr><td>Monthly Churn Rate</td><td>&lt;2% excellent, &lt;3% acceptable</td></tr>
-<tr><td>LTV (ARPU ÷ Churn)</td><td>Should be &gt;3× your CAC</td></tr>
-</tbody></table>
-<div class="guide-h3">Why Churn is the Silent Killer</div>
-<div class="guide-p">At 5% monthly churn you lose 46% of customers per year. At 1% churn you lose only 11%. Reducing churn from 5% to 2% can effectively double your ARR at the same growth rate.</div>
-<div class="guide-tip">💡 Investors use the Rule of 40: Growth Rate % + Profit Margin % should exceed 40 for a healthy SaaS company.</div>
-
-  </div>
-</div>
-
 
 <div class="card mb16">
   <div class="card-title">Revenue Forecast Assumptions</div>
@@ -1425,6 +1413,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </div>
 <div class="card"><div class="card-title">Monthly Forecast Table (Base Case)</div><div style="overflow-x:auto"><table class="tbl" id="rf-table"></table></div></div>
 
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Revenue Forecasting — 3-Scenario Planning</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Revenue forecasting helps you plan hiring, spending, and fundraising. The three-scenario approach (pessimistic, base, optimistic) is used at every serious startup and gives you a realistic range of outcomes.</div>
+<div class="guide-h3">Key SaaS Metrics in This Calculator</div>
+<table class="guide-table"><thead><tr><th>Metric</th><th>Healthy Benchmark</th></tr></thead><tbody>
+<tr><td>Monthly MRR Growth</td><td>5–15% for early stage startups</td></tr>
+<tr><td>Monthly Churn Rate</td><td>&lt;2% excellent, &lt;3% acceptable</td></tr>
+<tr><td>LTV (ARPU ÷ Churn)</td><td>Should be &gt;3× your CAC</td></tr>
+</tbody></table>
+<div class="guide-h3">Why Churn is the Silent Killer</div>
+<div class="guide-p">At 5% monthly churn you lose 46% of customers per year. At 1% churn you lose only 11%. Reducing churn from 5% to 2% can effectively double your ARR at the same growth rate.</div>
+<div class="guide-tip">💡 Investors use the Rule of 40: Growth Rate % + Profit Margin % should exceed 40 for a healthy SaaS company.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1453,28 +1462,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <!-- LOAN -->
 <div id="loan" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
-<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mortgage Compare</button><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button><button class="calc-link-btn" onclick="go('breakeven',null)">📊 Break-even</button></div>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('prepay',null)">⏩ Prepayment</button><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mortgage Compare</button><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Loan & EMI — How It Works</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">An EMI (Equated Monthly Installment) is your fixed monthly payment that covers both principal repayment and interest. Use this calculator to find your exact EMI before taking any loan.</div>
-<div class="guide-h3">EMI Formula</div>
-<div class="guide-formula">EMI = P × r × (1+r)ⁿ / ((1+r)ⁿ − 1)<br>P = Loan amount &nbsp;|&nbsp; r = Monthly rate &nbsp;|&nbsp; n = Tenure (months)</div>
-<div class="guide-h3">Reducing Balance vs Flat Rate</div>
-<table class="guide-table"><thead><tr><th>Method</th><th>Interest On</th><th>Effective Cost</th></tr></thead><tbody>
-<tr><td>Reducing Balance</td><td>Outstanding principal only</td><td>Lower — standard bank loans</td></tr>
-<tr><td>Flat Rate</td><td>Original principal throughout</td><td>Higher (~1.7× the stated rate)</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 A 10% flat rate is actually ~18% effective annual rate. Always ask your lender which method they use.</div>
-<div class="guide-warn">⚠ Longer tenure = smaller EMI but significantly more total interest paid.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -1503,6 +1492,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Cost of credit</span><span class="rv" style="color:var(--a)" id="l-coc">0%</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Loan & EMI — How It Works</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">An EMI (Equated Monthly Installment) is your fixed monthly payment that covers both principal repayment and interest. Use this calculator to find your exact EMI before taking any loan.</div>
+<div class="guide-h3">EMI Formula</div>
+<div class="guide-formula">EMI = P × r × (1+r)ⁿ / ((1+r)ⁿ − 1)<br>P = Loan amount &nbsp;|&nbsp; r = Monthly rate &nbsp;|&nbsp; n = Tenure (months)</div>
+<div class="guide-h3">Reducing Balance vs Flat Rate</div>
+<table class="guide-table"><thead><tr><th>Method</th><th>Interest On</th><th>Effective Cost</th></tr></thead><tbody>
+<tr><td>Reducing Balance</td><td>Outstanding principal only</td><td>Lower — standard bank loans</td></tr>
+<tr><td>Flat Rate</td><td>Original principal throughout</td><td>Higher (~1.7× the stated rate)</td></tr>
+</tbody></table>
+<div class="guide-tip">💡 A 10% flat rate is actually ~18% effective annual rate. Always ask your lender which method they use.</div>
+<div class="guide-warn">⚠ Longer tenure = smaller EMI but significantly more total interest paid.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1552,33 +1562,119 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </div>
 </div>
 
+<!-- PREPAY -->
+<div id="prepay" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('debtcomp',null)">❄️ Snowball vs Avalanche</button></div>
+
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">Loan Prepayment Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Loan Amount ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pp-amt" value="500000" oninput="cPrepay()"></div></div>
+      <div class="field"><label>Interest Rate (% p.a.)</label><input type="number" id="pp-rate" value="7" step="0.1" oninput="cPrepay()"></div>
+      <div class="field"><label>Original Tenure (months)</label><input type="number" id="pp-n" value="240" oninput="cPrepay()"></div>
+      <div class="field"><label>Extra Monthly Payment ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pp-extra" value="200" oninput="cPrepay()"></div></div>
+      <div class="field"><label>One-Time Lump Sum ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="pp-lump" value="10000" oninput="cPrepay()"></div></div>
+      <div class="field"><label>Lump Sum Applied At (month #)</label><input type="number" id="pp-lumpmo" value="12" oninput="cPrepay()"></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">New Payoff Time</div><div class="val" style="color:var(--g)" id="pp-newterm">0 mo</div></div>
+      <div class="sbox"><div class="lbl">Time Saved</div><div class="val" style="color:var(--g)" id="pp-timesaved">0 mo</div></div>
+      <div class="sbox"><div class="lbl">Interest Saved</div><div class="val" style="color:var(--g)" id="pp-intsaved">$0</div></div>
+      <div class="sbox"><div class="lbl">New Total Interest</div><div class="val" style="color:var(--r)" id="pp-newint">$0</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Original vs With Prepayment</div>
+    <canvas id="pp-chart" width="420" height="175" style="width:100%"></canvas>
+    <div class="rrow"><span class="rk">Original EMI</span><span class="rv" id="pp-emi">$0</span></div>
+    <div class="rrow"><span class="rk">Original tenure</span><span class="rv" id="pp-oldterm">0 mo</span></div>
+    <div class="rrow"><span class="rk">Original total interest</span><span class="rv" style="color:var(--r)" id="pp-oldint">$0</span></div>
+    <div class="rrow"><span class="rk">Interest saved %</span><span class="rv" style="color:var(--g)" id="pp-savedpct">0%</span></div>
+  </div>
+
+<div class="card" style="grid-column:1/-1">
+  <div class="card-title">Year-by-Year Comparison</div>
+  <div style="overflow-x:auto"><table class="tbl" id="pp-table"></table></div>
+</div>
+
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Loan Prepayment — How It Works</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Prepaying a loan means paying more than your scheduled EMI. Every extra dollar goes <strong>directly toward reducing your principal</strong> — not interest — which means all future interest is calculated on a smaller balance. This calculator shows exactly how much time and interest you save with extra monthly payments, a one-time lump sum, or both combined.</div>
+<div class="guide-h3">Two Ways to Prepay</div>
+<table class="guide-table"><thead><tr><th>Method</th><th>How It Works</th><th>Best For</th></tr></thead><tbody>
+<tr><td>Extra Monthly Amount</td><td>Add a fixed amount on top of every EMI</td><td>Steady extra cash flow (raise, side income)</td></tr>
+<tr><td>One-Time Lump Sum</td><td>A single large payment at a chosen month</td><td>Bonus, inheritance, matured investment</td></tr>
+</tbody></table>
+<div class="guide-h3">Why Timing Matters</div>
+<div class="guide-p">Prepaying early in the loan term saves far more interest than prepaying later. In the early years, your outstanding balance is highest, so reducing it sooner removes interest that would have compounded over the most remaining months.</div>
+<div class="guide-tip">💡 Most lenders keep your EMI fixed and shorten the tenure when you prepay — but some recalculate a lower EMI instead. Confirm which one your lender does, since shortening tenure saves more total interest.</div>
+<div class="guide-warn">⚠ Check for prepayment penalties — some fixed-rate loans charge 1–3% on the prepaid amount. Make sure the interest saved outweighs any penalty before prepaying.</div>
+
+  </div>
+</div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is loan prepayment?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Loan prepayment means paying more than your scheduled EMI, either as a recurring extra amount each month or as a one-time lump sum. The extra payment goes <strong>entirely toward reducing your principal</strong>, which lowers all future interest charges and shortens your loan term.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Does prepaying reduce my EMI or my tenure?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">It depends on what you choose with your lender. Most lenders keep the <strong>EMI fixed and shorten the tenure</strong> — this calculator uses that approach since it saves the most total interest. Some lenders instead keep the tenure the same and lower your EMI, which saves less interest overall but improves monthly cash flow.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Is it better to prepay early or later in the loan?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Always prepay as early as possible. In the early years of a loan, your outstanding balance is at its highest, so reducing it sooner removes interest that would otherwise compound over the most remaining months. A $10,000 prepayment in year 1 saves significantly more interest than the same amount in year 10.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Are there penalties for prepaying a loan?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Some loans, especially fixed-rate mortgages, charge a <strong>prepayment penalty</strong> of 1–3% of the prepaid amount. Variable-rate loans and most personal loans typically don't. Always check your loan agreement and compare the penalty cost against the interest you'd save before prepaying.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I prepay my loan or invest the extra money instead?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Compare your loan's interest rate to your expected investment return. If your loan rate is <strong>higher</strong> than what you'd realistically earn investing (after tax), prepaying is the better guaranteed return. If your loan rate is low (e.g. a sub-5% mortgage) and you can invest at a higher expected return, investing the extra money may build more wealth long-term — though prepaying carries zero risk.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What's the difference between a lump sum and extra monthly payments?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A <strong>lump sum</strong> is a single large payment (bonus, inheritance, matured FD) applied once at a specific month. <strong>Extra monthly payments</strong> are smaller recurring amounts added to every EMI. Both reduce principal faster — a lump sum gives one big interest-saving jolt early on, while recurring extra payments compound their effect every single month for the life of the loan.</div>
+</div>
+</div>
+
+</div>
+</div>
+
 <!-- INVEST -->
 <div id="invest" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('xirr',null)">📅 XIRR</button><button class="calc-link-btn" onclick="go('drip',null)">💧 DRIP</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 SIP & Investment — How It Works</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">A SIP (Systematic Investment Plan) lets you invest a fixed amount regularly. The power of compounding means your returns earn returns over time, creating exponential growth.</div>
-<div class="guide-h3">SIP Future Value Formula</div>
-<div class="guide-formula">FV = P × ((1+r)ⁿ − 1) / r × (1+r)<br>P = Monthly SIP &nbsp;|&nbsp; r = Monthly return rate &nbsp;|&nbsp; n = Total months</div>
-<div class="guide-h3">Expected Return Benchmarks</div>
-<table class="guide-table"><thead><tr><th>Asset Class</th><th>Avg Annual Return</th><th>Risk</th></tr></thead><tbody>
-<tr><td>Savings Account / HYSA</td><td>3–5%</td><td>Very Low</td></tr>
-<tr><td>Bonds / Fixed Income</td><td>5–7%</td><td>Low</td></tr>
-<tr><td>Index Funds (S&P 500)</td><td>10–11%</td><td>Medium</td></tr>
-<tr><td>Growth Stocks / ETFs</td><td>12–15%</td><td>High</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 Start as early as possible. $200/month from age 25 beats $500/month from age 35 at the same return rate.</div>
-<div class="guide-tip">💡 Use the Step-up SIP feature — increasing contributions by 5–10% annually can double your final corpus.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -1604,6 +1700,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">CAGR</span><span class="rv" style="color:var(--g)" id="i-cagr">0%</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 SIP & Investment — How It Works</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">A SIP (Systematic Investment Plan) lets you invest a fixed amount regularly. The power of compounding means your returns earn returns over time, creating exponential growth.</div>
+<div class="guide-h3">SIP Future Value Formula</div>
+<div class="guide-formula">FV = P × ((1+r)ⁿ − 1) / r × (1+r)<br>P = Monthly SIP &nbsp;|&nbsp; r = Monthly return rate &nbsp;|&nbsp; n = Total months</div>
+<div class="guide-h3">Expected Return Benchmarks</div>
+<table class="guide-table"><thead><tr><th>Asset Class</th><th>Avg Annual Return</th><th>Risk</th></tr></thead><tbody>
+<tr><td>Savings Account / HYSA</td><td>3–5%</td><td>Very Low</td></tr>
+<tr><td>Bonds / Fixed Income</td><td>5–7%</td><td>Low</td></tr>
+<tr><td>Index Funds (S&P 500)</td><td>10–11%</td><td>Medium</td></tr>
+<tr><td>Growth Stocks / ETFs</td><td>12–15%</td><td>High</td></tr>
+</tbody></table>
+<div class="guide-tip">💡 Start as early as possible. $200/month from age 25 beats $500/month from age 35 at the same return rate.</div>
+<div class="guide-tip">💡 Use the Step-up SIP feature — increasing contributions by 5–10% annually can double your final corpus.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1651,6 +1770,24 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('savings',null)">🏛️ Savings</button><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
 
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">US Federal Income Tax Estimator</div>
+    <div class="g2">
+      <div class="field"><label>Annual Gross Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-inc" value="120000" oninput="cTax()"></div></div>
+      <div class="field"><label>Filing Status</label><select id="t-status" onchange="cTax()"><option value="single">Single</option><option value="married">Married Filing Jointly</option><option value="hoh">Head of Household</option></select></div>
+      <div class="field"><label>Pre-tax Deductions (401k etc) ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-pre" value="23000" oninput="cTax()"></div></div>
+      <div class="field"><label>Other Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-oth" value="0" oninput="cTax()"></div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Federal Tax</div><div class="val" style="color:var(--r)" id="t-tax">$0</div></div>
+      <div class="sbox"><div class="lbl">Effective Rate</div><div class="val" id="t-eff">0%</div></div>
+      <div class="sbox"><div class="lbl">Monthly Take-home</div><div class="val" style="color:var(--g)" id="t-home">$0</div></div>
+      <div class="sbox"><div class="lbl">Taxable Income</div><div class="val" id="t-taxinc">$0</div></div>
+    </div>
+  </div>
+  <div class="card"><div class="card-title">Tax Bracket Breakdown (2024)</div><table class="slab-tbl" id="t-slabs"></table></div>
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 US Federal Income Tax — How Brackets Work</div>
@@ -1675,23 +1812,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   </div>
 </div>
 
-<div class="two">
-  <div class="card">
-    <div class="card-title">US Federal Income Tax Estimator</div>
-    <div class="g2">
-      <div class="field"><label>Annual Gross Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-inc" value="120000" oninput="cTax()"></div></div>
-      <div class="field"><label>Filing Status</label><select id="t-status" onchange="cTax()"><option value="single">Single</option><option value="married">Married Filing Jointly</option><option value="hoh">Head of Household</option></select></div>
-      <div class="field"><label>Pre-tax Deductions (401k etc) ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-pre" value="23000" oninput="cTax()"></div></div>
-      <div class="field"><label>Other Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="t-oth" value="0" oninput="cTax()"></div></div>
-    </div>
-    <div class="sgrid">
-      <div class="sbox"><div class="lbl">Federal Tax</div><div class="val" style="color:var(--r)" id="t-tax">$0</div></div>
-      <div class="sbox"><div class="lbl">Effective Rate</div><div class="val" id="t-eff">0%</div></div>
-      <div class="sbox"><div class="lbl">Monthly Take-home</div><div class="val" style="color:var(--g)" id="t-home">$0</div></div>
-      <div class="sbox"><div class="lbl">Taxable Income</div><div class="val" id="t-taxinc">$0</div></div>
-    </div>
-  </div>
-  <div class="card"><div class="card-title">Tax Bracket Breakdown (2024)</div><table class="slab-tbl" id="t-slabs"></table></div>
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1739,28 +1859,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mtg Compare</button><button class="calc-link-btn" onclick="go('rentalprop',null)">🏡 Rental Property</button><button class="calc-link-btn" onclick="go('rental',null)">🏘️ Rental Yield</button><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Mortgage — What Your Monthly Payment Really Covers</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">A mortgage payment has four components (PITI). Understanding each helps you budget accurately and compare loan options fairly.</div>
-<div class="guide-h3">PITI — 4 Components of Your Payment</div>
-<table class="guide-table"><thead><tr><th>Letter</th><th>Component</th><th>Notes</th></tr></thead><tbody>
-<tr><td>P</td><td>Principal</td><td>Repayment of loan — builds your equity</td></tr>
-<tr><td>I</td><td>Interest</td><td>Cost of borrowing — front-loaded in early years</td></tr>
-<tr><td>T</td><td>Property Tax</td><td>Annual tax ÷ 12, collected monthly</td></tr>
-<tr><td>I</td><td>Insurance</td><td>Homeowner's insurance + PMI if &lt;20% down</td></tr>
-</tbody></table>
-<div class="guide-h3">The 28% Rule</div>
-<div class="guide-p">Your total housing payment (PITI) should not exceed <strong>28% of gross monthly income</strong>. All debt payments combined should stay below <strong>36%</strong>.</div>
-<div class="guide-tip">💡 Making one extra mortgage payment per year can cut a 30-year mortgage to ~24 years and save tens of thousands in interest.</div>
-<div class="guide-warn">⚠ Less than 20% down = PMI required, adding 0.5–1.5% to your annual cost. Aim for 20% down if possible.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -1790,6 +1888,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Affordability ratio</span><span class="rv" id="m-aff">0%</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Mortgage — What Your Monthly Payment Really Covers</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">A mortgage payment has four components (PITI). Understanding each helps you budget accurately and compare loan options fairly.</div>
+<div class="guide-h3">PITI — 4 Components of Your Payment</div>
+<table class="guide-table"><thead><tr><th>Letter</th><th>Component</th><th>Notes</th></tr></thead><tbody>
+<tr><td>P</td><td>Principal</td><td>Repayment of loan — builds your equity</td></tr>
+<tr><td>I</td><td>Interest</td><td>Cost of borrowing — front-loaded in early years</td></tr>
+<tr><td>T</td><td>Property Tax</td><td>Annual tax ÷ 12, collected monthly</td></tr>
+<tr><td>I</td><td>Insurance</td><td>Homeowner's insurance + PMI if &lt;20% down</td></tr>
+</tbody></table>
+<div class="guide-h3">The 28% Rule</div>
+<div class="guide-p">Your total housing payment (PITI) should not exceed <strong>28% of gross monthly income</strong>. All debt payments combined should stay below <strong>36%</strong>.</div>
+<div class="guide-tip">💡 Making one extra mortgage payment per year can cut a 30-year mortgage to ~24 years and save tens of thousands in interest.</div>
+<div class="guide-warn">⚠ Less than 20% down = PMI required, adding 0.5–1.5% to your annual cost. Aim for 20% down if possible.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1844,6 +1965,18 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button><button class="calc-link-btn" onclick="go('rentalprop',null)">🏡 Rental Property</button><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button></div>
 
+
+<div class="card mb16">
+  <div class="card-title">Common Parameters</div>
+  <div class="g3">
+    <div class="field"><label>Home Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-price" value="500000" oninput="cMortComp()"></div></div>
+    <div class="field"><label>Annual Property Tax ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-tax" value="5000" oninput="cMortComp()"></div></div>
+    <div class="field"><label>Annual Insurance ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-ins" value="1500" oninput="cMortComp()"></div></div>
+  </div>
+</div>
+<div class="g3 mb16" id="mc-cols"></div>
+<div class="card"><div class="card-title">Side-by-Side Comparison</div><div style="overflow-x:auto"><table class="tbl" id="mc-table" style="width:100%"></table></div><canvas id="mc-chart" width="900" height="140" style="width:100%;margin-top:1rem"></canvas></div>
+
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 Mortgage Comparison — 15 Year vs 30 Year & More</div>
@@ -1865,17 +1998,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
   </div>
 </div>
-
-<div class="card mb16">
-  <div class="card-title">Common Parameters</div>
-  <div class="g3">
-    <div class="field"><label>Home Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-price" value="500000" oninput="cMortComp()"></div></div>
-    <div class="field"><label>Annual Property Tax ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-tax" value="5000" oninput="cMortComp()"></div></div>
-    <div class="field"><label>Annual Insurance ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="mc-ins" value="1500" oninput="cMortComp()"></div></div>
-  </div>
-</div>
-<div class="g3 mb16" id="mc-cols"></div>
-<div class="card"><div class="card-title">Side-by-Side Comparison</div><div style="overflow-x:auto"><table class="tbl" id="mc-table" style="width:100%"></table></div><canvas id="mc-chart" width="900" height="140" style="width:100%;margin-top:1rem"></canvas></div>
 
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
@@ -1907,26 +2029,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('savingsgoal',null)">🎯 Savings Goal</button><button class="calc-link-btn" onclick="go('emergencyfund',null)">🛡️ Emergency Fund</button><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Savings & Compound Interest — How Money Grows</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Compound interest means your interest earns interest. The longer your money compounds, the more dramatic the growth. Even small regular deposits become significant over decades.</div>
-<div class="guide-h3">Compound Interest Formula</div>
-<div class="guide-formula">A = P(1 + r/n)^(nt) + PMT × [(1+r/n)^(nt) − 1] / (r/n)<br>P = Initial deposit &nbsp;|&nbsp; PMT = Monthly contribution &nbsp;|&nbsp; n = Compounding periods/year</div>
-<div class="guide-h3">Best Savings Instruments (US)</div>
-<table class="guide-table"><thead><tr><th>Instrument</th><th>APY Range</th><th>Liquidity</th></tr></thead><tbody>
-<tr><td>High-Yield Savings Account (HYSA)</td><td>4–5%</td><td>Instant</td></tr>
-<tr><td>Certificates of Deposit (CD)</td><td>4.5–5.5%</td><td>Fixed term</td></tr>
-<tr><td>Treasury Bills (T-bills)</td><td>4–5.3%</td><td>4–52 weeks</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 Rule of 72: divide 72 by your interest rate to find how many years to double your money. At 6% → 12 years. At 10% → 7.2 years.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -1951,6 +2053,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Interest / contributions ratio</span><span class="rv" style="color:var(--g)" id="sv-ratio">0%</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Savings & Compound Interest — How Money Grows</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Compound interest means your interest earns interest. The longer your money compounds, the more dramatic the growth. Even small regular deposits become significant over decades.</div>
+<div class="guide-h3">Compound Interest Formula</div>
+<div class="guide-formula">A = P(1 + r/n)^(nt) + PMT × [(1+r/n)^(nt) − 1] / (r/n)<br>P = Initial deposit &nbsp;|&nbsp; PMT = Monthly contribution &nbsp;|&nbsp; n = Compounding periods/year</div>
+<div class="guide-h3">Best Savings Instruments (US)</div>
+<table class="guide-table"><thead><tr><th>Instrument</th><th>APY Range</th><th>Liquidity</th></tr></thead><tbody>
+<tr><td>High-Yield Savings Account (HYSA)</td><td>4–5%</td><td>Instant</td></tr>
+<tr><td>Certificates of Deposit (CD)</td><td>4.5–5.5%</td><td>Fixed term</td></tr>
+<tr><td>Treasury Bills (T-bills)</td><td>4–5.3%</td><td>4–52 weeks</td></tr>
+</tbody></table>
+<div class="guide-tip">💡 Rule of 72: divide 72 by your interest rate to find how many years to double your money. At 6% → 12 years. At 10% → 7.2 years.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -1998,26 +2121,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('dcf',null)">🏦 Stock DCF</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('xirr',null)">📅 XIRR</button><button class="calc-link-btn" onclick="go('drip',null)">💧 DRIP</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Stock P&L — Understanding Your Trade Returns</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">This calculator computes the exact profit or loss from a stock trade including commissions, and converts your return into an annualised rate so you can compare trades of different durations fairly.</div>
-<div class="guide-h3">Key Formulas</div>
-<table class="guide-table"><thead><tr><th>Metric</th><th>Formula</th></tr></thead><tbody>
-<tr><td>Net P&L</td><td>Sell Proceeds − Buy Cost − Both Commissions</td></tr>
-<tr><td>Return %</td><td>Net P&L / Total Buy Cost × 100</td></tr>
-<tr><td>Annualised Return</td><td>(1 + Return%)^(365/Days Held) − 1</td></tr>
-<tr><td>Break-even Price</td><td>Buy Price × (1 + Buy Commission%) / (1 − Sell Commission%)</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 Always calculate your break-even sell price before entering a trade. Commissions mean you must sell above your buy price just to break even.</div>
-<div class="guide-warn">⚠ Short-term gains (&lt;1 year) are taxed at your ordinary income rate in the US. Long-term gains (1+ year) enjoy lower 0–20% rates.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -2044,6 +2147,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Break-even sell price</span><span class="rv" style="color:var(--a)" id="sk-bep">$0</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Stock P&L — Understanding Your Trade Returns</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">This calculator computes the exact profit or loss from a stock trade including commissions, and converts your return into an annualised rate so you can compare trades of different durations fairly.</div>
+<div class="guide-h3">Key Formulas</div>
+<table class="guide-table"><thead><tr><th>Metric</th><th>Formula</th></tr></thead><tbody>
+<tr><td>Net P&L</td><td>Sell Proceeds − Buy Cost − Both Commissions</td></tr>
+<tr><td>Return %</td><td>Net P&L / Total Buy Cost × 100</td></tr>
+<tr><td>Annualised Return</td><td>(1 + Return%)^(365/Days Held) − 1</td></tr>
+<tr><td>Break-even Price</td><td>Buy Price × (1 + Buy Commission%) / (1 − Sell Commission%)</td></tr>
+</tbody></table>
+<div class="guide-tip">💡 Always calculate your break-even sell price before entering a trade. Commissions mean you must sell above your buy price just to break even.</div>
+<div class="guide-warn">⚠ Short-term gains (&lt;1 year) are taxed at your ordinary income rate in the US. Long-term gains (1+ year) enjoy lower 0–20% rates.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2091,29 +2215,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('savings',null)">🏛️ Savings</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Retirement Planning — How Much Do You Need?</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Retirement planning answers one question: will you have enough money to stop working when you want to, and never run out? The key variables are savings rate, investment return, inflation, and time horizon.</div>
-<div class="guide-h3">The 4% Rule</div>
-<div class="guide-p">You can safely withdraw 4% of your retirement corpus annually for 30+ years without running out. This means you need 25× your annual expenses saved.</div>
-<div class="guide-formula">Required Corpus = Annual Expenses ÷ 0.04<br>Example: $60,000/year needs $1,500,000 saved</div>
-<div class="guide-h3">2024 US Retirement Account Limits</div>
-<table class="guide-table"><thead><tr><th>Account</th><th>2024 Limit</th><th>Tax Benefit</th></tr></thead><tbody>
-<tr><td>401(k)</td><td>$23,000</td><td>Pre-tax, tax-deferred growth</td></tr>
-<tr><td>IRA (Traditional/Roth)</td><td>$7,000</td><td>Pre-tax or tax-free growth</td></tr>
-<tr><td>HSA</td><td>$4,150 single</td><td>Triple tax advantage</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 Always contribute at least enough to get your full employer 401(k) match — it is a 50–100% instant return on investment.</div>
-<div class="guide-warn">⚠ Inflation erodes purchasing power — $5,000/month today requires ~$11,000/month in 25 years at 3% inflation. This calculator accounts for this.</div>
-
-  </div>
-</div>
-
 
 <div class="two">
   <div class="card">
@@ -2141,6 +2242,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Real return (inflation-adjusted)</span><span class="rv" style="color:var(--g)" id="rt-real">0%</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Retirement Planning — How Much Do You Need?</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Retirement planning answers one question: will you have enough money to stop working when you want to, and never run out? The key variables are savings rate, investment return, inflation, and time horizon.</div>
+<div class="guide-h3">The 4% Rule</div>
+<div class="guide-p">You can safely withdraw 4% of your retirement corpus annually for 30+ years without running out. This means you need 25× your annual expenses saved.</div>
+<div class="guide-formula">Required Corpus = Annual Expenses ÷ 0.04<br>Example: $60,000/year needs $1,500,000 saved</div>
+<div class="guide-h3">2024 US Retirement Account Limits</div>
+<table class="guide-table"><thead><tr><th>Account</th><th>2024 Limit</th><th>Tax Benefit</th></tr></thead><tbody>
+<tr><td>401(k)</td><td>$23,000</td><td>Pre-tax, tax-deferred growth</td></tr>
+<tr><td>IRA (Traditional/Roth)</td><td>$7,000</td><td>Pre-tax or tax-free growth</td></tr>
+<tr><td>HSA</td><td>$4,150 single</td><td>Triple tax advantage</td></tr>
+</tbody></table>
+<div class="guide-tip">💡 Always contribute at least enough to get your full employer 401(k) match — it is a 50–100% instant return on investment.</div>
+<div class="guide-warn">⚠ Inflation erodes purchasing power — $5,000/month today requires ~$11,000/month in 25 years at 3% inflation. This calculator accounts for this.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2188,31 +2312,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('debtcomp',null)">❄️ Snowball vs Avalanche</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Debt Payoff — Your Step-by-Step Plan</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Systematic debt payoff using a roll-up strategy is one of the fastest ways to achieve financial freedom. Every dollar of high-interest debt paid off is a guaranteed return equal to the interest rate.</div>
-<div class="guide-h3">How the Debt Roll-up Works</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>Pay the <strong>minimum payment</strong> on all debts every month.</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>Direct any <strong>extra cash</strong> to your target debt (highest rate or lowest balance).</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>When a debt is fully paid, roll its payment to the next target — this accelerates payoff dramatically.</div></div>
-<div class="guide-step"><div class="guide-step-num">4</div><div>Repeat until all debts are eliminated.</div></div>
-</div>
-<div class="guide-h3">Avalanche vs Snowball</div>
-<table class="guide-table"><thead><tr><th></th><th>Avalanche</th><th>Snowball</th></tr></thead><tbody>
-<tr><td>Targets</td><td>Highest interest rate first</td><td>Smallest balance first</td></tr>
-<tr><td>Interest Saved</td><td>Maximum savings</td><td>Slightly less</td></tr>
-<tr><td>Motivation</td><td>Slower first win</td><td>Quick early wins</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 Paying off a 22% credit card is a guaranteed 22% return — better than almost any investment.</div>
-
-  </div>
-</div>
 
 <div class="card mb16">
   <div class="card-title">Debt Payoff Planner</div>
@@ -2245,6 +2344,32 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div id="dp-timeline" class="tline" style="margin-top:.5rem"></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Debt Payoff — Your Step-by-Step Plan</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Systematic debt payoff using a roll-up strategy is one of the fastest ways to achieve financial freedom. Every dollar of high-interest debt paid off is a guaranteed return equal to the interest rate.</div>
+<div class="guide-h3">How the Debt Roll-up Works</div>
+<div class="guide-steps">
+<div class="guide-step"><div class="guide-step-num">1</div><div>Pay the <strong>minimum payment</strong> on all debts every month.</div></div>
+<div class="guide-step"><div class="guide-step-num">2</div><div>Direct any <strong>extra cash</strong> to your target debt (highest rate or lowest balance).</div></div>
+<div class="guide-step"><div class="guide-step-num">3</div><div>When a debt is fully paid, roll its payment to the next target — this accelerates payoff dramatically.</div></div>
+<div class="guide-step"><div class="guide-step-num">4</div><div>Repeat until all debts are eliminated.</div></div>
+</div>
+<div class="guide-h3">Avalanche vs Snowball</div>
+<table class="guide-table"><thead><tr><th></th><th>Avalanche</th><th>Snowball</th></tr></thead><tbody>
+<tr><td>Targets</td><td>Highest interest rate first</td><td>Smallest balance first</td></tr>
+<tr><td>Interest Saved</td><td>Maximum savings</td><td>Slightly less</td></tr>
+<tr><td>Motivation</td><td>Slower first win</td><td>Quick early wins</td></tr>
+</tbody></table>
+<div class="guide-tip">💡 Paying off a 22% credit card is a guaranteed 22% return — better than almost any investment.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2292,27 +2417,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('rentalprop',null)">🏡 Rental Property</button><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mtg Compare</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Rental Yield — The 4 Key Return Metrics</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Rental yield measures the return on a property investment. Always calculate all four metrics — gross yield alone is misleading without knowing your true costs.</div>
-<div class="guide-h3">The 4 Yield Metrics Explained</div>
-<table class="guide-table"><thead><tr><th>Metric</th><th>Formula</th><th>Use It For</th></tr></thead><tbody>
-<tr><td>Gross Yield</td><td>Annual Rent / Price × 100</td><td>Quick initial screening</td></tr>
-<tr><td>Net Yield</td><td>(Annual Rent − Costs) / Price × 100</td><td>True income after operating costs</td></tr>
-<tr><td>Cap Rate</td><td>NOI / Price × 100</td><td>Property value independent of financing</td></tr>
-<tr><td>Cash-on-Cash</td><td>Annual Cash Flow / Cash Invested × 100</td><td>Actual return on your down payment</td></tr>
-</tbody></table>
-<div class="guide-h3">What is a Good Yield?</div>
-<div class="guide-p">• Below 3% — Poor &nbsp;• 3–5% — Average &nbsp;• 5–8% — Good &nbsp;• Above 8% — Excellent (verify there is no hidden risk)</div>
-<div class="guide-warn">⚠ A 7% gross yield can easily become negative cash flow after mortgage, taxes, insurance, vacancy, and maintenance.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -2341,6 +2445,28 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Total invested (down payment)</span><span class="rv" id="ry-inv">$0</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Rental Yield — The 4 Key Return Metrics</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Rental yield measures the return on a property investment. Always calculate all four metrics — gross yield alone is misleading without knowing your true costs.</div>
+<div class="guide-h3">The 4 Yield Metrics Explained</div>
+<table class="guide-table"><thead><tr><th>Metric</th><th>Formula</th><th>Use It For</th></tr></thead><tbody>
+<tr><td>Gross Yield</td><td>Annual Rent / Price × 100</td><td>Quick initial screening</td></tr>
+<tr><td>Net Yield</td><td>(Annual Rent − Costs) / Price × 100</td><td>True income after operating costs</td></tr>
+<tr><td>Cap Rate</td><td>NOI / Price × 100</td><td>Property value independent of financing</td></tr>
+<tr><td>Cash-on-Cash</td><td>Annual Cash Flow / Cash Invested × 100</td><td>Actual return on your down payment</td></tr>
+</tbody></table>
+<div class="guide-h3">What is a Good Yield?</div>
+<div class="guide-p">• Below 3% — Poor &nbsp;• 3–5% — Average &nbsp;• 5–8% — Good &nbsp;• Above 8% — Excellent (verify there is no hidden risk)</div>
+<div class="guide-warn">⚠ A 7% gross yield can easily become negative cash flow after mortgage, taxes, insurance, vacancy, and maintenance.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2388,26 +2514,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('emergencyfund',null)">🛡️ Emergency Fund</button><button class="calc-link-btn" onclick="go('savingsgoal',null)">🎯 Savings Goal</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Cash Flow Analysis — Know Where Every Dollar Goes</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Cash flow is the difference between what comes in and what goes out each month. Positive cash flow = money to invest and build wealth. Negative cash flow = accumulating debt over time.</div>
-<div class="guide-h3">The 50/30/20 Budget Rule</div>
-<table class="guide-table"><thead><tr><th>Category</th><th>% of Income</th><th>Examples</th></tr></thead><tbody>
-<tr><td>Needs</td><td>50%</td><td>Rent, food, utilities, insurance, transport</td></tr>
-<tr><td>Wants</td><td>30%</td><td>Dining out, entertainment, subscriptions, travel</td></tr>
-<tr><td>Savings / Debt</td><td>20%</td><td>Emergency fund, investments, extra debt payments</td></tr>
-</tbody></table>
-<div class="guide-h3">Savings Rate Benchmarks</div>
-<div class="guide-p">• Below 10% — At risk &nbsp;• 10–20% — Adequate &nbsp;• 20–30% — Strong &nbsp;• Above 30% — Excellent (financial independence path)</div>
-<div class="guide-tip">💡 Track every expense for 30 days. Most people find 2–3 categories where they overspend significantly without realising it.</div>
-
-  </div>
-</div>
 
 <div class="two-eq">
   <div>
@@ -2435,6 +2541,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     <div class="card"><div class="card-title">Expense Breakdown</div><div id="cf-bars"></div></div>
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Cash Flow Analysis — Know Where Every Dollar Goes</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Cash flow is the difference between what comes in and what goes out each month. Positive cash flow = money to invest and build wealth. Negative cash flow = accumulating debt over time.</div>
+<div class="guide-h3">The 50/30/20 Budget Rule</div>
+<table class="guide-table"><thead><tr><th>Category</th><th>% of Income</th><th>Examples</th></tr></thead><tbody>
+<tr><td>Needs</td><td>50%</td><td>Rent, food, utilities, insurance, transport</td></tr>
+<tr><td>Wants</td><td>30%</td><td>Dining out, entertainment, subscriptions, travel</td></tr>
+<tr><td>Savings / Debt</td><td>20%</td><td>Emergency fund, investments, extra debt payments</td></tr>
+</tbody></table>
+<div class="guide-h3">Savings Rate Benchmarks</div>
+<div class="guide-p">• Below 10% — At risk &nbsp;• 10–20% — Adequate &nbsp;• 20–30% — Strong &nbsp;• Above 30% — Excellent (financial independence path)</div>
+<div class="guide-tip">💡 Track every expense for 30 days. Most people find 2–3 categories where they overspend significantly without realising it.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2482,27 +2609,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('pricing',null)">🏷️ Pricing</button><button class="calc-link-btn" onclick="go('burnrate',null)">🔥 Burn Rate</button><button class="calc-link-btn" onclick="go('revenue',null)">📊 Revenue Forecast</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Break-even Analysis — When Does Your Business Profit?</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Break-even is the point where total revenue equals total costs. Every unit sold above break-even generates pure profit. Understanding this number is essential for pricing, forecasting, and business decisions.</div>
-<div class="guide-h3">Core Formulas</div>
-<div class="guide-formula">Contribution Margin = Selling Price − Variable Cost<br>Break-even Units = Fixed Costs ÷ Contribution Margin<br>Break-even Revenue = Break-even Units × Selling Price</div>
-<div class="guide-h3">Fixed vs Variable Costs</div>
-<table class="guide-table"><thead><tr><th>Fixed Costs</th><th>Variable Costs</th></tr></thead><tbody>
-<tr><td>Rent, salaries, software subscriptions</td><td>Materials, packaging, shipping, commissions</td></tr>
-<tr><td>Same regardless of how much you sell</td><td>Scale directly with each unit sold</td></tr>
-</tbody></table>
-<div class="guide-h3">Margin of Safety</div>
-<div class="guide-p">How far your actual sales are above break-even. A 30% margin of safety means revenue could drop 30% before you start losing money.</div>
-<div class="guide-tip">💡 To lower break-even: reduce fixed costs, increase price, or reduce variable costs. Each lever has different strategic implications.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -2528,6 +2634,28 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div class="rrow"><span class="rk">Operating leverage</span><span class="rv" id="be-ol">0x</span></div>
     
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Break-even Analysis — When Does Your Business Profit?</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Break-even is the point where total revenue equals total costs. Every unit sold above break-even generates pure profit. Understanding this number is essential for pricing, forecasting, and business decisions.</div>
+<div class="guide-h3">Core Formulas</div>
+<div class="guide-formula">Contribution Margin = Selling Price − Variable Cost<br>Break-even Units = Fixed Costs ÷ Contribution Margin<br>Break-even Revenue = Break-even Units × Selling Price</div>
+<div class="guide-h3">Fixed vs Variable Costs</div>
+<table class="guide-table"><thead><tr><th>Fixed Costs</th><th>Variable Costs</th></tr></thead><tbody>
+<tr><td>Rent, salaries, software subscriptions</td><td>Materials, packaging, shipping, commissions</td></tr>
+<tr><td>Same regardless of how much you sell</td><td>Scale directly with each unit sold</td></tr>
+</tbody></table>
+<div class="guide-h3">Margin of Safety</div>
+<div class="guide-p">How far your actual sales are above break-even. A 30% margin of safety means revenue could drop 30% before you start losing money.</div>
+<div class="guide-tip">💡 To lower break-even: reduce fixed costs, increase price, or reduce variable costs. Each lever has different strategic implications.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2576,27 +2704,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('emergencyfund',null)">🛡️ Emergency Fund</button><button class="calc-link-btn" onclick="go('savings',null)">🏛️ Savings</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Savings Goal Calculator — Plan Your Way There</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Whether saving for a house, car, vacation, or education fund — knowing exactly how much to set aside each month removes the guesswork and keeps you on track.</div>
-<div class="guide-h3">Common Savings Goals & Realistic Timelines</div>
-<table class="guide-table"><thead><tr><th>Goal</th><th>Typical Target</th><th>Typical Timeline</th></tr></thead><tbody>
-<tr><td>Emergency Fund</td><td>3–6× monthly expenses</td><td>6–18 months</td></tr>
-<tr><td>House Down Payment</td><td>10–20% of home price</td><td>2–7 years</td></tr>
-<tr><td>Car Purchase</td><td>$15,000–$50,000</td><td>1–5 years</td></tr>
-<tr><td>Education / College</td><td>$30,000–$200,000</td><td>5–18 years</td></tr>
-<tr><td>Vacation</td><td>$2,000–$20,000</td><td>6 months–3 years</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 Open a separate named savings account for each goal — "House Fund 2027", "Vacation Fund". Named accounts reduce the temptation to dip in.</div>
-<div class="guide-tip">💡 Automate savings on payday. Saving what is left at month-end rarely works — save first, spend what remains.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -2645,6 +2752,28 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     </div>
     <div style="margin-top:1rem;background:var(--s2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--m);line-height:1.7" id="sg-tip"></div>
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Savings Goal Calculator — Plan Your Way There</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Whether saving for a house, car, vacation, or education fund — knowing exactly how much to set aside each month removes the guesswork and keeps you on track.</div>
+<div class="guide-h3">Common Savings Goals & Realistic Timelines</div>
+<table class="guide-table"><thead><tr><th>Goal</th><th>Typical Target</th><th>Typical Timeline</th></tr></thead><tbody>
+<tr><td>Emergency Fund</td><td>3–6× monthly expenses</td><td>6–18 months</td></tr>
+<tr><td>House Down Payment</td><td>10–20% of home price</td><td>2–7 years</td></tr>
+<tr><td>Car Purchase</td><td>$15,000–$50,000</td><td>1–5 years</td></tr>
+<tr><td>Education / College</td><td>$30,000–$200,000</td><td>5–18 years</td></tr>
+<tr><td>Vacation</td><td>$2,000–$20,000</td><td>6 months–3 years</td></tr>
+</tbody></table>
+<div class="guide-tip">💡 Open a separate named savings account for each goal — "House Fund 2027", "Vacation Fund". Named accounts reduce the temptation to dip in.</div>
+<div class="guide-tip">💡 Automate savings on payday. Saving what is left at month-end rarely works — save first, spend what remains.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2693,27 +2822,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('savingsgoal',null)">🎯 Savings Goal</button><button class="calc-link-btn" onclick="go('savings',null)">🏛️ Savings</button><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Emergency Fund — Your Financial Safety Net</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">An emergency fund is cash reserved for unexpected events — job loss, medical bills, urgent repairs. It is the #1 financial priority before investing, because without it one crisis can derail years of progress.</div>
-<div class="guide-h3">How Much You Need by Situation</div>
-<table class="guide-table"><thead><tr><th>Your Situation</th><th>Recommended Coverage</th></tr></thead><tbody>
-<tr><td>Stable job, dual income household</td><td>3 months of expenses</td></tr>
-<tr><td>Single income, stable employment</td><td>6 months of expenses</td></tr>
-<tr><td>Self-employed or freelancer</td><td>9–12 months of expenses</td></tr>
-<tr><td>Commission-based or variable income</td><td>12 months of expenses</td></tr>
-</tbody></table>
-<div class="guide-h3">Where to Keep It</div>
-<div class="guide-p">• ✅ <strong>High-Yield Savings Account</strong> — 4–5% APY, FDIC insured, instant access &nbsp;• ✅ <strong>Money Market Account</strong> — similar to HYSA &nbsp;• ❌ <strong>NOT</strong> stocks, crypto, or CDs — must be accessible instantly without market risk</div>
-<div class="guide-tip">💡 Start with a $1,000 mini emergency fund. Then build to 1 month, then 3 months, then your full target. Small milestones keep you motivated.</div>
-
-  </div>
-</div>
 
 <div class="two">
   <div class="card">
@@ -2771,6 +2879,28 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
     <div style="background:var(--s2);border-radius:8px;padding:12px;font-size:12px;line-height:1.7" id="ef-verdict"></div>
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Emergency Fund — Your Financial Safety Net</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">An emergency fund is cash reserved for unexpected events — job loss, medical bills, urgent repairs. It is the #1 financial priority before investing, because without it one crisis can derail years of progress.</div>
+<div class="guide-h3">How Much You Need by Situation</div>
+<table class="guide-table"><thead><tr><th>Your Situation</th><th>Recommended Coverage</th></tr></thead><tbody>
+<tr><td>Stable job, dual income household</td><td>3 months of expenses</td></tr>
+<tr><td>Single income, stable employment</td><td>6 months of expenses</td></tr>
+<tr><td>Self-employed or freelancer</td><td>9–12 months of expenses</td></tr>
+<tr><td>Commission-based or variable income</td><td>12 months of expenses</td></tr>
+</tbody></table>
+<div class="guide-h3">Where to Keep It</div>
+<div class="guide-p">• ✅ <strong>High-Yield Savings Account</strong> — 4–5% APY, FDIC insured, instant access &nbsp;• ✅ <strong>Money Market Account</strong> — similar to HYSA &nbsp;• ❌ <strong>NOT</strong> stocks, crypto, or CDs — must be accessible instantly without market risk</div>
+<div class="guide-tip">💡 Start with a $1,000 mini emergency fund. Then build to 1 month, then 3 months, then your full target. Small milestones keep you motivated.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2819,29 +2949,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
 <div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('cashflow',null)">💵 Cash Flow</button><button class="calc-link-btn" onclick="go('emergencyfund',null)">🛡️ Emergency Fund</button><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button><button class="calc-link-btn" onclick="go('savingsgoal',null)">🎯 Savings Goal</button></div>
 
-<div class="calc-guide">
-  <div class="guide-toggle" onclick="toggleGuide(this)">
-    <div class="guide-toggle-title">📖 Financial Health Score — What It Measures</div>
-    <span class="guide-toggle-icon">▼</span>
-  </div>
-  <div class="guide-body">
-
-<div class="guide-p">Your Financial Health Score is a composite rating across 6 key dimensions of personal finance. It gives you a single number to track progress over time — like a credit score, but for your overall financial fitness.</div>
-<div class="guide-h3">Score Components & Weights</div>
-<table class="guide-table"><thead><tr><th>Component</th><th>Weight</th><th>What Earns 100/100</th></tr></thead><tbody>
-<tr><td>Savings Rate</td><td>25%</td><td>Saving 20%+ of gross income monthly</td></tr>
-<tr><td>Debt-to-Income Ratio</td><td>20%</td><td>Debt payments below 15% of income</td></tr>
-<tr><td>Emergency Fund</td><td>20%</td><td>6+ months of expenses covered</td></tr>
-<tr><td>Retirement Savings Rate</td><td>15%</td><td>Contributing 10%+ of income to retirement</td></tr>
-<tr><td>Net Worth vs Debt</td><td>10%</td><td>Total debt below 30% of net worth</td></tr>
-<tr><td>Insurance Coverage</td><td>10%</td><td>Both health and life insurance in place</td></tr>
-</tbody></table>
-<div class="guide-h3">Score Grade Scale</div>
-<div class="guide-p">• 85–100 → A+ Excellent &nbsp;• 75–84 → A Very Good &nbsp;• 65–74 → B Good &nbsp;• 50–64 → C Fair &nbsp;• 35–49 → D Poor &nbsp;• 0–34 → F Critical</div>
-<div class="guide-tip">💡 Recalculate every 3–6 months. Focus on the highest-weighted components first (savings rate and DTI) for the biggest score improvement.</div>
-
-  </div>
-</div>
 
 <div style="margin-bottom:1rem"><div style="font-size:16px;font-weight:500;margin-bottom:4px">Financial Health Score</div><div style="font-size:12px;color:var(--m)">Answer 8 key questions to get your personal finance score out of 100</div></div>
 <div class="two-eq" style="margin-bottom:16px">
@@ -2901,6 +3008,30 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem">Recommendations</div>
     <div id="hs-tips"></div>
   </div>
+<div class="calc-guide">
+  <div class="guide-toggle" onclick="toggleGuide(this)">
+    <div class="guide-toggle-title">📖 Financial Health Score — What It Measures</div>
+    <span class="guide-toggle-icon">▼</span>
+  </div>
+  <div class="guide-body">
+
+<div class="guide-p">Your Financial Health Score is a composite rating across 6 key dimensions of personal finance. It gives you a single number to track progress over time — like a credit score, but for your overall financial fitness.</div>
+<div class="guide-h3">Score Components & Weights</div>
+<table class="guide-table"><thead><tr><th>Component</th><th>Weight</th><th>What Earns 100/100</th></tr></thead><tbody>
+<tr><td>Savings Rate</td><td>25%</td><td>Saving 20%+ of gross income monthly</td></tr>
+<tr><td>Debt-to-Income Ratio</td><td>20%</td><td>Debt payments below 15% of income</td></tr>
+<tr><td>Emergency Fund</td><td>20%</td><td>6+ months of expenses covered</td></tr>
+<tr><td>Retirement Savings Rate</td><td>15%</td><td>Contributing 10%+ of income to retirement</td></tr>
+<tr><td>Net Worth vs Debt</td><td>10%</td><td>Total debt below 30% of net worth</td></tr>
+<tr><td>Insurance Coverage</td><td>10%</td><td>Both health and life insurance in place</td></tr>
+</tbody></table>
+<div class="guide-h3">Score Grade Scale</div>
+<div class="guide-p">• 85–100 → A+ Excellent &nbsp;• 75–84 → A Very Good &nbsp;• 65–74 → B Good &nbsp;• 50–64 → C Fair &nbsp;• 35–49 → D Poor &nbsp;• 0–34 → F Critical</div>
+<div class="guide-tip">💡 Recalculate every 3–6 months. Focus on the highest-weighted components first (savings rate and DTI) for the biggest score improvement.</div>
+
+  </div>
+</div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -2950,6 +3081,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <div class="card">
     <div class="card-title">Currency Converter</div>
 
+
+    <div class="g2" style="margin-bottom:1rem">
+      <div class="field"><label>Amount</label><input type="number" id="cu-amt" value="1000" oninput="cCurrency()"></div>
+      <div></div>
+      <div class="field"><label>From</label><select id="cu-from" onchange="cCurrency()"></select></div>
+      <div class="field"><label>To</label><select id="cu-to" onchange="cCurrency()"></select></div>
+    </div>
+    <div style="background:var(--s2);border-radius:8px;padding:1.25rem;text-align:center;margin-bottom:1rem">
+      <div style="font-size:12px;color:var(--m);margin-bottom:6px" id="cu-lbl">—</div>
+      <div style="font-size:30px;font-family:var(--mo);font-weight:600;color:var(--a)" id="cu-res">—</div>
+    </div>
+    <div id="cu-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+    <p style="font-size:11px;color:var(--m);margin-top:1rem">⚠ Rates are approximate — verify with your bank or broker.</p>
+  </div>
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 Currency Converter — Getting the Best Rate</div>
@@ -2970,19 +3115,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
   </div>
 </div>
-    <div class="g2" style="margin-bottom:1rem">
-      <div class="field"><label>Amount</label><input type="number" id="cu-amt" value="1000" oninput="cCurrency()"></div>
-      <div></div>
-      <div class="field"><label>From</label><select id="cu-from" onchange="cCurrency()"></select></div>
-      <div class="field"><label>To</label><select id="cu-to" onchange="cCurrency()"></select></div>
-    </div>
-    <div style="background:var(--s2);border-radius:8px;padding:1.25rem;text-align:center;margin-bottom:1rem">
-      <div style="font-size:12px;color:var(--m);margin-bottom:6px" id="cu-lbl">—</div>
-      <div style="font-size:30px;font-family:var(--mo);font-weight:600;color:var(--a)" id="cu-res">—</div>
-    </div>
-    <div id="cu-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
-    <p style="font-size:11px;color:var(--m);margin-top:1rem">⚠ Rates are approximate — verify with your bank or broker.</p>
-  </div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -3032,6 +3165,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <div class="card">
     <div class="card-title">Scientific Calculator</div>
 
+
+    <div class="sci-disp"><div class="sci-expr" id="sc-expr"></div><div class="sci-num" id="sc-disp">0</div></div>
+    <div class="sci-grid" id="sc-grid"></div>
+  </div>
 <div class="calc-guide">
   <div class="guide-toggle" onclick="toggleGuide(this)">
     <div class="guide-toggle-title">📖 Scientific Calculator — Function Reference</div>
@@ -3058,9 +3195,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
   </div>
 </div>
-    <div class="sci-disp"><div class="sci-expr" id="sc-expr"></div><div class="sci-num" id="sc-disp">0</div></div>
-    <div class="sci-grid" id="sc-grid"></div>
-  </div>
+
 <div class="faq-section">
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
@@ -3166,6 +3301,7 @@ const SEO_META = {
   equity:      {title:'Equity Dilution Calculator | FinCalc Pro', desc:'Model startup equity dilution across funding rounds. Free cap table and dilution calculator for founders and investors.'},
   revenue:     {title:'Revenue Forecast Calculator | FinCalc Pro', desc:'Forecast SaaS revenue with bear, base, and bull growth scenarios. Free revenue forecasting tool with ARR and LTV metrics.'},
   loan:        {title:'Loan & EMI Calculator | FinCalc Pro', desc:'Calculate your loan EMI instantly with full amortization schedule. Free EMI calculator for personal, auto, and business loans.'},
+  prepay:      {title:'Loan Prepayment Calculator | FinCalc Pro', desc:'See how much time and interest you save by prepaying your loan with extra monthly payments or a lump sum. Free loan prepayment calculator.'},
   invest:      {title:'SIP & Investment Calculator | FinCalc Pro', desc:'Calculate SIP returns with monthly contributions and compounding. Free systematic investment plan (SIP) calculator.'},
   tax:         {title:'US Federal Tax Estimator | FinCalc Pro', desc:'Estimate your US federal income tax with marginal and effective tax rates. Free tax calculator (US federal only).'},
   mortgage:    {title:'Mortgage Calculator | FinCalc Pro', desc:'Calculate your monthly mortgage payment, total interest, and amortization schedule. Free mortgage calculator with PMI support.'},
@@ -3275,6 +3411,7 @@ function drawBars(id,labels,vals,colors,H_=130){
 const SECTIONS=[
   {title:'💰 Personal Finance',badge:false,items:[
     {id:'loan',icon:'🏦',name:'Loan / EMI',desc:'Monthly EMI, total interest & cost of credit'},
+    {id:'prepay',icon:'⏩',name:'Loan Prepayment',desc:'Extra payments & lump sums — time and interest saved'},
     {id:'tax',icon:'🧾',name:'Tax Estimator',desc:'US federal tax brackets, effective rate & take-home pay'},
     {id:'mortgage',icon:'🏠',name:'Mortgage',desc:'Home loan with property tax & insurance breakdown'},
     {id:'mortcomp',icon:'⚖️',name:'Mortgage Comparison',desc:'3 mortgage options side by side with winner highlight'},
@@ -3585,6 +3722,64 @@ function cLoan(){
   gel('l-emi').textContent=f$(emi);gel('l-int').textContent=f$(int);gel('l-tot').textContent=f$(tot+pf);gel('l-pf').textContent=f$(pf);
   gel('l-pp').textContent=Math.round(P/tot*100)+'%';gel('l-ip').textContent=Math.round(int/tot*100)+'%';gel('l-coc').textContent=pct(int/P*100);
   drawDonut('l-donut',[P,int,pf],['#F0B90B','#F6465D','#6B7A8D']);
+}
+
+// ── Loan Prepayment ─────────────────────────────────────────────
+function cPrepay(){
+  const P=+gel('pp-amt').value||0,r=(+gel('pp-rate').value||0)/12/100,n=+gel('pp-n').value||1;
+  const extra=+gel('pp-extra').value||0,lump=+gel('pp-lump').value||0,lumpMo=+gel('pp-lumpmo').value||0;
+  const emi=r?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n;
+  const oldInt=emi*n-P;
+
+  // Simulate month-by-month amortization WITH extra payments + lump sum
+  let bal=P,month=0,newInt=0;
+  const yearlyBal=[bal],yearlyBalOrig=[P];
+  let origBal=P;
+  const maxMonths=n*2+12; // safety cap
+  while(bal>0.01&&month<maxMonths){
+    month++;
+    const interestPortion=bal*r;
+    let principalPortion=emi-interestPortion;
+    let pay=principalPortion+extra;
+    if(month===lumpMo)pay+=lump;
+    if(pay>bal)pay=bal;
+    bal-=pay;
+    newInt+=interestPortion;
+    if(bal<0)bal=0;
+    if(month%12===0||bal<=0.01)yearlyBal.push(Math.max(0,bal));
+  }
+  const newTerm=month;
+  // Original (no prepayment) yearly balances for chart comparison, capped at same chart length
+  origBal=P;
+  for(let m=1;m<=n;m++){
+    const ip=origBal*r,pp=emi-ip;
+    origBal-=pp;if(origBal<0)origBal=0;
+    if(m%12===0||m===n)yearlyBalOrig.push(Math.max(0,origBal));
+  }
+
+  const timeSaved=n-newTerm,intSaved=oldInt-newInt,savedPct=oldInt?intSaved/oldInt*100:0;
+
+  gel('pp-newterm').textContent=newTerm+' mo';
+  gel('pp-timesaved').textContent=Math.max(0,timeSaved)+' mo';
+  gel('pp-intsaved').textContent=f$(Math.max(0,intSaved));
+  gel('pp-newint').textContent=f$(newInt);
+  gel('pp-emi').textContent=f$(emi);
+  gel('pp-oldterm').textContent=n+' mo';
+  gel('pp-oldint').textContent=f$(oldInt);
+  gel('pp-savedpct').textContent=pct(Math.max(0,savedPct));
+
+  drawLine('pp-chart',[{data:yearlyBalOrig,color:'#F6465D',fill:false,w:2,dash:[5,4]},{data:yearlyBal,color:'#0ECB81',fill:true,w:2.5}],175);
+
+  // Year-by-year comparison table
+  const years=Math.ceil(Math.max(n,newTerm)/12);
+  let rows='<thead><tr><th style="text-align:left;padding:6px 8px;font-size:11px;color:var(--m);border-bottom:1px solid var(--bd)">Year</th><th style="padding:6px 8px;font-size:11px;border-bottom:1px solid var(--bd);color:var(--r)">Balance (Original)</th><th style="padding:6px 8px;font-size:11px;border-bottom:1px solid var(--bd);color:var(--g)">Balance (Prepaying)</th></tr></thead><tbody>';
+  for(let y=0;y<=years;y++){
+    const ob=y<yearlyBalOrig.length?yearlyBalOrig[y]:0;
+    const nb=y<yearlyBal.length?yearlyBal[y]:0;
+    rows+=`<tr><td style="text-align:left;font-size:12px;color:var(--m);border-bottom:1px solid var(--bd);padding:7px 8px">Year ${y}</td><td style="font-size:12px;font-family:var(--mo);border-bottom:1px solid var(--bd);padding:7px 8px">${f$(ob)}</td><td style="font-size:12px;font-family:var(--mo);border-bottom:1px solid var(--bd);padding:7px 8px;color:var(--g);font-weight:600">${f$(nb)}</td></tr>`;
+  }
+  rows+='</tbody>';
+  gel('pp-table').innerHTML=rows;
 }
 
 // ── SIP ─────────────────────────────────────────────────────────
@@ -4074,7 +4269,7 @@ buildDir();buildSci();buildCurrency();buildMortComp();
 renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();renderDC2();
 calcCAGR();calcDRIP();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();calcRevenue();
-cLoan();cSip();cTax();cMortgage();cSavings();cStock();cRetire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
+cLoan();cPrepay();cSip();cTax();cMortgage();cSavings();cStock();cRetire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
 
 // Deep-link support: opening yourdomain.com/#loan lands directly on that
 // calculator (also keeps canonical/hreflang/title tags correct on load).

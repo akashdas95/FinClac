@@ -145,7 +145,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
+:root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
 .topbar{background:var(--s);border-bottom:1px solid var(--bd);padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:200}
 .logo{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:600;color:var(--t);text-decoration:none}
@@ -251,38 +251,41 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 
 /* Calculator Guide Articles */
-.calc-guide{margin-top:2rem;border-top:1px solid var(--bd);padding-top:1.5rem}
+.calc-guide{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
 .guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0}
-.guide-toggle-title{font-size:13px;font-weight:600;color:var(--t);display:flex;align-items:center;gap:8px}
-.guide-body{display:block;padding:1.25rem 0 0}
-.guide-h2{font-size:16px;font-weight:600;color:var(--t);margin:1.25rem 0 .6rem}
-.guide-h3{font-size:13px;font-weight:600;color:var(--a);margin:.9rem 0 .4rem;text-transform:uppercase;letter-spacing:.4px}
-.guide-p{font-size:13px;color:var(--m);line-height:1.8;margin-bottom:.75rem}
-.guide-formula{background:var(--s2);border-left:3px solid var(--a);border-radius:0 6px 6px 0;padding:10px 14px;font-family:var(--mo);font-size:13px;color:var(--a);margin:.75rem 0;overflow-x:auto}
-.guide-tip{background:rgba(14,203,129,.08);border:1px solid rgba(14,203,129,.2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--g);margin:.75rem 0;line-height:1.7}
-.guide-warn{background:rgba(246,70,93,.08);border:1px solid rgba(246,70,93,.2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--r);margin:.75rem 0;line-height:1.7}
-.guide-table{width:100%;border-collapse:collapse;font-size:12px;margin:.75rem 0}
-.guide-table th{background:var(--s2);color:var(--m);padding:7px 10px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--bd)}
-.guide-table td{padding:7px 10px;border-bottom:1px solid var(--bd);color:var(--t);font-family:var(--mo)}
+.guide-toggle-title{font-size:14px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:8px;letter-spacing:.1px}
+.guide-body{display:block;padding:1.5rem 0 0;max-width:980px}
+.guide-h2{font-size:22px;font-weight:700;color:var(--t);margin:1.75rem 0 .85rem;letter-spacing:-.2px;line-height:1.3}
+.guide-h2:first-child{margin-top:0}
+.guide-h3{font-size:16px;font-weight:700;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.1px;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
+.guide-h3:first-child{margin-top:0;padding-top:0;border-top:none}
+.guide-p{font-size:14.5px;color:var(--tb);line-height:1.75;margin-bottom:1.1rem}
+.guide-p strong{color:var(--t);font-weight:600}
+.guide-formula{background:var(--s2);border-left:3px solid var(--a);border-radius:0 8px 8px 0;padding:14px 16px;font-family:var(--mo);font-size:13.5px;line-height:1.7;color:var(--a);margin:1.1rem 0;overflow-x:auto}
+.guide-tip{background:rgba(14,203,129,.08);border:1px solid rgba(14,203,129,.2);border-radius:8px;padding:13px 16px;font-size:13px;color:var(--g);margin:1.1rem 0;line-height:1.7;font-weight:500}
+.guide-warn{background:rgba(246,70,93,.08);border:1px solid rgba(246,70,93,.2);border-radius:8px;padding:13px 16px;font-size:13px;color:var(--r);margin:1.1rem 0;line-height:1.7;font-weight:500}
+.guide-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:1.25rem 0}
+.guide-table th{background:var(--s2);color:var(--m);padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--bd)}
+.guide-table td{padding:9px 12px;border-bottom:1px solid var(--bd);color:var(--t);font-family:var(--mo)}
 .guide-table tr:last-child td{border:none}
-.guide-steps{counter-reset:step;margin:.75rem 0}
-.guide-step{display:flex;gap:12px;margin-bottom:10px;font-size:13px;color:var(--m);line-height:1.7}
-.guide-step-num{width:22px;height:22px;border-radius:50%;background:var(--g);color:#000;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.guide-steps{counter-reset:step;margin:1.25rem 0}
+.guide-step{display:flex;gap:14px;margin-bottom:14px;font-size:14px;color:var(--tb);line-height:1.7}
+.guide-step-num{width:24px;height:24px;border-radius:50%;background:var(--g);color:#000;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 
 
 /* FAQ Section */
-.faq-section{margin-top:2rem;border-top:1px solid var(--bd);padding-top:1.5rem}
-.faq-section-title{font-size:13px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.faq-section{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
+.faq-section-title{font-size:13px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1.1rem;display:flex;align-items:center;gap:8px}
 .faq-section-title::after{content:'';flex:1;height:1px;background:var(--bd)}
-.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:8px;overflow:hidden;transition:border-color .2s}
+.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
 .faq-item:hover{border-color:var(--g)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t);user-select:none;gap:12px}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-size:14px;font-weight:600;color:var(--t);user-select:none;gap:12px;line-height:1.45}
 .faq-q .faq-icon{font-size:16px;color:var(--a);transition:transform .3s;flex-shrink:0}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a{display:none;padding:0 14px 14px;font-size:12px;color:var(--m);line-height:1.8;border-top:1px solid var(--bd)}
-.faq-item.open .faq-a{display:block}
-.faq-a strong{color:var(--t)}
-.faq-a .faq-formula{background:var(--s2);border-left:3px solid var(--a);border-radius:0 6px 6px 0;padding:8px 12px;font-family:var(--mo);font-size:12px;color:var(--a);margin:.5rem 0;display:block}
+.faq-a{display:none;padding:2px 16px 16px;font-size:13.5px;color:var(--tb);line-height:1.75;border-top:1px solid var(--bd)}
+.faq-item.open .faq-a{display:block;padding-top:12px}
+.faq-a strong{color:var(--t);font-weight:600}
+.faq-a .faq-formula{background:var(--s2);border-left:3px solid var(--a);border-radius:0 6px 6px 0;padding:10px 13px;font-family:var(--mo);font-size:12.5px;color:var(--a);margin:.6rem 0;display:block;line-height:1.6}
 
 </style>
 </head>

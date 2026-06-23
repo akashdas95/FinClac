@@ -76,6 +76,7 @@
       "Savings Estimator",
       "Provident Fund Calculator",
       "Retirement Planner",
+      "FIRE Calculator",
       "Debt Snowball vs Avalanche",
       "Debt Payoff Planner",
       "Rental Yield Calculator",
@@ -2910,7 +2911,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <!-- RETIREMENT -->
 <div id="retirement" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
-<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('savings',null)">🏛️ Savings</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('fire',null)">🔥 FIRE Calculator</button><button class="calc-link-btn" onclick="go('invest',null)">📈 Investment</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('savings',null)">🏛️ Savings</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
 
 
 <div class="two">
@@ -3018,6 +3019,146 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <span class="faq-icon">+</span>
   </div>
   <div class="faq-a">As early as possible. A 25-year-old investing $200/month at 8% will have far more at 65 than a 35-year-old investing $400/month — even investing less total money. <strong>Time in market is the single biggest factor in retirement wealth.</strong></div>
+</div>
+</div>
+
+
+</div>
+
+<!-- FIRE -->
+<div id="fire" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button><button class="calc-link-btn" onclick="go('savingsgoal',null)">🎯 Savings Goal</button><button class="calc-link-btn" onclick="go('invest',null)">📈 SIP / Investment</button><button class="calc-link-btn" onclick="go('healthscore',null)">💯 Health Score</button></div>
+
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">FIRE Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Annual Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="fi-income" value="90000" oninput="cFire()"></div></div>
+      <div class="field"><label>Annual Expenses ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="fi-expenses" value="54000" oninput="cFire()"></div></div>
+      <div class="field"><label>Current Net Worth ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="fi-networth" value="60000" oninput="cFire()"></div></div>
+      <div class="field"><label>Expected Annual Return (%)</label><input type="number" id="fi-return" value="7" step="0.5" oninput="cFire()"></div>
+      <div class="field"><label>Inflation Rate (%)</label><input type="number" id="fi-inflation" value="3" step="0.5" oninput="cFire()"></div>
+      <div class="field"><label>Safe Withdrawal Rate (%)</label><input type="number" id="fi-swr" value="4" step="0.25" oninput="cFire()"></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Savings Rate</div><div class="val" style="color:var(--g)" id="fi-rate">0%</div></div>
+      <div class="sbox"><div class="lbl">FI Number (25x expenses)</div><div class="val" style="color:var(--a)" id="fi-number">$0</div></div>
+      <div class="sbox"><div class="lbl">Years to FI</div><div class="val" style="color:var(--b)" id="fi-years">0</div></div>
+      <div class="sbox"><div class="lbl">FI Date</div><div class="val" id="fi-date">—</div></div>
+    </div>
+    <div style="margin-top:.25rem">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--m);margin-bottom:4px"><span>Progress to FI</span><span id="fi-pct">0%</span></div>
+      <div class="pbar-bg" style="height:10px"><div class="pbar-fill" id="fi-pbar" style="width:0%;background:var(--g)"></div></div>
+    </div>
+    <div class="insight-box" id="fi-insights"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Net Worth Growth to FI</div>
+    <canvas id="fi-chart" width="300" height="160" style="width:100%;margin:1rem 0"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin-bottom:1rem"><span style="color:var(--g)">━ Net Worth</span><span style="color:var(--a)">╌ FI Target</span></div>
+    <div class="card-title" style="margin-top:.5rem">FIRE Variants</div>
+    <div style="overflow-x:auto"><table class="tbl" id="fi-variants"></table></div>
+    <div style="font-size:10.5px;color:var(--m);margin-top:8px;line-height:1.6" id="fi-variants-note" data-tpl="Lean = 67% of expenses · Fat = 2x expenses · Barista = expenses minus ~$BARISTA/yr part-time income · *Coast FIRE shows the amount needed today to reach full FI in 20 years with no further contributions.">Lean = 67% of expenses · Fat = 2x expenses · Barista = expenses minus part-time income · *Coast FIRE shows the amount needed today to reach full FI in 20 years with no further contributions.</div>
+  </div>
+</div>
+
+<div class="calc-guide">
+  <div class="guide-toggle">
+    <div class="guide-toggle-title">📖 FIRE — Financial Independence, Retire Early</div>
+  </div>
+  <div class="guide-body">
+<div class="guide-p">FIRE — Financial Independence, Retire Early — is a movement built on a deceptively simple idea: if you save and invest an unusually large share of your income, you can accumulate enough wealth to cover your living expenses indefinitely, decades before traditional retirement age. The math behind it isn't exotic — it's the same compound growth and safe withdrawal rate logic used in conventional retirement planning — but FIRE pushes the savings rate variable much harder than most people consider, and that single lever changes the timeline dramatically.</div>
+
+<div class="guide-h3">The FI Number: 25 Times Your Annual Expenses</div>
+<div class="guide-formula">FI Number = Annual Expenses ÷ Safe Withdrawal Rate = Annual Expenses × 25 (at a 4% SWR)</div>
+<div class="guide-p">This is the same 4% rule used in traditional retirement planning (see our Retirement Planner for the full background on the Trinity Study this is based on). If you spend $50,000 per year, a portfolio of $1.25 million can theoretically sustain that spending indefinitely, withdrawing 4% in the first year and adjusting for inflation afterward. The entire FIRE movement is essentially built on reaching this number as fast as possible — and the fastest lever for that isn't a higher salary or better investment returns, it's a higher savings rate.</div>
+
+<div class="guide-h3">Why Savings Rate Dominates the Timeline</div>
+<div class="guide-p">A counterintuitive insight from FIRE math: your savings rate alone — independent of your income level — determines roughly how many years until you reach financial independence, assuming a consistent real investment return. This is because a higher savings rate does two things simultaneously: it adds more to your portfolio each year, <em>and</em> it lowers your annual expenses, which lowers your FI number (since FI number is 25x expenses, not 25x income).</div>
+<table class="guide-table"><thead><tr><th>Savings Rate</th><th>Approx. Years to FI (5% real return)</th></tr></thead><tbody>
+<tr><td>10%</td><td>~51 years</td></tr>
+<tr><td>25%</td><td>~32 years</td></tr>
+<tr><td>50%</td><td>~17 years</td></tr>
+<tr><td>65%</td><td>~11 years</td></tr>
+<tr><td>75%</td><td>~8 years</td></tr>
+<tr><td>90%</td><td>~3 years</td></tr>
+</tbody></table>
+<div class="guide-p">Notice that doubling your savings rate from 25% to 50% doesn't just modestly speed things up — it nearly cuts your timeline in half, from 32 years to 17. This is why FIRE adherents focus so intensely on the savings rate percentage rather than income alone: someone earning $200,000 and saving 10% is on a far longer path than someone earning $60,000 and saving 50%.</div>
+
+<div class="guide-h3">The Five Flavors of FIRE</div>
+<table class="guide-table"><thead><tr><th>Variant</th><th>Core Idea</th><th>Typical FI Number*</th></tr></thead><tbody>
+<tr><td><strong>Lean FIRE</strong></td><td>Minimalist spending, smaller FI number, often the fastest path</td><td>~$1M or less</td></tr>
+<tr><td><strong>Regular FIRE</strong></td><td>Maintains a comparable, moderate standard of living</td><td>~$1.5M</td></tr>
+<tr><td><strong>Fat FIRE</strong></td><td>Comfortable or upscale lifestyle maintained after FI</td><td>~$3M+</td></tr>
+<tr><td><strong>Coast FIRE</strong></td><td>Save aggressively early, then "coast" — stop contributing and let compounding alone reach full FI by a target age</td><td>Varies — a fraction of the full number, reached early</td></tr>
+<tr><td><strong>Barista FIRE</strong></td><td>Partial financial independence — a smaller portfolio covers most expenses, supplemented by part-time or low-stress work</td><td>Lower than full FI number, reduced by side income</td></tr>
+</tbody></table>
+<div class="guide-p">*Figures assume roughly $40K-$120K in annual expenses at a 4% withdrawal rate; your own numbers will scale with your actual spending.</div>
+
+<div class="guide-h3">Coast FIRE: A Different Kind of Milestone</div>
+<div class="guide-formula">Coast FIRE Number = Full FI Number ÷ (1 + return)^(years until target retirement age)</div>
+<div class="guide-p">Coast FIRE asks a different question than the other variants: "how much do I need <em>right now</em> such that, even if I never save another dollar, compound growth alone carries this amount to my full FI number by the time I want to retire?" Reaching your Coast FIRE number is a meaningful psychological and practical milestone — from that point forward, you could theoretically work purely to cover current living expenses (no more retirement saving required) and still retire on schedule.</div>
+
+<div class="guide-h3">Barista FIRE: Bridging the Gap with Part-Time Work</div>
+<div class="guide-formula">Barista FIRE Number = (Annual Expenses − Part-Time Income) ÷ Safe Withdrawal Rate</div>
+<div class="guide-p">Named after the idea of working a part-time job (often one with benefits, like at a coffee shop) to cover a portion of living costs, Barista FIRE meaningfully lowers the portfolio size needed since the part-time income offsets some of the annual withdrawal need. Someone with $60,000 in annual expenses who can comfortably earn $20,000 from part-time work only needs a portfolio covering the remaining $40,000 — a $1,000,000 number instead of $1,500,000.</div>
+
+<div class="guide-h3">The Single Biggest Risk: Sequence of Returns</div>
+<div class="guide-p">Because FIRE retirees typically have a much longer post-retirement horizon than a traditional 30-year retirement window — often 40, 50, or more years — they're more exposed to sequence-of-returns risk: a poor run of market returns in the first several years after retiring can do outsized damage, since withdrawals are being taken from a depressed portfolio that has decades left to potentially recover. Many FIRE planners build in a margin of safety — retiring with somewhat more than the bare 25x number, or maintaining some flexibility to earn supplemental income if markets turn down early.</div>
+<div class="guide-warn">⚠ The 4% rule was originally validated against a 30-year retirement horizon. Several research updates since (including from the original Trinity Study authors) suggest a lower withdrawal rate — often cited in the 3-3.5% range — is more appropriate for retirements expected to last 40+ years, which is common for early retirees in their 30s and 40s.</div>
+
+<div class="guide-h3">What This Calculator Does — and Doesn't — Account For</div>
+<div class="guide-p">This tool projects your path to FI based on a consistent savings rate, a steady average investment return, and a fixed safe withdrawal rate. It does not model market volatility year to year, changes in income or expenses over time, healthcare cost changes, or one-time windfalls or setbacks. Treat the output as a planning estimate and directional guide, not a guarantee — and revisit the numbers periodically as your actual income, spending, and portfolio evolve.</div>
+<div class="guide-tip">💡 Small, sustained increases in savings rate compound into outsized reductions in your FI timeline. Before assuming you need a much higher income to reach FI sooner, try modeling what a 5-10 percentage point increase in savings rate alone would do to your years-to-FI number.</div>
+
+  </div>
+</div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What does FIRE stand for?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">FIRE stands for <strong>Financial Independence, Retire Early</strong> — a movement and personal finance strategy centered on saving and investing an unusually high percentage of income to accumulate enough wealth to cover living expenses well before traditional retirement age.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How is my FI number calculated?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Your FI number is your annual expenses divided by your safe withdrawal rate, which is the same as multiplying expenses by 25 at the commonly used 4% rate. <span class="faq-formula">FI Number = Annual Expenses ÷ SWR%</span> Spending $50,000/year at a 4% SWR means a $1,250,000 FI number.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What's the difference between Lean, Regular, and Fat FIRE?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">They differ mainly in lifestyle and spending level after reaching financial independence. <strong>Lean FIRE</strong> targets a minimalist budget and the smallest FI number; <strong>Regular FIRE</strong> maintains a comparable standard of living; <strong>Fat FIRE</strong> targets a more comfortable or upscale lifestyle and requires a much larger portfolio.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is Coast FIRE?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Coast FIRE is the amount you need invested today such that, with zero further contributions, compound growth alone would carry it to your full FI number by your target retirement age. Reaching it means you could stop saving for retirement entirely and still be on track, while continuing to work just to cover current expenses.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why does savings rate matter more than income?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A higher savings rate both adds more to your portfolio each year and lowers your annual expenses — which lowers your FI number, since the target is 25x expenses, not 25x income. The two effects compound together, which is why savings rate alone is a strong predictor of years to FI, regardless of how much you actually earn.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Is the 4% rule still considered safe for early retirees?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">It's debated. The original research behind the 4% rule was tested against a 30-year horizon, while many FIRE retirees face 40-50+ year horizons. Some planners suggest a more conservative 3-3.5% withdrawal rate for very long retirements, which raises the required FI number accordingly.</div>
 </div>
 </div>
 
@@ -4216,6 +4357,7 @@ const SEO_META = {
   provident:   {title:'Provident Fund (PF) Calculator | FinCalc Pro', desc:'Calculate your provident fund maturity value, interest earned, and year-by-year balance growth. Free PF calculator with step-up contributions.'},
   stock:       {title:'Stock Profit & Loss Calculator | FinCalc Pro', desc:'Calculate stock trading profit and loss including brokerage fees and break-even price. Free stock P&L calculator.'},
   retirement:  {title:'Retirement Calculator — How Much Do You Need to Retire | FinCalc Pro', desc:'Calculate your retirement corpus using the 25x rule and 4% withdrawal rate. Free retirement planning calculator.'},
+  fire:        {title:'FIRE Calculator — Financial Independence, Retire Early | FinCalc Pro', desc:'Calculate your years to financial independence, FI number, and compare Lean, Fat, Coast, and Barista FIRE. Free FIRE calculator.'},
   debt:        {title:'Debt Payoff Calculator | FinCalc Pro', desc:'Calculate how long it will take to pay off your debts and compare snowball vs avalanche strategies. Free debt payoff planner.'},
   rental:      {title:'Rental Yield Calculator | FinCalc Pro', desc:'Calculate gross and net rental yield for any property investment. Free rental yield calculator with expense breakdown.'},
   cashflow:    {title:'Cash Flow Calculator | FinCalc Pro', desc:'Analyze personal or business cash flow with inflows, outflows, and net cash position. Free cash flow analyzer.'},
@@ -4325,6 +4467,7 @@ const SECTIONS=[
     {id:'savings',icon:'🏛️',name:'Savings Estimator',desc:'See how your savings grow over time with compound interest, and how long it takes to double'},
     {id:'provident',icon:'🏦',name:'Provident Fund Calculator',desc:'Project your provident fund (EPF/PF) maturity value from your monthly contributions and interest rate'},
     {id:'retirement',icon:'👴',name:'Retirement Planner',desc:'Find out if you\'re saving enough to retire comfortably, adjusted for inflation'},
+    {id:'fire',icon:'🔥',name:'FIRE Calculator',desc:'Find out how many years until you reach financial independence based on your savings rate'},
     {id:'debtcomp',icon:'❄️',name:'Snowball vs Avalanche',desc:'Compare two popular debt payoff strategies to see which clears your debt faster and cheaper'},
     {id:'debt',icon:'💳',name:'Debt Payoff Planner',desc:'Build a custom plan to pay off your debt and see exactly how much interest you\'ll save'},
     {id:'rental',icon:'🏘️',name:'Rental Yield',desc:'Check whether a rental property\'s income justifies its price using gross and net yield'},
@@ -5129,6 +5272,75 @@ function cRetire(){
   renderInsights('rt-insights',insights);
 }
 
+// ── FIRE Calculator ────────────────────────────────────────────
+function cFire(){
+  const income=+gel('fi-income').value||0,expenses=+gel('fi-expenses').value||0,nw=+gel('fi-networth').value||0;
+  const ret=(+gel('fi-return').value||0)/100,inf=(+gel('fi-inflation').value||0)/100,swr=(+gel('fi-swr').value||4)/100;
+  const real=(1+ret)/(1+inf)-1;
+  const savings=Math.max(0,income-expenses),savingsRate=income>0?savings/income*100:0;
+  const fiNumber=swr>0?expenses/swr:Infinity;
+
+  let bal=nw,years=0;const hist=[nw];
+  while(bal<fiNumber && years<75){bal=bal*(1+real)+savings;years++;hist.push(bal);}
+  const reached=bal>=fiNumber;
+
+  gel('fi-rate').textContent=pct(savingsRate);
+  gel('fi-number').textContent=f$(fiNumber);
+  gel('fi-years').textContent=reached?years+(years===1?' yr':' yrs'):'75+ yrs';
+  const today=new Date();const fiDate=new Date(today.getFullYear()+years,today.getMonth());
+  gel('fi-date').textContent=reached?fiDate.toLocaleDateString('en-US',{month:'short',year:'numeric'}):'Beyond 75 yrs';
+  const progressPct=fiNumber>0?Math.min(100,nw/fiNumber*100):0;
+  gel('fi-pct').textContent=pct(progressPct);gel('fi-pbar').style.width=progressPct+'%';
+
+  drawLine('fi-chart',[{data:hist.slice(0,Math.min(hist.length,60)),color:'#0ECB81',fill:true},{data:hist.slice(0,Math.min(hist.length,60)).map(()=>fiNumber),color:'#F0B90B',fill:false,dash:[5,4]}],160);
+
+  // FIRE variants
+  const baristaIncome=expenses*0.33; // assume part-time covers ~1/3 of expenses by default
+  const variants=[
+    {name:'Lean FIRE',exp:expenses*0.67},
+    {name:'Regular FIRE',exp:expenses},
+    {name:'Fat FIRE',exp:expenses*2},
+    {name:'Barista FIRE',exp:Math.max(0,expenses-baristaIncome)},
+  ];
+  let vRows='<thead><tr><th style="text-align:left">Variant</th><th>FI Number</th><th>Years</th></tr></thead><tbody>';
+  variants.forEach(v=>{
+    const vTarget=swr>0?v.exp/swr:Infinity;
+    let vBal=nw,vYears=0;
+    while(vBal<vTarget && vYears<75){vBal=vBal*(1+real)+savings;vYears++;}
+    vRows+=`<tr><td style="text-align:left;font-weight:500">${v.name}</td><td style="font-family:var(--mo);color:var(--a)">${f$(vTarget)}</td><td style="font-family:var(--mo)">${vYears<75?vYears+'y':'75+'}</td></tr>`;
+  });
+  // Coast FIRE row
+  const coastYears=20;
+  const coastNumber=fiNumber/Math.pow(1+real,coastYears);
+  vRows+=`<tr><td style="text-align:left;font-weight:500">Coast FIRE*</td><td style="font-family:var(--mo);color:var(--a)">${f$(coastNumber)}</td><td style="font-family:var(--mo)">${coastYears}y</td></tr>`;
+  vRows+='</tbody>';
+  gel('fi-variants').innerHTML=vRows;
+  const noteEl=gel('fi-variants-note');
+  if(noteEl)noteEl.textContent=noteEl.dataset.tpl.replace('$BARISTA',f$(baristaIncome).replace('$',''));
+
+  const insights=[];
+  if(savingsRate<15){
+    insights.push({type:'bad',text:`Your savings rate is <strong>${pct(savingsRate)}</strong> — at this rate, reaching FI will take a very long time. Even a modest increase compounds into a much shorter timeline.`});
+  }else if(savingsRate>=50){
+    insights.push({type:'good',text:`A <strong>${pct(savingsRate)}</strong> savings rate is excellent — you're on one of the fastest realistic paths to financial independence.`});
+  }else{
+    insights.push({type:'neutral',text:`Your savings rate of <strong>${pct(savingsRate)}</strong> puts you on a <strong>${reached?years+'-year':'multi-decade'}</strong> path to FI at a ${pct(real*100)} real return.`});
+  }
+  if(reached && years>0){
+    let bal10=nw,y10=Math.max(0,years-5),savingsUp=savings*1.1;
+    let balUp=nw,yUp=0;
+    while(balUp<fiNumber && yUp<75){balUp=balUp*(1+real)+savingsUp;yUp++;}
+    const yearsSaved=years-yUp;
+    if(yearsSaved>=1)insights.push({type:'neutral',text:`Increasing your savings by just <strong>10%</strong> (roughly <strong>${f$(savings*0.1)}/yr</strong> more) would reach FI about <strong>${yearsSaved} year${yearsSaved!==1?'s':''} sooner</strong>.`});
+  }
+  if(progressPct>=100){
+    insights.push({type:'good',text:`Your current net worth already covers your FI number — you may have already reached financial independence.`});
+  }else if(progressPct>=10){
+    insights.push({type:'neutral',text:`You're <strong>${pct(progressPct)}</strong> of the way to your FI number based on current net worth alone, before counting future growth.`});
+  }
+  renderInsights('fi-insights',insights);
+}
+
 // ── Debt Payoff ──────────────────────────────────────────────────
 let debts=[{name:'Credit Card',bal:8000,rate:22,min:200},{name:'Car Loan',bal:15000,rate:7,min:300},{name:'Student Loan',bal:25000,rate:5.5,min:280}];
 function renderDebtRows(){
@@ -5584,7 +5796,7 @@ const PANEL_DISCLAIMER={
   loan:'credit',prepay:'credit',debtcomp:'credit',debt:'credit',
   tax:'tax',
   mortgage:'realestate',mortcomp:'realestate',rental:'realestate',rentalprop:'realestate',
-  savings:'investing',provident:'investing',retirement:'investing',savingsgoal:'investing',emergencyfund:'investing',healthscore:'investing',
+  savings:'investing',provident:'investing',retirement:'investing',fire:'investing',savingsgoal:'investing',emergencyfund:'investing',healthscore:'investing',
   cagr:'investing',xirr:'investing',drip:'investing',etf:'investing',allocation:'investing',dcf:'investing',invest:'investing',stock:'investing',
   burnrate:'business',pricing:'business',equity:'business',revenue:'business',breakeven:'business',cashflow:'business',
   currency:'currency'
@@ -5614,7 +5826,7 @@ buildDir();buildSci();buildCurrency();buildMortComp();
 renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();renderDC2();
 calcCAGR();calcDRIP();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();calcRevenue();
-cLoan();cPrepay();cSip();cTax();cMortgage();cSavings();cProvident();cAllocRecommend();cStock();cRetire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
+cLoan();cPrepay();cSip();cTax();cMortgage();cSavings();cProvident();cAllocRecommend();cStock();cRetire();cFire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
 injectDisclaimers();
 
 // Deep-link support: opening yourdomain.com/#loan lands directly on that

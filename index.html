@@ -61,6 +61,7 @@
       "Asset Allocation Calculator",
       "Stock DCF Valuation",
       "SIP Investment Calculator",
+      "SWP Calculator",
       "Stock P&L Calculator",
       "Burn Rate Calculator",
       "Pricing Calculator",
@@ -70,8 +71,10 @@
       "Cash Flow Analyzer",
       "Loan EMI Calculator",
       "Loan Prepayment Calculator",
+      "Loan Comparison Calculator",
       "US Federal Tax Estimator",
       "Mortgage Calculator",
+      "Rent vs Buy Calculator",
       "Mortgage Comparison Tool",
       "Savings Estimator",
       "Provident Fund Calculator",
@@ -1857,7 +1860,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <!-- LOAN -->
 <div id="loan" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
-<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('prepay',null)">⏩ Prepayment</button><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mortgage Compare</button><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button></div>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('prepay',null)">⏩ Prepayment</button><button class="calc-link-btn" onclick="go('loancomp',null)">📋 Loan Comparison</button><button class="calc-link-btn" onclick="go('debt',null)">💳 Debt Payoff</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mortgage Compare</button><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button></div>
 
 
 <div class="two">
@@ -2108,10 +2111,103 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 </div>
 
+<!-- LOAN COMPARISON -->
+<div id="loancomp" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button><button class="calc-link-btn" onclick="go('prepay',null)">⏩ Loan Prepayment</button><button class="calc-link-btn" onclick="go('debtcomp',null)">❄️ Snowball vs Avalanche</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mortgage Comparison</button></div>
+
+
+<div class="g3 mb16" id="lc-cols"></div>
+<div class="card"><div class="card-title">Side-by-Side Comparison</div><div style="overflow-x:auto"><table class="tbl" id="lc-table" style="width:100%"></table></div><canvas id="lc-chart" width="900" height="140" style="width:100%;margin-top:1rem"></canvas><div class="insight-box" id="lc-insights"></div></div>
+
+<div class="calc-guide">
+  <div class="guide-toggle">
+    <div class="guide-toggle-title">📖 Loan Comparison — Choosing the Right Offer</div>
+  </div>
+  <div class="guide-body">
+<div class="guide-p">Comparing loan offers side by side reveals something the headline interest rate alone never tells you: the lowest rate isn't always the cheapest loan, and the lowest monthly payment isn't always the best deal. Amount borrowed, interest rate, tenure, and processing fees all interact, and the only reliable way to see which offer actually costs less is to run the full numbers on each one rather than comparing rates in isolation.</div>
+
+<div class="guide-h3">Why Tenure Changes the Comparison So Much</div>
+<div class="guide-p">A shorter tenure raises your monthly payment but shrinks the total interest paid, since the principal is exposed to interest charges for fewer months. A longer tenure does the opposite — smaller monthly payment, but more total interest over the life of the loan. This trade-off means a loan offer with a <em>higher</em> rate but a <em>shorter</em> term can sometimes cost less overall than a lower-rate offer stretched over more years.</div>
+<div class="guide-formula">EMI = P × r × (1 + r)ⁿ / ((1 + r)ⁿ − 1)</div>
+
+<div class="guide-h3">Worked Example: Three Offers for the Same Purchase</div>
+<div class="guide-p">Consider three competing offers on a roughly $25,000 loan:</div>
+<table class="guide-table"><thead><tr><th>Offer</th><th>Amount</th><th>Rate</th><th>Term</th><th>Monthly EMI</th><th>Total Cost</th></tr></thead><tbody>
+<tr><td>A</td><td>$25,000</td><td>6.5%</td><td>5 years</td><td>$489</td><td>$29,599</td></tr>
+<tr><td>B</td><td>$25,000</td><td>7.2%</td><td>4 years</td><td>$601</td><td>$28,847</td></tr>
+<tr><td>C</td><td>$24,000</td><td>5.9%</td><td>6 years</td><td>$397</td><td>$29,036</td></tr>
+</tbody></table>
+<div class="guide-p">Offer B carries the <em>highest</em> stated interest rate of the three, yet it's the <strong>cheapest overall</strong> once the shorter term is factored in — its higher monthly payment buys a faster payoff and less total interest. Offer A has a lower rate than B but loses to it on total cost simply because it runs an extra year. This is exactly why total cost, not headline rate, should be the deciding number whenever you can comfortably afford the higher payment.</div>
+
+<div class="guide-h3">Processing Fees: The Cost Hiding Outside the Interest Rate</div>
+<div class="guide-p">Many lenders charge an upfront processing or origination fee — commonly 0.5% to 3% of the loan amount — that doesn't show up in the advertised interest rate at all. A loan with a slightly higher rate but no fee can easily beat a lower-rate loan that charges 2-3% upfront, especially on shorter-term loans where the fee makes up a larger share of the total cost relative to the interest accrued.</div>
+<table class="guide-table"><thead><tr><th>Processing Fee</th><th>Cost on a $25,000 Loan</th></tr></thead><tbody>
+<tr><td>0%</td><td>$0</td></tr>
+<tr><td>1%</td><td>$250</td></tr>
+<tr><td>2.5%</td><td>$625</td></tr>
+</tbody></table>
+
+<div class="guide-h3">Monthly Payment vs Total Cost: Two Different Questions</div>
+<div class="guide-p">These two numbers answer different questions, and conflating them is one of the most common loan-shopping mistakes. Monthly payment answers "can I afford this each month, given my current budget?" Total cost answers "how much will I actually pay the lender over the life of this loan?" A borrower with tight monthly cash flow may reasonably prioritize the lowest payment even if it isn't the cheapest option overall — but that should be a deliberate trade-off, not an accident of only looking at one number.</div>
+
+<div class="guide-h3">Beyond the Numbers: Reading the Fine Print</div>
+<div class="guide-steps">
+<div class="guide-step"><div class="guide-step-num">1</div><div><strong>Prepayment penalties</strong> — some loans charge a fee (often 1-3% of the remaining balance) if you pay off the loan early, which matters if you might want to refinance or pay it down faster later.</div></div>
+<div class="guide-step"><div class="guide-step-num">2</div><div><strong>Rate type</strong> — confirm whether the quoted rate is flat or reducing-balance; a flat-rate loan can cost nearly double a reducing-balance loan at the same headline rate (see our Loan/EMI calculator for the full breakdown).</div></div>
+<div class="guide-step"><div class="guide-step-num">3</div><div><strong>Variable vs fixed rate</strong> — a lower introductory variable rate carries the risk of rising later; a fixed rate locks in certainty for the full term.</div></div>
+</div>
+<div class="guide-tip">💡 Always ask each lender for their official Loan Estimate or equivalent disclosure document — comparing standardized figures across lenders is far more reliable than comparing verbal quotes or marketing materials, which can present the same loan very differently.</div>
+
+  </div>
+</div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why isn't the lowest interest rate always the cheapest loan?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Total cost depends on the interest rate, the loan amount, the tenure, and any processing fees together — not the rate alone. A higher-rate loan with a shorter term, or no processing fee, can easily cost less overall than a lower-rate loan stretched over more years or carrying a large upfront fee.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I pick the loan with the lowest monthly payment?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Only if monthly affordability is your main constraint. The lowest monthly payment usually comes from the longest tenure, which typically means paying more in total interest over the life of the loan. If you can comfortably afford a higher payment, the lowest <strong>total cost</strong> option is usually the better financial choice.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How much do processing fees actually matter?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">More than most borrowers expect. A 2-3% processing fee on a $25,000 loan is $500-750 paid upfront, on top of all the interest — enough to flip which of two closely-priced offers is actually cheaper. Always include fees when comparing total cost, not just the interest rate.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What's the difference between APR and the interest rate?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The interest rate reflects only the cost of borrowing. APR folds in certain additional costs — like processing fees — into a single annualized rate, giving a more complete picture of what the loan actually costs. When available, compare APR rather than the headline interest rate alone.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Does a shorter loan term always cost less?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Usually, but not always — it depends on the rate too. A short-term loan at a much higher rate can sometimes cost more than a longer-term loan at a meaningfully lower rate. This is exactly why comparing total cost across real offers, rather than assuming based on term length alone, matters.</div>
+</div>
+</div>
+
+
+</div>
+
 <!-- INVEST -->
 <div id="invest" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
-<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('xirr',null)">📅 XIRR</button><button class="calc-link-btn" onclick="go('drip',null)">💧 DRIP</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button><button class="calc-link-btn" onclick="go('allocation',null)">🥧 Asset Allocation</button><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button></div>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('swp',null)">📉 SWP Calculator</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('xirr',null)">📅 XIRR</button><button class="calc-link-btn" onclick="go('drip',null)">💧 DRIP</button><button class="calc-link-btn" onclick="go('etf',null)">🗂️ ETF Growth</button><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button></div>
 
 
 <div class="two">
@@ -2212,6 +2308,132 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <span class="faq-icon">+</span>
   </div>
   <div class="faq-a">When evaluating SIP returns, use XIRR (not simple returns) because you invested at different times and prices. XIRR gives the true annualized return accounting for the timing and size of each installment. Use the XIRR calculator on this site.</div>
+</div>
+</div>
+
+
+</div>
+
+<!-- SWP -->
+<div id="swp" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('invest',null)">📈 SIP / Investment</button><button class="calc-link-btn" onclick="go('retirement',null)">👴 Retirement</button><button class="calc-link-btn" onclick="go('fire',null)">🔥 FIRE Calculator</button><button class="calc-link-btn" onclick="go('savingsgoal',null)">🎯 Savings Goal</button></div>
+
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">SWP Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Starting Corpus ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sw-corpus" value="1000000" oninput="cSWP()"></div></div>
+      <div class="field"><label>Monthly Withdrawal ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="sw-withdrawal" value="4000" oninput="cSWP()"></div></div>
+      <div class="field"><label>Expected Annual Return (%)</label><input type="number" id="sw-return" value="7" step="0.5" oninput="cSWP()"></div>
+      <div class="field"><label>Annual Withdrawal Increase (%)</label><input type="number" id="sw-inflation" value="3" step="0.5" oninput="cSWP()"></div>
+      <div class="field"><label>Time Horizon (years)</label><input type="number" id="sw-years" value="30" oninput="cSWP()"></div>
+      <div class="field"><label>Initial Withdrawal Rate</label><div class="val" id="sw-iwr" style="font-size:18px;padding-top:6px">0%</div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Corpus Lasts</div><div class="val" style="color:var(--a)" id="sw-lasts">0 yrs</div></div>
+      <div class="sbox"><div class="lbl">Final Balance</div><div class="val" style="color:var(--g)" id="sw-final">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Withdrawn</div><div class="val" id="sw-total">$0</div></div>
+      <div class="sbox"><div class="lbl">Sustainability</div><div class="val" id="sw-status">—</div></div>
+    </div>
+    <div class="insight-box" id="sw-insights"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Corpus Balance Over Time</div>
+    <canvas id="sw-chart" width="300" height="170" style="width:100%;margin:1rem 0"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin-bottom:1rem"><span style="color:var(--g)">━ Balance</span><span style="color:var(--r)">╌ Depleted</span></div>
+    <div style="overflow-x:auto"><table class="tbl" id="sw-table"></table></div>
+  </div>
+</div>
+
+<div class="calc-guide">
+  <div class="guide-toggle">
+    <div class="guide-toggle-title">📖 SWP — Systematic Withdrawal Plan</div>
+  </div>
+  <div class="guide-body">
+<div class="guide-p">A Systematic Withdrawal Plan is the mirror image of a SIP: instead of contributing a fixed amount every month into a growing investment, you withdraw a fixed (or inflation-adjusted) amount every month from an existing lump sum, while whatever remains continues to grow or shrink based on market returns. SWP is the structure most people are actually using, whether they call it that or not, the moment they start drawing income from a retirement portfolio, an inheritance, or any other invested lump sum.</div>
+
+<div class="guide-h3">The Core Mechanism</div>
+<div class="guide-p">Each month, a fixed withdrawal amount is removed from the corpus, and the remaining balance earns the stated return for that month. As long as the monthly withdrawal stays smaller than what the corpus earns on average, the balance can theoretically last indefinitely — even grow. Once withdrawals consistently exceed what the corpus earns, the balance shrinks every month and eventually depletes, with the exact timeline depending on how aggressive the withdrawal rate is relative to the return.</div>
+<div class="guide-formula">Initial Withdrawal Rate = (Monthly Withdrawal × 12) ÷ Starting Corpus × 100%</div>
+
+<div class="guide-h3">Worked Example: Will $1 Million Last 30 Years?</div>
+<div class="guide-p">Starting with a $1,000,000 corpus, withdrawing $4,000/month ($48,000/year — a 4.8% initial withdrawal rate), earning 7% annually, with withdrawals increasing 3% each year to keep pace with inflation:</div>
+<table class="guide-table"><thead><tr><th>Year</th><th>Annual Withdrawal</th><th>Year-End Balance</th></tr></thead><tbody>
+<tr><td>1</td><td>$48,000</td><td>$1,022,431</td></tr>
+<tr><td>10</td><td>$62,629</td><td>$1,224,756</td></tr>
+<tr><td>20</td><td>$84,168</td><td>$1,406,497</td></tr>
+<tr><td>30</td><td>$113,115</td><td>$1,408,957</td></tr>
+</tbody></table>
+<div class="guide-p">In this example, the 7% return comfortably outpaces even a steadily rising, inflation-adjusted withdrawal — the corpus actually grows throughout the full 30 years rather than depleting, ending higher than where it started. This is a real possibility whenever the long-term return assumption sits meaningfully above the initial withdrawal rate, and it mirrors the same logic behind the classic 4% retirement withdrawal rule: a moderate withdrawal rate relative to a reasonable long-term return can sustain decades of income while still leaving substantial capital intact.</div>
+
+<div class="guide-h3">Why the Inflation Adjustment Matters</div>
+<div class="guide-p">A withdrawal that stays fixed in dollar terms loses purchasing power every year — $4,000 today buys noticeably less in 20 years even at modest inflation. Increasing the withdrawal amount annually keeps your real (inflation-adjusted) spending power roughly constant over time, which is essential for anyone using SWP to fund actual living expenses rather than just preserve a lump sum. The trade-off is that an inflation-adjusted withdrawal grows the dollar amount taken out every single year, which depletes the corpus measurably faster than a withdrawal that never increases — set the annual increase to 0% to model a flat, never-rising withdrawal instead.</div>
+
+<div class="guide-h3">Initial Withdrawal Rate: The Single Most Important Number</div>
+<table class="guide-table"><thead><tr><th>Initial Withdrawal Rate</th><th>General Sustainability (30+ year horizon)</th></tr></thead><tbody>
+<tr><td>Below 3%</td><td>Very conservative — corpus likely grows even after withdrawals and inflation adjustments</td></tr>
+<tr><td>3% – 4%</td><td>Historically sustainable for most 30-year periods, based on the research behind the 4% rule</td></tr>
+<tr><td>4% – 6%</td><td>Moderate risk — sustainability becomes more sensitive to investment returns and the order markets perform in</td></tr>
+<tr><td>Above 6%</td><td>Aggressive — meaningful risk of depleting the corpus well before a multi-decade horizon ends</td></tr>
+</tbody></table>
+<div class="guide-p">This calculator computes your initial withdrawal rate automatically from your starting corpus and monthly withdrawal, so you can immediately see which zone your plan falls into before running the full year-by-year simulation.</div>
+
+<div class="guide-h3">SWP vs SIP: Two Phases of the Same Journey</div>
+<div class="guide-p">SIP and SWP are commonly thought of as the accumulation and decumulation phases of the same overall financial plan. During your working years, a SIP steadily builds a corpus through regular contributions and compounding. Once that goal is reached — retirement, financial independence, or simply needing income from an existing lump sum — SWP takes over, drawing that corpus down (hopefully slowly) to fund ongoing expenses. Use our SIP / Investment calculator to model the build-up phase, and this calculator to model what happens once you start drawing it down.</div>
+
+<div class="guide-h3">Sequence of Returns Risk</div>
+<div class="guide-p">This calculator assumes a single, constant average annual return for the entire withdrawal period — real markets don't behave this smoothly. A corpus that experiences a sharp market downturn in its first few years of withdrawals is meaningfully more fragile than one that experiences the same downturn after 20 years of growth, because early withdrawals during a depressed market permanently lock in losses that have far less time left to recover. This is called sequence-of-returns risk, and it's one of the most important risks in any SWP or retirement drawdown plan, but a single constant-return model like this one cannot capture it.</div>
+<div class="guide-warn">⚠ A constant average return hides the real risk of market volatility. Two portfolios with the identical average annual return over 30 years can have wildly different outcomes for someone withdrawing from them, depending purely on the order good and bad years occur in. Treat this calculator's output as a useful planning baseline, not a guarantee — many retirees build in a buffer (a lower withdrawal rate, or a cash reserve to avoid withdrawing during a downturn) specifically to protect against this risk.</div>
+<div class="guide-tip">💡 Run this calculator at a few different withdrawal rates and required returns — including a deliberately pessimistic case — rather than relying on a single optimistic scenario. If your plan stays sustainable even under conservative assumptions, that's a far stronger signal than a plan that only works if every assumption holds exactly as expected.</div>
+
+  </div>
+</div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a Systematic Withdrawal Plan (SWP)?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A Systematic Withdrawal Plan is a strategy where you withdraw a fixed (or gradually increasing) amount from an investment corpus at regular intervals — typically monthly — while the remaining balance stays invested and continues to grow or shrink based on market returns.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How is the initial withdrawal rate calculated?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">It's your annual withdrawal divided by your starting corpus. <span class="faq-formula">Initial Withdrawal Rate = (Monthly Withdrawal × 12) ÷ Starting Corpus × 100%</span> Withdrawing $4,000/month from a $1,000,000 corpus is a 4.8% initial withdrawal rate.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should I adjust my withdrawal for inflation?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">If you're relying on SWP for actual living expenses, yes — a withdrawal that never increases loses real purchasing power every year as prices rise. Set the annual increase to your expected inflation rate (commonly 2-3%) to maintain roughly constant real spending power, or to 0% to model a flat withdrawal that never changes.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What withdrawal rate is considered safe?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">An initial withdrawal rate of 3-4% is historically considered sustainable for a 30-year horizon in most market conditions, based on the same research behind the classic 4% retirement rule. Rates above 5-6% carry meaningfully higher risk of depleting the corpus before a multi-decade horizon ends.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What's the difference between SWP and just letting the corpus sit invested?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">If you're not withdrawing anything, the corpus simply compounds — there's no SWP to speak of. SWP specifically models the effect of regularly removing money for income while the rest keeps growing, which is the situation anyone drawing retirement income or any other regular cash flow from an investment portfolio actually faces.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why might my actual results differ from this calculator?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">This calculator assumes one constant average return for the entire period, but real markets move unevenly year to year. A few bad years early in your withdrawal period (sequence-of-returns risk) can hurt sustainability far more than the same bad years occurring later — something a constant-return model can't capture. Treat the output as a planning baseline, not a guaranteed outcome.</div>
 </div>
 </div>
 
@@ -2327,7 +2549,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <!-- MORTGAGE -->
 <div id="mortgage" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
-<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mtg Compare</button><button class="calc-link-btn" onclick="go('rentalprop',null)">🏡 Rental Property</button><button class="calc-link-btn" onclick="go('rental',null)">🏘️ Rental Yield</button><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button></div>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('rentvsbuy',null)">🏘️ Rent vs Buy</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mtg Compare</button><button class="calc-link-btn" onclick="go('rentalprop',null)">🏡 Rental Property</button><button class="calc-link-btn" onclick="go('loan',null)">🏦 Loan/EMI</button></div>
 
 
 <div class="two">
@@ -2445,6 +2667,146 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <span class="faq-icon">+</span>
   </div>
   <div class="faq-a">Refinancing replaces your existing mortgage with a new one — typically to get a <strong>lower interest rate</strong> or shorter term. It generally makes sense when rates have dropped at least 0.5–1% below your current rate.</div>
+</div>
+</div>
+
+
+</div>
+
+<!-- RENT VS BUY -->
+<div id="rentvsbuy" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('mortgage',null)">🏠 Mortgage</button><button class="calc-link-btn" onclick="go('mortcomp',null)">⚖️ Mortgage Comparison</button><button class="calc-link-btn" onclick="go('rental',null)">🏘️ Rental Yield</button><button class="calc-link-btn" onclick="go('allocation',null)">🥧 Asset Allocation</button></div>
+
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">Rent vs Buy Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Home Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rb-price" value="400000" oninput="cRentVsBuy()"></div></div>
+      <div class="field"><label>Down Payment (%)</label><input type="number" id="rb-down" value="20" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Mortgage Rate (%)</label><input type="number" id="rb-rate" value="6.5" step="0.1" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Mortgage Term (years)</label><input type="number" id="rb-term" value="30" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Monthly Rent ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rb-rent" value="2200" oninput="cRentVsBuy()"></div></div>
+      <div class="field"><label>Years to Compare</label><input type="number" id="rb-years" value="15" oninput="cRentVsBuy()"></div>
+    </div>
+    <div class="g2">
+      <div class="field"><label>Home Appreciation (%/yr)</label><input type="number" id="rb-apprec" value="4" step="0.5" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Rent Growth (%/yr)</label><input type="number" id="rb-rentgrowth" value="3" step="0.5" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Investment Return (%/yr)</label><input type="number" id="rb-invest" value="7" step="0.5" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Property Tax (%/yr)</label><input type="number" id="rb-tax" value="1.2" step="0.1" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Maintenance (%/yr)</label><input type="number" id="rb-maint" value="1" step="0.1" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Annual Insurance ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="rb-ins" value="1500" oninput="cRentVsBuy()"></div></div>
+      <div class="field"><label>Closing Costs (%)</label><input type="number" id="rb-closing" value="3" step="0.5" oninput="cRentVsBuy()"></div>
+      <div class="field"><label>Selling Costs (%)</label><input type="number" id="rb-selling" value="6" step="0.5" oninput="cRentVsBuy()"></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Monthly Mortgage P&amp;I</div><div class="val" style="color:var(--a)" id="rb-emi">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Monthly Buy Cost</div><div class="val" style="color:var(--r)" id="rb-buycost">$0</div></div>
+      <div class="sbox"><div class="lbl">Net Worth if Buy</div><div class="val" style="color:var(--g)" id="rb-buynw">$0</div></div>
+      <div class="sbox"><div class="lbl">Net Worth if Rent</div><div class="val" style="color:var(--b)" id="rb-rentnw">$0</div></div>
+    </div>
+    <div class="insight-box" id="rb-insights"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Net Worth Over Time</div>
+    <canvas id="rb-chart" width="300" height="170" style="width:100%;margin:1rem 0"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin-bottom:1rem"><span style="color:var(--g)">━ Buy</span><span style="color:var(--b)">━ Rent</span></div>
+    <div class="rrow"><span class="rk">Breakeven year (buying overtakes renting)</span><span class="rv" style="color:var(--a)" id="rb-breakeven">—</span></div>
+    <div class="rrow"><span class="rk">Verdict at year <span id="rb-vyear">15</span></span><span class="rv" id="rb-verdict">—</span></div>
+  </div>
+</div>
+
+<div class="calc-guide">
+  <div class="guide-toggle">
+    <div class="guide-toggle-title">📖 Rent vs Buy — Making the Real Comparison</div>
+  </div>
+  <div class="guide-body">
+<div class="guide-p">"Should I rent or buy?" is one of the most consequential financial decisions most people ever make, and also one of the most commonly miscalculated. The instinctive comparison — rent payment vs mortgage payment — misses most of what actually matters: the opportunity cost of the down payment, ongoing costs unique to ownership, the cost of eventually selling, and what a renter could do with the money they're not tying up in a house. A proper comparison tracks net worth under each scenario over time, not just monthly cash outflow.</div>
+
+<div class="guide-h3">Why "Rent Money Is Wasted, Mortgage Builds Equity" Is Incomplete</div>
+<div class="guide-p">This is the most common argument for buying, and it's only half true. A portion of every mortgage payment does build equity — but a large portion, especially in the early years, is interest, which is just as "wasted" as rent in the sense that it never comes back to you. On top of that, owning carries costs a renter never pays directly: property tax, maintenance, homeowners insurance, and the eventual cost of selling (commonly 6-8% of sale price in agent commissions and closing costs). None of these build equity either.</div>
+
+<div class="guide-h3">The Opportunity Cost of the Down Payment</div>
+<div class="guide-p">A 20% down payment on a $400,000 home is $80,000 that a renter never has to set aside — they can invest it instead. This calculator assumes the renter invests an amount equal to the buyer's down payment and closing costs at the start, then continues investing the monthly difference whenever renting costs less than the buyer's mortgage-plus-ownership-costs that month. Over a 15-20 year horizon, this invested capital compounding in the market is often a bigger factor in the comparison than people expect.</div>
+<div class="guide-formula">Renter's Portfolio = (Down Payment + Closing Costs) compounded at investment return<br>+ monthly savings (when renting costs less than owning) compounded the same way</div>
+
+<div class="guide-h3">Worked Example: Net Worth After 15 Years</div>
+<div class="guide-p">A $400,000 home, 20% down, 6.5% mortgage rate over 30 years, against $2,200/month rent, with 4% home appreciation, 3% rent growth, and a 7% investment return for the renter's portfolio:</div>
+<table class="guide-table"><thead><tr><th>Year</th><th>Net Worth if Buy</th><th>Net Worth if Rent</th></tr></thead><tbody>
+<tr><td>5</td><td>~$180,000</td><td>~$187,000</td></tr>
+<tr><td>10</td><td>~$341,000</td><td>~$282,000</td></tr>
+<tr><td>15</td><td>~$549,000</td><td>~$367,000</td></tr>
+</tbody></table>
+<div class="guide-p">In this example, renting is narrowly ahead at year 5, but buying overtakes it by year 10 and pulls further ahead by year 15 — the breakeven point lands somewhere in between, once home appreciation and forced equity paydown have had enough time to compound. Change the appreciation or rent growth assumptions even slightly, and this breakeven point can shift by years in either direction, which is exactly why this is a calculation worth running with your own numbers rather than trusting a generic rule of thumb.</div>
+
+<div class="guide-h3">What Actually Drives the Verdict</div>
+<table class="guide-table"><thead><tr><th>Factor</th><th>Favors Buying</th><th>Favors Renting</th></tr></thead><tbody>
+<tr><td>Home appreciation</td><td>Higher than historical average</td><td>Flat or declining local market</td></tr>
+<tr><td>Rent growth</td><td>Rising quickly year over year</td><td>Stable or slow-growing rents</td></tr>
+<tr><td>Time horizon</td><td>Staying 7+ years (amortizes closing/selling costs)</td><td>Likely to move within a few years</td></tr>
+<tr><td>Investment return available</td><td>Lower expected market returns</td><td>Strong expected market returns on invested down payment</td></tr>
+<tr><td>Mortgage rate</td><td>Lower rate environment</td><td>High rate environment</td></tr>
+</tbody></table>
+
+<div class="guide-h3">The 5% Rule: A Quick Mental Shortcut</div>
+<div class="guide-p">A commonly cited heuristic from financial writer Ben Felix and others: multiply the home price by roughly 5% (covering a blend of property tax, maintenance, and the opportunity cost of capital tied up in the home) and divide by 12 to get a rough "breakeven monthly rent." If you can rent a comparable home for less than that figure, renting is likely the better deal on pure financial terms; if comparable rent is higher, buying likely wins. This shortcut ignores appreciation entirely, so it works best as a quick sanity check, not a substitute for the full year-by-year comparison.</div>
+<div class="guide-formula">Breakeven Monthly Rent ≈ Home Price × 5% / 12</div>
+
+<div class="guide-h3">Why the Breakeven Year Matters More Than the Snapshot</div>
+<div class="guide-p">Buying almost always loses in the first few years, because closing costs and the early-mortgage interest-heavy payments front-load the cost of ownership before appreciation and equity paydown have time to compound. The real question isn't "who wins today" but "how many years do I need to stay for buying to catch up and overtake renting" — if you're confident you'll stay well past that breakeven point, buying's long-run advantage typically holds; if you might move sooner, renting's flexibility carries real financial value too.</div>
+<div class="guide-warn">⚠ This calculator assumes a consistent appreciation rate, rent growth rate, and investment return for the entire comparison period — real markets are far less smooth. Treat the output as a structured way to compare assumptions, not a forecast of what will actually happen to any specific property or portfolio.</div>
+
+<div class="guide-h3">Non-Financial Factors This Calculator Can't Capture</div>
+<div class="guide-p">Owning provides stability, the freedom to renovate, and protection from a landlord raising rent or declining to renew a lease — renting provides flexibility to relocate, no responsibility for repairs, and no exposure to a declining local housing market. These factors are genuinely important to most people's decisions and have no dollar value to plug into a spreadsheet, but they're worth weighing alongside whatever this calculator's numbers say.</div>
+<div class="guide-tip">💡 Run this calculator with a range of appreciation and rent-growth assumptions (a pessimistic case and an optimistic case) rather than just one guess — if buying wins under both, that's a much stronger signal than a verdict that depends entirely on getting one uncertain assumption exactly right.</div>
+
+  </div>
+</div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What does "breakeven year" mean in this calculator?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The breakeven year is the first year in the simulation where the buyer's projected net worth (home equity plus appreciation, minus the remaining loan and selling costs) overtakes the renter's projected net worth (their invested down payment and ongoing savings). Buying before this year typically leaves you behind financially; staying past it typically puts buying ahead.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why does the renter's net worth include an investment portfolio?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Because a fair comparison requires giving the renter's unused down payment somewhere to go. A renter doesn't tie up tens of thousands of dollars in a down payment, so this calculator assumes they invest that amount instead, plus any month where renting costs less than the buyer's mortgage and ownership costs combined.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why does buying often look worse in the early years?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Closing costs are paid upfront, and early mortgage payments are mostly interest rather than principal, so very little equity builds in the first few years. Appreciation and growing principal paydown take time to compound — which is why buying frequently needs several years to catch up to renting, even in scenarios where it eventually wins decisively.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the 5% rule?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A quick mental shortcut: multiply the home price by about 5% and divide by 12 to estimate a rough breakeven monthly rent. <span class="faq-formula">Breakeven Rent ≈ Home Price × 5% / 12</span> If comparable rent is below that figure, renting is often the better financial deal; if it's above, buying often wins. It ignores appreciation, so treat it as a sanity check rather than a full answer.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How much do closing and selling costs really matter?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Significantly, especially for shorter time horizons. Closing costs (often 2-5% of the home price) are paid upfront, and selling costs (often 6-8%, mostly real estate agent commissions) are paid when you eventually sell. Together they can easily total $30,000-50,000 on a $400,000 home — costs a renter never has to pay at all.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Does this account for tax deductions on mortgage interest?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">No — this calculator models the raw cash flows and net worth comparison without factoring in mortgage interest deductions, which vary by country, by whether you itemize deductions, and by your specific tax situation. If significant in your case, factor it in separately as an additional benefit on the buying side.</div>
 </div>
 </div>
 
@@ -4349,9 +4711,12 @@ const SEO_META = {
   revenue:     {title:'Revenue Forecast Calculator | FinCalc Pro', desc:'Forecast SaaS revenue with bear, base, and bull growth scenarios. Free revenue forecasting tool with ARR and LTV metrics.'},
   loan:        {title:'Loan & EMI Calculator | FinCalc Pro', desc:'Calculate your loan EMI instantly with full amortization schedule. Free EMI calculator for personal, auto, and business loans.'},
   prepay:      {title:'Loan Prepayment Calculator | FinCalc Pro', desc:'See how much time and interest you save by prepaying your loan with extra monthly payments or a lump sum. Free loan prepayment calculator.'},
+  loancomp:    {title:'Loan Comparison Calculator | FinCalc Pro', desc:'Compare up to 3 loan offers side by side — EMI, total interest, fees, and total cost. Free loan comparison calculator.'},
   invest:      {title:'SIP & Investment Calculator | FinCalc Pro', desc:'Calculate SIP returns with monthly contributions and compounding. Free systematic investment plan (SIP) calculator.'},
+  swp:         {title:'SWP Calculator — Systematic Withdrawal Plan | FinCalc Pro', desc:'Calculate how long your investment corpus will last with regular monthly withdrawals. Free SWP calculator with inflation-adjusted withdrawals.'},
   tax:         {title:'US Federal Tax Estimator | FinCalc Pro', desc:'Estimate your US federal income tax with marginal and effective tax rates. Free tax calculator (US federal only).'},
   mortgage:    {title:'Mortgage Calculator | FinCalc Pro', desc:'Calculate your monthly mortgage payment, total interest, and amortization schedule. Free mortgage calculator with PMI support.'},
+  rentvsbuy:   {title:'Rent vs Buy Calculator | FinCalc Pro', desc:'Compare your projected net worth if you rent vs buy a home, including opportunity cost, appreciation, and the breakeven year. Free rent vs buy calculator.'},
   mortcomp:    {title:'Mortgage Comparison Tool — 15yr vs 30yr & Rate Comparison | FinCalc Pro', desc:'Compare multiple mortgage options side by side including 15-year vs 30-year terms and different rates. Free mortgage comparison calculator.'},
   savings:     {title:'Savings & Compound Interest Calculator | FinCalc Pro', desc:'Calculate compound interest growth on your savings with regular contributions. Free savings calculator with APY comparison.'},
   provident:   {title:'Provident Fund (PF) Calculator | FinCalc Pro', desc:'Calculate your provident fund maturity value, interest earned, and year-by-year balance growth. Free PF calculator with step-up contributions.'},
@@ -4446,6 +4811,7 @@ function drawBars(id,labels,vals,colors,H_=130){
   const mx=Math.max(...vals)||1,bw=Math.min(65,(W-p*2)/n-6),gap=(W-p*2-bw*n)/((n-1)||1);
   vals.forEach((v,i)=>{
     const x=p+i*(bw+gap),bh=(v/mx)*(H-p*2),y=H-p-bh;
+    ctx.beginPath();
     ctx.fillStyle=colors[i%colors.length];
     if(ctx.roundRect)ctx.roundRect(x,y,bw,bh,3);else ctx.rect(x,y,bw,bh);
     ctx.fill();
@@ -4461,8 +4827,10 @@ const SECTIONS=[
   {title:'💰 Personal Finance',badge:false,items:[
     {id:'loan',icon:'🏦',name:'Loan / EMI',desc:'Find your monthly loan payment and see exactly how much of it goes to interest vs principal'},
     {id:'prepay',icon:'⏩',name:'Loan Prepayment',desc:'See how much time and interest you can save by paying extra toward your loan each month'},
+    {id:'loancomp',icon:'📋',name:'Loan Comparison',desc:'Compare up to 3 loan offers side by side to see which one actually costs less overall'},
     {id:'tax',icon:'🧾',name:'Tax Estimator',desc:'Estimate your US federal income tax, effective rate, and what you actually take home'},
     {id:'mortgage',icon:'🏠',name:'Mortgage',desc:'Estimate your full monthly home payment including property tax, insurance, and PMI'},
+    {id:'rentvsbuy',icon:'🏘️',name:'Rent vs Buy Calculator',desc:'Compare your net worth over time if you rent vs buy a home, and find the breakeven year'},
     {id:'mortcomp',icon:'⚖️',name:'Mortgage Comparison',desc:'Compare up to 3 mortgage offers side by side to see which one actually costs less'},
     {id:'savings',icon:'🏛️',name:'Savings Estimator',desc:'See how your savings grow over time with compound interest, and how long it takes to double'},
     {id:'provident',icon:'🏦',name:'Provident Fund Calculator',desc:'Project your provident fund (EPF/PF) maturity value from your monthly contributions and interest rate'},
@@ -4484,6 +4852,7 @@ const SECTIONS=[
     {id:'allocation',icon:'🥧',name:'Asset Allocation Calculator',desc:'Get a recommended stocks/bonds/cash mix based on your age and risk tolerance'},
     {id:'dcf',icon:'🏦',name:'Stock DCF Valuation',desc:'Estimate what a stock is actually worth based on its future cash flows, not just its price'},
     {id:'invest',icon:'📈',name:'SIP / Investment',desc:'Project how your monthly investments grow into a future lump sum, with optional yearly step-ups'},
+    {id:'swp',icon:'📉',name:'SWP Calculator',desc:'See how long a lump sum lasts when you withdraw a fixed monthly income from it'},
     {id:'stock',icon:'📉',name:'Stock P&L',desc:'Calculate your real profit or loss on a trade after accounting for brokerage fees'},
   ]},
   {title:'🚀 Startup & Business',badge:false,items:[
@@ -5099,6 +5468,70 @@ function cSip(){
   renderInsights('i-insights',insights);
 }
 
+// ── SWP ──────────────────────────────────────────────────────────
+function cSWP(){
+  const corpus0=+gel('sw-corpus').value||0,mw0=+gel('sw-withdrawal').value||0,ret=(+gel('sw-return').value||0)/100,infl=(+gel('sw-inflation').value||0)/100,maxYears=+gel('sw-years').value||1;
+  const mr=ret/12;
+  let balance=corpus0,withdrawal=mw0,totalWithdrawn=0,month=0,depleted=false,depletedMonth=null;
+  const yearlyBal=[corpus0],yearlyWithdrawn=[];
+  for(let y=1;y<=maxYears;y++){
+    let yearWithdrawn=0;
+    for(let m=0;m<12;m++){
+      month++;
+      if(balance<=0){if(!depleted){depleted=true;depletedMonth=month;}continue;}
+      const actualW=Math.min(withdrawal,balance);
+      balance-=actualW;totalWithdrawn+=actualW;yearWithdrawn+=actualW;
+      balance*=(1+mr);
+    }
+    yearlyBal.push(Math.max(0,balance));yearlyWithdrawn.push(yearWithdrawn);
+    withdrawal*=(1+infl);
+  }
+
+  const iwr=corpus0>0?(mw0*12/corpus0*100):0;
+  gel('sw-iwr').textContent=pct(iwr);
+  gel('sw-final').textContent=f$(balance);gel('sw-final').style.color=balance>0?'var(--g)':'var(--r)';
+  gel('sw-total').textContent=f$(totalWithdrawn);
+  if(depleted){
+    gel('sw-lasts').textContent=(depletedMonth/12).toFixed(1)+' yrs';gel('sw-lasts').style.color='var(--r)';
+    gel('sw-status').innerHTML='✕ Depleted';gel('sw-status').style.color='var(--r)';
+  }else{
+    gel('sw-lasts').textContent=maxYears+'+ yrs';gel('sw-lasts').style.color='var(--g)';
+    gel('sw-status').innerHTML='✓ Sustainable';gel('sw-status').style.color='var(--g)';
+  }
+
+  drawLine('sw-chart',[{data:yearlyBal.slice(0,Math.min(yearlyBal.length,40)),color:depleted?'#F6465D':'#0ECB81',fill:true}],170);
+
+  let rows='<thead><tr><th style="text-align:left;padding:6px 8px;font-size:11px;color:var(--m);border-bottom:1px solid var(--bd)">Year</th><th style="padding:6px 8px;font-size:11px;border-bottom:1px solid var(--bd);color:var(--r)">Withdrawn</th><th style="padding:6px 8px;font-size:11px;border-bottom:1px solid var(--bd);color:var(--g)">Balance</th></tr></thead><tbody>';
+  const rowsToShow=depleted?Math.ceil(depletedMonth/12):yearlyWithdrawn.length;
+  for(let i=0;i<rowsToShow;i++){
+    rows+=`<tr><td style="text-align:left;font-size:12px;color:var(--m);border-bottom:1px solid var(--bd);padding:7px 8px">Year ${i+1}</td><td style="font-size:12px;font-family:var(--mo);border-bottom:1px solid var(--bd);padding:7px 8px">${f$(yearlyWithdrawn[i])}</td><td style="font-size:12px;font-family:var(--mo);border-bottom:1px solid var(--bd);padding:7px 8px;color:var(--g);font-weight:600">${f$(yearlyBal[i+1])}</td></tr>`;
+  }
+  if(depleted)rows+=`<tr><td colspan="3" style="text-align:center;font-size:11px;color:var(--r);padding:8px;font-style:italic">Corpus depleted during year ${rowsToShow} — no balance remains for the rest of the ${maxYears}-year horizon</td></tr>`;
+  rows+='</tbody>';
+  gel('sw-table').innerHTML=rows;
+
+  const insights=[];
+  if(iwr<=4){
+    insights.push({type:'good',text:`Your initial withdrawal rate of <strong>${pct(iwr)}</strong> is in the historically sustainable 3-4% range for long horizons.`});
+  }else if(iwr<=6){
+    insights.push({type:'neutral',text:`Your initial withdrawal rate of <strong>${pct(iwr)}</strong> is moderate — sustainability becomes more sensitive to the actual sequence of market returns at this level.`});
+  }else{
+    insights.push({type:'bad',text:`Your initial withdrawal rate of <strong>${pct(iwr)}</strong> is aggressive — there's meaningful risk of depleting the corpus well before a multi-decade horizon ends.`});
+  }
+  if(depleted){
+    insights.push({type:'bad',text:`At this withdrawal rate, the corpus runs out around <strong>year ${(depletedMonth/12).toFixed(1)}</strong> — reducing the monthly withdrawal or the annual increase would extend how long it lasts.`});
+  }else{
+    const growthVsStart=balance-corpus0;
+    if(growthVsStart>0){
+      insights.push({type:'good',text:`The corpus actually grows over ${maxYears} years, ending <strong>${f$(growthVsStart)}</strong> higher than where it started, even after withdrawing <strong>${f$(totalWithdrawn)}</strong> in total.`});
+    }else{
+      insights.push({type:'neutral',text:`The corpus shrinks but survives the full ${maxYears} years, ending at <strong>${f$(balance)}</strong> after withdrawing <strong>${f$(totalWithdrawn)}</strong> in total.`});
+    }
+  }
+  if(infl===0)insights.push({type:'neutral',text:`Your withdrawal amount never increases — its real purchasing power will fall over time as prices rise. Consider setting an annual increase matching your expected inflation rate.`});
+  renderInsights('sw-insights',insights);
+}
+
 // ── Tax ─────────────────────────────────────────────────────────
 function cTax(){
   const gross=+gel('t-inc').value||0,oth=+gel('t-oth').value||0,pre=+gel('t-pre').value||0,status=gel('t-status').value;
@@ -5155,6 +5588,67 @@ function cMortgage(){
   renderInsights('m-insights',insights);
 }
 
+// ── Rent vs Buy ──────────────────────────────────────────────────
+function cRentVsBuy(){
+  const price=+gel('rb-price').value||0,downPct=(+gel('rb-down').value||0)/100,rate=(+gel('rb-rate').value||0)/12/100,term=(+gel('rb-term').value||30)*12;
+  const rent0=+gel('rb-rent').value||0,years=+gel('rb-years').value||1;
+  const apprec=(+gel('rb-apprec').value||0)/100,rentGrow=(+gel('rb-rentgrowth').value||0)/100,investRet=(+gel('rb-invest').value||0)/100;
+  const taxPct=(+gel('rb-tax').value||0)/100,maintPct=(+gel('rb-maint').value||0)/100,insAnn=+gel('rb-ins').value||0;
+  const closingPct=(+gel('rb-closing').value||0)/100,sellingPct=(+gel('rb-selling').value||0)/100;
+
+  const down=price*downPct,loan=price-down,emi=rate?loan*rate*Math.pow(1+rate,term)/(Math.pow(1+rate,term)-1):loan/term,closing=price*closingPct;
+  let balance=loan,homeValue=price,portfolio=down+closing,monthlyRent=rent0;
+  const buyNW=[],rentNW=[];
+  let breakevenYear=null;
+
+  for(let y=1;y<=years;y++){
+    let yearlyMortgage=0;
+    for(let m=0;m<12;m++){
+      if(balance<=0)continue;
+      const interest=balance*rate,principal=Math.min(emi-interest,balance);
+      balance-=principal;yearlyMortgage+=emi;
+    }
+    const propTax=homeValue*taxPct,maint=homeValue*maintPct;
+    const buyAnnualCost=yearlyMortgage+propTax+maint+insAnn;
+    homeValue*=(1+apprec);
+    const rentAnnual=monthlyRent*12;monthlyRent*=(1+rentGrow);
+    const gap=buyAnnualCost-rentAnnual;
+    portfolio=portfolio*(1+investRet)+gap;
+    const sellingCost=homeValue*sellingPct;
+    const bNW=homeValue-balance-sellingCost,rNW=portfolio;
+    buyNW.push(bNW);rentNW.push(rNW);
+    if(breakevenYear===null && bNW>=rNW)breakevenYear=y;
+  }
+
+  const monthlyBuyCost=emi+(price*taxPct+price*maintPct+insAnn)/12;
+  gel('rb-emi').textContent=f$(emi);gel('rb-buycost').textContent=f$(monthlyBuyCost);
+  gel('rb-buynw').textContent=f$(buyNW[buyNW.length-1]||0);gel('rb-rentnw').textContent=f$(rentNW[rentNW.length-1]||0);
+  gel('rb-breakeven').textContent=breakevenYear?('Year '+breakevenYear):'Beyond '+years+' yrs';
+  gel('rb-vyear').textContent=years;
+  const finalBuy=buyNW[buyNW.length-1]||0,finalRent=rentNW[rentNW.length-1]||0;
+  const vEl=gel('rb-verdict');
+  if(finalBuy>finalRent){vEl.textContent='Buy wins by '+f$(finalBuy-finalRent);vEl.style.color='var(--g)';}
+  else{vEl.textContent='Rent wins by '+f$(finalRent-finalBuy);vEl.style.color='var(--b)';}
+
+  drawLine('rb-chart',[{data:[down+closing,...buyNW],color:'#0ECB81',fill:false,w:2.5},{data:[down+closing,...rentNW],color:'#1890FF',fill:false,w:2.5}],170);
+
+  const insights=[];
+  if(breakevenYear){
+    insights.push({type:'neutral',text:`Buying overtakes renting financially around <strong>year ${breakevenYear}</strong> — if you expect to stay at least that long, buying likely makes more sense; if you might move sooner, renting keeps you ahead.`});
+  }else{
+    insights.push({type:'bad',text:`Within this ${years}-year window, renting stays ahead the whole time at these assumptions — buying would need a longer time horizon or different assumptions (higher appreciation, lower rate) to catch up.`});
+  }
+  const gapAtEnd=Math.abs(finalBuy-finalRent);
+  insights.push({type:finalBuy>finalRent?'good':'neutral',text:`At year ${years}, ${finalBuy>finalRent?'buying':'renting'} leaves you with about <strong>${f$(gapAtEnd)}</strong> more net worth than the alternative.`});
+  const breakevenRent=price*0.05/12;
+  if(rent0<breakevenRent*0.85){
+    insights.push({type:'neutral',text:`Your rent of <strong>${f$(rent0)}/mo</strong> is well below the rough "5% rule" breakeven of <strong>${f$(breakevenRent)}/mo</strong> for this home price — a quick signal that renting may be the better deal here.`});
+  }else if(rent0>breakevenRent*1.15){
+    insights.push({type:'neutral',text:`Your rent of <strong>${f$(rent0)}/mo</strong> is well above the rough "5% rule" breakeven of <strong>${f$(breakevenRent)}/mo</strong> for this home price — a quick signal that buying may be the better deal here.`});
+  }
+  renderInsights('rb-insights',insights);
+}
+
 // ── Mortgage Compare ────────────────────────────────────────────
 const MCC=['#F0B90B','#0ECB81','#1890FF'];
 const mcd=[{down:20,rate:7,years:30},{down:10,rate:6.5,years:25},{down:30,rate:7.5,years:15}];
@@ -5186,6 +5680,46 @@ function cMortComp(){
   const spread=worstTotal.total-bestTotal.total;
   if(spread>1000)insights.push({type:'neutral',text:`The gap between the cheapest and most expensive option here is <strong>${f$(spread)}</strong> over the full loan term.`});
   renderInsights('mc-insights',insights);
+}
+
+// ── Loan Comparison ─────────────────────────────────────────────
+const LCC=['#F0B90B','#0ECB81','#1890FF'];
+const lcd=[{amt:25000,rate:6.5,years:5,fee:1},{amt:25000,rate:7.2,years:4,fee:0},{amt:24000,rate:5.9,years:6,fee:2}];
+function buildLoanComp(){
+  const cols=gel('lc-cols');cols.innerHTML='';
+  lcd.forEach((d,i)=>{cols.innerHTML+=`<div class="cmp-col" id="lc-col-${i}"><div style="font-size:13px;font-weight:600;color:${LCC[i]};margin-bottom:1rem">Offer ${i+1}</div><div class="field"><label>Loan Amount ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="lc-amt-${i}" value="${d.amt}" oninput="cLoanComp()"></div></div><div class="field"><label>Interest Rate (%)</label><input type="number" id="lc-rate-${i}" value="${d.rate}" step="0.1" oninput="cLoanComp()"></div><div class="field"><label>Tenure (years)</label><input type="number" id="lc-years-${i}" value="${d.years}" step="0.5" oninput="cLoanComp()"></div><div class="field"><label>Processing Fee (%)</label><input type="number" id="lc-fee-${i}" value="${d.fee}" step="0.25" oninput="cLoanComp()"></div></div>`;});
+  cLoanComp();
+}
+function cLoanComp(){
+  const res=lcd.map((_,i)=>{
+    const amt=+gel(`lc-amt-${i}`).value||0,rate=+gel(`lc-rate-${i}`).value||0,years=+gel(`lc-years-${i}`).value||1,fee=(+gel(`lc-fee-${i}`).value||0)/100;
+    const r=rate/12/100,n=years*12,emi=r?amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):amt/n,interest=emi*n-amt,feeAmt=amt*fee,total=emi*n+feeAmt;
+    return{amt,rate,years,emi,interest,feeAmt,total};
+  });
+  const minM=Math.min(...res.map(r=>r.emi)),minT=Math.min(...res.map(r=>r.total));
+  res.forEach((_,i)=>{const c=gel(`lc-col-${i}`);if(c)c.className='cmp-col'+(res[i].total===minT?' winner':'');});
+  const rows=[['Loan Amount',...res.map(r=>f$(r.amt))],['Monthly EMI',...res.map(r=>f$(r.emi))],['Total Interest',...res.map(r=>f$(r.interest))],['Processing Fee',...res.map(r=>f$(r.feeAmt))],['Total Cost',...res.map(r=>f$(r.total))]];
+  const tbl=gel('lc-table');
+  tbl.innerHTML=`<thead><tr><th style="text-align:left;padding:6px 8px;font-size:11px;color:var(--m);border-bottom:1px solid var(--bd)">Metric</th>${res.map((_,i)=>`<th style="padding:6px 8px;font-size:11px;border-bottom:1px solid var(--bd);color:${LCC[i]}">Offer ${i+1}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(row=>{const nums=row.slice(1).map(v=>parseFloat(v.replace(/[$,]/g,'')));const mn=Math.min(...nums);tbl.innerHTML+=`<tr>${row.map((v,j)=>{if(j===0)return`<td style="text-align:left;font-size:12px;color:var(--m);border-bottom:1px solid var(--bd);padding:7px 8px">${v}</td>`;const ism=parseFloat(v.replace(/[$,]/g,''))===mn;return`<td style="font-size:12px;font-family:var(--mo);border-bottom:1px solid var(--bd);padding:7px 8px;${ism?'color:var(--g);font-weight:600':''}">${v}${ism?' ✓':''}</td>`;}).join('')}</tr>`;});
+  tbl.innerHTML+='</tbody>';
+  drawBars('lc-chart',['Offer 1','Offer 2','Offer 3'],res.map(r=>r.emi),LCC,140);
+
+  const insights=[];
+  const bestEmi=res.reduce((a,b,i)=>b.emi<a.emi?{...b,idx:i}:a,{...res[0],idx:0});
+  const bestTotal=res.reduce((a,b,i)=>b.total<a.total?{...b,idx:i}:a,{...res[0],idx:0});
+  const worstTotal=res.reduce((a,b,i)=>b.total>a.total?{...b,idx:i}:a,{...res[0],idx:0});
+  insights.push({type:'good',text:`<strong>Offer ${bestEmi.idx+1}</strong> has the lowest monthly EMI at <strong>${f$(bestEmi.emi)}/mo</strong>.`});
+  if(bestTotal.idx!==bestEmi.idx){
+    insights.push({type:'neutral',text:`But <strong>Offer ${bestTotal.idx+1}</strong> costs the least overall (<strong>${f$(bestTotal.total)}</strong> total) — a higher EMI with a shorter term, or a lower rate, can beat the lowest-payment option once you add up the full cost.`});
+  }else{
+    insights.push({type:'good',text:`<strong>Offer ${bestTotal.idx+1}</strong> is also the cheapest overall at <strong>${f$(bestTotal.total)}</strong> total — both the easiest on your monthly budget and the best deal.`});
+  }
+  const spread=worstTotal.total-bestTotal.total;
+  if(spread>200)insights.push({type:'neutral',text:`The gap between the cheapest and most expensive offer here is <strong>${f$(spread)}</strong> over the full loan term.`});
+  const feeOnly=res.filter(r=>r.feeAmt>0);
+  if(feeOnly.length>0 && feeOnly.length<res.length)insights.push({type:'neutral',text:`Some offers charge a processing fee and others don't — that's already factored into the total cost above, not just the EMI.`});
+  renderInsights('lc-insights',insights);
 }
 
 // ── Savings ─────────────────────────────────────────────────────
@@ -5793,11 +6327,11 @@ const DISCLAIMER_CAT={
   currency:'Exchange rates shown are approximate and for reference only — they are not live market rates and should not be used for actual currency trading, transfers, or international payments. <strong>Check with your bank or payment provider for current rates.</strong>'
 };
 const PANEL_DISCLAIMER={
-  loan:'credit',prepay:'credit',debtcomp:'credit',debt:'credit',
+  loan:'credit',prepay:'credit',loancomp:'credit',debtcomp:'credit',debt:'credit',
   tax:'tax',
-  mortgage:'realestate',mortcomp:'realestate',rental:'realestate',rentalprop:'realestate',
+  mortgage:'realestate',mortcomp:'realestate',rental:'realestate',rentalprop:'realestate',rentvsbuy:'realestate',
   savings:'investing',provident:'investing',retirement:'investing',fire:'investing',savingsgoal:'investing',emergencyfund:'investing',healthscore:'investing',
-  cagr:'investing',xirr:'investing',drip:'investing',etf:'investing',allocation:'investing',dcf:'investing',invest:'investing',stock:'investing',
+  cagr:'investing',xirr:'investing',drip:'investing',etf:'investing',allocation:'investing',dcf:'investing',invest:'investing',swp:'investing',stock:'investing',
   burnrate:'business',pricing:'business',equity:'business',revenue:'business',breakeven:'business',cashflow:'business',
   currency:'currency'
   // scientific intentionally excluded — pure math tool, no financial disclaimer applies
@@ -5822,11 +6356,11 @@ function toggleFAQ(el){
 }
 
 // ── Init ─────────────────────────────────────────────────────────
-buildDir();buildSci();buildCurrency();buildMortComp();
+buildDir();buildSci();buildCurrency();buildMortComp();buildLoanComp();
 renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();renderDC2();
 calcCAGR();calcDRIP();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();calcRevenue();
-cLoan();cPrepay();cSip();cTax();cMortgage();cSavings();cProvident();cAllocRecommend();cStock();cRetire();cFire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
+cLoan();cPrepay();cSip();cSWP();cTax();cMortgage();cRentVsBuy();cSavings();cProvident();cAllocRecommend();cStock();cRetire();cFire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
 injectDisclaimers();
 
 // Deep-link support: opening yourdomain.com/#loan lands directly on that

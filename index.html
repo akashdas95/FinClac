@@ -62,6 +62,7 @@
       "Asset Allocation Calculator",
       "Stock DCF Valuation",
       "PEG Ratio Calculator",
+      "EV/EBITDA Calculator",
       "SIP Investment Calculator",
       "SWP Calculator",
       "Stock P&L Calculator",
@@ -1263,7 +1264,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <!-- PEG RATIO -->
 <div id="peg" class="panel">
 <button class="back-btn" onclick="go('home',null)">← Back to Home</button>
-<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('dcf',null)">🏦 Stock DCF</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('stock',null)">📉 Stock P&amp;L</button><button class="calc-link-btn" onclick="go('allocation',null)">🥧 Asset Allocation</button></div>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('evebitda',null)">🏢 EV/EBITDA</button><button class="calc-link-btn" onclick="go('dcf',null)">🏦 Stock DCF</button><button class="calc-link-btn" onclick="go('cagr',null)">📐 CAGR</button><button class="calc-link-btn" onclick="go('stock',null)">📉 Stock P&amp;L</button></div>
 
 
 <div class="two">
@@ -1379,6 +1380,148 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
     <span class="faq-icon">+</span>
   </div>
   <div class="faq-a">PEG becomes unreliable or meaningless for companies with negative earnings, negative growth rates, or highly cyclical earnings that don't reflect a normal year. It also doesn't account for differences in profit margins, debt levels, or the quality and sustainability of growth between two companies that might otherwise show an identical PEG ratio.</div>
+</div>
+</div>
+
+
+</div>
+
+<!-- EV/EBITDA -->
+<div id="evebitda" class="panel">
+<button class="back-btn" onclick="go('home',null)">← Back to Home</button>
+<div class="calc-links"><span class="calc-links-label">🔗 Related</span><button class="calc-link-btn" onclick="go('peg',null)">📏 PEG Ratio</button><button class="calc-link-btn" onclick="go('dcf',null)">🏦 Stock DCF</button><button class="calc-link-btn" onclick="go('stock',null)">📉 Stock P&amp;L</button><button class="calc-link-btn" onclick="go('dilutionimpact',null)">📉 Dilution Impact</button></div>
+
+
+<div class="two">
+  <div class="card">
+    <div class="card-title">EV/EBITDA Calculator</div>
+    <div class="g2">
+      <div class="field"><label>Share Price ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ev-price" value="80" step="0.01" oninput="cEVEBITDA()"></div></div>
+      <div class="field"><label>Shares Outstanding</label><input type="number" id="ev-shares" value="50000000" oninput="cEVEBITDA()"></div>
+      <div class="field"><label>Total Debt ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ev-debt" value="1200000000" oninput="cEVEBITDA()"></div></div>
+      <div class="field"><label>Cash &amp; Equivalents ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ev-cash" value="300000000" oninput="cEVEBITDA()"></div></div>
+    </div>
+    <div class="card-title" style="margin-top:.5rem">EBITDA Build-Up</div>
+    <div class="g2">
+      <div class="field"><label>Net Income ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ev-ni" value="280000000" oninput="cEVEBITDA()"></div></div>
+      <div class="field"><label>Interest Expense ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ev-interest" value="60000000" oninput="cEVEBITDA()"></div></div>
+      <div class="field"><label>Taxes ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ev-taxes" value="70000000" oninput="cEVEBITDA()"></div></div>
+      <div class="field"><label>Depreciation &amp; Amortization ($)</label><div class="ip"><span class="pfx">$</span><input type="number" id="ev-da" value="150000000" oninput="cEVEBITDA()"></div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Market Cap</div><div class="val" style="color:var(--a)" id="ev-mktcap">$0</div></div>
+      <div class="sbox"><div class="lbl">Enterprise Value</div><div class="val" style="color:var(--a)" id="ev-ev">$0</div></div>
+      <div class="sbox"><div class="lbl">EBITDA</div><div class="val" style="color:var(--g)" id="ev-ebitda">$0</div></div>
+      <div class="sbox"><div class="lbl">EV/EBITDA Multiple</div><div class="val" style="color:var(--b)" id="ev-multiple">0x</div></div>
+    </div>
+    <div class="insight-box" id="ev-insights"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Implied Valuation at a Target Multiple</div>
+    <div class="field"><label>Peer / Target EV-EBITDA Multiple</label><input type="number" id="ev-targetmult" value="12" step="0.5" oninput="cEVEBITDA()"></div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Implied Enterprise Value</div><div class="val" style="color:var(--a)" id="ev-impliedev">$0</div></div>
+      <div class="sbox"><div class="lbl">Implied Market Cap</div><div class="val" id="ev-impliedmktcap">$0</div></div>
+      <div class="sbox"><div class="lbl">Implied Share Price</div><div class="val" style="color:var(--g)" id="ev-impliedprice">$0</div></div>
+      <div class="sbox"><div class="lbl">Upside / Downside</div><div class="val" id="ev-upside">0%</div></div>
+    </div>
+    <canvas id="ev-chart" width="300" height="140" style="width:100%;margin-top:1rem"></canvas>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin-top:.5rem"><span style="color:var(--a)">Current Price</span><span style="color:var(--g)">Implied Price</span></div>
+  </div>
+</div>
+
+<div class="calc-guide">
+  <div class="guide-toggle">
+    <div class="guide-toggle-title">📖 EV/EBITDA — Valuing the Whole Business</div>
+  </div>
+  <div class="guide-body">
+<div class="guide-p">EV/EBITDA is the valuation multiple professional analysts and M&amp;A practitioners reach for most often when comparing companies, precisely because it solves a problem that P/E and PEG can't: it values the entire business — equity and debt holders combined — rather than just the equity slice, and it strips out the effects of financing decisions, tax jurisdictions, and depreciation policy that can make two otherwise-similar companies look very different on a P/E basis alone.</div>
+
+<div class="guide-h3">Why Enterprise Value, Not Just Market Cap</div>
+<div class="guide-formula">Enterprise Value = Market Cap + Total Debt − Cash &amp; Equivalents</div>
+<div class="guide-p">Market cap only reflects the value of a company's equity — what shareholders own. But a company's operations are funded by both equity and debt, and an acquirer buying the whole business would need to take on its debt (a real cost) while getting access to its cash (a real benefit, since it could be used immediately to help pay down that debt). Enterprise value captures the true total cost of acquiring the underlying business, independent of how it happens to be financed today.</div>
+
+<div class="guide-h3">Worked Example: Building EV From the Ground Up</div>
+<div class="guide-p">A company trades at $80/share with 50 million shares outstanding, has $1.2 billion in total debt, and holds $300 million in cash:</div>
+<table class="guide-table"><thead><tr><th>Component</th><th>Amount</th></tr></thead><tbody>
+<tr><td>Market Cap (Price × Shares)</td><td>$4.00 billion</td></tr>
+<tr><td>+ Total Debt</td><td>$1.20 billion</td></tr>
+<tr><td>− Cash &amp; Equivalents</td><td>$0.30 billion</td></tr>
+<tr><td><strong>Enterprise Value</strong></td><td><strong>$4.90 billion</strong></td></tr>
+</tbody></table>
+<div class="guide-p">Notice the enterprise value of $4.90 billion is meaningfully higher than the $4.00 billion market cap — a reminder that market cap alone understates what it would actually cost to acquire and control this entire business once its debt obligations are factored in.</div>
+
+<div class="guide-h3">Why EBITDA Instead of Net Income</div>
+<div class="guide-formula">EBITDA = Net Income + Interest + Taxes + Depreciation + Amortization</div>
+<div class="guide-p">EBITDA adds back the expenses most affected by financing structure (interest), tax jurisdiction (taxes), and accounting policy choices (depreciation and amortization), leaving a measure of operating profitability that's far more comparable across companies with different capital structures, different tax situations, or different accounting treatment of fixed assets. Continuing the example above, with $280 million net income, $60 million interest, $70 million taxes, and $150 million combined D&amp;A, EBITDA comes to $560 million — and dividing the $4.90 billion enterprise value by this gives an EV/EBITDA multiple of <strong>8.75x</strong>.</div>
+
+<div class="guide-h3">Reading the EV/EBITDA Multiple</div>
+<table class="guide-table"><thead><tr><th>EV/EBITDA Range</th><th>General Context</th></tr></thead><tbody>
+<tr><td>Below 6x</td><td>Often mature, low-growth, or out-of-favor industries (utilities, some industrials)</td></tr>
+<tr><td>6x – 10x</td><td>Typical range for many established, moderately growing businesses</td></tr>
+<tr><td>10x – 15x</td><td>Higher-growth or higher-quality businesses, or sectors the market favors</td></tr>
+<tr><td>Above 15x</td><td>High-growth technology, niche, or speculative names — or a potential sign of overvaluation</td></tr>
+</tbody></table>
+<div class="guide-p">These ranges vary enormously by sector and by market conditions — there's no single "correct" multiple. The real value of EV/EBITDA comes from comparing it against close peers in the same industry, not from checking it against a single universal benchmark.</div>
+
+<div class="guide-h3">Using a Peer Multiple to Find Implied Value</div>
+<div class="guide-p">Once you know a company's EBITDA, applying a peer or sector-average EV/EBITDA multiple gives an implied enterprise value — and working backward from there (subtracting debt, adding back cash, dividing by shares) gives an implied share price. Applying a peer multiple of 12x to this example's $560 million EBITDA implies an enterprise value of $6.72 billion, an implied market cap of $5.82 billion, and an implied share price of roughly $116.40 — a meaningful premium to the current $80 share price, suggesting the company may be undervalued relative to that peer group, assuming its fundamentals genuinely justify trading at a similar multiple.</div>
+
+<div class="guide-h3">EV/EBITDA vs P/E vs PEG: When to Use Which</div>
+<table class="guide-table"><thead><tr><th>Metric</th><th>Best For</th><th>Limitation</th></tr></thead><tbody>
+<tr><td>P/E Ratio</td><td>Quick comparison of similarly-financed, profitable companies</td><td>Distorted by debt levels, tax rates, and one-time items; meaningless for unprofitable companies</td></tr>
+<tr><td>PEG Ratio</td><td>Adjusting P/E for differences in growth rate</td><td>Inherits all of P/E's weaknesses, plus depends on a growth estimate that can be wrong</td></tr>
+<tr><td>EV/EBITDA</td><td>Comparing companies with different debt levels or capital structures, and in M&amp;A contexts</td><td>Ignores capital intensity differences (companies needing heavy ongoing capex look the same as those that don't)</td></tr>
+</tbody></table>
+<div class="guide-warn">⚠ EV/EBITDA ignores capital expenditure requirements entirely — a capital-intensive business that must constantly reinvest in equipment can look just as attractive as an asset-light business on this metric alone, even though the asset-light business converts far more of its EBITDA into actual free cash flow. Always pair EV/EBITDA with a look at capex and free cash flow before drawing conclusions.</div>
+<div class="guide-tip">💡 When comparing EV/EBITDA across companies, make sure you're using a consistent definition of EBITDA — some companies report "adjusted EBITDA" with additional add-backs (stock-based compensation, restructuring charges, one-time items) that can make their multiple look more attractive than a strict, unadjusted calculation would show.</div>
+
+  </div>
+</div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is EV/EBITDA?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">EV/EBITDA divides a company's enterprise value (the total value of its equity and debt combined, minus cash) by its EBITDA (earnings before interest, taxes, depreciation, and amortization). It's a widely used valuation multiple for comparing companies regardless of their capital structure or financing decisions.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How is enterprise value different from market cap?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Market cap only values a company's equity. Enterprise value adds total debt (since an acquirer would need to take it on) and subtracts cash (since it could immediately be used to offset that debt), giving a more complete picture of what it would cost to acquire and control the entire underlying business. <span class="faq-formula">EV = Market Cap + Total Debt − Cash</span></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Why use EBITDA instead of net income or EPS?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">EBITDA adds back interest, taxes, depreciation, and amortization, removing the effects of financing structure, tax jurisdiction, and accounting policy choices. This makes it easier to compare the underlying operating profitability of companies that might otherwise look very different due to how they're financed or where they're headquartered.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is a good EV/EBITDA multiple?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">It depends heavily on the industry — mature, low-growth sectors often trade at single-digit multiples, while high-growth sectors can trade well above 15x. There's no universal "good" multiple; the most useful comparison is against close peers in the same industry, not a fixed benchmark.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How do I use a peer multiple to value a stock?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Multiply the company's EBITDA by the peer or sector-average EV/EBITDA multiple to get an implied enterprise value. Then subtract total debt and add back cash to get an implied market cap, and divide by shares outstanding to get an implied share price — exactly what this calculator's reverse valuation section does automatically.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What does EV/EBITDA miss?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">It ignores capital expenditure requirements — a business that must constantly reinvest heavily in equipment or infrastructure can show the same EV/EBITDA as an asset-light business, despite converting far less of that EBITDA into actual free cash flow. Always check capex and free cash flow alongside EV/EBITDA, not in isolation.</div>
 </div>
 </div>
 
@@ -5095,6 +5238,7 @@ const SEO_META = {
   allocation:  {title:'Asset Allocation Calculator | FinCalc Pro', desc:'Find your ideal stocks, bonds, cash, gold, and crypto allocation by age and risk profile. Free asset allocation calculator with blended return and volatility estimate.'},
   dcf:         {title:'DCF Stock Valuation Calculator | FinCalc Pro', desc:'Calculate intrinsic stock value with our free Discounted Cash Flow calculator. Includes WACC, terminal value, and bear/bull scenarios.'},
   peg:         {title:'PEG Ratio Calculator | FinCalc Pro', desc:'Calculate the PEG ratio to see if a stock\'s P/E is justified by its earnings growth rate. Free PEG ratio calculator with valuation scale.'},
+  evebitda:    {title:'EV/EBITDA Calculator | FinCalc Pro', desc:'Calculate enterprise value, EV/EBITDA multiple, and implied share price at a peer multiple. Free EV/EBITDA valuation calculator.'},
   debtcomp:    {title:'Debt Snowball vs Avalanche Calculator | FinCalc Pro', desc:'Compare Debt Snowball and Debt Avalanche payoff strategies side by side. Free calculator shows total interest and payoff timeline for both.'},
   rentalprop:  {title:'Rental Property Calculator — Cap Rate & Cash-on-Cash Return | FinCalc Pro', desc:'Analyze rental property returns with cap rate, cash-on-cash return, and NOI. Free rental property investment calculator.'},
   burnrate:    {title:'Startup Burn Rate & Runway Calculator | FinCalc Pro', desc:'Calculate your startup\u2019s monthly burn rate and cash runway. Free burn rate calculator for founders and finance teams.'},
@@ -5246,6 +5390,7 @@ const SECTIONS=[
     {id:'allocation',icon:'🥧',name:'Asset Allocation Calculator',desc:'Get a recommended stocks/bonds/cash mix based on your age and risk tolerance'},
     {id:'dcf',icon:'🏦',name:'Stock DCF Valuation',desc:'Estimate what a stock is actually worth based on its future cash flows, not just its price'},
     {id:'peg',icon:'📏',name:'PEG Ratio Calculator',desc:'Check whether a stock\'s price is justified by its earnings growth, not just its P/E ratio'},
+    {id:'evebitda',icon:'🏢',name:'EV/EBITDA Calculator',desc:'Value a company by its full enterprise value, and see what a peer multiple implies for the share price'},
     {id:'invest',icon:'📈',name:'SIP / Investment',desc:'Project how your monthly investments grow into a future lump sum, with optional yearly step-ups'},
     {id:'swp',icon:'📉',name:'SWP Calculator',desc:'See how long a lump sum lasts when you withdraw a fixed monthly income from it'},
     {id:'stock',icon:'📉',name:'Stock P&L',desc:'Calculate your real profit or loss on a trade after accounting for brokerage fees'},
@@ -5589,6 +5734,62 @@ function cPEG(){
     insights.push({type:'neutral',text:`At this <strong>${growth}%</strong> growth rate, a "fairly valued" PEG of 1.0 corresponds to a P/E of about <strong>${growth.toFixed(1)}</strong> — this stock is currently trading at a P/E of <strong>${pe.toFixed(1)}</strong>.`});
   }
   renderInsights('pg-insights',insights);
+}
+
+// ── EV/EBITDA ────────────────────────────────────────────────────
+function cEVEBITDA(){
+  const price=+gel('ev-price').value||0,shares=+gel('ev-shares').value||0,debt=+gel('ev-debt').value||0,cash=+gel('ev-cash').value||0;
+  const ni=+gel('ev-ni').value||0,interest=+gel('ev-interest').value||0,taxes=+gel('ev-taxes').value||0,da=+gel('ev-da').value||0;
+  const targetMult=+gel('ev-targetmult').value||0;
+
+  const mktCap=price*shares;
+  const ev=mktCap+debt-cash;
+  const ebitda=ni+interest+taxes+da;
+  const multiple=ebitda>0?ev/ebitda:0;
+
+  gel('ev-mktcap').textContent=f$(mktCap);
+  gel('ev-ev').textContent=f$(ev);
+  gel('ev-ebitda').textContent=(ebitda<0?'-':'')+f$(ebitda);
+  gel('ev-ebitda').style.color=ebitda<0?'var(--r)':'var(--g)';
+  gel('ev-multiple').textContent=ebitda>0?multiple.toFixed(2)+'x':'N/A';
+  gel('ev-multiple').style.color=ebitda<=0?'var(--m)':multiple<10?'var(--g)':multiple<15?'var(--a)':'var(--r)';
+
+  const impliedEV=ebitda>0?targetMult*ebitda:0;
+  const impliedMktCap=ebitda>0?impliedEV-debt+cash:0;
+  const impliedPrice=(ebitda>0&&shares>0)?impliedMktCap/shares:0;
+  const upside=(ebitda>0&&price>0)?((impliedPrice/price)-1)*100:0;
+
+  if(ebitda>0){
+    gel('ev-impliedev').textContent=f$(impliedEV);
+    gel('ev-impliedmktcap').textContent=f$(impliedMktCap);
+    gel('ev-impliedprice').textContent=(impliedPrice<0?'-$':'$')+Math.abs(impliedPrice).toFixed(2);
+    gel('ev-upside').textContent=(upside>=0?'+':'')+upside.toFixed(1)+'%';
+    gel('ev-upside').style.color=upside>=0?'var(--g)':'var(--r)';
+    drawBars('ev-chart',['Current','Implied'],[price,Math.max(0,impliedPrice)],['#F0B90B','#0ECB81'],140);
+  }else{
+    gel('ev-impliedev').textContent='N/A';
+    gel('ev-impliedmktcap').textContent='N/A';
+    gel('ev-impliedprice').textContent='N/A';
+    gel('ev-upside').textContent='N/A';gel('ev-upside').style.color='var(--m)';
+    drawBars('ev-chart',['Current','Implied'],[price,0],['#F0B90B','#6B7A8D'],140);
+  }
+
+  const insights=[];
+  if(ebitda<=0){
+    insights.push({type:'bad',text:`EBITDA is zero or negative — EV/EBITDA isn't meaningful for this company. Look at revenue multiples or a DCF-based approach instead.`});
+  }else{
+    insights.push({type:multiple<10?'good':multiple<15?'neutral':'bad',text:`This company trades at <strong>${multiple.toFixed(2)}x</strong> EV/EBITDA — ${multiple<10?'a relatively modest multiple, typical of mature or moderately-valued businesses':multiple<15?'a moderate-to-premium multiple, suggesting the market expects above-average growth or quality':'a rich multiple, often seen in high-growth sectors or potentially signaling overvaluation'}.`});
+    const debtToEV=ev>0?(debt/ev*100):0;
+    if(debtToEV>25)insights.push({type:'neutral',text:`Debt makes up <strong>${debtToEV.toFixed(0)}%</strong> of this company's enterprise value — a meaningful share of the business is funded by debt holders, not just shareholders.`});
+    if(upside>15){
+      insights.push({type:'good',text:`At a <strong>${targetMult}x</strong> target multiple, the implied share price of <strong>$${impliedPrice.toFixed(2)}</strong> suggests roughly <strong>${upside.toFixed(0)}% upside</strong> from the current $${price.toFixed(2)} price.`});
+    }else if(upside<-15){
+      insights.push({type:'bad',text:`At a <strong>${targetMult}x</strong> target multiple, the implied share price of <strong>$${impliedPrice.toFixed(2)}</strong> suggests roughly <strong>${Math.abs(upside).toFixed(0)}% downside</strong> from the current $${price.toFixed(2)} price.`});
+    }else{
+      insights.push({type:'neutral',text:`At a <strong>${targetMult}x</strong> target multiple, the implied price of <strong>$${impliedPrice.toFixed(2)}</strong> is close to the current $${price.toFixed(2)} price — the stock looks roughly fairly valued against this benchmark.`});
+    }
+  }
+  renderInsights('ev-insights',insights);
 }
 
 // ── Debt Comparison ─────────────────────────────────────────────
@@ -6901,7 +7102,7 @@ const PANEL_DISCLAIMER={
   tax:'tax',
   mortgage:'realestate',mortcomp:'realestate',rental:'realestate',rentalprop:'realestate',rentvsbuy:'realestate',
   savings:'investing',provident:'investing',retirement:'investing',fire:'investing',savingsgoal:'investing',emergencyfund:'investing',healthscore:'investing',
-  cagr:'investing',xirr:'investing',drip:'investing',divgrowth:'investing',etf:'investing',allocation:'investing',dcf:'investing',peg:'investing',invest:'investing',swp:'investing',stock:'investing',dilutionimpact:'investing',
+  cagr:'investing',xirr:'investing',drip:'investing',divgrowth:'investing',etf:'investing',allocation:'investing',dcf:'investing',peg:'investing',evebitda:'investing',invest:'investing',swp:'investing',stock:'investing',dilutionimpact:'investing',
   burnrate:'business',pricing:'business',equity:'business',revenue:'business',breakeven:'business',cashflow:'business',
   currency:'currency'
   // scientific intentionally excluded — pure math tool, no financial disclaimer applies
@@ -6930,7 +7131,7 @@ buildDir();buildSci();buildCurrency();buildMortComp();buildLoanComp();
 renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();renderDC2();
 calcCAGR();calcDRIP();cDivGrowth();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();cDilutionImpact();calcRevenue();
-cLoan();cPrepay();cSip();cSWP();cTax();cMortgage();cRentVsBuy();cSavings();cProvident();cAllocRecommend();cStock();cPEG();cRetire();cFire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
+cLoan();cPrepay();cSip();cSWP();cTax();cMortgage();cRentVsBuy();cSavings();cProvident();cAllocRecommend();cStock();cPEG();cEVEBITDA();cRetire();cFire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
 injectDisclaimers();
 
 // Deep-link support: opening yourdomain.com/#loan lands directly on that

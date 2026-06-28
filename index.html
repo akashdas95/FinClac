@@ -285,6 +285,22 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .guide-step{display:flex;gap:14px;margin-bottom:14px;font-size:14px;color:var(--tb);line-height:1.7}
 .guide-step-num{width:24px;height:24px;border-radius:50%;background:var(--g);color:#000;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 
+.guide-sub-arrow{display:none}
+
+/* Mobile-only collapsible guide subsections (reduces cognitive load on small screens) */
+@media(max-width:700px){
+  .guide-sub{border-bottom:1px solid var(--bd)}
+  .guide-sub:last-child{border-bottom:none}
+  .guide-sub-head{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;user-select:none;padding:.25rem 0;margin:0}
+  .guide-sub-head .guide-h3{margin:1.5rem 0 0;padding-top:.25rem;border-top:1px solid var(--bd);flex:1}
+  .guide-sub:first-child .guide-sub-head .guide-h3{margin-top:0;padding-top:0;border-top:none}
+  .guide-sub-arrow{display:block;font-size:13px;color:var(--m);flex-shrink:0;transition:transform .25s;margin-top:1.4rem}
+  .guide-sub:first-child .guide-sub-arrow{margin-top:0}
+  .guide-sub.open .guide-sub-arrow{transform:rotate(180deg)}
+  .guide-sub-body{display:none;overflow:hidden}
+  .guide-sub.open .guide-sub-body{display:block}
+}
+
 
 /* FAQ Section */
 .faq-section{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
@@ -5349,6 +5365,44 @@ function renderInsights(id,lines){
   ).join('');
 }
 
+// ── Mobile guide accordions: group each guide-h3 + its content into a
+// collapsible section. Pure DOM restructuring — CSS only activates the
+// collapsed/click behavior at ≤700px; above that, everything still
+// renders exactly as before (this just adds inert wrapper elements).
+function initGuideAccordions(){
+  document.querySelectorAll('.guide-body').forEach(body=>{
+    if(body.dataset.accordionized)return;
+    body.dataset.accordionized='1';
+    const kids=Array.from(body.children);
+    const frag=document.createDocumentFragment();
+    let current=null;
+    kids.forEach(node=>{
+      if(node.classList.contains('guide-h3')){
+        current=document.createElement('div');
+        current.className='guide-sub';
+        const head=document.createElement('div');
+        head.className='guide-sub-head';
+        head.onclick=function(){this.parentElement.classList.toggle('open');};
+        const bodyWrap=document.createElement('div');
+        bodyWrap.className='guide-sub-body';
+        head.appendChild(node);
+        const arrow=document.createElement('span');
+        arrow.className='guide-sub-arrow';
+        arrow.textContent='▾';
+        head.appendChild(arrow);
+        current.appendChild(head);
+        current.appendChild(bodyWrap);
+        frag.appendChild(current);
+      }else if(current){
+        current.querySelector('.guide-sub-body').appendChild(node);
+      }else{
+        frag.appendChild(node); // content before the first H3 (intro paragraph) stays unwrapped
+      }
+    });
+    body.appendChild(frag);
+  });
+}
+
 // ── SEO: per-calculator metadata + dynamic canonical/hreflang ────
 // Languages currently supported for hreflang/SEO purposes (UI text itself
 // is still English-only — this just tells search engines which language
@@ -7307,7 +7361,7 @@ function toggleFAQ(el){
 }
 
 // ── Init ─────────────────────────────────────────────────────────
-buildDir();buildSci();buildCurrency();buildMortComp();buildLoanComp();
+buildDir();buildSci();buildCurrency();buildMortComp();buildLoanComp();initGuideAccordions();
 renderXIRR();renderFounders();renderRounds();renderDebtRows();renderCFRows();renderDC2();
 calcCAGR();calcDRIP();cDivGrowth();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();cDilutionImpact();calcRevenue();

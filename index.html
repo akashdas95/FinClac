@@ -333,6 +333,50 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .insight-line.neutral .ic{color:var(--a)}
 .insight-line strong{font-weight:700}
 
+/* Print button (visual style, hidden in print itself) */
+.print-btn{background:var(--s2);border:1px solid var(--bd);color:var(--tb);font-size:12.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-family:var(--fn);transition:all .18s;margin-bottom:1rem;margin-left:8px}
+.print-btn:hover{color:var(--t);border-color:var(--g);background:var(--s)}
+.print-header{display:none}
+
+/* Print stylesheet: show only the active calculator's inputs/outputs, hide everything else */
+@media print{
+  html,body{background:#fff!important;color:#000!important}
+  .topbar,.nav,.site-footer,#srch-results,.search-overlay{display:none!important}
+  .content{padding:0!important}
+  .panel{display:none!important}
+  .panel.on{display:block!important}
+  .panel.on>*{display:none!important}
+  .panel.on .two,.panel.on .two-eq,.panel.on .three{display:grid!important;grid-template-columns:1fr 1fr!important;gap:16px;page-break-inside:avoid}
+  .panel.on .three{grid-template-columns:1fr 1fr 1fr!important}
+  .print-header.show{display:block!important;margin-bottom:1rem;color:#000}
+  .print-header.show .ph-name{font-size:20px;font-weight:700;margin-bottom:2px;color:#000}
+  .print-header.show .ph-date{font-size:11px;color:#555}
+  .card{background:#fff!important;border:1px solid #ccc!important;color:#000!important;padding:14px!important;box-shadow:none!important;display:block!important}
+  .card *{visibility:visible}
+  .card *[style*="background:var(--s2)"],.card *[style*="background:var(--s)"]{background:#f7f7f7!important}
+  .card *[style*="color:var(--t)"]{color:#000!important}
+  .card *[style*="color:var(--m)"]{color:#666!important}
+  .card *[style*="color:var(--a)"]{color:#946800!important}
+  .card *[style*="color:var(--g)"]{color:#0a7a4d!important}
+  .card *[style*="color:var(--r)"]{color:#c0293f!important}
+  .card *[style*="color:var(--b)"]{color:#0d5fb5!important}
+  .card *[style*="color:var(--p)"]{color:#6e3a8a!important}
+  .card-title{color:#000!important;border-bottom:1px solid #ccc;padding-bottom:6px;margin-bottom:10px}
+  .field label{color:#444!important}
+  .field input,.field select{background:#f7f7f7!important;border:1px solid #ccc!important;color:#000!important}
+  .sgrid,.g2,.g3{display:grid!important}
+  .sbox{background:#f7f7f7!important;border:1px solid #ddd!important;display:block!important}
+  .sbox .lbl{color:#666!important}
+  .sbox .val{color:#000!important}
+  .rrow{color:#000!important;border-bottom:1px solid #eee!important;display:flex!important}
+  .tbl{display:table!important;width:100%}
+  .tbl,.tbl th,.tbl td{color:#000!important;border-color:#ccc!important}
+  .tbl th{background:#eee!important}
+  .donut-wrap,.leg-i{display:flex!important}
+  .insight-box,.insight-line,.insight-title{display:none!important}
+  canvas{display:block!important}
+}
+
 </style>
 </head>
 <body>
@@ -7356,6 +7400,38 @@ function injectDisclaimers(){
   });
 }
 
+// ── Print: a button per calculator that prints just that calculator's
+// inputs + outputs (stat boxes, charts, tables) via a scoped print
+// stylesheet — not the nav, guide, FAQ, or any other panel.
+function injectPrintButtons(){
+  document.querySelectorAll('.panel').forEach(panel=>{
+    if(panel.id==='home')return;
+    if(panel.querySelector('.print-btn'))return;
+    const btn=document.createElement('button');
+    btn.className='print-btn';
+    btn.innerHTML='🖨️ Print';
+    btn.onclick=function(){printCalculator(panel.id);};
+    const back=panel.querySelector('.back-btn');
+    if(back)back.insertAdjacentElement('afterend',btn);
+    else panel.insertBefore(btn,panel.firstChild);
+  });
+}
+function printCalculator(id){
+  const panel=gel(id);if(!panel)return;
+  let header=panel.querySelector('.print-header');
+  if(!header){
+    header=document.createElement('div');
+    header.className='print-header';
+    panel.insertBefore(header,panel.querySelector('.two,.two-eq,.three')||panel.firstChild);
+  }
+  const name=panel.querySelector('.card-title')?.textContent||'FinCalc Result';
+  const today=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  header.innerHTML=`<div class="ph-name">${name}</div><div class="ph-date">Generated ${today} · fincalc.pro</div>`;
+  header.classList.add('show');
+  window.print();
+  setTimeout(()=>header.classList.remove('show'),500);
+}
+
 function toggleFAQ(el){
   el.parentElement.classList.toggle('open');
 }
@@ -7367,6 +7443,7 @@ calcCAGR();calcDRIP();cDivGrowth();calcETF();calcDCF();
 cBurn();cPricing();calcEquity();cDilutionImpact();calcRevenue();
 cLoan();cPrepay();cAutoLoan();cSip();cSWP();cTax();cMortgage();cRentVsBuy();cSavings();cProvident();cAllocRecommend();cStock();cPEG();cEVEBITDA();cRetire();cFire();cDebt();cRental();calcRP();cCF();cBE();cSavingsGoal();cEmergency();cHealthScore();
 injectDisclaimers();
+injectPrintButtons();
 
 // Deep-link support: opening yourdomain.com/#loan lands directly on that
 // calculator (also keeps canonical/hreflang/title tags correct on load).

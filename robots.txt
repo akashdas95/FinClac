@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://finclac.com/sitemap.xml

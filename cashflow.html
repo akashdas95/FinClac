@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cash Flow Calculator — Track Personal & Business Inflows vs Outflows | FinCalc</title>
-<meta name="description" content="Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.">
-<link rel="canonical" href="https://finclac.com/cashflow">
+<title>CAGR Calculator — How to Calculate Compound Annual Growth Rate | FinCalc</title>
+<meta name="description" content="Free CAGR calculator shows you how to calculate compound annual growth rate step by step, with Rule of 72 doubling time and historical benchmark comparisons.">
+<link rel="canonical" href="https://finclac.com/cagr">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cash Flow Calculator — Track Personal & Business Inflows vs Outflows | FinCalc">
-<meta property="og:description" content="Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.">
-<meta property="og:url" content="https://finclac.com/cashflow">
+<meta property="og:title" content="CAGR Calculator — How to Calculate Compound Annual Growth Rate | FinCalc">
+<meta property="og:description" content="Free CAGR calculator shows you how to calculate compound annual growth rate step by step, with Rule of 72 doubling time and historical benchmark comparisons.">
+<meta property="og:url" content="https://finclac.com/cagr">
 <meta property="og:site_name" content="FinCalc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cash Flow Calculator — Track Personal & Business Inflows vs Outflows | FinCalc">
-<meta name="twitter:description" content="Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.">
+<meta name="twitter:title" content="CAGR Calculator — How to Calculate Compound Annual Growth Rate | FinCalc">
+<meta name="twitter:description" content="Free CAGR calculator shows you how to calculate compound annual growth rate step by step, with Rule of 72 doubling time and historical benchmark comparisons.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -30,7 +30,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .ntab{padding:8px 13px;font-size:12px;font-weight:500;color:#fff;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;transition:all .18s;font-family:var(--fn);text-decoration:none;display:inline-block}
 .ntab.on{color:var(--a);border-bottom-color:var(--a)}
 .ntab:hover:not(.on){color:var(--t)}
-.content{padding:1.25rem}
+.content{padding:1.25rem;max-width:1366px;margin:0 auto}
 .panel{display:none}.panel.on{display:block}.panel.on::after{content:'';display:table;clear:both}
 .dir-sec{margin-bottom:1.75rem}
 .dir-sec-h{font-size:11px;font-weight:600;color:var(--m);letter-spacing:.8px;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:8px}
@@ -109,6 +109,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .sci-btn.op{color:var(--a)}.sci-btn.eq{background:var(--a);color:#000;border-color:var(--a);font-weight:600}.sci-btn.cl{color:var(--r)}.sci-btn.fn{color:var(--b)}
 @media(max-width:700px){.two,.two-eq,.three{grid-template-columns:1fr}.g2,.g3{grid-template-columns:1fr}.sci-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:700px){.searchbox{width:170px;padding:8px 12px}.searchbox input{font-size:13px}}
+@media(max-width:700px){.download-btn,.share-btn{font-size:9.5px;padding:3px 7px;gap:3px;border-radius:12px}}
 
 }
 
@@ -118,6 +119,13 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .calc-links-label{font-size:10px;color:#fff;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-right:4px;flex-shrink:0}
 .calc-link-btn{padding:4px 10px;background:var(--bg);border:1px solid var(--g);border-radius:20px;color:var(--g);font-size:11px;cursor:pointer;font-family:var(--fn);transition:all .18s;white-space:nowrap;text-decoration:none}
 .calc-link-btn:hover{background:var(--g);color:#000;border-color:var(--g)}
+.related-box{clear:both;margin-top:28px;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.related-box-title{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.related-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:7px;text-decoration:none;color:var(--t);font-size:13px;line-height:1.5;font-weight:500;transition:background .15s,color .15s}
+.related-item:not(:last-child){margin-bottom:2px}
+.related-item:hover{background:var(--s2);color:var(--a)}
+.related-arrow{color:var(--a);flex-shrink:0;font-size:14px;transition:transform .15s}
+.related-item:hover .related-arrow{transform:translateX(3px)}
 
 
 /* Footer */
@@ -129,9 +137,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 /* Calculator Guide Articles */
 .calc-guide{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
-.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0}
+.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0;max-width:980px}
+@media(min-width:1048px){.guide-toggle{margin-left:auto;margin-right:auto}}
 .guide-toggle-title{font-size:14px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:8px;letter-spacing:.1px}
 .guide-body{display:block;padding:1.5rem 0 0;max-width:980px}
+@media(min-width:1048px){.guide-body{margin:0 auto}}
 .guide-h2{font-size:22px;font-weight:700;color:var(--t);margin:1.75rem 0 .85rem;letter-spacing:-.2px;line-height:1.3}
 .guide-h2:first-child{margin-top:0}
 .guide-h3{font-size:16px;font-weight:700;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.1px;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
@@ -198,10 +208,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .insight-line strong{font-weight:700}
 
 /* Print button (visual style, hidden in print itself) */
-.download-btn{background:var(--s2);border:1px solid var(--bd);color:var(--tb);font-size:12.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-family:var(--fn);transition:all .18s;margin-bottom:1rem;float:right}
+.download-btn{background:var(--s2);border:1px solid var(--bd);color:var(--tb);font-size:12.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-family:var(--fn);transition:all .18s;margin-bottom:2.75rem;margin-left:8px;float:right}
 .download-btn:disabled{opacity:.6;cursor:wait}
 .download-btn:hover{color:var(--t);border-color:var(--g);background:var(--s)}
+.share-btn{background:var(--s2);border:1px solid var(--bd);color:var(--tb);font-size:12.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-family:var(--fn);transition:all .18s;margin-bottom:2.75rem;float:right}
+.share-btn:hover{color:var(--t);border-color:var(--a);background:var(--s)}
 .print-header{display:none}
+
+/* Share modal */
+.share-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;padding:1rem}
+.share-backdrop.on{display:flex}
+.share-modal{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:1.5rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.share-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.share-modal-title{font-size:15px;font-weight:700;color:var(--t)}
+.share-modal-close{background:none;border:none;color:var(--m);font-size:20px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:6px}
+.share-modal-close:hover{color:var(--t);background:var(--s2)}
+.share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1rem}
+.share-opt{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer;padding:6px 2px;border-radius:10px;transition:background .15s}
+.share-opt:hover{background:var(--s2)}
+.share-opt-ic{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff}
+.share-opt-lbl{font-size:10.5px;color:var(--tb);font-weight:500}
+.share-link-row{display:flex;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
+.share-link-row input{flex:1;background:none;border:none;outline:none;color:var(--tb);font-family:var(--mo);font-size:12px}
+.share-copy-btn{background:var(--a);color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--fn);flex-shrink:0}
+.share-copy-btn:hover{opacity:.9}
+.share-copy-btn.copied{background:var(--g)}
 
 /* Print stylesheet: show only the active calculator's inputs/outputs, hide everything else */
 @media print{
@@ -263,7 +294,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Cash Flow Calculator", "url": "https://finclac.com/cashflow", "description": "Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "CAGR Calculator", "url": "https://finclac.com/cagr", "description": "Free CAGR calculator shows you how to calculate compound annual growth rate step by step, with Rule of 72 doubling time and historical benchmark comparisons.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <div class="topbar">
@@ -290,9 +321,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <a class="ntab" href="/invest" onclick="go('invest',this);return false;">📈 SIP/Investment</a>
   <a class="ntab" href="/tax" onclick="go('tax',this);return false;">🧾 Tax</a>
   <a class="ntab" href="/mortgage" onclick="go('mortgage',this);return false;">🏠 Mortgage</a>
+  <a class="ntab" href="/heloc" onclick="go('heloc',this);return false;">🏡 HELOC</a>
   <a class="ntab" href="/mortcomp" onclick="go('mortcomp',this);return false;">⚖️ Mtg Compare</a>
   <a class="ntab" href="/savings" onclick="go('savings',this);return false;">🏛️ Savings</a>
   <a class="ntab" href="/stock" onclick="go('stock',this);return false;">📉 Stock P&amp;L</a>
+  <a class="ntab" href="/split" onclick="go('split',this);return false;">🔀 Stock Split</a>
   <a class="ntab" href="/retirement" onclick="go('retirement',this);return false;">👴 Retirement</a>
   <a class="ntab" href="/debt" onclick="go('debt',this);return false;">💳 Debt Payoff</a>
   <a class="ntab" href="/rental" onclick="go('rental',this);return false;">🏘️ Rental Yield</a>
@@ -305,76 +338,72 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <a class="ntab" href="/scientific" onclick="go('scientific',this);return false;">🔬 Scientific</a>
 </div>
 <div class="content">
-<div id="cashflow" class="panel on">
-<a class="back-btn" href="/" onclick="go('home',null);return false;">← Back to Home</a>
-<div class="calc-links"><span class="calc-links-label">🔗 Related</span><a class="calc-link-btn" href="/healthscore" onclick="go('healthscore',null);return false;">💯 Health Score</a><a class="calc-link-btn" href="/debt" onclick="go('debt',null);return false;">💳 Debt Payoff</a><a class="calc-link-btn" href="/emergencyfund" onclick="go('emergencyfund',null);return false;">🛡️ Emergency Fund</a><a class="calc-link-btn" href="/savingsgoal" onclick="go('savingsgoal',null);return false;">🎯 Savings Goal</a></div>
+<div id="cagr" class="panel on">
+
+<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/cagr-vs-average-return">CAGR vs. Average Return: Why Your Investment App Is Lying to You<span class="related-arrow">→</span></a></div>
 
 
-<h1 style="margin:0;font-size:16px;font-weight:500;margin-bottom:4px">Cash Flow Calculator</h1>
-<div class="two-eq">
-  <div>
-    <div class="card mb16">
-      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">Income Sources <button class="btn-sm btn-add" onclick="addCF('i')">+ Add</button></div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px"><span style="font-size:10px;color:var(--m)">Source</span><span style="font-size:10px;color:var(--m)">Amount ($)</span><span style="font-size:10px;color:var(--m)">Freq.</span><span></span></div>
-      <div id="cf-i-rows"></div>
+<div class="two">
+  <div class="card">
+    <h1 class="card-title" style="margin:0 0 1.25rem">CAGR Calculator</h1>
+    <div class="g2">
+      <div class="field"><label>Beginning Value ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="cg-begin" value="10000" oninput="calcCAGR()"></div></div>
+      <div class="field"><label>Ending Value ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="cg-end" value="25000" oninput="calcCAGR()"></div></div>
+      <div class="field"><label>Number of Years</label><input type="text" inputmode="decimal" id="cg-years" value="5" oninput="calcCAGR()"></div>
     </div>
-    <div class="card">
-      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">Expenses <button class="btn-sm btn-add" onclick="addCF('e')">+ Add</button></div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px"><span style="font-size:10px;color:var(--m)">Category</span><span style="font-size:10px;color:var(--m)">Amount ($)</span><span style="font-size:10px;color:var(--m)">Freq.</span><span></span></div>
-      <div id="cf-e-rows"></div>
+    <div class="sgrid" style="margin-top:0">
+      <div class="sbox"><div class="lbl">CAGR</div><div class="val" style="color:var(--a)" id="cg-rate">0%</div></div>
+      <div class="sbox"><div class="lbl">Total Return</div><div class="val" style="color:var(--g)" id="cg-total">0%</div></div>
+      <div class="sbox"><div class="lbl">Absolute Gain</div><div class="val" id="cg-gain">$0</div></div>
+      <div class="sbox"><div class="lbl">Multiplier</div><div class="val" style="color:var(--b)" id="cg-mult">0x</div></div>
     </div>
+    <div style="margin-top:1rem" id="cg-proj"></div>
+    <div style="margin-top:1rem;background:var(--s2);border-radius:8px;padding:10px;font-size:12px;color:var(--m);line-height:1.7" id="cg-rule"></div>
+    <div class="insight-box" id="cg-insights"></div>
   </div>
-  <div>
-    <div class="card mb16">
-      <div class="card-title">Monthly Summary</div>
-      <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
-        <div class="sbox"><div class="lbl">Monthly Income</div><div class="val" style="color:var(--g)" id="cf-inc">$0</div></div>
-        <div class="sbox"><div class="lbl">Monthly Expenses</div><div class="val" style="color:var(--r)" id="cf-exp">$0</div></div>
-        <div class="sbox"><div class="lbl">Net Cash Flow</div><div class="val" id="cf-net">$0</div></div>
-        <div class="sbox"><div class="lbl">Savings Rate</div><div class="val" id="cf-sr">0%</div></div>
-      </div>
-      <canvas id="cf-chart" width="300" height="135" style="width:100%"></canvas>
-    </div>
-    <div class="card"><div class="card-title">Expense Breakdown</div><div id="cf-bars"></div><div class="insight-box" id="cf-insights"></div></div>
+  <div class="card">
+    <div class="card-title">Growth Projection</div>
+    <canvas id="cg-chart" width="300" height="200" style="width:100%;margin:1rem 0"></canvas>
   </div>
 </div>
 
+<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/xirr" onclick="go('xirr',null);return false;">📅 XIRR</a><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 Investment</a><a class="calc-link-btn" href="/etf" onclick="go('etf',null);return false;">🗂️ ETF Growth</a><a class="calc-link-btn" href="/dcf" onclick="go('dcf',null);return false;">🏦 Stock DCF</a></div></div>
 <div class="calc-guide">
   <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Cash Flow Analysis — Know Where Every Dollar Goes</div>
+    <div class="guide-toggle-title">📖 CAGR — Compound Annual Growth Rate</div>
   </div>
   <div class="guide-body">
-<div class="guide-p">Profit and cash flow are not the same thing, and the gap between them has ended more businesses than outright unprofitability ever has. A company can show a healthy profit on its income statement while simultaneously running out of actual cash to pay employees, vendors, or rent — a phenomenon experienced finance professionals call "growing broke."</div>
+<div class="guide-p">When someone asks "how did your investment perform," the honest answer is rarely a straight line. Markets zig-zag — up 18% one year, down 9% the next, flat the year after. CAGR (Compound Annual Growth Rate) cuts through that noise and answers a simpler question: if this investment had grown at one steady rate every single year, what would that rate have to be to get from where you started to where you ended up? It's a smoothing tool, not a description of what actually happened year by year — and understanding that distinction is the key to using it correctly.</div>
 
-<div class="guide-h3">Why Profit and Cash Flow Diverge</div>
-<div class="guide-p">Accounting profit includes non-cash items (depreciation, accrued but unpaid revenue) and excludes some real cash movements (loan principal repayments, capital equipment purchases). A business can report $50,000 in monthly profit while simultaneously having $80,000 tied up in unpaid customer invoices (accounts receivable) and a $40,000 equipment purchase that doesn't show up as an expense on the income statement at all (it's capitalized and depreciated over years) — leaving far less actual cash on hand than the profit figure would suggest.</div>
+<div class="guide-h3">The Formula, Broken Down</div>
+<div class="guide-formula">CAGR = (Ending Value / Beginning Value) ^ (1 / Number of Years) − 1</div>
+<div class="guide-p">Each piece of this formula has a job. The ratio (Ending Value / Beginning Value) tells you the total multiple your money grew by — ignore the time it took, for now. Raising that ratio to the power of (1 / Years) is the mathematical trick that "spreads" the total growth evenly across every year, similar to how you'd find the average speed of a trip if you only knew the total distance and total time, not the speed at every mile.</div>
 
-<div class="guide-h3">Worked Example: A Profitable Business Running Out of Cash</div>
-<table class="guide-table"><thead><tr><th>Line Item</th><th>Amount</th></tr></thead><tbody>
-<tr><td>Reported Monthly Net Profit</td><td>+$45,000</td></tr>
-<tr><td>Increase in Accounts Receivable (sales made, not yet collected)</td><td>−$30,000</td></tr>
-<tr><td>Equipment Purchase (cash out, not an expense on income statement)</td><td>−$25,000</td></tr>
-<tr><td>Loan Principal Repayment (not an expense, but real cash out)</td><td>−$8,000</td></tr>
-<tr><td><strong>Actual Cash Flow This Month</strong></td><td><strong>−$18,000</strong></td></tr>
+<div class="guide-h3">Worked Example: A Real Portfolio</div>
+<div class="guide-p">Say you invested $15,000 in a mutual fund on January 1, 2019, and by January 1, 2026 — seven years later — it's worth $42,000. Your money nearly tripled, but what's the annualized rate?</div>
+<div class="guide-formula">CAGR = (42,000 / 15,000) ^ (1/7) − 1<br>= (2.8) ^ (0.1429) − 1<br>= 1.1614 − 1<br>= 16.14% per year</div>
+<div class="guide-p">That 16.14% is the constant annual growth rate that, compounded for 7 straight years, turns $15,000 into $42,000. It doesn't mean the fund actually returned 16.14% every single year — in reality it might have returned 28% one year and lost 6% another — but for the purpose of comparing this investment against, say, a different fund or an index, CAGR gives you a single clean number to compare.</div>
+
+<div class="guide-h3">Why CAGR Beats a Simple Average</div>
+<div class="guide-p">A common mistake is averaging year-by-year returns directly. Imagine a stock that rises 100% in year one (doubling your money) and then falls 50% in year two. The simple average of +100% and −50% is +25%, which sounds great — but in reality, your money is exactly where it started. $10,000 becomes $20,000 after year one, then drops back to $10,000 after the 50% loss. The CAGR over those two years is correctly 0%, because CAGR accounts for the compounding effect: losses hurt proportionally more on a larger base. This is sometimes called "volatility drag," and it's the reason two investments with the same average annual return can leave you with very different ending balances if one is far more volatile than the other.</div>
+
+<div class="guide-h3">The Rule of 72 — A Mental Shortcut</div>
+<div class="guide-formula">Doubling Time (years) ≈ 72 / CAGR%</div>
+<div class="guide-p">This old trader's trick estimates how long it takes an investment to double at a given CAGR, without needing a calculator. At 8% CAGR, money doubles in about 72/8 = 9 years. At 12%, it's 72/12 = 6 years. At a very modest 3% (typical of a savings account), it takes a sluggish 24 years. The Rule of 72 isn't perfectly precise — it's most accurate in the 6–10% range — but it's an excellent gut-check for retirement and goal planning conversations.</div>
+
+<div class="guide-h3">How CAGR Compares Across Asset Classes</div>
+<table class="guide-table"><thead><tr><th>Investment</th><th>Historical CAGR</th><th>What Drives It</th></tr></thead><tbody>
+<tr><td>S&amp;P 500 Index</td><td>~10–11% long term</td><td>Corporate earnings growth + dividends reinvested</td></tr>
+<tr><td>US Real Estate (national avg)</td><td>~4–6%</td><td>Population growth, inflation, local supply constraints</td></tr>
+<tr><td>Gold</td><td>~7–8%</td><td>Inflation hedge, currency debasement, scarcity</td></tr>
+<tr><td>High-Yield Savings Account</td><td>~3–5%</td><td>Central bank policy rates</td></tr>
+<tr><td>US Treasury Bonds (10-yr)</td><td>~3–4%</td><td>Government borrowing rates, considered "risk-free"</td></tr>
 </tbody></table>
-<div class="guide-p">This business is genuinely profitable by every accounting measure, yet its bank balance dropped by $18,000 this month — and if this pattern continues for several months without intervention, a fundamentally healthy, profitable business can run out of operating cash entirely.</div>
+<div class="guide-p">These benchmarks matter because CAGR is only useful in context. A 9% CAGR on a tech stock over 3 years might look unimpressive next to a 35% CAGR over the same window — but a 9% CAGR sustained for 25 years compounds into something far more powerful than most people intuitively expect, simply because exponential growth feels slow at first and explosive later.</div>
 
-<div class="guide-h3">Operating Cash Flow: A More Reliable Health Signal</div>
-<div class="guide-formula">Operating Cash Flow = Net Income + Non-Cash Expenses (depreciation, etc.) − Increase in Working Capital</div>
-<div class="guide-p">Operating cash flow strips out the accounting timing differences that obscure true cash generation, making it considerably harder to manipulate through aggressive revenue recognition or expense timing than reported net income — which is why sophisticated investors and lenders often weight operating cash flow more heavily than headline profit when assessing a business's actual financial health.</div>
-
-<div class="guide-h3">Building a 13-Week Cash Flow Forecast</div>
-<div class="guide-p">Many finance teams maintain a rolling 13-week (roughly one quarter) cash flow forecast specifically because monthly or annual views can smooth over short-term timing crunches. A single large quarterly tax payment, annual insurance renewal, or unexpectedly delayed customer payment can create a real cash shortfall even when average monthly cash flow looks perfectly healthy on paper.</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>List every expected cash inflow by week (customer payments, financing draws), based on realistic collection timing — not invoice date.</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>List every expected cash outflow by week (payroll, rent, loan payments, large one-time purchases).</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>Calculate the running cumulative balance week by week, flagging any week where the projected balance turns negative — these are your early warning points.</div></div>
-</div>
-
-<div class="guide-h3">Net Cash Flow as an Early Warning System</div>
-<div class="guide-formula">Net Cash Flow = Total Cash Inflows − Total Cash Outflows</div>
-<div class="guide-p">A single month of negative net cash flow isn't necessarily alarming — seasonal businesses or those investing heavily in growth often experience this deliberately. The warning sign is a sustained, multi-month trend of negative net cash flow without a clear, planned reason and a defined end date, since this trajectory eventually depletes any cash reserve, regardless of how profitable the business appears on paper.</div>
-<div class="guide-tip">💡 Maintain a cash reserve target (commonly 3-6 months of operating expenses for small businesses) specifically to absorb the timing gaps between profit and cash flow — this buffer is what allows a fundamentally healthy business to survive a slow collection month or unexpected large expense without crisis.</div>
+<div class="guide-h3">Where CAGR Gets Misused</div>
+<div class="guide-p">CAGR is frequently cherry-picked in marketing material. A fund that says "look at our amazing 5-year CAGR" may have started measuring from the exact bottom of a market crash, making the recovery look like skill rather than timing. Always check the start and end dates being used, and ideally compare CAGR over multiple overlapping periods (3-year, 5-year, 10-year) rather than trusting a single window.</div>
+<div class="guide-warn">⚠ CAGR assumes a smooth, steady growth path and completely hides volatility. A stock that drops 50% and then rises 100% shows a 0% CAGR on paper — identical to a savings account that never moved — even though one path involved enormous risk and the other involved none. Always look at the maximum drawdown alongside CAGR before deciding an investment was actually "good."</div>
 
   </div>
 </div>
@@ -383,38 +412,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is cash flow?</span>
+    <span>What is CAGR?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">Cash flow is the movement of money <strong>in and out</strong> of a business or personal budget. Positive cash flow means more is coming in than going out. Negative cash flow means you’re depleting savings or taking on debt.</div>
+  <div class="faq-a">CAGR stands for <strong>Compound Annual Growth Rate</strong>. It tells you the steady annual rate at which an investment grew from a starting value to an ending value over a given period, smoothing out any ups and downs along the way.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is the difference between profit and cash flow?</span>
+    <span>What is the CAGR formula?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">A business can be profitable on paper but still run out of cash. <strong>Profit</strong> is an accounting concept (revenue minus expenses). <strong>Cash flow</strong> is actual money in the bank. Many businesses fail not from lack of profit, but from poor cash flow timing.</div>
+  <div class="faq-a"><span class="faq-formula">CAGR = (Ending Value / Beginning Value) ^ (1 / Years) − 1</span>For example, if you invested $10,000 and it grew to $25,000 in 5 years, your CAGR is (25000/10000)^(1/5) − 1 = <strong>20.1%</strong>.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is operating cash flow?</span>
+    <span>How is CAGR different from average annual return?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Operating Cash Flow = Net Income + Non-Cash Expenses − Working Capital Changes</span>Operating cash flow shows how much cash the core business generates and is considered a more reliable measure of financial health than reported profit.</div>
+  <div class="faq-a">Average annual return simply averages yearly gains/losses. CAGR shows the actual compounded rate. If a stock drops 50% one year and rises 100% the next, the average return is 25% — but your CAGR is 0% because you’re back where you started.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is a cash flow forecast?</span>
+    <span>What is a good CAGR?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">A cash flow forecast projects expected inflows and outflows over a future period. It helps you identify potential shortfalls in advance so you can arrange financing, delay expenses, or accelerate collections <strong>before a crisis hits</strong>.</div>
+  <div class="faq-a">It depends on the asset class. The S&amp;P 500 has historically delivered ~10–11% CAGR. For a business, 15–25% CAGR is considered strong. Anything above 20% over a long period is exceptional and often unsustainable.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is net cash flow?</span>
+    <span>What is the Rule of 72?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Net Cash Flow = Cash Inflows − Cash Outflows</span>Net cash flow tells you whether you ended a period with more or less cash than you started. Consistently negative net cash flow is a warning sign that expenses are outpacing income.</div>
+  <div class="faq-a"><span class="faq-formula">Doubling Time (years) ≈ 72 / CAGR%</span>At a 10% CAGR, your investment doubles every ~7.2 years. At 6%, it doubles every 12 years. It’s a quick mental math shortcut to estimate how fast money grows.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Can CAGR be negative?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Yes. If your ending value is less than your beginning value, the CAGR will be negative. For example, investing $10,000 and ending with $7,000 after 5 years gives a CAGR of about −6.7% per year.</div>
 </div>
 </div>
 
@@ -446,6 +482,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </div>
 <script src="app.js"></script>
-<script>initPage('cashflow');</script>
+<script>initPage('cagr');</script>
 </body>
 </html>

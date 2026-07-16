@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cash Flow Calculator — Track Personal & Business Inflows vs Outflows | FinCalc</title>
-<meta name="description" content="Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.">
-<link rel="canonical" href="https://finclac.com/cashflow">
+<title>Currency Converter — Convert Between World Currencies Free | FinCalc</title>
+<meta name="description" content="Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.">
+<link rel="canonical" href="https://finclac.com/currency">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cash Flow Calculator — Track Personal & Business Inflows vs Outflows | FinCalc">
-<meta property="og:description" content="Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.">
-<meta property="og:url" content="https://finclac.com/cashflow">
+<meta property="og:title" content="Currency Converter — Convert Between World Currencies Free | FinCalc">
+<meta property="og:description" content="Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.">
+<meta property="og:url" content="https://finclac.com/currency">
 <meta property="og:site_name" content="FinCalc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cash Flow Calculator — Track Personal & Business Inflows vs Outflows | FinCalc">
-<meta name="twitter:description" content="Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.">
+<meta name="twitter:title" content="Currency Converter — Convert Between World Currencies Free | FinCalc">
+<meta name="twitter:description" content="Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -294,7 +294,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Cash Flow Calculator", "url": "https://finclac.com/cashflow", "description": "Analyze personal or business cash flow with inflows, outflows, and net cash position over time. Free cash flow analyzer.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Currency Converter", "url": "https://finclac.com/currency", "description": "Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <div class="topbar">
@@ -338,77 +338,59 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <a class="ntab" href="/scientific" onclick="go('scientific',this);return false;">🔬 Scientific</a>
 </div>
 <div class="content">
-<div id="cashflow" class="panel on">
+<div id="currency" class="panel on">
+
+<div style="max-width:540px">
+  <div class="card">
+    <h1 class="card-title" style="margin:0 0 1.25rem">Currency Converter</h1>
 
 
-
-
-<h1 style="margin:0;font-size:16px;font-weight:500;margin-bottom:4px">Cash Flow Calculator</h1>
-<div class="two-eq">
-  <div>
-    <div class="card mb16">
-      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">Income Sources <button class="btn-sm btn-add" onclick="addCF('i')">+ Add</button></div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px"><span style="font-size:10px;color:var(--m)">Source</span><span style="font-size:10px;color:var(--m)">Amount ($)</span><span style="font-size:10px;color:var(--m)">Freq.</span><span></span></div>
-      <div id="cf-i-rows"></div>
+    <div class="g2" style="margin-bottom:1rem">
+      <div class="field"><label>Amount</label><input type="text" inputmode="decimal" id="cu-amt" value="1000" oninput="cCurrency()"></div>
+      <div></div>
+      <div class="field"><label>From</label><select id="cu-from" onchange="cCurrency()"></select></div>
+      <div class="field"><label>To</label><select id="cu-to" onchange="cCurrency()"></select></div>
     </div>
-    <div class="card">
-      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">Expenses <button class="btn-sm btn-add" onclick="addCF('e')">+ Add</button></div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px"><span style="font-size:10px;color:var(--m)">Category</span><span style="font-size:10px;color:var(--m)">Amount ($)</span><span style="font-size:10px;color:var(--m)">Freq.</span><span></span></div>
-      <div id="cf-e-rows"></div>
+    <div style="background:var(--s2);border-radius:8px;padding:1.25rem;text-align:center;margin-bottom:1rem">
+      <div style="font-size:12px;color:var(--m);margin-bottom:6px" id="cu-lbl">—</div>
+      <div style="font-size:30px;font-family:var(--mo);font-weight:600;color:var(--a)" id="cu-res">—</div>
     </div>
+    <div id="cu-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+    <p id="cu-status" style="font-size:11px;color:var(--m);margin-top:1rem">Loading rates…</p>
+    <p style="font-size:11px;color:var(--m);margin-top:.25rem">⚠ Rates are for reference — verify with your bank or broker before transacting.</p>
   </div>
-  <div>
-    <div class="card mb16">
-      <div class="card-title">Monthly Summary</div>
-      <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
-        <div class="sbox"><div class="lbl">Monthly Income</div><div class="val" style="color:var(--g)" id="cf-inc">$0</div></div>
-        <div class="sbox"><div class="lbl">Monthly Expenses</div><div class="val" style="color:var(--r)" id="cf-exp">$0</div></div>
-        <div class="sbox"><div class="lbl">Net Cash Flow</div><div class="val" id="cf-net">$0</div></div>
-        <div class="sbox"><div class="lbl">Savings Rate</div><div class="val" id="cf-sr">0%</div></div>
-      </div>
-      <canvas id="cf-chart" width="300" height="135" style="width:100%"></canvas>
-    </div>
-    <div class="card"><div class="card-title">Expense Breakdown</div><div id="cf-bars"></div><div class="insight-box" id="cf-insights"></div></div>
-  </div>
-</div>
-
-<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/healthscore" onclick="go('healthscore',null);return false;">💯 Health Score</a><a class="calc-link-btn" href="/debt" onclick="go('debt',null);return false;">💳 Debt Payoff</a><a class="calc-link-btn" href="/emergencyfund" onclick="go('emergencyfund',null);return false;">🛡️ Emergency Fund</a><a class="calc-link-btn" href="/savingsgoal" onclick="go('savingsgoal',null);return false;">🎯 Savings Goal</a></div></div>
 <div class="calc-guide">
   <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Cash Flow Analysis — Know Where Every Dollar Goes</div>
+    <div class="guide-toggle-title">📖 Currency Converter — Getting the Best Rate</div>
   </div>
   <div class="guide-body">
-<div class="guide-p">Profit and cash flow are not the same thing, and the gap between them has ended more businesses than outright unprofitability ever has. A company can show a healthy profit on its income statement while simultaneously running out of actual cash to pay employees, vendors, or rent — a phenomenon experienced finance professionals call "growing broke."</div>
+<div class="guide-p">Currency exchange seems straightforward on the surface — look up a rate, convert your money — but the actual rate you receive when exchanging currency in practice is almost never the "real" rate quoted by financial news, and understanding why reveals where money quietly leaks away during international transactions, travel, and cross-border business.</div>
 
-<div class="guide-h3">Why Profit and Cash Flow Diverge</div>
-<div class="guide-p">Accounting profit includes non-cash items (depreciation, accrued but unpaid revenue) and excludes some real cash movements (loan principal repayments, capital equipment purchases). A business can report $50,000 in monthly profit while simultaneously having $80,000 tied up in unpaid customer invoices (accounts receivable) and a $40,000 equipment purchase that doesn't show up as an expense on the income statement at all (it's capitalized and depreciated over years) — leaving far less actual cash on hand than the profit figure would suggest.</div>
+<div class="guide-h3">The Mid-Market Rate vs What You Actually Get</div>
+<div class="guide-p">The mid-market rate (also called the interbank rate) is the midpoint between the buy and sell prices banks use when trading currencies among themselves — it's the rate you'll see quoted on Google, XE.com, or financial news. However, banks, currency exchange kiosks, and many payment services add a markup (spread) on top of this rate when serving retail customers, and that markup is effectively a hidden fee, since it's built into the exchange rate itself rather than disclosed as a separate line-item charge.</div>
 
-<div class="guide-h3">Worked Example: A Profitable Business Running Out of Cash</div>
-<table class="guide-table"><thead><tr><th>Line Item</th><th>Amount</th></tr></thead><tbody>
-<tr><td>Reported Monthly Net Profit</td><td>+$45,000</td></tr>
-<tr><td>Increase in Accounts Receivable (sales made, not yet collected)</td><td>−$30,000</td></tr>
-<tr><td>Equipment Purchase (cash out, not an expense on income statement)</td><td>−$25,000</td></tr>
-<tr><td>Loan Principal Repayment (not an expense, but real cash out)</td><td>−$8,000</td></tr>
-<tr><td><strong>Actual Cash Flow This Month</strong></td><td><strong>−$18,000</strong></td></tr>
+<div class="guide-h3">Worked Example: The Hidden Cost of Airport Currency Exchange</div>
+<table class="guide-table"><thead><tr><th>Exchange Method</th><th>Rate Offered (illustrative, USD/EUR)</th><th>Effective Markup vs Mid-Market</th><th>Cost on $1,000 Exchanged</th></tr></thead><tbody>
+<tr><td>True mid-market rate</td><td>0.930</td><td>0%</td><td>$0 (baseline)</td></tr>
+<tr><td>Typical bank exchange</td><td>0.911</td><td>~2%</td><td>~$20 lost to spread</td></tr>
+<tr><td>Airport currency kiosk</td><td>0.865</td><td>~7%</td><td>~$70 lost to spread</td></tr>
 </tbody></table>
-<div class="guide-p">This business is genuinely profitable by every accounting measure, yet its bank balance dropped by $18,000 this month — and if this pattern continues for several months without intervention, a fundamentally healthy, profitable business can run out of operating cash entirely.</div>
+<div class="guide-p">This illustrates why airport currency exchange counters — despite their convenience — are consistently among the worst places to exchange money, often charging spreads several multiples wider than a standard bank or modern fintech transfer service.</div>
 
-<div class="guide-h3">Operating Cash Flow: A More Reliable Health Signal</div>
-<div class="guide-formula">Operating Cash Flow = Net Income + Non-Cash Expenses (depreciation, etc.) − Increase in Working Capital</div>
-<div class="guide-p">Operating cash flow strips out the accounting timing differences that obscure true cash generation, making it considerably harder to manipulate through aggressive revenue recognition or expense timing than reported net income — which is why sophisticated investors and lenders often weight operating cash flow more heavily than headline profit when assessing a business's actual financial health.</div>
+<div class="guide-h3">Why Exchange Rates Fluctuate</div>
+<table class="guide-table"><thead><tr><th>Driver</th><th>Effect on Currency Value</th></tr></thead><tbody>
+<tr><td>Higher domestic interest rates</td><td>Tends to strengthen the currency (attracts foreign capital seeking yield)</td></tr>
+<tr><td>Higher inflation</td><td>Tends to weaken the currency over time (purchasing power erosion)</td></tr>
+<tr><td>Trade surplus (exports &gt; imports)</td><td>Tends to strengthen the currency (more foreign demand for it)</td></tr>
+<tr><td>Political or economic instability</td><td>Tends to weaken the currency (capital flight, reduced confidence)</td></tr>
+</tbody></table>
 
-<div class="guide-h3">Building a 13-Week Cash Flow Forecast</div>
-<div class="guide-p">Many finance teams maintain a rolling 13-week (roughly one quarter) cash flow forecast specifically because monthly or annual views can smooth over short-term timing crunches. A single large quarterly tax payment, annual insurance renewal, or unexpectedly delayed customer payment can create a real cash shortfall even when average monthly cash flow looks perfectly healthy on paper.</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>List every expected cash inflow by week (customer payments, financing draws), based on realistic collection timing — not invoice date.</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>List every expected cash outflow by week (payroll, rent, loan payments, large one-time purchases).</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>Calculate the running cumulative balance week by week, flagging any week where the projected balance turns negative — these are your early warning points.</div></div>
-</div>
+<div class="guide-h3">Strong vs Weak Currency: It Depends Who You Ask</div>
+<div class="guide-p">A "strong" currency (one that buys more of a foreign currency than before) benefits travelers and importers — your dollars stretch further abroad, and imported goods become cheaper domestically. A "weak" currency benefits exporters, since their goods become cheaper and more competitive in foreign markets, and it can also benefit a country's tourism industry, since foreign visitors find their money goes further. Neither direction is universally "good" or "bad" for an economy — the effects depend heavily on whether that economy is more export-driven or import-driven.</div>
 
-<div class="guide-h3">Net Cash Flow as an Early Warning System</div>
-<div class="guide-formula">Net Cash Flow = Total Cash Inflows − Total Cash Outflows</div>
-<div class="guide-p">A single month of negative net cash flow isn't necessarily alarming — seasonal businesses or those investing heavily in growth often experience this deliberately. The warning sign is a sustained, multi-month trend of negative net cash flow without a clear, planned reason and a defined end date, since this trajectory eventually depletes any cash reserve, regardless of how profitable the business appears on paper.</div>
-<div class="guide-tip">💡 Maintain a cash reserve target (commonly 3-6 months of operating expenses for small businesses) specifically to absorb the timing gaps between profit and cash flow — this buffer is what allows a fundamentally healthy business to survive a slow collection month or unexpected large expense without crisis.</div>
+<div class="guide-h3">Currency Hedging for Businesses</div>
+<div class="guide-p">Businesses that import or export internationally face real exposure to exchange rate fluctuations between the time a deal is signed and when payment actually settles, sometimes months later. Hedging instruments like forward contracts (locking in a specific exchange rate today for a transaction that settles in the future) allow businesses to plan with cost certainty, trading away potential upside (if the rate moves favorably) in exchange for protection against downside risk.</div>
+<div class="guide-tip">💡 For personal international transfers, modern fintech services (which typically use the mid-market rate plus a small, transparent, disclosed fee) almost always offer better value than traditional banks or airport kiosks, which bury their markup invisibly inside a worse exchange rate rather than charging a separate visible fee.</div>
 
   </div>
 </div>
@@ -417,42 +399,42 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is cash flow?</span>
+    <span>Why do exchange rates change?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">Cash flow is the movement of money <strong>in and out</strong> of a business or personal budget. Positive cash flow means more is coming in than going out. Negative cash flow means you’re depleting savings or taking on debt.</div>
+  <div class="faq-a">Exchange rates fluctuate based on <strong>supply and demand</strong> for currencies, driven by: interest rate differences between countries, inflation rates, trade balances, political stability, and market speculation. Rates can change daily or swing dramatically during economic crises.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is the difference between profit and cash flow?</span>
+    <span>What is the mid-market rate?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">A business can be profitable on paper but still run out of cash. <strong>Profit</strong> is an accounting concept (revenue minus expenses). <strong>Cash flow</strong> is actual money in the bank. Many businesses fail not from lack of profit, but from poor cash flow timing.</div>
+  <div class="faq-a">The mid-market rate is the <strong>midpoint between buy and sell prices</strong> for a currency pair. It’s the ‘true’ exchange rate. Banks and money changers add a markup (spread) to this rate when exchanging money — that spread is their profit.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is operating cash flow?</span>
+    <span>How do banks make money on currency conversion?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Operating Cash Flow = Net Income + Non-Cash Expenses − Working Capital Changes</span>Operating cash flow shows how much cash the core business generates and is considered a more reliable measure of financial health than reported profit.</div>
+  <div class="faq-a">They charge a spread — the difference between the rate they buy currency at and the rate they sell to you. A tourist exchange booth might offer USD/EUR at 0.90 when the real rate is 0.93, pocketing the 3% difference. Online services like Wise use mid-market rates with transparent small fees.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is a cash flow forecast?</span>
+    <span>What is currency hedging?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">A cash flow forecast projects expected inflows and outflows over a future period. It helps you identify potential shortfalls in advance so you can arrange financing, delay expenses, or accelerate collections <strong>before a crisis hits</strong>.</div>
+  <div class="faq-a">Currency hedging uses financial instruments (like forward contracts) to <strong>lock in an exchange rate</strong> for a future transaction. Businesses importing/exporting use hedging to protect against rate fluctuations that could make costs unpredictable.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is net cash flow?</span>
+    <span>What does it mean when a currency is strong or weak?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Net Cash Flow = Cash Inflows − Cash Outflows</span>Net cash flow tells you whether you ended a period with more or less cash than you started. Consistently negative net cash flow is a warning sign that expenses are outpacing income.</div>
+  <div class="faq-a">A <strong>strong currency</strong> buys more foreign goods and services (good for importers and travelers). A <strong>weak currency</strong> makes exports cheaper for foreign buyers (good for exporters). Both have advantages and disadvantages for an economy.</div>
 </div>
 </div>
 
-
+</div>
 </div>
 </div><!-- content -->
 <div class="site-footer">
@@ -480,6 +462,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </div>
 <script src="app.js"></script>
-<script>initPage('cashflow');</script>
+<script>initPage('currency');</script>
 </body>
 </html>

@@ -3,10 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About FinCalc — Free Financial Calculators</title>
-<meta name="description" content="FinCalc is a free collection of 40 financial calculators for personal finance, investing, business, and real estate.">
-<link rel="canonical" href="https://finclac.com/about">
+<title>Asset Allocation Calculator — Find Your Ideal Portfolio Mix by Age | FinCalc</title>
+<meta name="description" content="Find your ideal stocks, bonds, cash, gold, and crypto allocation based on age and risk tolerance. Free asset allocation calculator with return and volatility estimate.">
+<link rel="canonical" href="https://finclac.com/allocation">
 <meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Asset Allocation Calculator — Find Your Ideal Portfolio Mix by Age | FinCalc">
+<meta property="og:description" content="Find your ideal stocks, bonds, cash, gold, and crypto allocation based on age and risk tolerance. Free asset allocation calculator with return and volatility estimate.">
+<meta property="og:url" content="https://finclac.com/allocation">
+<meta property="og:site_name" content="FinCalc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Asset Allocation Calculator — Find Your Ideal Portfolio Mix by Age | FinCalc">
+<meta name="twitter:description" content="Find your ideal stocks, bonds, cash, gold, and crypto allocation based on age and risk tolerance. Free asset allocation calculator with return and volatility estimate.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -286,6 +294,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Asset Allocation Calculator", "url": "https://finclac.com/allocation", "description": "Find your ideal stocks, bonds, cash, gold, and crypto allocation based on age and risk tolerance. Free asset allocation calculator with return and volatility estimate.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <div class="topbar">
@@ -329,29 +338,162 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <a class="ntab" href="/scientific" onclick="go('scientific',this);return false;">🔬 Scientific</a>
 </div>
 <div class="content">
-<div class="panel on" id="about">
-<a class="back-btn" href="/">← Back to Home</a>
-<div class="card" style="max-width:900px;margin:0 auto">
-    <h1 class="card-title" style="margin:0 0 1.25rem">About FinCalc</h1>
-    
-<p class="guide-p" style="margin-top:0">FinCalc is a free collection of 40 financial calculators covering personal finance, investing, business, and real estate — built to give clear, accurate answers without signups, paywalls, or spreadsheets.</p>
+<div id="allocation" class="panel on">
 
-<h2 class="guide-h3">What you'll find here</h2>
-<p class="guide-p">Loan and mortgage payments, retirement and FIRE planning, SIP and CAGR growth projections, stock valuation tools like DCF and P/E-based models, startup and small-business calculators (burn rate, equity dilution, break-even), tax estimators, debt payoff strategies, and more — all organized by category on the <a href="/" style="color:var(--a);text-decoration:underline">calculators page</a>.</p>
+<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/etf-vs-individual-stocks">ETFs vs Individual Stocks: Building a Diversified Portfolio<span class="related-arrow">→</span></a></div>
 
-<h2 class="guide-h3">How the calculators work</h2>
-<p class="guide-p">Every calculator runs entirely in your browser using standard financial formulas (compound growth, amortization schedules, Newton's-method root-finding for IRR/XIRR, and so on). Nothing you type is sent to a server, logged, or stored — see our <a href="/privacy" style="color:var(--a);text-decoration:underline">Privacy Policy</a> for details.</p>
 
-<h2 class="guide-h3">Not financial advice</h2>
-<p class="guide-p">These tools are built for clarity and speed, not as a substitute for professional advice. Results are estimates based on the numbers you enter and standard formulas — they don't account for your full financial picture, tax situation, or changing market conditions. For decisions that matter, please consult a qualified financial advisor, accountant, or tax professional.</p>
-
-<h2 class="guide-h3">Accuracy</h2>
-<p class="guide-p">We aim for every calculator to be formula-correct and well-tested, but financial rules (tax brackets, contribution limits, etc.) change over time and vary by country. Always double-check figures that affect real decisions against current official sources.</p>
-
-<h2 class="guide-h3">Contact</h2>
-<p class="guide-p">Questions, feedback, or found a bug? Reach out at <strong><a href="mailto:contact@finclac.com" style="color:var(--a);text-decoration:underline">contact@finclac.com</a></strong>.</p>
-
+<div class="two">
+  <div class="card">
+    <h1 class="card-title" style="margin:0 0 1.25rem">Asset Allocation Calculator</h1>
+    <div class="g2">
+      <div class="field"><label>Your Age</label><input type="text" inputmode="decimal" id="aa-age" value="35" oninput="cAllocRecommend()"></div>
+      <div class="field"><label>Risk Profile</label><select id="aa-risk" onchange="cAllocRecommend()"><option value="conservative">Conservative</option><option value="moderate" selected>Moderate</option><option value="aggressive">Aggressive</option></select></div>
+      <div class="field"><label>Portfolio Value ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="aa-value" value="100000" oninput="cAlloc()"></div></div>
+      <div class="field"><label>Projection Period (years)</label><input type="text" inputmode="decimal" id="aa-years" value="20" oninput="cAlloc()"></div>
+    </div>
+    <button class="calc-link-btn" style="margin:.25rem 0 1.1rem;font-size:12px;padding:7px 14px" onclick="cAllocRecommend()">🔄 Reset to Recommended Allocation</button>
+    <div class="g2">
+      <div class="field"><label>Stocks / Equity (%)</label><input type="text" inputmode="decimal" id="aa-stocks" value="75" step="1" oninput="cAlloc()"></div>
+      <div class="field"><label>Bonds (%)</label><input type="text" inputmode="decimal" id="aa-bonds" value="15" step="1" oninput="cAlloc()"></div>
+      <div class="field"><label>Cash / Money Market (%)</label><input type="text" inputmode="decimal" id="aa-cash" value="6.25" step="1" oninput="cAlloc()"></div>
+      <div class="field"><label>Gold / Commodities (%)</label><input type="text" inputmode="decimal" id="aa-gold" value="3.75" step="1" oninput="cAlloc()"></div>
+      <div class="field"><label>Crypto (%)</label><input type="text" inputmode="decimal" id="aa-crypto" value="0" step="1" oninput="cAlloc()"></div>
+      <div class="field"><label>Allocation Total</label><div class="val" id="aa-totalpct" style="font-size:18px;padding-top:6px">100%</div></div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="lbl">Blended Expected Return</div><div class="val" style="color:var(--g)" id="aa-return">0%</div></div>
+      <div class="sbox"><div class="lbl">Est. Portfolio Volatility</div><div class="val" style="color:var(--r)" id="aa-vol">0%</div></div>
+      <div class="sbox"><div class="lbl">Projected Value</div><div class="val" style="color:var(--a)" id="aa-future">$0</div></div>
+      <div class="sbox"><div class="lbl">Risk Category</div><div class="val" id="aa-cat">—</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Allocation Breakdown</div>
+    <div class="donut-wrap"><canvas id="aa-donut" width="110" height="110"></canvas>
+      <div>
+        <div class="leg-i"><div class="leg-dot" style="background:#F0B90B"></div>Stocks</div>
+        <div class="leg-i"><div class="leg-dot" style="background:#1890FF"></div>Bonds</div>
+        <div class="leg-i"><div class="leg-dot" style="background:#0ECB81"></div>Cash</div>
+        <div class="leg-i"><div class="leg-dot" style="background:#9B59B6"></div>Gold</div>
+        <div class="leg-i"><div class="leg-dot" style="background:#F6465D"></div>Crypto</div>
+      </div>
+    </div>
+    <canvas id="aa-chart" width="300" height="140" style="width:100%;margin-top:.75rem"></canvas>
+    <div class="rrow"><span class="rk">Recommended equity % (110-age rule)</span><span class="rv" id="aa-recpct">0%</span></div>
+    <div class="insight-box" id="aa-insights"></div>
+  </div>
 </div>
+
+<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/retirement" onclick="go('retirement',null);return false;">👴 Retirement</a><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 SIP / Investment</a><a class="calc-link-btn" href="/etf" onclick="go('etf',null);return false;">🗂️ ETF Growth</a><a class="calc-link-btn" href="/healthscore" onclick="go('healthscore',null);return false;">💯 Financial Health Score</a></div></div>
+<div class="calc-guide">
+  <div class="guide-toggle">
+    <div class="guide-toggle-title">📖 Asset Allocation — How It Works</div>
+  </div>
+  <div class="guide-body">
+<div class="guide-p">Asset allocation — how you divide your money across stocks, bonds, cash, and other asset classes — is widely considered the single biggest driver of your portfolio's long-term risk and return, more influential than which specific stocks or funds you pick within each category. A famous body of research (the Brinson studies from the 1980s and 90s) found that asset allocation explains the large majority of variation in portfolio returns over time, which is why getting this decision right matters more than chasing individual "hot" investments.</div>
+
+<div class="guide-h3">The 110-Minus-Age Rule</div>
+<div class="guide-formula">Recommended Equity % = 110 − Your Age</div>
+<div class="guide-p">This classic heuristic suggests holding a percentage of your portfolio in growth assets (stocks) equal to 110 minus your current age, with the remainder in more conservative assets like bonds and cash. A 30-year-old would target roughly 80% equity, while a 65-year-old would target roughly 45% — the logic being that younger investors have more time to recover from market downturns, while those closer to retirement need to protect accumulated capital from a poorly-timed crash right before they need to start withdrawing.</div>
+<table class="guide-table"><thead><tr><th>Age</th><th>Suggested Equity %</th><th>Suggested Bonds/Cash/Gold %</th></tr></thead><tbody>
+<tr><td>25</td><td>85%</td><td>15%</td></tr>
+<tr><td>35</td><td>75%</td><td>25%</td></tr>
+<tr><td>45</td><td>65%</td><td>35%</td></tr>
+<tr><td>55</td><td>55%</td><td>45%</td></tr>
+<tr><td>65</td><td>45%</td><td>55%</td></tr>
+</tbody></table>
+<div class="guide-p">Older versions of this rule used "100 minus age" — the shift toward 110 (and in some modern variants, even 120) reflects longer life expectancies and historically low bond yields over the past two decades, both of which push advisors toward recommending somewhat higher equity exposure for longer than past generations needed.</div>
+
+<div class="guide-h3">Risk Profile: Adjusting the Baseline</div>
+<div class="guide-p">The age-based baseline is then commonly adjusted up or down based on personal risk tolerance, since two people of the same age can have very different capacities and willingness to withstand portfolio volatility.</div>
+<table class="guide-table"><thead><tr><th>Risk Profile</th><th>Typical Adjustment</th><th>Best Suited For</th></tr></thead><tbody>
+<tr><td>Conservative</td><td>−15 percentage points of equity vs baseline</td><td>Those who would panic-sell during a 30%+ market drop, or with a shorter time horizon than their age alone suggests</td></tr>
+<tr><td>Moderate</td><td>No adjustment (baseline)</td><td>Most investors with a long time horizon and average risk tolerance</td></tr>
+<tr><td>Aggressive</td><td>+15 percentage points of equity vs baseline</td><td>Those with high risk tolerance, stable income, and a long time horizon who can ignore short-term volatility</td></tr>
+</tbody></table>
+
+<div class="guide-h3">Worked Example: Blended Expected Return</div>
+<div class="guide-p">Once you have an allocation, you can estimate the portfolio's overall expected return by weighting each asset class's historical long-term average return by its allocation percentage.</div>
+<div class="guide-formula">Blended Return = Σ (Asset Class Weight % × Asset Class Expected Return %)</div>
+<div class="guide-p">For an allocation of 70% stocks (10% expected return), 15% bonds (4.5%), 5% cash (3%), 5% gold (7%), and 5% crypto (25%):</div>
+<table class="guide-table"><thead><tr><th>Asset Class</th><th>Weight</th><th>Expected Return</th><th>Contribution</th></tr></thead><tbody>
+<tr><td>Stocks</td><td>70%</td><td>10%</td><td>7.00%</td></tr>
+<tr><td>Bonds</td><td>15%</td><td>4.5%</td><td>0.675%</td></tr>
+<tr><td>Cash</td><td>5%</td><td>3%</td><td>0.15%</td></tr>
+<tr><td>Gold</td><td>5%</td><td>7%</td><td>0.35%</td></tr>
+<tr><td>Crypto</td><td>5%</td><td>25%</td><td>1.25%</td></tr>
+</tbody></table>
+<div class="guide-p">Summing the contribution column gives a blended expected return of approximately 9.43% — notice how even a small 5% crypto allocation, despite its much higher assumed long-term return, only nudges the blended figure up slightly, simply because it's a small slice of the total. This is exactly why concentrating too heavily in any single high-volatility asset class — even one with an attractive average return — rarely makes sense for most portfolios.</div>
+
+<div class="guide-h3">Diversification: Why Asset Classes Matter More Than Individual Picks</div>
+<div class="guide-p">Different asset classes tend to respond differently to the same economic conditions — bonds often hold up or gain when stocks fall during a recession, gold often (though not always) holds value during inflation or currency stress, and cash provides stability and optionality regardless of what's happening elsewhere. Holding a mix means that when one asset class struggles, others may cushion the overall portfolio, smoothing the ride even if it means giving up some upside during pure bull markets.</div>
+<table class="guide-table"><thead><tr><th>Asset Class</th><th>Typical Long-Term Return</th><th>Typical Volatility</th><th>Primary Role in Portfolio</th></tr></thead><tbody>
+<tr><td>Stocks</td><td>~10%</td><td>High</td><td>Long-term growth engine</td></tr>
+<tr><td>Bonds</td><td>~4.5%</td><td>Low-Moderate</td><td>Stability, income, ballast against stock declines</td></tr>
+<tr><td>Cash</td><td>~3%</td><td>Very Low</td><td>Liquidity, safety, opportunity to buy dips</td></tr>
+<tr><td>Gold</td><td>~7%</td><td>Moderate-High</td><td>Inflation hedge, diversifier uncorrelated with stocks/bonds</td></tr>
+<tr><td>Crypto</td><td>Highly variable, historically high but unproven long-term</td><td>Very High</td><td>Speculative growth, typically capped at a small "satellite" allocation</td></tr>
+</tbody></table>
+
+<div class="guide-h3">Rebalancing: Keeping Your Allocation on Target</div>
+<div class="guide-p">Because different asset classes grow at different rates, your actual allocation drifts away from your target over time without any action on your part — a strong few years for stocks can quietly push a 70/30 stocks/bonds portfolio to 80/20 or higher, increasing your risk exposure beyond what you originally intended. Rebalancing means periodically selling a portion of overweighted assets and buying underweighted ones to restore your target percentages, typically done annually or whenever an asset class drifts more than 5 percentage points from its target.</div>
+<div class="guide-tip">💡 Rebalancing inside a tax-advantaged account (401(k), IRA, or equivalent) avoids triggering capital gains tax, since no sale is "realized" in the way it would be in a regular taxable brokerage account — prioritize doing your rebalancing trades there when you have the choice.</div>
+
+<div class="guide-h3">The Limits of Any Fixed Formula</div>
+<div class="guide-p">The 110-minus-age rule and risk-profile adjustments are useful starting points, not a substitute for thinking through your specific situation. Someone with a guaranteed pension, paid-off home, and minimal expenses can often reasonably take on more equity risk than the formula suggests, while someone supporting dependents or carrying high-interest debt may reasonably want to hold more in cash and bonds than their age alone would imply, regardless of their stated risk tolerance.</div>
+<div class="guide-warn">⚠ Expected returns used in this calculator (10% stocks, 4.5% bonds, 3% cash, 7% gold, 25% crypto) are illustrative long-term historical averages, not guarantees — actual future returns for any asset class can differ substantially, and crypto in particular has a very short historical track record relative to traditional asset classes, making any long-term return assumption for it considerably less reliable.</div>
+
+  </div>
+</div>
+
+<div class="faq-section">
+<div class="faq-section-title">❓ Frequently Asked Questions</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is asset allocation?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Asset allocation is how you divide your investment portfolio across different asset classes — stocks, bonds, cash, gold, and others — to balance expected return against risk. It's widely considered the most important driver of long-term portfolio performance, more so than picking individual investments within each class.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is the 110 minus age rule?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A simple heuristic suggesting you hold a percentage in stocks equal to <span class="faq-formula">110 − Your Age</span>, with the rest in bonds, cash, and other conservative assets. A 40-year-old would target roughly 70% stocks. It's a starting point, not a precise prescription — adjust it for your personal risk tolerance and circumstances.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How is blended expected return calculated?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Each asset class's allocation percentage is multiplied by its assumed long-term average return, and the results are summed. <span class="faq-formula">Blended Return = Σ (Weight% × Expected Return%)</span> A portfolio that's 70% stocks (10%) and 30% bonds (4.5%) has a blended return of (0.7×10) + (0.3×4.5) = 8.35%.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>How much should I put in crypto?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Many advisors who include crypto at all suggest capping it at a small "satellite" allocation — often cited in the 0-5% range — given its high volatility and comparatively short historical track record relative to stocks, bonds, and gold. This calculator defaults to 0% crypto in its recommendation, but you can adjust it manually.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>What is rebalancing and how often should I do it?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Rebalancing means periodically adjusting your holdings back to your target allocation, since different asset classes grow at different rates and drift away from your original targets over time. Most advisors suggest rebalancing annually, or whenever any asset class drifts more than 5 percentage points from its target.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q" onclick="toggleFAQ(this)">
+    <span>Should my allocation change as I get older?</span>
+    <span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Generally yes — most age-based frameworks recommend gradually shifting from growth assets (stocks) toward more conservative assets (bonds, cash) as you approach the point where you'll need to start withdrawing from your portfolio, to reduce the risk of a market downturn happening right before you need the money.</div>
+</div>
+</div>
+
+
 </div>
 </div><!-- content -->
 <div class="site-footer">
@@ -364,10 +506,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <a href="https://www.tinystartups.com/startup/finclaccom" target="_blank" rel="noopener"
    style="display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:12px;text-decoration:none;font-family:'Inter',system-ui,sans-serif;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(90deg,#3525E6,#D81FE0,#22B8F0) border-box;border:2px solid transparent;color:#0E0B1F;flex-shrink:0">
   <svg width="34" height="34" viewBox="0 0 100 100">
-    <defs><linearGradient id="tsg2" x1=".1" y1="0" x2=".9" y2="1">
+    <defs><linearGradient id="tsg" x1=".1" y1="0" x2=".9" y2="1">
       <stop offset="0%" stop-color="#3525E6"/><stop offset="55%" stop-color="#D81FE0"/><stop offset="100%" stop-color="#22B8F0"/>
     </linearGradient></defs>
-    <path d="M50 6C52 32 68 48 94 50C68 52 52 68 50 94C48 68 32 52 6 50C32 48 48 32 50 6Z" fill="url(#tsg2)"/>
+    <path d="M50 6C52 32 68 48 94 50C68 52 52 68 50 94C48 68 32 52 6 50C32 48 48 32 50 6Z" fill="url(#tsg)"/>
   </svg>
   <span style="display:flex;flex-direction:column;line-height:1.1">
     <span style="font-family:monospace;font-size:7px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#6A6585">Launched on</span>
@@ -379,6 +521,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </div>
 <script src="app.js"></script>
-<script>initPage('about');</script>
+<script>initPage('allocation');</script>
 </body>
 </html>

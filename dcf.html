@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Currency Converter — Convert Between World Currencies Free | FinCalc</title>
-<meta name="description" content="Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.">
-<link rel="canonical" href="https://finclac.com/currency">
+<title>DCF Valuation Calculator — How to Calculate Intrinsic Stock Value | FinCalc</title>
+<meta name="description" content="Calculate a stock's intrinsic value using discounted cash flow analysis. Free DCF calculator with WACC, terminal value, and bear/bull scenarios.">
+<link rel="canonical" href="https://finclac.com/dcf">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Currency Converter — Convert Between World Currencies Free | FinCalc">
-<meta property="og:description" content="Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.">
-<meta property="og:url" content="https://finclac.com/currency">
+<meta property="og:title" content="DCF Valuation Calculator — How to Calculate Intrinsic Stock Value | FinCalc">
+<meta property="og:description" content="Calculate a stock's intrinsic value using discounted cash flow analysis. Free DCF calculator with WACC, terminal value, and bear/bull scenarios.">
+<meta property="og:url" content="https://finclac.com/dcf">
 <meta property="og:site_name" content="FinCalc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Currency Converter — Convert Between World Currencies Free | FinCalc">
-<meta name="twitter:description" content="Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.">
+<meta name="twitter:title" content="DCF Valuation Calculator — How to Calculate Intrinsic Stock Value | FinCalc">
+<meta name="twitter:description" content="Calculate a stock's intrinsic value using discounted cash flow analysis. Free DCF calculator with WACC, terminal value, and bear/bull scenarios.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -294,7 +294,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Currency Converter", "url": "https://finclac.com/currency", "description": "Convert between major world currencies with up-to-date exchange rates. Free online currency converter tool.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "DCF Valuation Calculator", "url": "https://finclac.com/dcf", "description": "Calculate a stock's intrinsic value using discounted cash flow analysis. Free DCF calculator with WACC, terminal value, and bear/bull scenarios.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <div class="topbar">
@@ -338,59 +338,97 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <a class="ntab" href="/scientific" onclick="go('scientific',this);return false;">🔬 Scientific</a>
 </div>
 <div class="content">
-<div id="currency" class="panel on">
+<div id="dcf" class="panel on">
 
-<div style="max-width:540px">
+<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/dcf-valuation-explained">DCF Valuation Explained: How to Value a Stock Like an Analyst<span class="related-arrow">→</span></a></div>
+
+
+<h1 style="margin:0;font-size:16px;font-weight:500;margin-bottom:4px">DCF Valuation Calculator</h1>
+<div class="two-eq mb16">
   <div class="card">
-    <h1 class="card-title" style="margin:0 0 1.25rem">Currency Converter</h1>
-
-
-    <div class="g2" style="margin-bottom:1rem">
-      <div class="field"><label>Amount</label><input type="text" inputmode="decimal" id="cu-amt" value="1000" oninput="cCurrency()"></div>
-      <div></div>
-      <div class="field"><label>From</label><select id="cu-from" onchange="cCurrency()"></select></div>
-      <div class="field"><label>To</label><select id="cu-to" onchange="cCurrency()"></select></div>
+    <div class="card-title">DCF Inputs</div>
+    <div class="g2">
+      <div class="field"><label>Ticker / Name</label><input type="text" id="dc-ticker" value="AAPL" oninput="calcDCF()"></div>
+      <div class="field"><label>Current Price ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dc-price" value="185" step="0.01" oninput="calcDCF()"></div></div>
+      <div class="field"><label>Current EPS ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dc-eps" value="6.5" step="0.1" oninput="calcDCF()"></div></div>
+      <div class="field"><label>Shares Outstanding (B)</label><input type="text" inputmode="decimal" id="dc-shares" value="15.4" step="0.1" oninput="calcDCF()"></div>
+      <div class="field"><label>EPS Growth Rate (%)</label><input type="text" inputmode="decimal" id="dc-grow" value="12" step="0.5" oninput="calcDCF()"></div>
+      <div class="field"><label>Terminal Growth Rate (%)</label><input type="text" inputmode="decimal" id="dc-tgrow" value="3" step="0.1" oninput="calcDCF()"></div>
+      <div class="field"><label>Discount Rate / WACC (%)</label><input type="text" inputmode="decimal" id="dc-disc" value="10" step="0.5" oninput="calcDCF()"></div>
+      <div class="field"><label>Projection Period (years)</label><input type="text" inputmode="decimal" id="dc-yrs" value="10" min="3" max="20" oninput="calcDCF()"></div>
     </div>
-    <div style="background:var(--s2);border-radius:8px;padding:1.25rem;text-align:center;margin-bottom:1rem">
-      <div style="font-size:12px;color:var(--m);margin-bottom:6px" id="cu-lbl">—</div>
-      <div style="font-size:30px;font-family:var(--mo);font-weight:600;color:var(--a)" id="cu-res">—</div>
-    </div>
-    <div id="cu-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
-    <p id="cu-status" style="font-size:11px;color:var(--m);margin-top:1rem">Loading rates…</p>
-    <p style="font-size:11px;color:var(--m);margin-top:.25rem">⚠ Rates are for reference — verify with your bank or broker before transacting.</p>
   </div>
+  <div class="card">
+    <div class="card-title">DCF Valuation — <span id="dc-ticker-lbl">AAPL</span></div>
+    <div style="text-align:center;padding:1rem 0;border-bottom:1px solid var(--bd);margin-bottom:1rem">
+      <div style="font-size:11px;color:var(--m);margin-bottom:4px">Intrinsic Fair Value</div>
+      <div style="font-size:38px;font-family:var(--mo);font-weight:600" id="dc-fair">$0</div>
+      <div style="font-size:13px;color:var(--m);margin-top:4px">Current: <span style="color:var(--t)" id="dc-cur">$185</span></div>
+    </div>
+    <div class="sgrid" style="margin-top:0;margin-bottom:1rem">
+      <div class="sbox"><div class="lbl">Upside / Downside</div><div class="val" id="dc-upside">0%</div></div>
+      <div class="sbox"><div class="lbl">Margin of Safety</div><div class="val" id="dc-mos">0%</div></div>
+      <div class="sbox"><div class="lbl">Market Cap</div><div class="val" id="dc-mktcap">$0</div></div>
+      <div class="sbox"><div class="lbl">Terminal Value PV</div><div class="val" style="color:var(--p)" id="dc-tvpv">$0</div></div>
+    </div>
+    <div style="background:var(--s2);border-radius:8px;padding:10px 12px;margin-bottom:10px">
+      <div style="font-size:10px;color:var(--m);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Scenario Analysis</div>
+      <div class="rrow"><span class="rk">Bear (×0.7)</span><span class="rv" id="dc-bear">$0</span></div>
+      <div class="rrow"><span class="rk">Base case</span><span class="rv" style="color:var(--a)" id="dc-base">$0</span></div>
+      <div class="rrow" style="border:none"><span class="rk">Bull (×1.3)</span><span class="rv" id="dc-bull">$0</span></div>
+    </div>
+    <div style="font-size:11px;color:var(--r);background:rgba(246,70,93,.08);border-radius:6px;padding:8px;margin-bottom:8px">⚠ DCF is highly sensitive to inputs. Always combine with qualitative research.</div>
+    <div class="insight-box" id="dc-insights"></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">EPS Projection &amp; Present Value Breakdown</div>
+  <div style="overflow-x:auto"><table class="tbl" id="dc-table"></table></div>
+  <canvas id="dc-chart" width="900" height="130" style="width:100%;margin-top:1rem"></canvas>
+  <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--m)">
+    <span style="color:var(--a)">━ Projected EPS</span><span style="color:var(--g)">╌ Present Value</span>
+  </div>
+<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/peg" onclick="go('peg',null);return false;">📏 PEG Ratio</a><a class="calc-link-btn" href="/cagr" onclick="go('cagr',null);return false;">📐 CAGR</a><a class="calc-link-btn" href="/stock" onclick="go('stock',null);return false;">📉 Stock P&amp;L</a><a class="calc-link-btn" href="/etf" onclick="go('etf',null);return false;">🗂️ ETF Growth</a><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 Investment</a></div></div>
 <div class="calc-guide">
   <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Currency Converter — Getting the Best Rate</div>
+    <div class="guide-toggle-title">📖 Stock DCF Valuation — Finding Intrinsic Value</div>
   </div>
   <div class="guide-body">
-<div class="guide-p">Currency exchange seems straightforward on the surface — look up a rate, convert your money — but the actual rate you receive when exchanging currency in practice is almost never the "real" rate quoted by financial news, and understanding why reveals where money quietly leaks away during international transactions, travel, and cross-border business.</div>
+<div class="guide-p">Discounted Cash Flow (DCF) analysis is the foundational method professional analysts use to answer the question "what is this stock actually worth?" — independent of whatever the market happens to be pricing it at today. The core insight behind DCF is simple even though the math can get involved: a business is worth the sum of all the cash it will generate for its owners in the future, with that future cash adjusted downward (discounted) to reflect the fact that money received later is worth less than money received today.</div>
 
-<div class="guide-h3">The Mid-Market Rate vs What You Actually Get</div>
-<div class="guide-p">The mid-market rate (also called the interbank rate) is the midpoint between the buy and sell prices banks use when trading currencies among themselves — it's the rate you'll see quoted on Google, XE.com, or financial news. However, banks, currency exchange kiosks, and many payment services add a markup (spread) on top of this rate when serving retail customers, and that markup is effectively a hidden fee, since it's built into the exchange rate itself rather than disclosed as a separate line-item charge.</div>
+<div class="guide-h3">Why Discount Future Cash at All?</div>
+<div class="guide-p">A dollar promised to you in 10 years is worth less than a dollar in your hand today, for two reasons: you could invest today's dollar and grow it, and there's inherent uncertainty about whether that future dollar will actually arrive. The discount rate (often called WACC — Weighted Average Cost of Capital, or simply your required rate of return) captures both effects in a single number.</div>
 
-<div class="guide-h3">Worked Example: The Hidden Cost of Airport Currency Exchange</div>
-<table class="guide-table"><thead><tr><th>Exchange Method</th><th>Rate Offered (illustrative, USD/EUR)</th><th>Effective Markup vs Mid-Market</th><th>Cost on $1,000 Exchanged</th></tr></thead><tbody>
-<tr><td>True mid-market rate</td><td>0.930</td><td>0%</td><td>$0 (baseline)</td></tr>
-<tr><td>Typical bank exchange</td><td>0.911</td><td>~2%</td><td>~$20 lost to spread</td></tr>
-<tr><td>Airport currency kiosk</td><td>0.865</td><td>~7%</td><td>~$70 lost to spread</td></tr>
+<div class="guide-h3">The Three Building Blocks of a DCF</div>
+<div class="guide-steps">
+<div class="guide-step"><div class="guide-step-num">1</div><div><strong>Projected Free Cash Flows</strong> — estimate the company's cash generation for the next 5-10 years based on historical growth rates, adjusted for expected changes in the business or industry.</div></div>
+<div class="guide-step"><div class="guide-step-num">2</div><div><strong>Discount Rate (WACC)</strong> — the annual rate used to convert each future year's cash flow back into today's dollars, reflecting risk and opportunity cost.</div></div>
+<div class="guide-step"><div class="guide-step-num">3</div><div><strong>Terminal Value</strong> — since companies (ideally) operate forever, not just for your 5-10 year projection window, terminal value estimates the value of all cash flows beyond that window, assuming a stable long-term growth rate.</div></div>
+</div>
+
+<div class="guide-h3">Worked Example: A Simplified DCF</div>
+<div class="guide-p">Imagine a company currently generating $10 million in free cash flow, expected to grow that cash flow 8% annually for the next 5 years, after which growth settles to a stable 2.5% forever (matching long-term GDP growth). Using a 9% discount rate:</div>
+<table class="guide-table"><thead><tr><th>Year</th><th>Projected FCF</th><th>Discounted Value</th></tr></thead><tbody>
+<tr><td>1</td><td>$10.8M</td><td>$9.9M</td></tr>
+<tr><td>2</td><td>$11.7M</td><td>$9.8M</td></tr>
+<tr><td>3</td><td>$12.6M</td><td>$9.7M</td></tr>
+<tr><td>4</td><td>$13.6M</td><td>$9.6M</td></tr>
+<tr><td>5</td><td>$14.7M</td><td>$9.6M</td></tr>
 </tbody></table>
-<div class="guide-p">This illustrates why airport currency exchange counters — despite their convenience — are consistently among the worst places to exchange money, often charging spreads several multiples wider than a standard bank or modern fintech transfer service.</div>
+<div class="guide-p">Summing the discounted values of years 1-5 gives roughly $48.6M. The terminal value (cash flows beyond year 5, discounted back to today) typically dwarfs this — in this example it would add approximately $185M, illustrating a key truth about DCF: terminal value commonly represents 60-80% of total estimated company value, which means a huge portion of any DCF valuation hinges on an assumption about growth decades into the future that nobody can know with certainty.</div>
 
-<div class="guide-h3">Why Exchange Rates Fluctuate</div>
-<table class="guide-table"><thead><tr><th>Driver</th><th>Effect on Currency Value</th></tr></thead><tbody>
-<tr><td>Higher domestic interest rates</td><td>Tends to strengthen the currency (attracts foreign capital seeking yield)</td></tr>
-<tr><td>Higher inflation</td><td>Tends to weaken the currency over time (purchasing power erosion)</td></tr>
-<tr><td>Trade surplus (exports &gt; imports)</td><td>Tends to strengthen the currency (more foreign demand for it)</td></tr>
-<tr><td>Political or economic instability</td><td>Tends to weaken the currency (capital flight, reduced confidence)</td></tr>
+<div class="guide-h3">Margin of Safety: Buffering for Your Own Uncertainty</div>
+<div class="guide-formula">Margin of Safety = (Intrinsic Value − Current Market Price) / Intrinsic Value × 100%</div>
+<div class="guide-p">Warren Buffett and his mentor Benjamin Graham popularized the practice of only buying when a stock trades at a significant discount (commonly 20-30%) to your calculated intrinsic value. This buffer protects you if your growth assumptions turn out to be too optimistic — you still come out reasonably well even if reality undershoots your projections.</div>
+
+<div class="guide-h3">Why DCF Is So Sensitive to Small Input Changes</div>
+<div class="guide-p">Because cash flows are projected years into the future and then compounded/discounted repeatedly, even small changes in assumptions create dramatically different valuations. Moving your discount rate from 8% to 9% — a change that might feel trivial — can shift the calculated intrinsic value by 15-25% or more. This sensitivity is precisely why professional analysts never rely on a single DCF output; they run scenario analysis instead.</div>
+<table class="guide-table"><thead><tr><th>Scenario</th><th>Typical Adjustment</th></tr></thead><tbody>
+<tr><td>Bear case</td><td>Lower growth rate, higher discount rate</td></tr>
+<tr><td>Base case</td><td>Most likely/consensus assumptions</td></tr>
+<tr><td>Bull case</td><td>Higher growth rate, lower discount rate</td></tr>
 </tbody></table>
-
-<div class="guide-h3">Strong vs Weak Currency: It Depends Who You Ask</div>
-<div class="guide-p">A "strong" currency (one that buys more of a foreign currency than before) benefits travelers and importers — your dollars stretch further abroad, and imported goods become cheaper domestically. A "weak" currency benefits exporters, since their goods become cheaper and more competitive in foreign markets, and it can also benefit a country's tourism industry, since foreign visitors find their money goes further. Neither direction is universally "good" or "bad" for an economy — the effects depend heavily on whether that economy is more export-driven or import-driven.</div>
-
-<div class="guide-h3">Currency Hedging for Businesses</div>
-<div class="guide-p">Businesses that import or export internationally face real exposure to exchange rate fluctuations between the time a deal is signed and when payment actually settles, sometimes months later. Hedging instruments like forward contracts (locking in a specific exchange rate today for a transaction that settles in the future) allow businesses to plan with cost certainty, trading away potential upside (if the rate moves favorably) in exchange for protection against downside risk.</div>
-<div class="guide-tip">💡 For personal international transfers, modern fintech services (which typically use the mid-market rate plus a small, transparent, disclosed fee) almost always offer better value than traditional banks or airport kiosks, which bury their markup invisibly inside a worse exchange rate rather than charging a separate visible fee.</div>
+<div class="guide-warn">⚠ DCF is only as good as its inputs — "garbage in, garbage out" applies more to DCF than almost any other financial model. Always sanity-check your terminal growth rate against realistic long-term GDP growth (typically 2-3%), since assuming a company grows faster than the entire economy forever is mathematically impossible over a long enough horizon.</div>
 
   </div>
 </div>
@@ -399,38 +437,38 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Why do exchange rates change?</span>
+    <span>What is DCF valuation?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">Exchange rates fluctuate based on <strong>supply and demand</strong> for currencies, driven by: interest rate differences between countries, inflation rates, trade balances, political stability, and market speculation. Rates can change daily or swing dramatically during economic crises.</div>
+  <div class="faq-a">DCF (Discounted Cash Flow) estimates a stock’s <strong>intrinsic value</strong> by projecting future earnings and discounting them to today’s money. If intrinsic value is higher than the current price, the stock may be undervalued.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is the mid-market rate?</span>
+    <span>What is a discount rate (WACC)?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">The mid-market rate is the <strong>midpoint between buy and sell prices</strong> for a currency pair. It’s the ‘true’ exchange rate. Banks and money changers add a markup (spread) to this rate when exchanging money — that spread is their profit.</div>
+  <div class="faq-a">The discount rate represents your <strong>required rate of return</strong> — the minimum you expect to justify the risk. For stocks, most investors use 8–12%. A higher discount rate gives a lower, more conservative intrinsic value.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>How do banks make money on currency conversion?</span>
+    <span>What is terminal value in DCF?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">They charge a spread — the difference between the rate they buy currency at and the rate they sell to you. A tourist exchange booth might offer USD/EUR at 0.90 when the real rate is 0.93, pocketing the 3% difference. Online services like Wise use mid-market rates with transparent small fees.</div>
+  <div class="faq-a">Terminal value captures all earnings <strong>beyond the projection period</strong>, assuming the company grows at a stable rate forever (usually 2–3%, matching long-term GDP growth). It often makes up 60–80% of the total DCF value.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is currency hedging?</span>
+    <span>What is margin of safety?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">Currency hedging uses financial instruments (like forward contracts) to <strong>lock in an exchange rate</strong> for a future transaction. Businesses importing/exporting use hedging to protect against rate fluctuations that could make costs unpredictable.</div>
+  <div class="faq-a"><span class="faq-formula">Margin of Safety = (Intrinsic Value − Current Price) / Intrinsic Value × 100%</span>Warren Buffett popularized buying stocks with a 20–30% margin of safety — so even if your projections are off, you still make money.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What does it mean when a currency is strong or weak?</span>
+    <span>Why is DCF so sensitive to inputs?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">A <strong>strong currency</strong> buys more foreign goods and services (good for importers and travelers). A <strong>weak currency</strong> makes exports cheaper for foreign buyers (good for exporters). Both have advantages and disadvantages for an economy.</div>
+  <div class="faq-a">Small changes in growth rate or discount rate create large swings because of compounding over many years. A 1% change in the discount rate can shift valuation by 20–30%. Always run bear and bull scenarios, never rely on a single estimate.</div>
 </div>
 </div>
 
@@ -462,6 +500,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </div>
 <script src="app.js"></script>
-<script>initPage('currency');</script>
+<script>initPage('dcf');</script>
 </body>
 </html>

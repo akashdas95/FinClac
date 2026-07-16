@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Break-Even Point Calculator — Units & Revenue Needed to Break Even | FinCalc</title>
-<meta name="description" content="Calculate exactly how many units and how much revenue your business needs to break even. Free break-even analysis calculator with contribution margin.">
-<link rel="canonical" href="https://finclac.com/breakeven">
+<title>Startup Burn Rate Calculator — How Many Months of Runway Do You Have? | FinCalc</title>
+<meta name="description" content="Calculate your startup's monthly burn rate and exactly how many months of cash runway you have left. Free burn rate calculator for founders.">
+<link rel="canonical" href="https://finclac.com/burnrate">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Break-Even Point Calculator — Units & Revenue Needed to Break Even | FinCalc">
-<meta property="og:description" content="Calculate exactly how many units and how much revenue your business needs to break even. Free break-even analysis calculator with contribution margin.">
-<meta property="og:url" content="https://finclac.com/breakeven">
+<meta property="og:title" content="Startup Burn Rate Calculator — How Many Months of Runway Do You Have? | FinCalc">
+<meta property="og:description" content="Calculate your startup's monthly burn rate and exactly how many months of cash runway you have left. Free burn rate calculator for founders.">
+<meta property="og:url" content="https://finclac.com/burnrate">
 <meta property="og:site_name" content="FinCalc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Break-Even Point Calculator — Units & Revenue Needed to Break Even | FinCalc">
-<meta name="twitter:description" content="Calculate exactly how many units and how much revenue your business needs to break even. Free break-even analysis calculator with contribution margin.">
+<meta name="twitter:title" content="Startup Burn Rate Calculator — How Many Months of Runway Do You Have? | FinCalc">
+<meta name="twitter:description" content="Calculate your startup's monthly burn rate and exactly how many months of cash runway you have left. Free burn rate calculator for founders.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#6B7A8D;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F6465D;--b:#1890FF;--p:#9B59B6;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -294,7 +294,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Break-Even Point Calculator", "url": "https://finclac.com/breakeven", "description": "Calculate exactly how many units and how much revenue your business needs to break even. Free break-even analysis calculator with contribution margin.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Startup Burn Rate Calculator", "url": "https://finclac.com/burnrate", "description": "Calculate your startup's monthly burn rate and exactly how many months of cash runway you have left. Free burn rate calculator for founders.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <div class="topbar">
@@ -338,73 +338,79 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <a class="ntab" href="/scientific" onclick="go('scientific',this);return false;">🔬 Scientific</a>
 </div>
 <div class="content">
-<div id="breakeven" class="panel on">
+<div id="burnrate" class="panel on">
 
-<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/how-to-price-your-product">How to Price Your Product: Margin, Markup, and Break-Even<span class="related-arrow">→</span></a></div>
+<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/startup-burn-rate-runway">Startup Burn Rate: How Many Months of Runway Do You Actually Have?<span class="related-arrow">→</span></a></div>
 
 
 <div class="two">
   <div class="card">
-    <h1 class="card-title" style="margin:0 0 1.25rem">Break-even Analysis</h1>
+    <h1 class="card-title" style="margin:0 0 1.25rem">Burn Rate Calculator</h1>
     <div class="g2">
-      <div class="field"><label>Fixed Costs / Month ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="be-fc" value="20000" oninput="cBE()"></div></div>
-      <div class="field"><label>Selling Price / Unit ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="be-sp" value="100" oninput="cBE()"></div></div>
-      <div class="field"><label>Variable Cost / Unit ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="be-vc" value="40" oninput="cBE()"></div></div>
-      <div class="field"><label>Expected Units / Month</label><input type="text" inputmode="decimal" id="be-eu" value="500" oninput="cBE()"></div>
+      <div class="field"><label>Current Cash ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="br-cash" value="5000000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Monthly Revenue (MRR) ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="br-mrr" value="500000" oninput="cBurn()"></div></div>
+      <div class="field"><label>MRR Growth Rate (%/mo)</label><input type="text" inputmode="decimal" id="br-growth" value="5" step="0.5" oninput="cBurn()"></div>
+    </div>
+    <div style="font-size:11px;color:var(--m);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;margin-top:.5rem">Monthly Expenses</div>
+    <div class="g2">
+      <div class="field"><label>Salaries ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="br-sal" value="500000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Office &amp; Infra ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="br-off" value="100000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Marketing ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="br-mkt" value="80000" oninput="cBurn()"></div></div>
+      <div class="field"><label>Software &amp; Tools ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="br-sw" value="30000" oninput="cBurn()"></div></div>
     </div>
     <div class="sgrid">
-      <div class="sbox"><div class="lbl">Break-even Units</div><div class="val" style="color:var(--a)" id="be-beu">0</div></div>
-      <div class="sbox"><div class="lbl">Break-even Revenue</div><div class="val" id="be-ber">$0</div></div>
-      <div class="sbox"><div class="lbl">Monthly Profit</div><div class="val" style="color:var(--g)" id="be-prof">$0</div></div>
-      <div class="sbox"><div class="lbl">Margin of Safety</div><div class="val" id="be-mos">0%</div></div>
+      <div class="sbox"><div class="lbl">Gross Burn/mo</div><div class="val" style="color:var(--r)" id="br-gross">$0</div></div>
+      <div class="sbox"><div class="lbl">Net Burn/mo</div><div class="val" style="color:var(--a)" id="br-net">$0</div></div>
+      <div class="sbox"><div class="lbl">Runway</div><div class="val" style="color:var(--g)" id="br-runway">0 mo</div></div>
+      <div class="sbox"><div class="lbl">Default Date</div><div class="val" id="br-date">—</div></div>
     </div>
   </div>
   <div class="card">
-    <canvas id="be-chart" width="300" height="175" style="width:100%;margin:1rem 0"></canvas>
-    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin-bottom:1rem"><span style="color:var(--g)">━ Revenue</span><span style="color:var(--r)">━ Fixed Costs</span></div>
-    <div class="rrow"><span class="rk">Contribution margin</span><span class="rv" style="color:var(--a)" id="be-cm">$0</span></div>
-    <div class="rrow"><span class="rk">Gross margin %</span><span class="rv" style="color:var(--g)" id="be-gm">0%</span></div>
-    <div class="rrow"><span class="rk">Operating leverage</span><span class="rv" id="be-ol">0x</span></div>
-    <div class="insight-box" id="be-insights"></div>
+    <div class="card-title">Cash Balance Projection</div>
+    <canvas id="br-chart" width="300" height="170" style="width:100%;margin:1rem 0"></canvas>
+    <div class="rrow"><span class="rk">Break-even revenue</span><span class="rv" style="color:var(--g)" id="br-berev">$0</span></div>
+    <div class="rrow"><span class="rk">Months to break-even</span><span class="rv" id="br-bemo">—</span></div>
+    <div class="insight-box" id="br-insights"></div>
   </div>
 </div>
 
-<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/pricing" onclick="go('pricing',null);return false;">🏷️ Pricing</a><a class="calc-link-btn" href="/burnrate" onclick="go('burnrate',null);return false;">🔥 Burn Rate</a><a class="calc-link-btn" href="/revenue" onclick="go('revenue',null);return false;">📊 Revenue Forecast</a><a class="calc-link-btn" href="/cashflow" onclick="go('cashflow',null);return false;">💵 Cash Flow</a></div></div>
+<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/revenue" onclick="go('revenue',null);return false;">📊 Revenue Forecast</a><a class="calc-link-btn" href="/breakeven" onclick="go('breakeven',null);return false;">📈 Break-even</a><a class="calc-link-btn" href="/cashflow" onclick="go('cashflow',null);return false;">💵 Cash Flow</a><a class="calc-link-btn" href="/pricing" onclick="go('pricing',null);return false;">🏷️ Pricing</a></div></div>
 <div class="calc-guide">
   <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Break-even Analysis — When Does Your Business Profit?</div>
+    <div class="guide-toggle-title">📖 Startup Burn Rate — Know Your Runway</div>
   </div>
   <div class="guide-body">
-<div class="guide-p">Break-even analysis answers a deceptively simple but critically important question for any business: how many units do I need to sell — or how much revenue do I need to generate — before I stop losing money and start making it? Understanding this number transforms pricing and cost decisions from guesswork into deliberate strategy.</div>
+<div class="guide-p">For a startup, cash is oxygen — profitability is often years away, but running out of cash is immediate and fatal. Burn rate and runway are the two metrics every founder should know cold, the same way a pilot knows fuel remaining and consumption rate. Getting this calculation slightly wrong, or simply not tracking it closely enough, is one of the most common (and avoidable) reasons startups fail even when their underlying product or market is sound.</div>
 
-<div class="guide-h3">The Core Formula</div>
-<div class="guide-formula">Break-even Units = Fixed Costs / (Selling Price − Variable Cost Per Unit)</div>
-<div class="guide-p">The denominator here — selling price minus variable cost — is called the contribution margin per unit, representing how much each individual sale contributes toward covering your fixed costs before any profit begins.</div>
+<div class="guide-h3">Gross Burn vs Net Burn: An Important Distinction</div>
+<div class="guide-formula">Gross Burn = Total Monthly Operating Expenses<br>Net Burn = Total Monthly Expenses − Monthly Revenue</div>
+<div class="guide-p">Gross burn tells you how expensive your operation is to run, full stop. Net burn tells you the actual rate your bank balance is shrinking, accounting for whatever revenue is coming in. A startup with $200,000/month in expenses and $150,000/month in revenue has a gross burn of $200,000 but a net burn of only $50,000 — a much healthier picture, and the number that actually determines how long your cash will last.</div>
 
-<div class="guide-h3">Worked Example: A Small Manufacturing Business</div>
-<div class="guide-p">A business makes a product with the following economics: fixed costs (rent, salaries, insurance) of $18,000/month, a selling price of $45 per unit, and variable cost (materials, packaging, direct labor) of $27 per unit.</div>
-<div class="guide-formula">Contribution Margin = $45 − $27 = $18 per unit<br>Break-even Units = $18,000 / $18 = 1,000 units/month<br>Break-even Revenue = 1,000 × $45 = $45,000/month</div>
-<div class="guide-p">This business needs to sell exactly 1,000 units monthly just to cover its costs — every unit sold below that number contributes to the loss, and every unit sold above it (since fixed costs are already covered) flows almost entirely to profit, since only the $27 variable cost applies to each additional unit beyond break-even.</div>
+<div class="guide-h3">Worked Example: Calculating Runway</div>
+<div class="guide-formula">Runway (months) = Cash in Bank / Monthly Net Burn</div>
+<div class="guide-p">A startup with $900,000 in the bank and a net burn of $60,000/month has a runway of $900,000 / $60,000 = 15 months. This is the single most important number a founder reports to their board and uses to time fundraising — most experienced investors recommend starting a fundraise when you have at least 6 months of runway remaining, since raises commonly take 3-6 months from first pitch to wired funds, and you don't want to be negotiating from a position of desperation with weeks left on the clock.</div>
 
-<div class="guide-h3">How Pricing Changes Reshape Break-even</div>
-<table class="guide-table"><thead><tr><th>Selling Price</th><th>Contribution Margin</th><th>Break-even Units</th><th>Change vs Base Case</th></tr></thead><tbody>
-<tr><td>$40 (lower price)</td><td>$13</td><td>1,385 units</td><td>+38.5% more units needed</td></tr>
-<tr><td>$45 (base case)</td><td>$18</td><td>1,000 units</td><td>—</td></tr>
-<tr><td>$50 (higher price)</td><td>$23</td><td>783 units</td><td>−21.7% fewer units needed</td></tr>
+<div class="guide-h3">Burn Multiple: Are You Spending Efficiently?</div>
+<div class="guide-formula">Burn Multiple = Net Burn / Net New ARR (Annual Recurring Revenue added this period)</div>
+<table class="guide-table"><thead><tr><th>Burn Multiple</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td>Below 1x</td><td>Excellent — efficient growth, spending less than $1 to generate $1 of new ARR</td></tr>
+<tr><td>1x – 2x</td><td>Good, healthy efficiency for most growth-stage startups</td></tr>
+<tr><td>2x – 4x</td><td>Concerning — investors will scrutinize this closely</td></tr>
+<tr><td>Above 4x</td><td>Generally unsustainable without a clear path to improving efficiency</td></tr>
 </tbody></table>
-<div class="guide-p">A seemingly modest $5 price change in either direction shifts break-even volume by a disproportionately large percentage, because the entire change flows directly through the thin contribution margin — this sensitivity is exactly why pricing decisions deserve far more analytical rigor than they typically receive in many small businesses.</div>
+<div class="guide-p">A startup spending $400,000 net per month while adding $200,000 in net new ARR has a burn multiple of 2x — for every dollar of new annual recurring revenue generated, it's spending two dollars. This single metric has become one of the most-watched efficiency indicators among venture investors since the funding environment tightened in 2022-2023, replacing pure growth-at-all-costs thinking from the prior decade.</div>
 
-<div class="guide-h3">Fixed vs Variable Costs: Getting the Classification Right</div>
-<table class="guide-table"><thead><tr><th>Cost Type</th><th>Definition</th><th>Examples</th></tr></thead><tbody>
-<tr><td>Fixed</td><td>Doesn't change with production/sales volume</td><td>Rent, salaried staff, insurance, loan payments, software subscriptions</td></tr>
-<tr><td>Variable</td><td>Scales directly with each unit produced or sold</td><td>Raw materials, packaging, sales commissions, payment processing fees</td></tr>
-<tr><td>Semi-Variable</td><td>Has both fixed and variable components</td><td>Utilities (base charge + usage), hourly staff with guaranteed minimum hours</td></tr>
-</tbody></table>
-<div class="guide-p">Misclassifying a cost (treating a semi-variable cost as purely fixed, for example) can meaningfully distort your break-even calculation, particularly for businesses where utilities or hourly labor represent a significant cost category.</div>
+<div class="guide-h3">Practical Levers to Reduce Burn</div>
+<div class="guide-steps">
+<div class="guide-step"><div class="guide-step-num">1</div><div><strong>Headcount</strong> — typically 60-70% of early-stage startup costs. Pausing non-critical hires has the single largest immediate impact on burn.</div></div>
+<div class="guide-step"><div class="guide-step-num">2</div><div><strong>SaaS and tooling subscriptions</strong> — audit quarterly; unused or duplicate software subscriptions accumulate quietly and rarely get cut without a deliberate review.</div></div>
+<div class="guide-step"><div class="guide-step-num">3</div><div><strong>Vendor and contractor renegotiation</strong> — many vendors will offer discounts to retain a customer rather than lose one entirely, especially during a renewal conversation.</div></div>
+<div class="guide-step"><div class="guide-step-num">4</div><div><strong>Office and real estate</strong> — remote or hybrid arrangements can eliminate one of the largest fixed monthly costs for many early-stage companies.</div></div>
+</div>
 
-<div class="guide-h3">Using Break-even for Strategic Decisions</div>
-<div class="guide-p">Break-even analysis becomes genuinely powerful when used to stress-test decisions before committing resources — modeling how break-even shifts if you hire an additional salaried employee (raising fixed costs), switch suppliers (changing variable costs), or run a promotional discount (changing price), all before the decision is actually made.</div>
-<div class="guide-tip">💡 Calculate break-even in both units and revenue dollars — unit break-even is more intuitive for production planning, while revenue break-even is more directly comparable to your accounting statements and useful for cash flow forecasting.</div>
+<div class="guide-h3">When Is a High Burn Rate Actually Fine?</div>
+<div class="guide-p">There's no universal "good" burn rate — context matters enormously. A well-funded Series B company intentionally burning $1M/month to capture a land-grab market opportunity, backed by strong unit economics and a clear path to profitability, is in a completely different situation than a seed-stage startup burning the same amount with no clear product-market fit. The right question isn't "is my burn rate high" but "is my burn rate buying me proportionate, durable progress."</div>
+<div class="guide-tip">💡 Build a 13-week (rolling quarterly) cash flow forecast in addition to your monthly runway calculation — burn rate often isn't perfectly smooth, and a single large expense (annual insurance renewal, a big vendor payment) can create a cash crunch even when your average monthly burn looks sustainable.</div>
 
   </div>
 </div>
@@ -413,38 +419,38 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is break-even analysis?</span>
+    <span>What is burn rate?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">Break-even analysis finds the point where <strong>total revenue equals total costs</strong> — you’re making neither a profit nor a loss. Sales above break-even generate profit; below it, you’re losing money. It’s essential for pricing and business planning.</div>
+  <div class="faq-a">Burn rate is how much cash a startup <strong>spends per month</strong>. <strong>Gross burn</strong> is total monthly spending. <strong>Net burn</strong> is monthly spending minus revenue. It tells you how fast you’re consuming your cash reserves.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is the break-even formula?</span>
+    <span>What is runway?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Break-even Units = Fixed Costs / (Selling Price − Variable Cost Per Unit)</span>If fixed costs are $10,000/month, you sell at $50, and variable cost is $20, your break-even is 10,000 / (50−20) = <strong>334 units/month</strong>.</div>
+  <div class="faq-a"><span class="faq-formula">Runway (months) = Cash in Bank / Monthly Net Burn</span>Runway is how many months your startup can operate before running out of money. Most investors recommend maintaining 12–18 months of runway, and fundraising when you have 6+ months left.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is contribution margin?</span>
+    <span>What is a good burn rate for a startup?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Contribution Margin = Selling Price − Variable Costs Per Unit</span>Contribution margin is the portion of each sale that covers fixed costs and then generates profit. The higher your contribution margin, the fewer units you need to break even.</div>
+  <div class="faq-a">There’s no universal number — it depends on stage and team size. The key question is whether you’re growing revenue faster than you’re increasing burn. A rising revenue-to-burn ratio signals a healthy trajectory.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What are fixed vs variable costs?</span>
+    <span>How do I reduce burn rate?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><strong>Fixed costs</strong> stay the same regardless of production volume (rent, salaries, insurance). <strong>Variable costs</strong> change with volume (materials, packaging, commissions). Understanding this distinction is the foundation of break-even analysis.</div>
+  <div class="faq-a">Common levers: reduce or defer hires, cut non-essential SaaS subscriptions, renegotiate vendor contracts, move to remote work to cut office costs, or pivot to higher-margin revenue. Every $10K saved extends your runway.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>How does break-even help with pricing decisions?</span>
+    <span>What is burn multiple?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">By modeling different price points, break-even analysis shows the sales volume required to be profitable at each price. Raising prices reduces your break-even point. It quantifies the risk of pricing decisions before you make them.</div>
+  <div class="faq-a"><span class="faq-formula">Burn Multiple = Net Burn / Net New ARR</span>It measures how much you’re spending to generate each new dollar of recurring revenue. Below 1x is excellent. Above 2x is a warning sign. Above 4x is unsustainable for most startups.</div>
 </div>
 </div>
 
@@ -476,6 +482,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </div>
 <script src="app.js"></script>
-<script>initPage('breakeven');</script>
+<script>initPage('burnrate');</script>
 </body>
 </html>

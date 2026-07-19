@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc</title>
-<meta name="description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
-<link rel="canonical" href="https://finclac.com/drip">
+<title>Dollar Cost Averaging (DCA) Calculator — Shares, Average Cost &amp; DCA vs Lump Sum | FinCalc</title>
+<meta name="description" content="Calculate shares bought, average cost per share, and ending value from regular investing, and compare dollar cost averaging vs investing a lump sum. Free DCA calculator.">
+<link rel="canonical" href="https://finclac.com/dca">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc">
-<meta property="og:description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
-<meta property="og:url" content="https://finclac.com/drip">
+<meta property="og:title" content="Dollar Cost Averaging (DCA) Calculator — Shares, Average Cost &amp; DCA vs Lump Sum | FinCalc">
+<meta property="og:description" content="Calculate shares bought, average cost per share, and ending value from regular investing, and compare dollar cost averaging vs investing a lump sum. Free DCA calculator.">
+<meta property="og:url" content="https://finclac.com/dca">
 <meta property="og:site_name" content="FinCalc">
 <meta property="og:image" content="https://finclac.com/android-chrome-512x512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://finclac.com/android-chrome-512x512.png">
-<meta name="twitter:title" content="DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc">
-<meta name="twitter:description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
+<meta name="twitter:title" content="Dollar Cost Averaging (DCA) Calculator — Shares, Average Cost &amp; DCA vs Lump Sum | FinCalc">
+<meta name="twitter:description" content="Calculate shares bought, average cost per share, and ending value from regular investing, and compare dollar cost averaging vs investing a lump sum. Free DCA calculator.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#8393A6;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F65E72;--b:#1890FF;--p:#B478D1;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -318,7 +318,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "DRIP Calculator", "url": "https://finclac.com/drip", "description": "See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Dollar Cost Averaging Calculator", "url": "https://finclac.com/dca", "description": "Calculate shares bought, average cost per share, and ending value from regular investing, and compare dollar cost averaging vs investing a lump sum. Free DCA calculator.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -338,83 +338,84 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <div class="nav-dd" data-cat="3"><button class="nav-dd-btn" onclick="toggleNavDD(this)" aria-haspopup="true" aria-expanded="false">🔬 Tools</button><div class="nav-dd-menu" id="nav-dd-3"></div></div>
 </nav>
 <main class="content" id="main-content">
-<div id="drip" class="panel on">
+<div id="dca" class="panel on">
 <div class="calc-header">
-<h1 class="calc-page-title">Dividend Reinvestment (DRIP)</h1>
-<h2 class="calc-subtitle">See how reinvesting dividends compounds your returns</h2>
-    <p class="calc-desc">This DRIP (Dividend Reinvestment Plan) calculator models how automatically reinvesting every dividend payment back into more shares accelerates portfolio growth compared to taking dividends as cash.</p>
+<h1 class="calc-page-title">Dollar Cost Averaging (DCA) Calculator</h1>
+<h2 class="calc-subtitle">See your average cost per share, ending value, and how DCA compares to a lump sum</h2>
+<p class="calc-desc">This DCA calculator projects your total shares bought, average cost per share, and ending value from investing a fixed amount on a regular schedule, and compares the result to investing the same total as a lump sum upfront.</p>
 </div>
 
 
 
 <div class="two">
   <div class="card">
+    <div class="card-title">Recurring Investment</div>
     <div class="g2">
-      <div class="field"><label>Initial Shares</label><input type="text" inputmode="decimal" id="dr-shares" value="100" oninput="calcDRIP()"></div>
-      <div class="field"><label>Current Price ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dr-price" value="150" oninput="calcDRIP()"></div></div>
-      <div class="field"><label>Dividend Yield (% p.a.)</label><input type="text" inputmode="decimal" id="dr-yield" value="3" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Dividend Growth (%)</label><input type="text" inputmode="decimal" id="dr-divgrow" value="6" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Stock Price Growth (%)</label><input type="text" inputmode="decimal" id="dr-grow" value="5" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Monthly Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dr-monthly" value="500" oninput="calcDRIP()"></div></div>
+      <div class="field"><label>Amount per Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dc-amt" value="500" oninput="cDCA()"></div></div>
+      <div class="field"><label>Frequency</label><select id="dc-freq" onchange="cDCA()">
+        <option value="52">Weekly</option>
+        <option value="26">Bi-Weekly</option>
+        <option value="12" selected>Monthly</option>
+        <option value="4">Quarterly</option>
+      </select></div>
     </div>
-    <div class="field"><label>Investment Period (years)</label><input type="text" inputmode="decimal" id="dr-years" value="20" oninput="calcDRIP()"></div>
+    <div class="field"><label>Investment Duration (years)</label><input type="text" inputmode="decimal" id="dc-years" value="3" oninput="cDCA()"></div>
+    <div class="g2">
+      <div class="field"><label>Starting Share Price ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dc-price" value="50" step="0.01" oninput="cDCA()"></div></div>
+      <div class="field"><label>Expected Annual Price Growth (%)</label><input type="text" inputmode="decimal" id="dc-growth" value="8" step="0.1" oninput="cDCA()"></div>
+    </div>
     <div class="sgrid">
-      <div class="sbox"><div class="lbl">Final Portfolio</div><div class="val" style="color:var(--a)" id="dr-final">$0</div></div>
-      <div class="sbox"><div class="lbl">Annual Dividend Income</div><div class="val" style="color:var(--g)" id="dr-anndiv">$0</div></div>
-      <div class="sbox"><div class="lbl">Total Shares</div><div class="val" style="color:var(--b)" id="dr-shares2">0</div></div>
-      <div class="sbox"><div class="lbl">Total Dividends Rcvd</div><div class="val" style="color:var(--p)" id="dr-totdiv">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Shares Bought</div><div class="val" style="color:var(--a)" id="dc-shares">0</div></div>
+      <div class="sbox"><div class="lbl">Average Cost / Share</div><div class="val" style="color:var(--a)" id="dc-avgcost">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Invested</div><div class="val" id="dc-invested">$0</div></div>
+      <div class="sbox"><div class="lbl">Ending Value</div><div class="val" style="color:var(--g)" id="dc-value">$0</div></div>
     </div>
-    <div class="rrow" style="margin-top:.5rem"><span class="rk">Total Invested</span><span class="rv" id="dr-invested">$0</span></div>
-    <div class="rrow"><span class="rk">Total Gain</span><span class="rv" style="color:var(--g)" id="dr-gain">$0</span></div>
-    <div class="insight-box" id="dr-insights"></div>
   </div>
   <div class="card">
-    <div class="card-title">DRIP Growth Over Time</div>
-    <canvas id="dr-chart" width="300" height="190" style="width:100%;margin:.5rem 0"></canvas>
-    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin:.5rem 0 1rem">
-      <span style="color:var(--a)">━ Portfolio Value</span><span style="color:var(--g)">╌ Annual Dividends ×10</span>
-    </div>
-    
+    <div class="card-title">DCA vs Lump Sum</div>
+    <canvas id="dc-chart" width="300" height="175" style="width:100%;margin:1rem 0"></canvas>
+    <div class="rrow"><span class="rk">Final Share Price</span><span class="rv" id="dc-finalprice">$0</span></div>
+    <div class="rrow"><span class="rk">Total Gain / Loss</span><span class="rv" style="color:var(--g)" id="dc-gain">$0</span></div>
+    <div class="rrow"><span class="rk">Return %</span><span class="rv" style="color:var(--g)" id="dc-return">0%</span></div>
+    <div class="rrow"><span class="rk">Lump Sum Ending Value</span><span class="rv" id="dc-lumpvalue">$0</span></div>
+    <div class="insight-box" id="dc-insights"></div>
   </div>
 </div>
 
-<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/split" onclick="go('split',null);return false;">🔀 Stock Split</a><a class="calc-link-btn" href="/divgrowth" onclick="go('divgrowth',null);return false;">📈 Dividend Growth</a><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 Investment</a><a class="calc-link-btn" href="/cagr" onclick="go('cagr',null);return false;">📐 CAGR</a><a class="calc-link-btn" href="/xirr" onclick="go('xirr',null);return false;">📅 XIRR</a><a class="calc-link-btn" href="/etf" onclick="go('etf',null);return false;">🗂️ ETF Growth</a></div></div>
-<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/power-of-reinvesting-dividends">The Power of Reinvesting Dividends: A Long-Term Growth Case Study<span class="related-arrow">→</span></a></div>
+<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 SIP/Investment</a><a class="calc-link-btn" href="/cagr" onclick="go('cagr',null);return false;">📐 CAGR</a><a class="calc-link-btn" href="/etf" onclick="go('etf',null);return false;">📊 ETF</a><a class="calc-link-btn" href="/millionaire" onclick="go('millionaire',null);return false;">💎 Millionaire</a><a class="calc-link-btn" href="/divgrowth" onclick="go('divgrowth',null);return false;">💰 Dividend Growth</a><a class="calc-link-btn" href="/retirement" onclick="go('retirement',null);return false;">👴 Retirement</a></div></div>
 <div class="calc-guide">
   <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Dividend Reinvestment (DRIP) — How It Works</div>
+    <div class="guide-toggle-title">📖 Dollar Cost Averaging — How It Works &amp; When It Wins</div>
   </div>
   <div class="guide-body">
-<div class="guide-p">Dividend Reinvestment Plans (DRIPs) are one of the quietest, least flashy wealth-building mechanisms in investing — and also one of the most powerful over long time horizons. Instead of a company's dividend payment landing in your brokerage account as cash you might spend or let sit idle, a DRIP automatically uses that cash to buy more shares (or fractional shares) of the same stock or fund, immediately and usually without any extra brokerage commission.</div>
+<div class="guide-p">Dollar cost averaging (DCA) means investing a fixed amount of money on a regular schedule — weekly, biweekly, or monthly — regardless of whether prices are up or down that day. Instead of trying to time the market, you buy more shares when prices are low and fewer shares when prices are high, which smooths out your average purchase price over time.</div>
 
-<div class="guide-h3">The Mechanics: What Actually Happens on Dividend Day</div>
-<div class="guide-p">When a company declares a dividend — say $1.20 per share annually, paid quarterly at $0.30 — and you own 100 shares, you'd normally receive $30 in cash each quarter. With DRIP enabled, that $30 is instead used to purchase additional shares (or a fraction of a share) at the prevailing market price on the payment date. If the stock is trading at $60, you'd receive 0.5 new shares. Over time, you own slightly more shares each quarter, which means your next dividend payment is calculated on a slightly larger share count — and the cycle compounds.</div>
+<div class="guide-h3">The Average Cost Formula</div>
+<div class="guide-formula">Average Cost per Share = Total Amount Invested / Total Shares Purchased</div>
+<div class="guide-p">Because each fixed-dollar investment buys a different number of shares depending on the price that period, your average cost per share is a <em>weighted</em> average — it's naturally pulled lower by the periods where you bought more shares at cheaper prices, which is the core mechanic behind DCA's risk-smoothing effect.</div>
 
-<div class="guide-h3">Worked Example: 20 Years of Reinvestment</div>
-<div class="guide-p">Consider an investor who buys $20,000 of a dividend-paying stock yielding 3% annually, with the stock price and dividend both growing 5% per year on average, and total price appreciation (capital gains) separately averaging 7% annually.</div>
-<table class="guide-table"><thead><tr><th>Scenario</th><th>Value After 20 Years</th></tr></thead><tbody>
-<tr><td>Taking dividends as cash (spent, not reinvested)</td><td>~$77,400 (price appreciation only)</td></tr>
-<tr><td>Reinvesting all dividends (DRIP)</td><td>~$108,600</td></tr>
+<div class="guide-h3">Worked Example: $500/Month, Volatile Price</div>
+<div class="guide-p">Investing $500 a month into a stock priced at $50, then $40, then $60, then $50 again over four months:</div>
+<table class="guide-table"><thead><tr><th>Month</th><th>Price</th><th>Amount</th><th>Shares Bought</th></tr></thead><tbody>
+<tr><td>1</td><td>$50</td><td>$500</td><td>10.00</td></tr>
+<tr><td>2</td><td>$40</td><td>$500</td><td>12.50</td></tr>
+<tr><td>3</td><td>$60</td><td>$500</td><td>8.33</td></tr>
+<tr><td>4</td><td>$50</td><td>$500</td><td>10.00</td></tr>
 </tbody></table>
-<div class="guide-p">The roughly $31,000 difference is the pure compounding effect of dividend reinvestment — money that came from dividends buying more shares, which then themselves paid dividends, which bought even more shares. Over multi-decade horizons, academic studies of the S&amp;P 500 have repeatedly shown that <strong>the majority of the index's total historical return came from reinvested dividends</strong>, not from price appreciation alone — a fact that surprises most casual investors who focus only on the headline index price.</div>
+<div class="guide-p">Total invested: $2,000 for 40.83 shares, an average cost of <strong>$48.98/share</strong> — lower than the simple average of the four prices ($50), because the extra shares bought during the $40 dip pull the weighted average down. This is the mechanical advantage of DCA during volatile, sideways, or dipping markets.</div>
 
-<div class="guide-h3">Dividend Yield vs Dividend Growth</div>
-<div class="guide-formula">Dividend Yield = Annual Dividend Per Share / Current Share Price × 100%</div>
-<div class="guide-p">A high current yield isn't automatically better than a lower one. A 7% yielding stock with a stagnant or shrinking dividend can be a value trap — often a sign the market expects trouble and has pushed the share price down, mechanically inflating the yield. A 2% yielding stock that grows its dividend 10% every year for two decades can dramatically outpace it. This is the "dividend growth investing" philosophy: prioritize the trajectory, not the snapshot.</div>
+<div class="guide-h3">DCA vs Lump Sum: What the Research Actually Shows</div>
+<div class="guide-p">It's a common misconception that DCA reliably outperforms investing a lump sum all at once. In reality, because markets trend upward over most multi-year periods historically, investing a lump sum immediately has outperformed dollar cost averaging into the same asset in roughly two-thirds of historical periods studied — simply because more of your money spends more time invested and growing. DCA's real advantage isn't higher expected returns; it's <strong>reduced regret and reduced risk of catastrophically bad timing</strong>, since you're never putting all your capital in at a single, potentially unlucky price point.</div>
+<table class="guide-table"><thead><tr><th></th><th>Lump Sum</th><th>Dollar Cost Averaging</th></tr></thead><tbody>
+<tr><td>Expected return (rising market)</td><td>Typically higher</td><td>Typically slightly lower</td></tr>
+<tr><td>Risk of bad single-day timing</td><td>Higher</td><td>Lower</td></tr>
+<tr><td>Emotional ease of investing</td><td>Harder (all at once)</td><td>Easier (gradual)</td></tr>
+<tr><td>Best suited for</td><td>Money you have all at once and won't need to touch</td><td>Regular income (paychecks) or large sums you're uneasy deploying at once</td></tr>
+</tbody></table>
 
-<div class="guide-h3">DRIP and Dollar-Cost Averaging</div>
-<div class="guide-p">Because DRIP purchases happen automatically every dividend cycle regardless of whether the stock is up or down that day, it functions as a built-in, hands-off form of dollar-cost averaging. You buy more shares when the price is temporarily low (your fixed dividend dollar amount buys more shares) and fewer when the price is high — without ever having to think about market timing.</div>
-
-<div class="guide-h3">Should You Always Reinvest?</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>If you're in the accumulation phase (working, saving, decades from retirement) and don't need the cash, reinvesting is almost always the better default — it maximizes long-term compounding.</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>If you're retired and rely on dividend income to cover living expenses, taking dividends as cash makes more practical sense, even though it sacrifices some long-term growth.</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>If you already hold a very large position in one stock, reinvesting dividends into that same stock increases concentration risk — consider redirecting dividends into a different holding instead.</div></div>
-</div>
-
-<div class="guide-h3">The Tax Reality of Reinvested Dividends</div>
-<div class="guide-p">A surprising number of new investors assume reinvested dividends are tax-free since the cash never technically reaches their bank account. This is incorrect in most countries — the IRS, and most other tax authorities, treat reinvested dividends as taxable income in the year received, exactly the same as if you'd taken the cash and bought shares manually yourself. The only common exception is inside tax-advantaged accounts like a Roth IRA, 401(k), or equivalent retirement wrapper in other countries, where reinvested dividends grow completely tax-free (or tax-deferred).</div>
-<div class="guide-warn">⚠ Track your DRIP purchases carefully for tax purposes — every reinvested dividend slightly raises your cost basis in the stock. Forgetting this when you eventually sell can lead to overstating your capital gain and overpaying tax.</div>
+<div class="guide-h3">When DCA Makes the Most Practical Sense</div>
+<div class="guide-p">For most people, DCA isn't really a choice between two strategies — it's simply how investing works when you're funding contributions from a paycheck rather than a windfall. In that case, DCA isn't "versus" lump sum at all; it's the only realistic option, and a perfectly good one. The lump-sum-vs-DCA debate mainly applies when you have a large sum of money already in hand (an inheritance, bonus, or sale proceeds) and are deciding whether to invest it all immediately or spread it out.</div>
+<div class="guide-tip">💡 If you're investing a regular paycheck, don't overthink DCA — just automate the contribution and stay consistent. The debate about DCA vs lump sum mainly matters if you're sitting on a large sum of cash right now and unsure whether to deploy it all at once.</div>
 
   </div>
 </div>
@@ -423,38 +424,38 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is a DRIP?</span>
+    <span>What is dollar cost averaging?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">DRIP stands for <strong>Dividend Reinvestment Plan</strong>. Instead of receiving dividends as cash, they’re automatically used to purchase more shares. This creates powerful compounding over time.</div>
+  <div class="faq-a">Dollar cost averaging (DCA) is investing a fixed dollar amount on a regular schedule (like every month) regardless of the current price, rather than investing a lump sum all at once. It results in buying more shares when prices are low and fewer when prices are high, smoothing your average purchase price over time.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>How does dividend reinvestment increase returns?</span>
+    <span>Does dollar cost averaging beat investing a lump sum?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">By reinvesting dividends, you buy more shares. Those new shares earn their own dividends, which buy even more shares. Over decades, <strong>the majority of your total return can come from reinvested dividends</strong>, not stock price growth.</div>
+  <div class="faq-a">Not usually, in terms of pure expected return. Historical studies have found that investing a lump sum immediately outperforms DCA in roughly two-thirds of periods, since markets tend to rise over time and more money is invested sooner. DCA's real benefit is reducing the risk and regret of unlucky timing, not higher average returns.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is dividend yield?</span>
+    <span>How do I calculate my average cost per share?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Dividend Yield = Annual Dividend Per Share / Current Share Price × 100%</span>A stock priced at $100 paying $3/year has a 3% dividend yield. Higher yield isn’t always better — a very high yield can signal the stock price has fallen sharply.</div>
+  <div class="faq-a"><span class="faq-formula">Average Cost = Total Invested / Total Shares</span>Add up everything you've invested across all purchases, then divide by the total number of shares you own. Because each purchase buys a different number of shares depending on the price at the time, this is a weighted average, not a simple average of the purchase prices.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Should I reinvest dividends or take them as cash?</span>
+    <span>Is DCA a good strategy for investing my paycheck?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">If you don’t need the income now, reinvesting almost always leads to a larger portfolio long-term due to compounding. If you’re retired and living off investments, taking dividends as cash income makes more sense.</div>
+  <div class="faq-a">Yes — if you're investing from regular income rather than a lump sum you already have, DCA isn't really a choice, it's simply how the investing happens naturally. It's a sound, low-effort way to stay consistently invested without trying to time the market.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Are DRIP dividends taxable?</span>
+    <span>When should I use lump sum investing instead of DCA?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">In most countries, <strong>yes</strong> — dividends are taxable even when reinvested, because you still technically received them. In tax-advantaged accounts like a Roth IRA or ISA, reinvested dividends grow tax-free.</div>
+  <div class="faq-a">If you already have a large sum of money (an inheritance, bonus, or windfall) and a long time horizon, investing it as a lump sum has historically produced higher expected returns than spreading it out. Consider DCA instead if the emotional difficulty of investing it all at once might cause you to delay investing altogether, or if you specifically want to reduce the risk of a single bad entry point.</div>
 </div>
 </div>
 
@@ -486,6 +487,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </footer>
 <script src="app.js?v=20260718b"></script>
-<script>initPage('drip');</script>
+<script>initPage('dca');</script>
 </body>
 </html>

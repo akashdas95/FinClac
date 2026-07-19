@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc</title>
-<meta name="description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
-<link rel="canonical" href="https://finclac.com/drip">
+<title>Millionaire Calculator — Find Out What Age You'll Hit $1,000,000 | FinCalc</title>
+<meta name="description" content="Find out exactly what age you'll become a millionaire based on your current savings, monthly contributions, and investment return. Free millionaire timeline calculator.">
+<link rel="canonical" href="https://finclac.com/millionaire">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc">
-<meta property="og:description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
-<meta property="og:url" content="https://finclac.com/drip">
+<meta property="og:title" content="Millionaire Calculator — Find Out What Age You'll Hit $1,000,000 | FinCalc">
+<meta property="og:description" content="Find out exactly what age you'll become a millionaire based on your current savings, monthly contributions, and investment return. Free millionaire timeline calculator.">
+<meta property="og:url" content="https://finclac.com/millionaire">
 <meta property="og:site_name" content="FinCalc">
 <meta property="og:image" content="https://finclac.com/android-chrome-512x512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://finclac.com/android-chrome-512x512.png">
-<meta name="twitter:title" content="DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc">
-<meta name="twitter:description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
+<meta name="twitter:title" content="Millionaire Calculator — Find Out What Age You'll Hit $1,000,000 | FinCalc">
+<meta name="twitter:description" content="Find out exactly what age you'll become a millionaire based on your current savings, monthly contributions, and investment return. Free millionaire timeline calculator.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#8393A6;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F65E72;--b:#1890FF;--p:#B478D1;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -318,7 +318,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "DRIP Calculator", "url": "https://finclac.com/drip", "description": "See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Millionaire Calculator", "url": "https://finclac.com/millionaire", "description": "Find out exactly what age you'll become a millionaire based on your current savings, monthly contributions, and investment return. Free millionaire timeline calculator.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -338,83 +338,75 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <div class="nav-dd" data-cat="3"><button class="nav-dd-btn" onclick="toggleNavDD(this)" aria-haspopup="true" aria-expanded="false">🔬 Tools</button><div class="nav-dd-menu" id="nav-dd-3"></div></div>
 </nav>
 <main class="content" id="main-content">
-<div id="drip" class="panel on">
+<div id="millionaire" class="panel on">
 <div class="calc-header">
-<h1 class="calc-page-title">Dividend Reinvestment (DRIP)</h1>
-<h2 class="calc-subtitle">See how reinvesting dividends compounds your returns</h2>
-    <p class="calc-desc">This DRIP (Dividend Reinvestment Plan) calculator models how automatically reinvesting every dividend payment back into more shares accelerates portfolio growth compared to taking dividends as cash.</p>
+<h1 class="calc-page-title">Millionaire Calculator</h1>
+<h2 class="calc-subtitle">Find out exactly what age you'll hit $1,000,000 (or any target)</h2>
+<p class="calc-desc">This millionaire calculator projects when your net worth will reach $1,000,000 — or any target you choose — based on your current savings, monthly contributions, and expected investment return.</p>
 </div>
 
 
 
 <div class="two">
   <div class="card">
+    <div class="card-title">Your Timeline</div>
     <div class="g2">
-      <div class="field"><label>Initial Shares</label><input type="text" inputmode="decimal" id="dr-shares" value="100" oninput="calcDRIP()"></div>
-      <div class="field"><label>Current Price ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dr-price" value="150" oninput="calcDRIP()"></div></div>
-      <div class="field"><label>Dividend Yield (% p.a.)</label><input type="text" inputmode="decimal" id="dr-yield" value="3" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Dividend Growth (%)</label><input type="text" inputmode="decimal" id="dr-divgrow" value="6" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Stock Price Growth (%)</label><input type="text" inputmode="decimal" id="dr-grow" value="5" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Monthly Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dr-monthly" value="500" oninput="calcDRIP()"></div></div>
+      <div class="field"><label>Current Age</label><input type="text" inputmode="decimal" id="mi-age" value="28" oninput="cMillionaire()"></div>
+      <div class="field"><label>Target Net Worth ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="mi-target" value="1000000" oninput="cMillionaire()"></div></div>
     </div>
-    <div class="field"><label>Investment Period (years)</label><input type="text" inputmode="decimal" id="dr-years" value="20" oninput="calcDRIP()"></div>
+    <div class="field"><label>Current Savings / Net Worth ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="mi-current" value="15000" oninput="cMillionaire()"></div></div>
+    <div class="g2">
+      <div class="field"><label>Monthly Savings ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="mi-monthly" value="1000" oninput="cMillionaire()"></div></div>
+      <div class="field"><label>Expected Annual Return (%)</label><input type="text" inputmode="decimal" id="mi-rate" value="8" step="0.1" oninput="cMillionaire()"></div>
+    </div>
     <div class="sgrid">
-      <div class="sbox"><div class="lbl">Final Portfolio</div><div class="val" style="color:var(--a)" id="dr-final">$0</div></div>
-      <div class="sbox"><div class="lbl">Annual Dividend Income</div><div class="val" style="color:var(--g)" id="dr-anndiv">$0</div></div>
-      <div class="sbox"><div class="lbl">Total Shares</div><div class="val" style="color:var(--b)" id="dr-shares2">0</div></div>
-      <div class="sbox"><div class="lbl">Total Dividends Rcvd</div><div class="val" style="color:var(--p)" id="dr-totdiv">$0</div></div>
+      <div class="sbox"><div class="lbl">You'll Hit It At Age</div><div class="val" style="color:var(--a)" id="mi-age-result">—</div></div>
+      <div class="sbox"><div class="lbl">Years From Now</div><div class="val" style="color:var(--a)" id="mi-years">—</div></div>
+      <div class="sbox"><div class="lbl">Total You'll Contribute</div><div class="val" id="mi-contrib">$0</div></div>
+      <div class="sbox"><div class="lbl">Total Investment Growth</div><div class="val" style="color:var(--g)" id="mi-growth">$0</div></div>
     </div>
-    <div class="rrow" style="margin-top:.5rem"><span class="rk">Total Invested</span><span class="rv" id="dr-invested">$0</span></div>
-    <div class="rrow"><span class="rk">Total Gain</span><span class="rv" style="color:var(--g)" id="dr-gain">$0</span></div>
-    <div class="insight-box" id="dr-insights"></div>
   </div>
   <div class="card">
-    <div class="card-title">DRIP Growth Over Time</div>
-    <canvas id="dr-chart" width="300" height="190" style="width:100%;margin:.5rem 0"></canvas>
-    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin:.5rem 0 1rem">
-      <span style="color:var(--a)">━ Portfolio Value</span><span style="color:var(--g)">╌ Annual Dividends ×10</span>
-    </div>
-    
+    <div class="card-title">Path to Your Goal</div>
+    <canvas id="mi-chart" width="300" height="175" style="width:100%;margin:1rem 0"></canvas>
+    <div class="rrow"><span class="rk">Target Date</span><span class="rv" id="mi-date">—</span></div>
+    <div class="rrow"><span class="rk">Already Saved (% of Target)</span><span class="rv" id="mi-pct">0%</span></div>
+    <div class="rrow"><span class="rk">If You Save $200/mo More</span><span class="rv" style="color:var(--g)" id="mi-faster">—</span></div>
+    <div class="insight-box" id="mi-insights"></div>
   </div>
 </div>
 
-<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/split" onclick="go('split',null);return false;">🔀 Stock Split</a><a class="calc-link-btn" href="/divgrowth" onclick="go('divgrowth',null);return false;">📈 Dividend Growth</a><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 Investment</a><a class="calc-link-btn" href="/cagr" onclick="go('cagr',null);return false;">📐 CAGR</a><a class="calc-link-btn" href="/xirr" onclick="go('xirr',null);return false;">📅 XIRR</a><a class="calc-link-btn" href="/etf" onclick="go('etf',null);return false;">🗂️ ETF Growth</a></div></div>
-<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/power-of-reinvesting-dividends">The Power of Reinvesting Dividends: A Long-Term Growth Case Study<span class="related-arrow">→</span></a></div>
+<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/fire" onclick="go('fire',null);return false;">🔥 FIRE</a><a class="calc-link-btn" href="/retirement" onclick="go('retirement',null);return false;">👴 Retirement</a><a class="calc-link-btn" href="/401k" onclick="go('401k',null);return false;">🏦 401(k)</a><a class="calc-link-btn" href="/savingsgoal" onclick="go('savingsgoal',null);return false;">🎯 Savings Goal</a><a class="calc-link-btn" href="/cagr" onclick="go('cagr',null);return false;">📐 CAGR</a><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 Investment</a></div></div>
 <div class="calc-guide">
   <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Dividend Reinvestment (DRIP) — How It Works</div>
+    <div class="guide-toggle-title">📖 Becoming a Millionaire — The Real Math</div>
   </div>
   <div class="guide-body">
-<div class="guide-p">Dividend Reinvestment Plans (DRIPs) are one of the quietest, least flashy wealth-building mechanisms in investing — and also one of the most powerful over long time horizons. Instead of a company's dividend payment landing in your brokerage account as cash you might spend or let sit idle, a DRIP automatically uses that cash to buy more shares (or fractional shares) of the same stock or fund, immediately and usually without any extra brokerage commission.</div>
+<div class="guide-p">"Millionaire" sounds like an exclusive club, but reaching $1,000,000 in net worth is mostly a function of three unglamorous variables: how much you save, how early you start, and how consistently you let your investments compound. It's less about a single lucky break and more about time doing the heavy lifting — the same math behind every million-dollar portfolio, whether it took 15 years or 40.</div>
 
-<div class="guide-h3">The Mechanics: What Actually Happens on Dividend Day</div>
-<div class="guide-p">When a company declares a dividend — say $1.20 per share annually, paid quarterly at $0.30 — and you own 100 shares, you'd normally receive $30 in cash each quarter. With DRIP enabled, that $30 is instead used to purchase additional shares (or a fraction of a share) at the prevailing market price on the payment date. If the stock is trading at $60, you'd receive 0.5 new shares. Over time, you own slightly more shares each quarter, which means your next dividend payment is calculated on a slightly larger share count — and the cycle compounds.</div>
+<div class="guide-h3">The Formula Behind the Timeline</div>
+<div class="guide-formula">Target = Current × (1+r)^n + Monthly × [((1+r)^n − 1) / r]</div>
+<div class="guide-p">Where r is your monthly return rate and n is the number of months. This calculator solves that equation for n — the number of months until your current savings plus ongoing contributions, compounding at your expected return, cross your target. The two levers you control directly are your monthly contribution and your starting age; the return rate depends on your investment choices and the market.</div>
 
-<div class="guide-h3">Worked Example: 20 Years of Reinvestment</div>
-<div class="guide-p">Consider an investor who buys $20,000 of a dividend-paying stock yielding 3% annually, with the stock price and dividend both growing 5% per year on average, and total price appreciation (capital gains) separately averaging 7% annually.</div>
-<table class="guide-table"><thead><tr><th>Scenario</th><th>Value After 20 Years</th></tr></thead><tbody>
-<tr><td>Taking dividends as cash (spent, not reinvested)</td><td>~$77,400 (price appreciation only)</td></tr>
-<tr><td>Reinvesting all dividends (DRIP)</td><td>~$108,600</td></tr>
+<div class="guide-h3">Worked Example: Starting at 25 vs Starting at 35</div>
+<table class="guide-table"><thead><tr><th>Start Age</th><th>Monthly Savings</th><th>Return</th><th>Age at $1,000,000</th></tr></thead><tbody>
+<tr><td>25</td><td>$700</td><td>8%</td><td>~54</td></tr>
+<tr><td>35</td><td>$700</td><td>8%</td><td>~64</td></tr>
+<tr><td>35</td><td>$1,400</td><td>8%</td><td>~57</td></tr>
 </tbody></table>
-<div class="guide-p">The roughly $31,000 difference is the pure compounding effect of dividend reinvestment — money that came from dividends buying more shares, which then themselves paid dividends, which bought even more shares. Over multi-decade horizons, academic studies of the S&amp;P 500 have repeatedly shown that <strong>the majority of the index's total historical return came from reinvested dividends</strong>, not from price appreciation alone — a fact that surprises most casual investors who focus only on the headline index price.</div>
+<div class="guide-p">Starting 10 years later at the same contribution level costs about 10 extra years to reach the same goal. Doubling the monthly contribution to compensate closes most — but not all — of that gap, which illustrates why "start now, even with less" consistently beats "wait until I can save more."</div>
 
-<div class="guide-h3">Dividend Yield vs Dividend Growth</div>
-<div class="guide-formula">Dividend Yield = Annual Dividend Per Share / Current Share Price × 100%</div>
-<div class="guide-p">A high current yield isn't automatically better than a lower one. A 7% yielding stock with a stagnant or shrinking dividend can be a value trap — often a sign the market expects trouble and has pushed the share price down, mechanically inflating the yield. A 2% yielding stock that grows its dividend 10% every year for two decades can dramatically outpace it. This is the "dividend growth investing" philosophy: prioritize the trajectory, not the snapshot.</div>
+<div class="guide-h3">How Much Difference Does Return Rate Make?</div>
+<table class="guide-table"><thead><tr><th>Annual Return</th><th>Time to $1M ($1,000/mo, $10k start)</th></tr></thead><tbody>
+<tr><td>4% (conservative/bonds)</td><td>~36 years</td></tr>
+<tr><td>7% (balanced portfolio)</td><td>~27 years</td></tr>
+<tr><td>10% (aggressive/equity-heavy)</td><td>~22 years</td></tr>
+</tbody></table>
+<div class="guide-p">Higher expected returns typically come with higher volatility, so this isn't simply "pick the biggest number" — the right rate assumption depends on your actual investment mix, time horizon, and risk tolerance. Historically, a diversified stock portfolio has averaged roughly 7-10% annually before inflation over long periods, though any individual decade can vary substantially.</div>
 
-<div class="guide-h3">DRIP and Dollar-Cost Averaging</div>
-<div class="guide-p">Because DRIP purchases happen automatically every dividend cycle regardless of whether the stock is up or down that day, it functions as a built-in, hands-off form of dollar-cost averaging. You buy more shares when the price is temporarily low (your fixed dividend dollar amount buys more shares) and fewer when the price is high — without ever having to think about market timing.</div>
-
-<div class="guide-h3">Should You Always Reinvest?</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>If you're in the accumulation phase (working, saving, decades from retirement) and don't need the cash, reinvesting is almost always the better default — it maximizes long-term compounding.</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>If you're retired and rely on dividend income to cover living expenses, taking dividends as cash makes more practical sense, even though it sacrifices some long-term growth.</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>If you already hold a very large position in one stock, reinvesting dividends into that same stock increases concentration risk — consider redirecting dividends into a different holding instead.</div></div>
-</div>
-
-<div class="guide-h3">The Tax Reality of Reinvested Dividends</div>
-<div class="guide-p">A surprising number of new investors assume reinvested dividends are tax-free since the cash never technically reaches their bank account. This is incorrect in most countries — the IRS, and most other tax authorities, treat reinvested dividends as taxable income in the year received, exactly the same as if you'd taken the cash and bought shares manually yourself. The only common exception is inside tax-advantaged accounts like a Roth IRA, 401(k), or equivalent retirement wrapper in other countries, where reinvested dividends grow completely tax-free (or tax-deferred).</div>
-<div class="guide-warn">⚠ Track your DRIP purchases carefully for tax purposes — every reinvested dividend slightly raises your cost basis in the stock. Forgetting this when you eventually sell can lead to overstating your capital gain and overpaying tax.</div>
+<div class="guide-h3">A Note on Inflation</div>
+<div class="guide-p">This calculator (like most millionaire calculators) projects your <strong>nominal</strong> net worth — the dollar figure without adjusting for inflation. $1,000,000 in 30 years will not have the purchasing power of $1,000,000 today; at 3% average inflation, its real value would be closer to $412,000 in today's dollars. This doesn't mean the milestone is meaningless, but it's worth keeping in mind when comparing your future timeline to what a million dollars means today.</div>
+<div class="guide-tip">💡 The single biggest lever most people underuse isn't a higher return rate — it's starting today instead of "when I make more money." Every year you delay is a year of compounding you can never get back, even if you eventually save more per month.</div>
 
   </div>
 </div>
@@ -423,40 +415,41 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is a DRIP?</span>
+    <span>How long does it actually take to become a millionaire?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">DRIP stands for <strong>Dividend Reinvestment Plan</strong>. Instead of receiving dividends as cash, they’re automatically used to purchase more shares. This creates powerful compounding over time.</div>
+  <div class="faq-a">It depends heavily on your starting savings, monthly contribution, and investment return — but as a reference point, saving $1,000/month starting from $10,000 at a 7% average annual return reaches $1,000,000 in roughly 27 years. Higher contributions or returns shorten that timeline significantly; use the calculator above with your own numbers for an exact estimate.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>How does dividend reinvestment increase returns?</span>
+    <span>Is $1,000,000 still considered "rich"?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">By reinvesting dividends, you buy more shares. Those new shares earn their own dividends, which buy even more shares. Over decades, <strong>the majority of your total return can come from reinvested dividends</strong>, not stock price growth.</div>
+  <div class="faq-a">It depends on context. $1,000,000 in net worth puts you in a relatively small percentile of household wealth globally, but due to inflation it buys meaningfully less than it did decades ago, and a $1M retirement portfolio using a common 4% withdrawal guideline generates roughly $40,000/year in income — comfortable in many areas, but not extravagant in higher cost-of-living regions.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is dividend yield?</span>
+    <span>What's a realistic investment return to assume?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Dividend Yield = Annual Dividend Per Share / Current Share Price × 100%</span>A stock priced at $100 paying $3/year has a 3% dividend yield. Higher yield isn’t always better — a very high yield can signal the stock price has fallen sharply.</div>
+  <div class="faq-a">A diversified, stock-heavy portfolio has historically averaged roughly <strong>7-10% annually</strong> before inflation over long periods (multiple decades), though returns vary significantly year to year and there's no guarantee of future performance. More conservative, bond-heavy portfolios have historically averaged lower, in the 3-5% range. Choose a rate that matches your actual investment mix and risk tolerance.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Should I reinvest dividends or take them as cash?</span>
+    <span>Does this calculator account for inflation?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">If you don’t need the income now, reinvesting almost always leads to a larger portfolio long-term due to compounding. If you’re retired and living off investments, taking dividends as cash income makes more sense.</div>
+  <div class="faq-a">No — like most millionaire calculators, this shows your projected <strong>nominal</strong> (non-inflation-adjusted) net worth. $1,000,000 several decades from now will have less real purchasing power than $1,000,000 today. If you want to target a specific real purchasing power, consider setting your target amount higher to compensate for expected inflation over your timeline.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Are DRIP dividends taxable?</span>
+    <span>What's the fastest way to shorten my timeline?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">In most countries, <strong>yes</strong> — dividends are taxable even when reinvested, because you still technically received them. In tax-advantaged accounts like a Roth IRA or ISA, reinvested dividends grow tax-free.</div>
+  <div class="faq-a">Increasing your monthly contribution has the most direct, controllable impact, especially earlier in your timeline. Starting sooner rather than later is the second biggest lever, since it maximizes how long your money compounds. Increasing your expected return by taking on more investment risk can help too, but comes with more volatility and isn't guaranteed.</div>
 </div>
 </div>
+
 
 
 </div>
@@ -486,6 +479,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </footer>
 <script src="app.js?v=20260718b"></script>
-<script>initPage('drip');</script>
+<script>initPage('millionaire');</script>
 </body>
 </html>

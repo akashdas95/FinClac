@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc</title>
-<meta name="description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
-<link rel="canonical" href="https://finclac.com/drip">
+<title>International Money Transfer Cost Calculator — Compare Fees &amp; Exchange Rate Markup | FinCalc</title>
+<meta name="description" content="Calculate the true cost of sending money abroad, including transfer fees and hidden exchange rate markup vs the mid-market rate. Free international transfer calculator.">
+<link rel="canonical" href="https://finclac.com/remit">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc">
-<meta property="og:description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
-<meta property="og:url" content="https://finclac.com/drip">
+<meta property="og:title" content="International Money Transfer Cost Calculator — Compare Fees &amp; Exchange Rate Markup | FinCalc">
+<meta property="og:description" content="Calculate the true cost of sending money abroad, including transfer fees and hidden exchange rate markup vs the mid-market rate. Free international transfer calculator.">
+<meta property="og:url" content="https://finclac.com/remit">
 <meta property="og:site_name" content="FinCalc">
 <meta property="og:image" content="https://finclac.com/android-chrome-512x512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://finclac.com/android-chrome-512x512.png">
-<meta name="twitter:title" content="DRIP Calculator — Dividend Reinvestment Growth Over Time | FinCalc">
-<meta name="twitter:description" content="See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.">
+<meta name="twitter:title" content="International Money Transfer Cost Calculator — Compare Fees &amp; Exchange Rate Markup | FinCalc">
+<meta name="twitter:description" content="Calculate the true cost of sending money abroad, including transfer fees and hidden exchange rate markup vs the mid-market rate. Free international transfer calculator.">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0B0E11;--s:#141920;--s2:#1C2430;--bd:#232D3A;--t:#E8EDF2;--m:#8393A6;--tb:#A3B2C4;--a:#F0B90B;--g:#0ECB81;--r:#F65E72;--b:#1890FF;--p:#B478D1;--fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace}
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh}
@@ -318,7 +318,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "DRIP Calculator", "url": "https://finclac.com/drip", "description": "See how dividend reinvestment grows your portfolio over decades. Free DRIP calculator with dividend growth rate and compounding chart.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "International Money Transfer Cost Calculator", "url": "https://finclac.com/remit", "description": "Calculate the true cost of sending money abroad, including transfer fees and hidden exchange rate markup vs the mid-market rate. Free international transfer calculator.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -338,83 +338,86 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   <div class="nav-dd" data-cat="3"><button class="nav-dd-btn" onclick="toggleNavDD(this)" aria-haspopup="true" aria-expanded="false">🔬 Tools</button><div class="nav-dd-menu" id="nav-dd-3"></div></div>
 </nav>
 <main class="content" id="main-content">
-<div id="drip" class="panel on">
+<div id="remit" class="panel on">
 <div class="calc-header">
-<h1 class="calc-page-title">Dividend Reinvestment (DRIP)</h1>
-<h2 class="calc-subtitle">See how reinvesting dividends compounds your returns</h2>
-    <p class="calc-desc">This DRIP (Dividend Reinvestment Plan) calculator models how automatically reinvesting every dividend payment back into more shares accelerates portfolio growth compared to taking dividends as cash.</p>
+<h1 class="calc-page-title">International Money Transfer Cost Calculator</h1>
+<h2 class="calc-subtitle">See the true cost of sending money abroad — fees plus hidden exchange rate markup</h2>
+<p class="calc-desc">This calculator reveals the real cost of an international money transfer by comparing the provider's exchange rate and fee against the true mid-market rate, showing exactly how much you're losing to markup versus a fair-rate transfer.</p>
 </div>
 
 
 
 <div class="two">
   <div class="card">
+    <div class="card-title">Transfer Details</div>
     <div class="g2">
-      <div class="field"><label>Initial Shares</label><input type="text" inputmode="decimal" id="dr-shares" value="100" oninput="calcDRIP()"></div>
-      <div class="field"><label>Current Price ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dr-price" value="150" oninput="calcDRIP()"></div></div>
-      <div class="field"><label>Dividend Yield (% p.a.)</label><input type="text" inputmode="decimal" id="dr-yield" value="3" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Dividend Growth (%)</label><input type="text" inputmode="decimal" id="dr-divgrow" value="6" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Stock Price Growth (%)</label><input type="text" inputmode="decimal" id="dr-grow" value="5" step="0.1" oninput="calcDRIP()"></div>
-      <div class="field"><label>Monthly Investment ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="dr-monthly" value="500" oninput="calcDRIP()"></div></div>
+      <div class="field"><label>Amount to Send</label><input type="text" inputmode="decimal" id="rm-amt" value="1000" oninput="cRemit()"></div>
+      <div></div>
+      <div class="field"><label>Send Currency</label><select id="rm-from" onchange="rmCurrencyChanged()"></select></div>
+      <div class="field"><label>Receive Currency</label><select id="rm-to" onchange="rmCurrencyChanged()"></select></div>
     </div>
-    <div class="field"><label>Investment Period (years)</label><input type="text" inputmode="decimal" id="dr-years" value="20" oninput="calcDRIP()"></div>
+    <div class="field"><label>Provider's Exchange Rate (1 <span id="rm-from-lbl">USD</span> = ? <span id="rm-to-lbl">EUR</span>)</label><input type="text" inputmode="decimal" id="rm-rate" value="0" step="0.0001" oninput="cRemit()"></div>
+    <div class="field"><label>Transfer Fee</label><input type="text" inputmode="decimal" id="rm-fee" value="4.99" oninput="cRemit()"></div>
+    <p id="rm-status" style="font-size:11px;color:var(--m);margin:.25rem 0 0">Loading mid-market rate…</p>
     <div class="sgrid">
-      <div class="sbox"><div class="lbl">Final Portfolio</div><div class="val" style="color:var(--a)" id="dr-final">$0</div></div>
-      <div class="sbox"><div class="lbl">Annual Dividend Income</div><div class="val" style="color:var(--g)" id="dr-anndiv">$0</div></div>
-      <div class="sbox"><div class="lbl">Total Shares</div><div class="val" style="color:var(--b)" id="dr-shares2">0</div></div>
-      <div class="sbox"><div class="lbl">Total Dividends Rcvd</div><div class="val" style="color:var(--p)" id="dr-totdiv">$0</div></div>
+      <div class="sbox"><div class="lbl">Recipient Gets</div><div class="val" style="color:var(--a)" id="rm-received">0</div></div>
+      <div class="sbox"><div class="lbl">Total Cost</div><div class="val" style="color:var(--r)" id="rm-cost">$0</div></div>
+      <div class="sbox"><div class="lbl">Effective Rate</div><div class="val" id="rm-effrate">0</div></div>
+      <div class="sbox"><div class="lbl">Total Cost %</div><div class="val" id="rm-costpct">0%</div></div>
     </div>
-    <div class="rrow" style="margin-top:.5rem"><span class="rk">Total Invested</span><span class="rv" id="dr-invested">$0</span></div>
-    <div class="rrow"><span class="rk">Total Gain</span><span class="rv" style="color:var(--g)" id="dr-gain">$0</span></div>
-    <div class="insight-box" id="dr-insights"></div>
   </div>
   <div class="card">
-    <div class="card-title">DRIP Growth Over Time</div>
-    <canvas id="dr-chart" width="300" height="190" style="width:100%;margin:.5rem 0"></canvas>
-    <div style="display:flex;gap:12px;font-size:11px;color:var(--m);margin:.5rem 0 1rem">
-      <span style="color:var(--a)">━ Portfolio Value</span><span style="color:var(--g)">╌ Annual Dividends ×10</span>
+    <div class="card-title">Fee vs Markup Breakdown</div>
+    <div class="g2" style="margin-bottom:1rem">
+      <div style="background:var(--s2);border-radius:8px;padding:1rem;text-align:center">
+        <div style="font-size:11px;color:var(--m);margin-bottom:6px">Mid-Market (ideal)</div>
+        <div style="font-size:17px;font-family:var(--mo);font-weight:600;color:var(--g)" id="rm-ideal">—</div>
+      </div>
+      <div style="background:var(--s2);border-radius:8px;padding:1rem;text-align:center">
+        <div style="font-size:11px;color:var(--m);margin-bottom:6px">This Provider</div>
+        <div style="font-size:17px;font-family:var(--mo);font-weight:600;color:var(--a)" id="rm-actual">—</div>
+      </div>
     </div>
-    
+    <div class="rrow"><span class="rk">Mid-Market Rate</span><span class="rv" id="rm-midrate">—</span></div>
+    <div class="rrow"><span class="rk">Provider's Rate</span><span class="rv" id="rm-provrate">—</span></div>
+    <div class="rrow"><span class="rk">Visible Fee</span><span class="rv" id="rm-feecost">$0</span></div>
+    <div class="rrow"><span class="rk">Hidden Rate Markup</span><span class="rv" style="color:var(--r)" id="rm-markupcost">$0</span></div>
+    <div class="rrow"><span class="rk">Markup vs Mid-Market</span><span class="rv" id="rm-markuppct">0%</span></div>
+    <div class="insight-box" id="rm-insights"></div>
   </div>
 </div>
 
-<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/split" onclick="go('split',null);return false;">🔀 Stock Split</a><a class="calc-link-btn" href="/divgrowth" onclick="go('divgrowth',null);return false;">📈 Dividend Growth</a><a class="calc-link-btn" href="/invest" onclick="go('invest',null);return false;">📈 Investment</a><a class="calc-link-btn" href="/cagr" onclick="go('cagr',null);return false;">📐 CAGR</a><a class="calc-link-btn" href="/xirr" onclick="go('xirr',null);return false;">📅 XIRR</a><a class="calc-link-btn" href="/etf" onclick="go('etf',null);return false;">🗂️ ETF Growth</a></div></div>
-<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/power-of-reinvesting-dividends">The Power of Reinvesting Dividends: A Long-Term Growth Case Study<span class="related-arrow">→</span></a></div>
+<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/currency" onclick="go('currency',null);return false;">💱 Currency</a><a class="calc-link-btn" href="/salary" onclick="go('salary',null);return false;">💵 Salary</a><a class="calc-link-btn" href="/cashflow" onclick="go('cashflow',null);return false;">💵 Cash Flow</a><a class="calc-link-btn" href="/savings" onclick="go('savings',null);return false;">🏛️ Savings</a><a class="calc-link-btn" href="/emergencyfund" onclick="go('emergencyfund',null);return false;">🛡️ Emergency Fund</a><a class="calc-link-btn" href="/tax" onclick="go('tax',null);return false;">🧾 Tax</a></div></div>
 <div class="calc-guide">
   <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Dividend Reinvestment (DRIP) — How It Works</div>
+    <div class="guide-toggle-title">📖 International Transfers — Where the Real Cost Hides</div>
   </div>
   <div class="guide-body">
-<div class="guide-p">Dividend Reinvestment Plans (DRIPs) are one of the quietest, least flashy wealth-building mechanisms in investing — and also one of the most powerful over long time horizons. Instead of a company's dividend payment landing in your brokerage account as cash you might spend or let sit idle, a DRIP automatically uses that cash to buy more shares (or fractional shares) of the same stock or fund, immediately and usually without any extra brokerage commission.</div>
+<div class="guide-p">Most people evaluate an international money transfer by looking at the advertised fee — "$0 fee!" or "just $4.99" — and stop there. But the fee is often the smaller half of the story. The bigger cost is usually baked into the exchange rate itself: the provider quotes you a worse rate than the true mid-market rate, pockets the difference, and never calls it a fee at all.</div>
 
-<div class="guide-h3">The Mechanics: What Actually Happens on Dividend Day</div>
-<div class="guide-p">When a company declares a dividend — say $1.20 per share annually, paid quarterly at $0.30 — and you own 100 shares, you'd normally receive $30 in cash each quarter. With DRIP enabled, that $30 is instead used to purchase additional shares (or a fraction of a share) at the prevailing market price on the payment date. If the stock is trading at $60, you'd receive 0.5 new shares. Over time, you own slightly more shares each quarter, which means your next dividend payment is calculated on a slightly larger share count — and the cycle compounds.</div>
+<div class="guide-h3">How the Hidden Markup Works</div>
+<div class="guide-formula">Markup Cost = Amount Sent × (Mid-Market Rate − Provider's Rate) / Mid-Market Rate</div>
+<div class="guide-p">If the true mid-market rate is 1 USD = 0.930 EUR, but your provider only gives you 0.911 EUR per dollar, that 2% gap is a real cost — identical in effect to a 2% fee — even though it never appears as a line item on your receipt. This is exactly why comparing only the advertised "fee" between two providers can be misleading; a "$0 fee" transfer with a wide rate markup is often more expensive than a "$10 fee" transfer at close to the mid-market rate.</div>
 
-<div class="guide-h3">Worked Example: 20 Years of Reinvestment</div>
-<div class="guide-p">Consider an investor who buys $20,000 of a dividend-paying stock yielding 3% annually, with the stock price and dividend both growing 5% per year on average, and total price appreciation (capital gains) separately averaging 7% annually.</div>
-<table class="guide-table"><thead><tr><th>Scenario</th><th>Value After 20 Years</th></tr></thead><tbody>
-<tr><td>Taking dividends as cash (spent, not reinvested)</td><td>~$77,400 (price appreciation only)</td></tr>
-<tr><td>Reinvesting all dividends (DRIP)</td><td>~$108,600</td></tr>
+<div class="guide-h3">Worked Example: Sending $1,000</div>
+<table class="guide-table"><thead><tr><th>Provider</th><th>Fee</th><th>Rate Offered</th><th>Recipient Gets</th><th>True Total Cost</th></tr></thead><tbody>
+<tr><td>Mid-market (ideal)</td><td>$0</td><td>0.930</td><td>€930.00</td><td>$0</td></tr>
+<tr><td>Fintech transfer service</td><td>$4.99</td><td>0.925</td><td>€919.87</td><td>~$10.85</td></tr>
+<tr><td>Traditional bank wire</td><td>$25</td><td>0.902</td><td>€879.45</td><td>~$54.30</td></tr>
 </tbody></table>
-<div class="guide-p">The roughly $31,000 difference is the pure compounding effect of dividend reinvestment — money that came from dividends buying more shares, which then themselves paid dividends, which bought even more shares. Over multi-decade horizons, academic studies of the S&amp;P 500 have repeatedly shown that <strong>the majority of the index's total historical return came from reinvested dividends</strong>, not from price appreciation alone — a fact that surprises most casual investors who focus only on the headline index price.</div>
+<div class="guide-p">The bank in this example advertises a $25 fee, but its true total cost is over $54 once the rate markup is included — more than double what appears on the fee disclosure. This pattern repeats across the industry: specialist transfer services typically offer rates much closer to mid-market than traditional banks, even when their stated fee looks similar or higher.</div>
 
-<div class="guide-h3">Dividend Yield vs Dividend Growth</div>
-<div class="guide-formula">Dividend Yield = Annual Dividend Per Share / Current Share Price × 100%</div>
-<div class="guide-p">A high current yield isn't automatically better than a lower one. A 7% yielding stock with a stagnant or shrinking dividend can be a value trap — often a sign the market expects trouble and has pushed the share price down, mechanically inflating the yield. A 2% yielding stock that grows its dividend 10% every year for two decades can dramatically outpace it. This is the "dividend growth investing" philosophy: prioritize the trajectory, not the snapshot.</div>
+<div class="guide-h3">Typical Markup by Provider Type</div>
+<table class="guide-table"><thead><tr><th>Provider Type</th><th>Typical Rate Markup</th><th>Typical Fee</th></tr></thead><tbody>
+<tr><td>Specialist transfer apps (Wise, Remitly, etc.)</td><td>0.3% – 1%</td><td>Low flat fee or % of amount</td></tr>
+<tr><td>Traditional bank wire</td><td>2% – 4%</td><td>$15 – $50 flat</td></tr>
+<tr><td>Airport / retail currency exchange</td><td>5% – 10%+</td><td>Often $0 stated fee</td></tr>
+</tbody></table>
+<div class="guide-p">These are general industry patterns, not guarantees for any specific provider — always check the actual rate and fee quoted at the time of your transfer, since promotions and rates change frequently.</div>
 
-<div class="guide-h3">DRIP and Dollar-Cost Averaging</div>
-<div class="guide-p">Because DRIP purchases happen automatically every dividend cycle regardless of whether the stock is up or down that day, it functions as a built-in, hands-off form of dollar-cost averaging. You buy more shares when the price is temporarily low (your fixed dividend dollar amount buys more shares) and fewer when the price is high — without ever having to think about market timing.</div>
-
-<div class="guide-h3">Should You Always Reinvest?</div>
-<div class="guide-steps">
-<div class="guide-step"><div class="guide-step-num">1</div><div>If you're in the accumulation phase (working, saving, decades from retirement) and don't need the cash, reinvesting is almost always the better default — it maximizes long-term compounding.</div></div>
-<div class="guide-step"><div class="guide-step-num">2</div><div>If you're retired and rely on dividend income to cover living expenses, taking dividends as cash makes more practical sense, even though it sacrifices some long-term growth.</div></div>
-<div class="guide-step"><div class="guide-step-num">3</div><div>If you already hold a very large position in one stock, reinvesting dividends into that same stock increases concentration risk — consider redirecting dividends into a different holding instead.</div></div>
-</div>
-
-<div class="guide-h3">The Tax Reality of Reinvested Dividends</div>
-<div class="guide-p">A surprising number of new investors assume reinvested dividends are tax-free since the cash never technically reaches their bank account. This is incorrect in most countries — the IRS, and most other tax authorities, treat reinvested dividends as taxable income in the year received, exactly the same as if you'd taken the cash and bought shares manually yourself. The only common exception is inside tax-advantaged accounts like a Roth IRA, 401(k), or equivalent retirement wrapper in other countries, where reinvested dividends grow completely tax-free (or tax-deferred).</div>
-<div class="guide-warn">⚠ Track your DRIP purchases carefully for tax purposes — every reinvested dividend slightly raises your cost basis in the stock. Forgetting this when you eventually sell can lead to overstating your capital gain and overpaying tax.</div>
+<div class="guide-h3">How to Actually Compare Two Transfer Quotes</div>
+<div class="guide-p">The only reliable comparison is the amount your recipient actually receives, in their currency, after all fees and rate markup — not the advertised fee alone. Look up the current mid-market rate (this calculator fetches it automatically), then plug in each provider's quoted rate and fee to see the real total cost side by side.</div>
+<div class="guide-tip">💡 For recurring transfers (like supporting family abroad or paying overseas contractors), even a 1% difference in effective rate adds up significantly over a year — it's worth the few extra minutes to compare 2–3 providers before setting up a recurring transfer.</div>
 
   </div>
 </div>
@@ -423,40 +426,41 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 <div class="faq-section-title">❓ Frequently Asked Questions</div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is a DRIP?</span>
+    <span>What is the mid-market exchange rate?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">DRIP stands for <strong>Dividend Reinvestment Plan</strong>. Instead of receiving dividends as cash, they’re automatically used to purchase more shares. This creates powerful compounding over time.</div>
+  <div class="faq-a">The mid-market rate (also called the interbank rate) is the midpoint between the buy and sell prices banks use when trading currencies among themselves. It's the rate you see quoted on Google or financial news, and it represents the "true" exchange rate before any provider markup is added.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>How does dividend reinvestment increase returns?</span>
+    <span>Why do banks and transfer services charge different rates than the mid-market rate?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">By reinvesting dividends, you buy more shares. Those new shares earn their own dividends, which buy even more shares. Over decades, <strong>the majority of your total return can come from reinvested dividends</strong>, not stock price growth.</div>
+  <div class="faq-a">Providers add a markup (spread) to the mid-market rate as a way to earn revenue on the transaction, often in addition to — or instead of — a visible fee. This markup isn't disclosed as a separate charge, which is why comparing only advertised fees between providers can be misleading.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What is dividend yield?</span>
+    <span>Is a "$0 fee" transfer actually free?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a"><span class="faq-formula">Dividend Yield = Annual Dividend Per Share / Current Share Price × 100%</span>A stock priced at $100 paying $3/year has a 3% dividend yield. Higher yield isn’t always better — a very high yield can signal the stock price has fallen sharply.</div>
+  <div class="faq-a">Rarely. A "$0 fee" transfer typically makes up the cost through a wider exchange rate markup instead. Always check the exchange rate offered against the current mid-market rate — a $0 fee transfer with a 3% rate markup costs more than a $10 fee transfer at close to the mid-market rate.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Should I reinvest dividends or take them as cash?</span>
+    <span>Which international transfer providers tend to be cheapest?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">If you don’t need the income now, reinvesting almost always leads to a larger portfolio long-term due to compounding. If you’re retired and living off investments, taking dividends as cash income makes more sense.</div>
+  <div class="faq-a">Specialist digital transfer services generally offer rates much closer to the mid-market rate (often within 0.3%–1%) than traditional banks (typically 2%–4% markup) or airport currency kiosks (often 5%+ markup). Always compare the actual quoted rate and fee at the time of transfer, since rates and promotions change.</div>
 </div>
 <div class="faq-item">
   <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Are DRIP dividends taxable?</span>
+    <span>Does the transfer amount affect the exchange rate I get?</span>
     <span class="faq-icon">+</span>
   </div>
-  <div class="faq-a">In most countries, <strong>yes</strong> — dividends are taxable even when reinvested, because you still technically received them. In tax-advantaged accounts like a Roth IRA or ISA, reinvested dividends grow tax-free.</div>
+  <div class="faq-a">Sometimes. Some providers offer better rates or lower percentage fees on larger transfer amounts, while others apply a flat rate and fee regardless of size. It's worth checking your specific provider's fee schedule, especially for large transfers like a home purchase or business payment.</div>
 </div>
 </div>
+
 
 
 </div>
@@ -486,6 +490,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 </a>
 </footer>
 <script src="app.js?v=20260718b"></script>
-<script>initPage('drip');</script>
+<script>initPage('remit');</script>
 </body>
 </html>

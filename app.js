@@ -69,6 +69,57 @@ function renderInsights(id,lines){
 // collapsible section. Pure DOM restructuring — CSS only activates the
 // collapsed/click behavior at ≤700px; above that, everything still
 // renders exactly as before (this just adds inert wrapper elements).
+function fillExampleValues(){
+  document.querySelectorAll('input[inputmode="decimal"]').forEach(input=>{
+    const ph=input.placeholder;
+    if(!ph||!ph.startsWith('e.g. '))return;
+    input.value=ph.slice(5);
+    const handler=input.getAttribute('oninput');
+    if(handler){ try{ new Function(handler).call(input); }catch(e){} }
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.dispatchEvent(new Event('blur',{bubbles:true}));
+  });
+}
+function attachInputGuards(){
+  const GROWTH_WORDS=/growth|change in|decline/i;
+  document.querySelectorAll('input[inputmode="decimal"]').forEach(input=>{
+    if(input.dataset.guarded)return; // avoid double-binding if this ever re-runs
+    input.dataset.guarded='1';
+    const allowNeg=input.dataset.allowNegative==='1'||(()=>{
+      const label=input.closest('.field')?.querySelector('label');
+      return label&&GROWTH_WORDS.test(label.textContent);
+    })();
+    const showWarn=(msg)=>{
+      input.classList.add('field-warn');
+      let msgEl=input.closest('.field,.ip')?.parentElement?.querySelector('.field-warn-msg')||input.parentElement.querySelector('.field-warn-msg');
+      if(!msgEl){
+        msgEl=document.createElement('div');
+        msgEl.className='field-warn-msg';
+        const host=input.closest('.ip')||input;
+        host.insertAdjacentElement('afterend',msgEl);
+      }
+      msgEl.textContent=msg;
+      msgEl.style.display='';
+    };
+    const clearWarn=()=>{
+      input.classList.remove('field-warn');
+      const host=input.closest('.ip')||input;
+      const msgEl=host.nextElementSibling;
+      if(msgEl&&msgEl.classList.contains('field-warn-msg'))msgEl.style.display='none';
+    };
+    input.addEventListener('blur',()=>{
+      const raw=input.value.trim();
+      if(raw===''){clearWarn();return;}
+      const v=parseFloat(raw);
+      if(isNaN(v)){showWarn('Enter a valid number');return;}
+      if(v<0&&!allowNeg){showWarn('Enter a positive number');return;}
+      clearWarn();
+    });
+    input.addEventListener('input',()=>{
+      if(input.classList.contains('field-warn'))clearWarn();
+    });
+  });
+}
 function initGuideAccordions(){
   document.querySelectorAll('.guide-body').forEach(body=>{
     if(body.dataset.accordionized)return;
@@ -202,33 +253,42 @@ function drawBars(id,labels,vals,colors,H_=130){
 // ── Directory ───────────────────────────────────────────────────
 const SECTIONS=[
   {title:'💰 Personal Finance',badge:false,items:[
-    {id:'loan',icon:'🏦',name:'Loan / EMI',desc:'Find your monthly loan payment and see exactly how much of it goes to interest vs principal'},
+    {id:'loan',icon:'🏦',name:'Loan / EMI',desc:'Find your monthly loan payment and see exactly how much of it goes to interest vs principal',popular:true},
+    {id:'loaneligibility',icon:'✅',name:'Loan Eligibility',desc:'Find out how much loan you may qualify for based on your income and existing debts'},
+    {id:'dti',icon:'📊',name:'Debt-to-Income Ratio',desc:'Check your DTI against what lenders typically look for'},
     {id:'prepay',icon:'⏩',name:'Loan Prepayment',desc:'See how much time and interest you can save by paying extra toward your loan each month'},
+    {id:'refinance',icon:'🔀',name:'Refinance Break-Even',desc:'Find out how many months it takes to recoup closing costs, and whether refinancing is worth it'},
     {id:'loancomp',icon:'📋',name:'Loan Comparison',desc:'Compare up to 3 loan offers side by side to see which one actually costs less overall'},
-    {id:'autoloan',icon:'🚗',name:'Auto Loan Calculator',desc:'Calculate your car payment including trade-in, sales tax, and new vs used loan rates'},
-    {id:'tax',icon:'🧾',name:'Tax Estimator',desc:'Estimate your US federal income tax, effective rate, and what you actually take home'},
-    {id:'salary',icon:'💵',name:'Salary Calculator',desc:'Convert your pay between hourly, daily, monthly, and yearly instantly'},
-    {id:'mortgage',icon:'🏠',name:'Mortgage',desc:'Estimate your full monthly home payment including property tax, insurance, and PMI'},
+    {id:'autoloan',icon:'🚗',name:'Auto Loan Calculator',desc:'Calculate your car payment including trade-in, sales tax, and new vs used loan rates',popular:true},
+    {id:'tax',icon:'🧾',name:'Tax Estimator',desc:'Estimate your US federal income tax, effective rate, and what you actually take home',popular:true},
+    {id:'salary',icon:'💵',name:'Salary Calculator',desc:'Convert your pay between hourly, daily, monthly, and yearly instantly',popular:true},
+    {id:'mortgage',icon:'🏠',name:'Mortgage',desc:'Estimate your full monthly home payment including property tax, insurance, and PMI',popular:true},
     {id:'heloc',icon:'🏡',name:'HELOC Calculator',desc:'Find out how much you can borrow against your home equity and what payments look like in the draw vs repayment period'},
     {id:'rentvsbuy',icon:'🏘️',name:'Rent vs Buy Calculator',desc:'Compare your net worth over time if you rent vs buy a home, and find the breakeven year'},
     {id:'mortcomp',icon:'⚖️',name:'Mortgage Comparison',desc:'Compare up to 3 mortgage offers side by side to see which one actually costs less'},
-    {id:'savings',icon:'🏛️',name:'Savings Estimator',desc:'See how your savings grow over time with compound interest, and how long it takes to double'},
+    {id:'savings',icon:'🏛️',name:'Savings Estimator',desc:'See how your savings grow over time with compound interest, and how long it takes to double',popular:true},
+    {id:'inflation',icon:'🎈',name:'Inflation Calculator',desc:'See what an amount then is worth now, or will be worth in the future, using your own inflation rate'},
     {id:'provident',icon:'🏦',name:'Provident Fund Calculator',desc:'Project your provident fund (EPF/PF) maturity value from your monthly contributions and interest rate'},
-    {id:'retirement',icon:'👴',name:'Retirement Planner',desc:'Find out if you\'re saving enough to retire comfortably, adjusted for inflation'},
-    {id:'401k',icon:'🏦',name:'401(k) Calculator',desc:'Project your 401(k) balance at retirement, including employer match'},
+    {id:'retirement',icon:'👴',name:'Retirement Planner',desc:'Find out if you\'re saving enough to retire comfortably, adjusted for inflation',popular:true},
+    {id:'socialsecurity',icon:'📜',name:'Social Security Estimator',desc:'See how claiming early or delaying to 70 changes your monthly Social Security benefit'},
+    {id:'401k',icon:'🏦',name:'401(k) Calculator',desc:'Project your 401(k) balance at retirement, including employer match',popular:true},
     {id:'millionaire',icon:'💎',name:'Millionaire Calculator',desc:'Find out exactly what age you\'ll hit $1,000,000 based on your savings and investment rate'},
     {id:'fire',icon:'🔥',name:'FIRE Calculator',desc:'Find out how many years until you reach financial independence based on your savings rate'},
+    {id:'networth',icon:'💼',name:'Net Worth Calculator',desc:'Total your assets and liabilities to see your net worth, liquidity split, and debt-to-asset ratio'},
     {id:'debtcomp',icon:'❄️',name:'Snowball vs Avalanche',desc:'Compare two popular debt payoff strategies to see which clears your debt faster and cheaper'},
-    {id:'debt',icon:'💳',name:'Debt Payoff Planner',desc:'Build a custom plan to pay off your debt and see exactly how much interest you\'ll save'},
+    {id:'debt',icon:'💳',name:'Debt Payoff Planner',desc:'Build a custom plan to pay off your debt and see exactly how much interest you\'ll save',popular:true},
+    {id:'ccpayoff',icon:'🎫',name:'Credit Card Payoff',desc:'Compare minimum payments vs a fixed payment to see the real payoff time and interest cost'},
     {id:'rental',icon:'🏘️',name:'Rental Yield',desc:'Check whether a rental property\'s income justifies its price using gross and net yield'},
     {id:'rentalprop',icon:'🏡',name:'Rental Property',desc:'Run the full numbers on a rental property — cash flow, returns, and a 10-year outlook'},
     {id:'savingsgoal',icon:'🎯',name:'Savings Goal Calculator',desc:'Figure out exactly how much to save each month to hit a specific savings target on time'},
+    {id:'budget',icon:'🥧',name:'50/30/20 Budget Calculator',desc:'Compare your actual spending against the 50/30/20 rule for needs, wants, and savings',popular:true},
     {id:'emergencyfund',icon:'🛡️',name:'Emergency Fund Calculator',desc:'Find out how big your emergency fund should be and how long it\'ll take to build it'},
     {id:'healthscore',icon:'💯',name:'Financial Health Score',desc:'Get a single score out of 100 that sums up how healthy your overall finances really are'},
     {id:'lifeinsurance',icon:'🛡️',name:'Life Insurance Needs',desc:'Find out how much life insurance coverage your family would actually need'},
+    {id:'healthinsurance',icon:'🏥',name:'Health Insurance Cost',desc:'Compare two health plans by their true total annual cost, not just the premium'},
   ]},
   {title:'📈 Investing & Valuation',badge:true,items:[
-    {id:'cagr',icon:'📐',name:'CAGR Calculator',desc:'Find the steady annual growth rate that explains how an investment grew over time'},
+    {id:'cagr',icon:'📐',name:'CAGR Calculator',desc:'Find the steady annual growth rate that explains how an investment grew over time',popular:true},
     {id:'xirr',icon:'📅',name:'XIRR Calculator',desc:'Calculate your true annualized return when you\'ve invested or withdrawn money at irregular times'},
     {id:'drip',icon:'💧',name:'Dividend Reinvestment',desc:'See how much faster your investment grows when dividends are automatically reinvested'},
     {id:'divgrowth',icon:'📈',name:'Dividend Growth Calculator',desc:'Project how much your dividend income could grow over time, and your yield on cost'},
@@ -241,6 +301,7 @@ const SECTIONS=[
     {id:'dca',icon:'📊',name:'Dollar Cost Averaging',desc:'Calculate shares bought, average cost per share, and compare DCA vs a lump sum investment'},
     {id:'swp',icon:'📉',name:'SWP Calculator',desc:'See how long a lump sum lasts when you withdraw a fixed monthly income from it'},
     {id:'stock',icon:'📉',name:'Stock P&L',desc:'Calculate your real profit or loss on a trade after accounting for brokerage fees'},
+    {id:'options',icon:'⚡',name:'Options Profit & Breakeven',desc:'Find the breakeven price, max profit, max loss, and P&L for a call or put position'},
     {id:'split',icon:'🔀',name:'Stock Split Calculator',desc:'See exactly how many new shares you\'ll have and your adjusted cost basis after any forward or reverse split'},
   ]},
   {title:'🚀 Startup & Business',badge:false,items:[
@@ -249,11 +310,13 @@ const SECTIONS=[
     {id:'equity',icon:'📐',name:'Equity Dilution',desc:'See how much of your company you\'ll still own after future funding rounds and option pools'},
     {id:'dilutionimpact',icon:'📉',name:'Stock Dilution Impact Calculator',desc:'See how a new share offering affects EPS and the value of your existing shares'},
     {id:'revenue',icon:'📊',name:'Revenue Forecast',desc:'Forecast your monthly recurring revenue under best-case, expected, and worst-case scenarios'},
+    {id:'cac',icon:'🎯',name:'CAC & LTV:CAC Ratio',desc:'Find your customer acquisition cost and whether your growth engine is actually profitable'},
     {id:'breakeven',icon:'📈',name:'Break-even Analysis',desc:'Find out exactly how many units you need to sell before your business starts turning a profit'},
     {id:'cashflow',icon:'💵',name:'Cash Flow Analyzer',desc:'See whether more money is coming in than going out, and what\'s left over each month'},
   ]},
   {title:'🔬 Tools',badge:false,items:[
-    {id:'currency',icon:'💱',name:'Currency Converter',desc:'Quickly convert between 15 major world currencies using live, daily-updated exchange rates'},
+    {id:'currency',icon:'💱',name:'Currency Converter',desc:'Quickly convert between 15 major world currencies using live, daily-updated exchange rates',popular:true},
+    {id:'billsplit',icon:'🍽️',name:'Itemized Bill Splitter',desc:'Split a restaurant bill fairly by what each person ordered, with tax and tip split proportionally'},
     {id:'remit',icon:'🌍',name:'International Transfer Cost',desc:'See the true cost of sending money abroad, including hidden exchange rate markup'},
     {id:'scientific',icon:'🔬',name:'Scientific Calculator',desc:'A full scientific calculator with trig, logarithms, powers, factorials, and memory functions'},
   ]},
@@ -262,8 +325,8 @@ function buildDir(){
   const el=gel('dir-home');el.innerHTML='';
   SECTIONS.forEach(sec=>{
     const slug=sec.title.replace(/[^\w\s-]/g,'').trim().toLowerCase().replace(/\s+/g,'-');
-    let html=`<div class="dir-sec" id="dir-sec-${slug}"><div class="dir-sec-h">${sec.title}${sec.badge?' <span class="badge-new">New</span>':''}</div><div class="dir-grid">`;
-    sec.items.forEach(it=>{html+=`<a class="dir-card" href="/${it.id}" onclick="location.href='/${it.id}';return false;"><div class="dir-icon">${it.icon}</div><div class="dir-name">${it.name}</div><div class="dir-desc">${it.desc}</div></a>`;});
+    let html=`<div class="dir-sec" id="dir-sec-${slug}"><a class="dir-sec-h" href="/${slug}" style="text-decoration:none;color:inherit" onclick="location.href='/${slug}';return false;">${sec.title}${sec.badge?' <span class="badge-new">New</span>':''}</a><div class="dir-grid">`;
+    sec.items.forEach(it=>{html+=`<a class="dir-card" href="/${it.id}" onclick="location.href='/${it.id}';return false;">${it.popular?'<span class="pop-star" title="Popular calculator" aria-label="Popular calculator">⭐</span>':''}<div class="dir-icon">${it.icon}</div><div class="dir-name">${it.name}</div><div class="dir-desc">${it.desc}</div></a>`;});
     html+='</div></div>';el.innerHTML+=html;
   });
 }
@@ -308,13 +371,14 @@ let xirrFlows=[{date:'2020-01-01',amt:-10000},{date:'2021-06-15',amt:-5000},{dat
 function renderXIRR(){
   const el=gel('xirr-rows');el.innerHTML='';
   xirrFlows.forEach((fl,i)=>{
-    el.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:center">
+    el.innerHTML+=`<div class="row-3" style="margin-bottom:6px;align-items:center">
       <input type="date" value="${fl.date}" onchange="xirrFlows[${i}].date=this.value;calcXIRR()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:12px;outline:none;width:100%">
-      <div class="ip" style="display:block"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${fl.amt}" onchange="xirrFlows[${i}].amt=+this.value;calcXIRR()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:${fl.amt<0?'var(--r)':'var(--g)'};font-family:var(--mo);font-size:13px;outline:none"></div>
-      <button class="btn-del" onclick="xirrFlows.splice(${i},1);renderXIRR()">✕</button>
+      <div class="ip" style="display:block"><span class="pfx">$</span><input type="text" inputmode="decimal" data-allow-negative="1" value="${fl.amt}" onchange="xirrFlows[${i}].amt=+this.value;calcXIRR()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:${fl.amt<0?'var(--r)':'var(--g)'};font-family:var(--mo);font-size:13px;outline:none"></div>
+      <button class="btn-del" aria-label="Remove cash flow ${i+1}" onclick="xirrFlows.splice(${i},1);renderXIRR()">✕</button>
     </div>`;
   });
   calcXIRR();
+  attachInputGuards();
 }
 function addXIRR(){xirrFlows.push({date:new Date().toISOString().split('T')[0],amt:-1000});renderXIRR();}
 function calcXIRR(){
@@ -356,7 +420,7 @@ function calcDRIP(){
   let sh=shares,pr=price,tots=[],divs=[],totDiv=0;
   for(let y=1;y<=Math.min(years,40);y++){
     pr*=(1+grow);const dy=divYield*Math.pow(1+divGrow,y-1),annDiv=sh*pr*dy;
-    totDiv+=annDiv;sh+=annDiv/pr+(monthly*12)/pr;tots.push(sh*pr);divs.push(annDiv);
+    totDiv+=annDiv;sh+=pr?(annDiv/pr+(monthly*12)/pr):0;tots.push(sh*pr);divs.push(annDiv);
   }
   const invested=shares*price+monthly*12*years,finalPortfolio=tots[tots.length-1]||0;
   gel('dr-final').textContent=f$(finalPortfolio);
@@ -496,9 +560,10 @@ function calcDCF(){
   const ticker=gel('dc-ticker').value,price=+gel('dc-price').value||0,eps=+gel('dc-eps').value||0,shares=+gel('dc-shares').value||0,grow=(+gel('dc-grow').value||0)/100,tgrow=(+gel('dc-tgrow').value||0)/100,disc=(+gel('dc-disc').value||0)/100,yrs=+gel('dc-yrs').value||10;
   const proj=Array.from({length:yrs},(_,i)=>eps*Math.pow(1+grow,i+1));
   const pv=proj.map((e,i)=>e/Math.pow(1+disc,i+1));
-  const tv=(proj[yrs-1]*(1+tgrow))/(disc-tgrow),tvPV=tv/Math.pow(1+disc,yrs);
+  const denom=disc-tgrow;
+  const tv=denom!==0?(proj[yrs-1]*(1+tgrow))/denom:0,tvPV=tv/Math.pow(1+disc,yrs);
   const fair=pv.reduce((a,b)=>a+b,0)+tvPV;
-  const upside=(fair-price)/price*100,mos=(fair-price)/fair*100;
+  const upside=price?(fair-price)/price*100:0,mos=fair?(fair-price)/fair*100:0;
   gel('dc-ticker-lbl').textContent=ticker;
   gel('dc-fair').textContent='$'+fair.toFixed(2);gel('dc-fair').style.color=fair>price?'var(--g)':'var(--r)';
   gel('dc-cur').textContent='$'+price;
@@ -509,7 +574,7 @@ function calcDCF(){
   gel('dc-base').textContent='$'+fair.toFixed(2);
   gel('dc-bull').textContent='$'+(fair*1.3).toFixed(2);gel('dc-bull').style.color='var(--g)';
   let tbl=`<thead><tr><th style="text-align:left">Year</th><th>Proj EPS</th><th>PV of EPS</th><th>Cumulative PV</th><th>% of Value</th></tr></thead><tbody>`;
-  let cum=0;proj.forEach((e,i)=>{cum+=pv[i];if(i===yrs-1)cum+=tvPV;tbl+=`<tr><td>Y${i+1}</td><td style="color:var(--a)">$${e.toFixed(2)}</td><td>$${pv[i].toFixed(2)}</td><td>$${cum.toFixed(2)}</td><td style="color:var(--g)">${pct(pv[i]/fair*100)}</td></tr>`;});
+  let cum=0;proj.forEach((e,i)=>{cum+=pv[i];if(i===yrs-1)cum+=tvPV;tbl+=`<tr><td>Y${i+1}</td><td style="color:var(--a)">$${e.toFixed(2)}</td><td>$${pv[i].toFixed(2)}</td><td>$${cum.toFixed(2)}</td><td style="color:var(--g)">${pct(fair?pv[i]/fair*100:0)}</td></tr>`;});
   tbl+=`<tr class="hl"><td style="color:var(--p)">Terminal</td><td style="color:var(--p)">$${(proj[yrs-1]*(1+tgrow)).toFixed(2)}</td><td style="color:var(--p)">$${tvPV.toFixed(2)}</td><td style="color:var(--a)">$${fair.toFixed(2)}</td><td style="color:var(--p)">${pct(tvPV/fair*100)}</td></tr></tbody>`;
   gel('dc-table').innerHTML=tbl;
   drawLine('dc-chart',[{data:proj,color:'#F0B90B',fill:true},{data:pv,color:'#0ECB81',fill:false,dash:[4,3]}],130);
@@ -655,14 +720,14 @@ let dc2Debts=[{name:'Credit Card',bal:8000,rate:22,min:200},{name:'Car Loan',bal
 function renderDC2(){
   const el=gel('dc2-rows');el.innerHTML='';
   dc2Debts.forEach((d,i)=>{
-    el.innerHTML+=`<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:center">
+    el.innerHTML+=`<div class="row-debt" style="margin-bottom:6px;align-items:center">
       <input type="text" value="${d.name}" oninput="dc2Debts[${i}].name=this.value;calcDC2()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
       <div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${d.bal}" oninput="dc2Debts[${i}].bal=+this.value;calcDC2()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
       <input type="text" inputmode="decimal" value="${d.rate}" step="0.1" oninput="dc2Debts[${i}].rate=+this.value;calcDC2()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;width:100%">
       <div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${d.min}" oninput="dc2Debts[${i}].min=+this.value;calcDC2()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
-      <button class="btn-del" onclick="dc2Debts.splice(${i},1);renderDC2()">✕</button>
+      <button class="btn-del" aria-label="Remove debt ${i+1}" onclick="dc2Debts.splice(${i},1);renderDC2()">✕</button>
     </div>`;
-  });calcDC2();
+  });calcDC2();attachInputGuards();
 }
 function addDC2(){dc2Debts.push({name:'New Debt',bal:5000,rate:10,min:100});renderDC2();}
 function simDebt(strat,extra){
@@ -788,13 +853,15 @@ let rounds=[{name:'Seed',raise:2e6,pre:1e7},{name:'Series A',raise:1e7,pre:4e7}]
 const EQC=['#F0B90B','#0ECB81','#1890FF','#B478D1','#F65E72','#26a17b'];
 function renderFounders(){
   const el=gel('eq-founders');el.innerHTML='';
-  founders.forEach((f,i)=>{el.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:end"><div class="field" style="margin:0"><input type="text" value="${f.name}" oninput="founders[${i}].name=this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none"></div><div class="field" style="margin:0"><input type="text" inputmode="decimal" value="${f.pct}" step="0.5" oninput="founders[${i}].pct=+this.value;calcEquity()" placeholder="%" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div><button class="btn-del" onclick="founders.splice(${i},1);renderFounders()">✕</button></div>`;});
+  founders.forEach((f,i)=>{el.innerHTML+=`<div class="row-3" style="margin-bottom:6px;align-items:end"><div class="field" style="margin:0"><input type="text" value="${f.name}" oninput="founders[${i}].name=this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none"></div><div class="field" style="margin:0"><input type="text" inputmode="decimal" value="${f.pct}" step="0.5" oninput="founders[${i}].pct=+this.value;calcEquity()" placeholder="%" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div><button class="btn-del" aria-label="Remove founder ${(f.name||('founder '+(i+1))).replace(/"/g,'&quot;')}" onclick="founders.splice(${i},1);renderFounders()">✕</button></div>`;});
   calcEquity();
+  attachInputGuards();
 }
 function renderRounds(){
   const el=gel('eq-rounds');el.innerHTML='';
-  rounds.forEach((r,i)=>{el.innerHTML+=`<div style="border:1px solid var(--bd);border-radius:8px;padding:10px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><input type="text" value="${r.name}" oninput="rounds[${i}].name=this.value;calcEquity()" style="background:none;border:none;color:var(--t);font-weight:500;font-size:13px;outline:none;width:100px"><button class="btn-del" onclick="rounds.splice(${i},1);renderRounds()" style="padding:3px 8px">✕</button></div><div class="g2"><div class="field" style="margin-bottom:6px"><label>Raise Amount ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${r.raise}" oninput="rounds[${i}].raise=+this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div></div><div class="field" style="margin-bottom:6px"><label>Pre-money Val. ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${r.pre}" oninput="rounds[${i}].pre=+this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div></div></div></div>`;});
+  rounds.forEach((r,i)=>{el.innerHTML+=`<div style="border:1px solid var(--bd);border-radius:8px;padding:10px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><input type="text" value="${r.name}" oninput="rounds[${i}].name=this.value;calcEquity()" style="background:none;border:none;color:var(--t);font-weight:500;font-size:13px;outline:none;width:100px"><button class="btn-del" aria-label="Remove funding round ${(r.name||('round '+(i+1))).replace(/"/g,'&quot;')}" onclick="rounds.splice(${i},1);renderRounds()" style="padding:3px 8px">✕</button></div><div class="g2"><div class="field" style="margin-bottom:6px"><label>Raise Amount ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${r.raise}" oninput="rounds[${i}].raise=+this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div></div><div class="field" style="margin-bottom:6px"><label>Pre-money Val. ($)</label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${r.pre}" oninput="rounds[${i}].pre=+this.value;calcEquity()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div></div></div></div>`;});
   calcEquity();
+  attachInputGuards();
 }
 function addFounder(){founders.push({name:'Co-founder',pct:10});renderFounders();}
 function addRound(){rounds.push({name:'New Round',raise:5e6,pre:2e7});renderRounds();}
@@ -860,6 +927,41 @@ function cDilutionImpact(){
 }
 
 // ── Revenue Forecast ────────────────────────────────────────────
+function calcCAC(){
+  const spend=+gel('cac-spend').value||0,newcust=+gel('cac-newcust').value||1;
+  const arpu=+gel('cac-arpu').value||0,margin=(+gel('cac-margin').value||0)/100,churn=(+gel('cac-churn').value||0)/100;
+  const cac=spend/newcust;
+  const gp=arpu*margin;
+  const ltv=churn?gp/churn:Infinity;
+  const ratio=cac?ltv/cac:0;
+  const payback=gp?cac/gp:Infinity;
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('cac-cac',f$(cac));
+  se('cac-ltv',isFinite(ltv)?f$(ltv):'∞');
+  se('cac-ratio',(isFinite(ratio)?ratio.toFixed(1):'∞')+':1');
+  se('cac-payback',isFinite(payback)?payback.toFixed(1)+' months':'∞');
+  se('cac-gp',f$(gp));
+  let verdict='Unsustainable',vcolor='var(--r)';
+  if(ratio>=5){verdict='Excellent';vcolor='var(--g)';}
+  else if(ratio>=3){verdict='Healthy';vcolor='var(--g)';}
+  else if(ratio>=1){verdict='Marginal';vcolor='var(--a)';}
+  const vEl=gel('cac-verdict');if(vEl){vEl.textContent=verdict;vEl.style.color=vcolor;}
+  drawBars('cac-chart',['CAC','LTV'],[cac,isFinite(ltv)?ltv:cac*10],['#F65E72','#0ECB81'],150);
+
+  const insights=[];
+  if(ratio<1){
+    insights.push({type:'bad',text:`Your LTV:CAC ratio is <strong>${ratio.toFixed(1)}:1</strong> — you're losing money on every customer acquired, before even counting fixed operating costs. Either acquisition cost needs to come down or retention/pricing needs to improve.`});
+  }else if(ratio<3){
+    insights.push({type:'neutral',text:`Your LTV:CAC ratio is <strong>${ratio.toFixed(1)}:1</strong> — technically profitable per customer, but below the commonly cited <strong>3:1</strong> healthy benchmark. Small improvements in churn or CAC would meaningfully change this.`});
+  }else{
+    insights.push({type:'good',text:`Your LTV:CAC ratio is <strong>${ratio.toFixed(1)}:1</strong>, at or above the commonly cited <strong>3:1</strong> healthy benchmark — your growth engine looks profitable at these assumptions.`});
+  }
+  if(isFinite(payback)&&payback>18){
+    insights.push({type:'neutral',text:`Your CAC payback period is <strong>${payback.toFixed(1)} months</strong> — beyond 18 months, that's a lot of capital tied up per customer before they turn profitable, which can strain cash flow even with a good LTV:CAC ratio.`});
+  }
+  insights.push({type:'neutral',text:`Want to see how this acquisition spend plays into your overall revenue trajectory? Model it in the <a href="/revenue" style="color:var(--a);text-decoration:underline">Revenue Forecast</a> calculator next.`});
+  renderInsights('cac-insights',insights);
+}
 function calcRevenue(){
   const mrr=+gel('rf-mrr').value||0,months=Math.min(36,+gel('rf-months').value||12),churn=(+gel('rf-churn').value||0)/100;
   const pess=(+gel('rf-pess').value||0)/100,base=(+gel('rf-base').value||0)/100,opt=(+gel('rf-opt').value||0)/100;
@@ -892,10 +994,10 @@ function calcRevenue(){
 // ── Loan ────────────────────────────────────────────────────────
 function cLoan(){
   const P=+gel('l-amt').value||0,r=(+gel('l-rate').value||0)/12/100,n=+gel('l-n').value||1,fee=(+gel('l-fee').value||0)/100,type=gel('l-type').value;
-  let emi,int;if(type==='flat'){emi=(P+P*(r*12)*n)/n;int=P*(r*12)*n;}else{emi=r?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n;int=emi*n-P;}
+  let emi,int;if(type==='flat'){emi=(P+P*r*n)/n;int=P*r*n;}else{emi=r?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n;int=emi*n-P;}
   const tot=emi*n,pf=P*fee;
   gel('l-emi').textContent=f$(emi);gel('l-int').textContent=f$(int);gel('l-tot').textContent=f$(tot+pf);gel('l-pf').textContent=f$(pf);
-  gel('l-pp').textContent=Math.round(P/tot*100)+'%';gel('l-ip').textContent=Math.round(int/tot*100)+'%';gel('l-coc').textContent=pct(int/P*100);
+  gel('l-pp').textContent=(tot?Math.round(P/tot*100):0)+'%';gel('l-ip').textContent=(tot?Math.round(int/tot*100):0)+'%';gel('l-coc').textContent=pct(int/P*100);
   drawDonut('l-donut',[P,int,pf],['#F0B90B','#F65E72','#8393A6']);
   if(type!=='flat')renderAmortTable('l-amort-table',P,r,n);
   else gel('l-amort-table').innerHTML='<tbody><tr><td style="padding:10px 8px;font-size:12px;color:var(--m)">Amortization breakdown isn\'t applicable to flat-rate loans, since interest is calculated on the original principal for the full term rather than a declining balance.</td></tr></tbody>';
@@ -924,6 +1026,67 @@ function cLoan(){
 }
 
 // ── Loan Prepayment ─────────────────────────────────────────────
+function rfPmt(principal,r,n){
+  return r?principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):principal/n;
+}
+function calcRefinance(){
+  const balance=+gel('rf-balance').value||0;
+  const currentRate=(+gel('rf-currentrate').value||0)/12/100;
+  const currentTermMo=(+gel('rf-currentterm').value||1)*12;
+  const newRate=(+gel('rf-newrate').value||0)/12/100;
+  const newTermMo=(+gel('rf-newterm').value||1)*12;
+  const cashout=+gel('rf-cashout').value||0;
+  const closing=+gel('rf-closing').value||0;
+
+  const currentPay=rfPmt(balance,currentRate,currentTermMo);
+  const newBalance=balance+cashout;
+  const newPay=rfPmt(newBalance,newRate,newTermMo);
+  const monthlySavings=currentPay-newPay;
+
+  const currentTotalInterest=currentPay*currentTermMo-balance;
+  const newTotalInterest=newPay*newTermMo-newBalance;
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('rf-currentpay',f$(currentPay));
+  se('rf-newpay',f$(newPay));
+  const savingsEl=gel('rf-savings');
+  if(savingsEl){savingsEl.textContent=(monthlySavings<0?'-':'')+f$(Math.abs(monthlySavings));savingsEl.style.color=monthlySavings>=0?'var(--g)':'var(--r)';}
+  se('rf-currentinterest',f$(currentTotalInterest));
+  se('rf-newinterest',f$(newTotalInterest));
+
+  const breakevenEl=gel('rf-breakeven');
+  let breakevenMonths=null;
+  if(monthlySavings>0){
+    breakevenMonths=closing/monthlySavings;
+    if(breakevenEl){breakevenEl.textContent=breakevenMonths.toFixed(0)+' months';breakevenEl.style.color='var(--g)';}
+  }else if(breakevenEl){
+    breakevenEl.textContent='Never';breakevenEl.style.color='var(--r)';
+  }
+
+  const months=Math.max(currentTermMo,newTermMo,1);
+  const chartLen=Math.min(months,360);
+  const step=Math.max(1,Math.floor(chartLen/40));
+  const currentSeries=[],newSeries=[];
+  for(let m=0;m<=chartLen;m+=step){
+    currentSeries.push(Math.min(m,currentTermMo)*currentPay);
+    newSeries.push(closing+Math.min(m,newTermMo)*newPay);
+  }
+  drawLine('rf-chart',[{data:currentSeries,color:'#8393A6',fill:false,w:2},{data:newSeries,color:'#0ECB81',fill:false,w:2.5}],175);
+
+  const insights=[];
+  if(monthlySavings<=0){
+    insights.push({type:'bad',text:`Your new payment is <strong>${f$(Math.abs(monthlySavings))}</strong> ${monthlySavings<0?'higher':'the same'} than your current payment${cashout>0?' — likely because the cash-out amount increased your loan balance enough to offset the lower rate':''}. This refinance doesn't reduce your monthly payment.`});
+  }else if(breakevenMonths!==null){
+    const rating=breakevenMonths<=24?'good':breakevenMonths<=60?'neutral':'bad';
+    insights.push({type:rating,text:`You'll break even on the <strong>${f$(closing)}</strong> in closing costs after <strong>${breakevenMonths.toFixed(0)} months</strong> (${(breakevenMonths/12).toFixed(1)} years). Refinancing is only worth it if you keep this loan longer than that.`});
+  }
+  if(newTermMo>currentTermMo&&newTotalInterest>currentTotalInterest){
+    insights.push({type:'neutral',text:`The new loan's <strong>${(newTermMo/12).toFixed(0)}-year</strong> term is longer than your <strong>${(currentTermMo/12).toFixed(0)}</strong> remaining years on the current loan — even at a lower rate, total interest paid is <strong>${f$(newTotalInterest-currentTotalInterest)}</strong> higher because you're paying for longer.`});
+  }else if(newTotalInterest<currentTotalInterest){
+    insights.push({type:'good',text:`Total interest on the new loan is <strong>${f$(currentTotalInterest-newTotalInterest)}</strong> lower than staying on your current loan, even after accounting for the different term length.`});
+  }
+  renderInsights('rf-insights',insights);
+}
 function cPrepay(){
   const P=+gel('pp-amt').value||0,r=(+gel('pp-rate').value||0)/12/100,n=+gel('pp-n').value||1;
   const extra=+gel('pp-extra').value||0,lump=+gel('pp-lump').value||0,lumpMo=+gel('pp-lumpmo').value||0;
@@ -1026,6 +1189,95 @@ function cProvident(){
 // ── Asset Allocation ──────────────────────────────────────────
 const AA_RETURNS={stocks:10,bonds:4.5,cash:3,gold:7,crypto:25};
 const AA_VOL={stocks:18,bonds:6,cash:0.5,gold:15,crypto:65};
+function calcBudget(){
+  const income=+gel('bg-income').value||0;
+  const needsPct=(+gel('bg-needs-pct').value||0)/100,wantsPct=(+gel('bg-wants-pct').value||0)/100,savingsPct=(+gel('bg-savings-pct').value||0)/100;
+  const needsActual=+gel('bg-needs-actual').value||0,wantsActual=+gel('bg-wants-actual').value||0,savingsActual=+gel('bg-savings-actual').value||0;
+
+  const needsRec=income*needsPct,wantsRec=income*wantsPct,savingsRec=income*savingsPct;
+  const totalSpend=needsActual+wantsActual+savingsActual;
+  const leftover=income-totalSpend;
+
+  const setCompare=(id,rec,actual,higherIsBetter)=>{
+    const e=gel(id);if(!e)return;
+    e.textContent=f$(rec)+' / '+f$(actual);
+    const over=actual>rec*1.05,under=actual<rec*0.95;
+    let color='var(--t)';
+    if(higherIsBetter){ if(over)color='var(--g)'; else if(under)color='var(--r)'; }
+    else{ if(over)color='var(--r)'; else if(under)color='var(--g)'; }
+    e.style.color=color;
+  };
+  setCompare('bg-needs-compare',needsRec,needsActual,false);
+  setCompare('bg-wants-compare',wantsRec,wantsActual,false);
+  setCompare('bg-savings-compare',savingsRec,savingsActual,true);
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('bg-totalspend',f$(totalSpend));
+  const leftoverEl=gel('bg-leftover');
+  if(leftoverEl){leftoverEl.textContent=(leftover<0?'-':'')+f$(Math.abs(leftover));leftoverEl.style.color=leftover>=0?'var(--g)':'var(--r)';}
+
+  const unallocated=Math.max(leftover,0);
+  drawDonut('bg-donut',[needsActual,wantsActual,savingsActual,unallocated],['#1890FF','#F0B90B','#0ECB81','#8393A6']);
+
+  const insights=[];
+  if(leftover<0){
+    insights.push({type:'bad',text:`Your spending exceeds your take-home pay by <strong>${f$(Math.abs(leftover))}</strong>/month — this budget isn't currently sustainable without drawing down savings or debt.`});
+  }
+  if(income>0){
+    if(needsActual>needsRec*1.1){
+      insights.push({type:'neutral',text:`Needs spending is <strong>${f$(needsActual-needsRec)}</strong> over the ${(needsPct*100).toFixed(0)}% target — if this gap is large and persistent, it's often worth examining the biggest fixed cost first, usually housing.`});
+    }
+    if(wantsActual>wantsRec*1.1){
+      insights.push({type:'neutral',text:`Wants spending is <strong>${f$(wantsActual-wantsRec)}</strong> over the ${(wantsPct*100).toFixed(0)}% target — this is usually the easiest category to adjust short-term.`});
+    }
+    if(savingsActual<savingsRec*0.9){
+      insights.push({type:'bad',text:`Savings &amp; debt payoff is <strong>${f$(savingsRec-savingsActual)}</strong> under the ${(savingsPct*100).toFixed(0)}% target — this is the category with the most long-term impact if it's consistently underfunded.`});
+    }else if(savingsActual>=savingsRec){
+      insights.push({type:'good',text:`You're meeting or exceeding your <strong>${(savingsPct*100).toFixed(0)}%</strong> savings &amp; debt payoff target — that's the category that compounds the most over time.`});
+    }
+  }
+  renderInsights('bg-insights',insights);
+}
+function calcNetWorth(){
+  const cash=+gel('nw-cash').value||0,invest=+gel('nw-invest').value||0,retire=+gel('nw-retire').value||0;
+  const home=+gel('nw-home').value||0,vehicle=+gel('nw-vehicle').value||0,other=+gel('nw-other').value||0;
+  const mortgage=+gel('nw-mortgage').value||0,auto=+gel('nw-auto').value||0,student=+gel('nw-student').value||0;
+  const cc=+gel('nw-cc').value||0,otherdebt=+gel('nw-otherdebt').value||0;
+
+  const totalAssets=cash+invest+retire+home+vehicle+other;
+  const totalLiab=mortgage+auto+student+cc+otherdebt;
+  const netWorth=totalAssets-totalLiab;
+  const liquidNW=cash+invest-totalLiab;
+  const illiquidNW=netWorth-liquidNW;
+  const debtRatio=totalAssets?(totalLiab/totalAssets)*100:0;
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('nw-totalassets',f$(totalAssets));
+  se('nw-totalliab',f$(totalLiab));
+  const nwEl=gel('nw-networth');
+  if(nwEl){nwEl.textContent=(netWorth<0?'-':'')+f$(Math.abs(netWorth));nwEl.style.color=netWorth>=0?'var(--g)':'var(--r)';}
+  se('nw-ratio',pct(debtRatio));
+  se('nw-liquid',(liquidNW<0?'-':'')+f$(Math.abs(liquidNW)));
+  se('nw-illiquid',(illiquidNW<0?'-':'')+f$(Math.abs(illiquidNW)));
+
+  drawDonut('nw-donut',[cash,invest,retire,home,vehicle,other],['#0ECB81','#1890FF','#9B59B6','#F0B90B','#F6465D','#8393A6']);
+
+  const insights=[];
+  if(netWorth<0){
+    insights.push({type:'neutral',text:`Your net worth is currently <strong>negative</strong> — common early on, especially with a mortgage or student loans in the mix. What matters most from here is the trend, not this single snapshot.`});
+  }else{
+    insights.push({type:'good',text:`Your net worth is <strong>${f$(netWorth)}</strong>. Assets exceed liabilities by that amount.`});
+  }
+  if(totalAssets>0 && illiquidNW/Math.max(netWorth,1)>0.7 && netWorth>0){
+    insights.push({type:'neutral',text:`Most of your net worth is <strong>illiquid</strong> (home equity, retirement, vehicles) — real wealth, but not quickly accessible. Your liquid net worth is ${liquidNW<0?'-':''}${f$(Math.abs(liquidNW))}.`});
+  }
+  if(debtRatio>50){
+    insights.push({type:'neutral',text:`Your debt-to-asset ratio is <strong>${pct(debtRatio)}</strong> — more than half your assets are debt-financed. Common with a mortgage, but worth watching as it should trend down as loans are paid off.`});
+  }else if(totalAssets>0){
+    insights.push({type:'good',text:`Your debt-to-asset ratio is <strong>${pct(debtRatio)}</strong> — less than half your assets are debt-financed.`});
+  }
+  renderInsights('nw-insights',insights);
+}
 function cAllocRecommend(){
   const age=+gel('aa-age').value||30,risk=gel('aa-risk').value;
   let equity=Math.max(10,Math.min(90,110-age));
@@ -1480,6 +1732,98 @@ function cAutoLoan(){
 }
 
 // ── Savings ─────────────────────────────────────────────────────
+function calcInflation(){
+  const amount=+gel('if-amount').value||0,rate=(+gel('if-rate').value||0)/100;
+  const startYear=+gel('if-startyear').value||0,endYear=+gel('if-endyear').value||0;
+  const years=endYear-startYear;
+  const adjusted=amount*Math.pow(1+rate,years);
+  const cumulative=amount?((adjusted/amount)-1)*100:0;
+  const buypower=Math.pow(1+rate,years)?1/Math.pow(1+rate,years):0;
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('if-adjusted',f$(adjusted));
+  se('if-cumulative',(cumulative<0?'':'')+pct(cumulative));
+  se('if-years',years);
+  se('if-buypower','$'+buypower.toFixed(2));
+  se('if-rateused',pct(rate*100));
+
+  const steps=10,labels=[],vals=[];
+  for(let i=0;i<=steps;i++){
+    const y=startYear+(years*i/steps);
+    vals.push(amount*Math.pow(1+rate,years*i/steps));
+  }
+  drawLine('if-chart',[{data:vals,color:'#F0B90B',fill:true}],175);
+
+  const insights=[];
+  if(years===0){
+    insights.push({type:'neutral',text:'Set different start and end years to see how purchasing power changes over that period.'});
+  }else if(years>0){
+    insights.push({type:'neutral',text:`At an assumed <strong>${pct(rate*100)}</strong> annual inflation rate, <strong>${f$(amount)}</strong> in ${startYear} has the same purchasing power as <strong>${f$(adjusted)}</strong> in ${endYear} — a cumulative increase of <strong>${cumulative.toFixed(1)}%</strong> over ${years} years.`});
+    insights.push({type:'neutral',text:`Put another way, every $1 from ${startYear} has the buying power of roughly <strong>$${buypower.toFixed(2)}</strong> in ${endYear} dollars under this assumption.`});
+  }else{
+    insights.push({type:'neutral',text:`Going backward ${Math.abs(years)} years, <strong>${f$(amount)}</strong> in ${startYear} would have the equivalent purchasing power of <strong>${f$(adjusted)}</strong> in ${endYear}.`});
+  }
+  insights.push({type:'neutral',text:`This uses a constant assumed rate, not official year-by-year CPI data — adjust the rate above to match a different assumption or period.`});
+  renderInsights('if-insights',insights);
+}
+function ccSimulate(balance0,monthlyRate,paymentFn){
+  let balance=balance0,months=0,totalInterest=0;
+  const trail=[balance0];
+  const CAP=600; // 50 years
+  while(balance>0.005 && months<CAP){
+    const interest=balance*monthlyRate;
+    let payment=paymentFn(balance,interest);
+    if(payment<=interest+1e-9){months=Infinity;break;} // never covers interest -> balance never shrinks
+    if(payment>balance+interest)payment=balance+interest;
+    balance=balance+interest-payment;
+    totalInterest+=interest;
+    months++;
+    trail.push(Math.max(balance,0));
+  }
+  return {months,totalInterest,trail,neverPaysOff:!isFinite(months)};
+}
+function calcCCPayoff(){
+  const balance0=+gel('cc-balance').value||0,apr=(+gel('cc-apr').value||0)/100;
+  const minPct=(+gel('cc-minpct').value||0)/100,minFloor=+gel('cc-minfloor').value||0;
+  const fixedPayment=+gel('cc-fixed').value||0;
+  const monthlyRate=Math.pow(1+apr/365,30)-1;
+
+  const minResult=ccSimulate(balance0,monthlyRate,(bal,interest)=>Math.max(minFloor,bal*minPct+interest));
+  const fixedResult=ccSimulate(balance0,monthlyRate,()=>fixedPayment);
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('cc-minmonths',minResult.neverPaysOff?'Never':minResult.months+' mo');
+  se('cc-minint',minResult.neverPaysOff?'∞':f$(minResult.totalInterest));
+  se('cc-fixedmonths',fixedResult.neverPaysOff?'Never':fixedResult.months+' mo');
+  se('cc-fixedint',fixedResult.neverPaysOff?'∞':f$(fixedResult.totalInterest));
+  const saved=(!minResult.neverPaysOff && !fixedResult.neverPaysOff)?minResult.totalInterest-fixedResult.totalInterest:0;
+  const timeSaved=(!minResult.neverPaysOff && !fixedResult.neverPaysOff)?minResult.months-fixedResult.months:0;
+  se('cc-saved',(!minResult.neverPaysOff && !fixedResult.neverPaysOff)?f$(saved):'—');
+  se('cc-timesaved',(!minResult.neverPaysOff && !fixedResult.neverPaysOff)?timeSaved+' months':'—');
+
+  const chartLen=Math.min(Math.max(minResult.neverPaysOff?0:minResult.trail.length,fixedResult.neverPaysOff?0:fixedResult.trail.length,fixedResult.neverPaysOff?0:fixedResult.trail.length)||fixedResult.trail.length,240);
+  const minTrail=minResult.trail.slice(0,chartLen);
+  const fixedTrail=fixedResult.trail.slice(0,chartLen);
+  while(minTrail.length<chartLen)minTrail.push(0);
+  while(fixedTrail.length<chartLen)fixedTrail.push(0);
+  drawLine('cc-chart',[{data:minTrail,color:'#F65E72',fill:false,w:2},{data:fixedTrail,color:'#0ECB81',fill:false,w:2.5}],175);
+
+  const insights=[];
+  if(minResult.neverPaysOff){
+    insights.push({type:'bad',text:`At this minimum payment structure, the balance <strong>never actually shrinks</strong> — the minimum payment doesn't cover the interest accruing each month. A fixed payment of at least <strong>${f$(balance0*monthlyRate+1)}</strong>/month is needed just to stop the balance from growing.`});
+  }else{
+    insights.push({type:'bad',text:`Paying only the minimum, this balance takes <strong>${minResult.months} months</strong> (${(minResult.months/12).toFixed(1)} years) to pay off, costing <strong>${f$(minResult.totalInterest)}</strong> in interest — ${minResult.totalInterest>balance0?'more than the original balance itself':`${(minResult.totalInterest/balance0*100).toFixed(0)}% of the original balance`}.`});
+  }
+  if(!fixedResult.neverPaysOff && !minResult.neverPaysOff){
+    insights.push({type:'good',text:`At a fixed <strong>${f$(fixedPayment)}</strong>/month, the same balance is paid off in <strong>${fixedResult.months} months</strong>, saving <strong>${f$(saved)}</strong> in interest and <strong>${timeSaved} months</strong> compared to minimum-only payments.`});
+  }else if(!fixedResult.neverPaysOff){
+    insights.push({type:'good',text:`At a fixed <strong>${f$(fixedPayment)}</strong>/month, this balance is paid off in <strong>${fixedResult.months} months</strong>, costing <strong>${f$(fixedResult.totalInterest)}</strong> in interest.`});
+  }else{
+    const neededPayment=balance0*monthlyRate;
+    insights.push({type:'bad',text:`Your fixed payment of <strong>${f$(fixedPayment)}</strong>/month doesn't even cover the interest accruing each month — the balance will grow, not shrink. You'd need at least <strong>${f$(neededPayment+1)}</strong>/month just to stop it from growing, and more than that to actually pay it down.`});
+  }
+  renderInsights('cc-insights',insights);
+}
 function cSavings(){
   const init=+gel('sv-init').value||0,mo=+gel('sv-monthly').value||0,r=(+gel('sv-rate').value||0)/100,y=+gel('sv-years').value||1,k=+gel('sv-comp').value;
   const rk=r/k,n=k*y,fb=init*Math.pow(1+rk,n)+mo*(Math.pow(1+rk,n)-1)/(rk||1)*(1+rk)*(12/k);
@@ -1767,6 +2111,173 @@ function cLifeIns(){
   renderInsights('li-insights',insights);
 }
 
+// ── Health Insurance ─────────────────────────────────────────────
+function _hiOOP(expenses,deductible,coinsPct,oopMax){
+  let oop;
+  if(expenses<=deductible)oop=expenses;
+  else oop=deductible+(expenses-deductible)*coinsPct;
+  oop=Math.min(oop,oopMax,expenses);
+  return Math.max(oop,0);
+}
+function _hiTotalCost(expenses,premiumMonthly,deductible,coinsPct,oopMax){
+  return premiumMonthly*12+_hiOOP(expenses,deductible,coinsPct,oopMax);
+}
+function cHealthIns(){
+  const expenses=+gel('hi-expenses').value||0;
+  const aPremium=+gel('hi-a-premium').value||0;
+  const aDeductible=+gel('hi-a-deductible').value||0;
+  const aCoins=(+gel('hi-a-coins').value||0)/100;
+  const aOopMax=+gel('hi-a-oopmax').value||0;
+  const bPremium=+gel('hi-b-premium').value||0;
+  const bDeductible=+gel('hi-b-deductible').value||0;
+  const bCoins=(+gel('hi-b-coins').value||0)/100;
+  const bOopMax=+gel('hi-b-oopmax').value||0;
+
+  const aOop=_hiOOP(expenses,aDeductible,aCoins,aOopMax);
+  const bOop=_hiOOP(expenses,bDeductible,bCoins,bOopMax);
+  const aTotal=aPremium*12+aOop;
+  const bTotal=bPremium*12+bOop;
+
+  gel('hi-a-total').textContent=f$(aTotal);
+  gel('hi-b-total').textContent=f$(bTotal);
+  gel('hi-a-r-premium').textContent=f$(aPremium*12);
+  gel('hi-a-r-oop').textContent=f$(aOop);
+  gel('hi-b-r-premium').textContent=f$(bPremium*12);
+  gel('hi-b-r-oop').textContent=f$(bOop);
+
+  const diff=Math.abs(aTotal-bTotal);
+  if(aTotal<bTotal){gel('hi-cheaper').textContent='Plan A';}
+  else if(bTotal<aTotal){gel('hi-cheaper').textContent='Plan B';}
+  else{gel('hi-cheaper').textContent='Tied';}
+  gel('hi-savings').textContent=f$(diff);
+
+  // find break-even usage level via sampling
+  const maxE=Math.max(aOopMax,bOopMax)*2+10000;
+  const steps=4000;
+  let breakEven=null;
+  let prevDiff=_hiTotalCost(0,aPremium,aDeductible,aCoins,aOopMax)-_hiTotalCost(0,bPremium,bDeductible,bCoins,bOopMax);
+  for(let i=1;i<=steps;i++){
+    const e=maxE*i/steps;
+    const d=_hiTotalCost(e,aPremium,aDeductible,aCoins,aOopMax)-_hiTotalCost(e,bPremium,bDeductible,bCoins,bOopMax);
+    if((prevDiff<0&&d>=0)||(prevDiff>0&&d<=0)){
+      const ePrev=maxE*(i-1)/steps;
+      breakEven=ePrev+(e-ePrev)*Math.abs(prevDiff)/(Math.abs(prevDiff)+Math.abs(d)||1);
+      break;
+    }
+    prevDiff=d;
+  }
+  gel('hi-breakeven').textContent=breakEven!==null?f$(breakEven)+'/yr':'No crossover';
+
+  const insights=[];
+  if(diff>0){
+    const cheaper=aTotal<bTotal?'Plan A':'Plan B';
+    insights.push({type:'good',text:`At <strong>${f$(expenses)}</strong> in expected annual expenses, <strong>${cheaper}</strong> costs <strong>${f$(diff)} less</strong> in total for the year.`});
+  }else{
+    insights.push({type:'neutral',text:`At this usage level, both plans cost about the same in total.`});
+  }
+  if(breakEven!==null){
+    insights.push({type:'neutral',text:`These two plans cost the same at roughly <strong>${f$(breakEven)}</strong> in annual medical spending. Below that, the lower-premium plan tends to win; above it, the lower-deductible plan tends to win.`});
+  }
+  const lowerPremiumIsA=aPremium<bPremium;
+  const lowerPremiumCheaper=(lowerPremiumIsA&&aTotal<bTotal)||(!lowerPremiumIsA&&bTotal<aTotal);
+  if(expenses>Math.min(aDeductible,bDeductible)&&!lowerPremiumCheaper){
+    insights.push({type:'bad',text:`The lower-premium plan is not actually cheaper at your expected usage level — its higher deductible and coinsurance outweigh the premium savings once you factor in real healthcare use.`});
+  }
+  insights.push({type:'neutral',text:`This estimate doesn't include copays for specific services, prescription drug tiers, or network differences — review the plan documents for the full picture before deciding.`});
+  renderInsights('hi-insights',insights);
+}
+
+// ── Loan Eligibility ────────────────────────────────────────────
+function cLoanElig(){
+  const income=+gel('le-income').value||0;
+  const existing=+gel('le-existing').value||0;
+  const dtiPct=(+gel('le-dti').value||0)/100;
+  const annRate=(+gel('le-rate').value||0)/100;
+  const years=+gel('le-years').value||0;
+
+  const maxEMI=income*dtiPct;
+  const capacity=Math.max(maxEMI-existing,0);
+  const r=annRate/12, n=years*12;
+  let loan=0;
+  if(capacity>0&&n>0){
+    loan = r>0 ? capacity*((Math.pow(1+r,n)-1)/(r*Math.pow(1+r,n))) : capacity*n;
+  }
+  const dtiUsed=income>0?(existing/income*100):0;
+
+  gel('le-loan').textContent=f$(loan);
+  gel('le-capacity').textContent=f$(capacity);
+  gel('le-maxemi').textContent=f$(maxEMI);
+  gel('le-used').textContent=pct(dtiUsed);
+
+  gel('le-r-income').textContent=f$(income);
+  gel('le-r-dti').textContent=(dtiPct*100).toFixed(0)+'%';
+  gel('le-r-maxemi').textContent=f$(maxEMI);
+  gel('le-r-existing').textContent='−'+f$(existing);
+  gel('le-r-capacity').textContent=f$(capacity);
+  gel('le-r-loan').textContent=f$(loan);
+
+  const insights=[];
+  if(capacity<=0){
+    insights.push({type:'bad',text:`Your existing debt payments already use up your entire allowed DTI budget, leaving no room for a new loan at a ${(dtiPct*100).toFixed(0)}% DTI cap. Paying down existing debt would be the most direct way to open up eligibility.`});
+  }else{
+    insights.push({type:'good',text:`Based on your income and existing debt, you may be eligible for a loan of roughly <strong>${f$(loan)}</strong> at these terms.`});
+    if(dtiUsed>0){
+      insights.push({type:'neutral',text:`Your existing debt already uses <strong>${pct(dtiUsed)}</strong> of your income, leaving <strong>${f$(capacity)}/month</strong> in EMI capacity for this new loan.`});
+    }
+  }
+  if(dtiPct*100>45){
+    insights.push({type:'neutral',text:`A ${(dtiPct*100).toFixed(0)}% max DTI is on the higher end — many lenders cap total DTI closer to 36-43%. Actual offers may be more conservative than this estimate.`});
+  }
+  insights.push({type:'neutral',text:`This is an estimate based on income and debt alone — actual approval also depends on credit score, employment history, and lender-specific policies.`});
+  renderInsights('le-insights',insights);
+}
+
+// ── Debt-to-Income Ratio ────────────────────────────────────────
+function cDTI(){
+  const income=+gel('dti-income').value||0;
+  const housing=+gel('dti-housing').value||0;
+  const other=+gel('dti-other').value||0;
+
+  const totalDebt=housing+other;
+  const backEnd=income>0?(totalDebt/income*100):0;
+  const frontEnd=income>0?(housing/income*100):0;
+  const remaining=income-totalDebt;
+
+  let rating,ratingColor,ratingType;
+  if(backEnd<=36){rating='Excellent';ratingColor='var(--g)';ratingType='good';}
+  else if(backEnd<=43){rating='Acceptable';ratingColor='var(--a)';ratingType='neutral';}
+  else if(backEnd<=50){rating='High';ratingColor='var(--r)';ratingType='bad';}
+  else{rating='Risky';ratingColor='var(--r)';ratingType='bad';}
+
+  gel('dti-back').textContent=pct(backEnd);
+  gel('dti-front').textContent=pct(frontEnd);
+  gel('dti-totaldebt').textContent=f$(totalDebt);
+  gel('dti-rating').textContent=rating;
+  gel('dti-rating').style.color=ratingColor;
+
+  gel('dti-r-income').textContent=f$(income);
+  gel('dti-r-housing').textContent=f$(housing);
+  gel('dti-r-other').textContent=f$(other);
+  gel('dti-r-total').textContent=f$(totalDebt);
+  gel('dti-r-remaining').textContent=f$(remaining);
+
+  const insights=[];
+  if(backEnd<=36){
+    insights.push({type:'good',text:`At <strong>${pct(backEnd)}</strong>, your back-end DTI is in the excellent range — this generally qualifies for the widest range of loan products and the best available rates.`});
+  }else if(backEnd<=43){
+    insights.push({type:'neutral',text:`At <strong>${pct(backEnd)}</strong>, your back-end DTI is acceptable to most lenders, though some become more selective in this range.`});
+  }else if(backEnd<=50){
+    insights.push({type:'bad',text:`At <strong>${pct(backEnd)}</strong>, your back-end DTI is on the high side — many conventional lenders may hesitate or require stronger credit and savings to offset it.`});
+  }else{
+    insights.push({type:'bad',text:`At <strong>${pct(backEnd)}</strong>, your back-end DTI is above what most lenders consider serviceable. Reducing debt payments before applying for new credit would likely improve your options significantly.`});
+  }
+  if(frontEnd>28){
+    insights.push({type:'neutral',text:`Your housing payment alone takes up <strong>${pct(frontEnd)}</strong> of your income — above the commonly cited 28% front-end guideline, even before other debts are counted.`});
+  }
+  insights.push({type:'neutral',text:`Paying off even one smaller debt in full often improves DTI faster than partial payments spread across several, since it removes a whole monthly obligation from the calculation.`});
+  renderInsights('dti-insights',insights);
+}
+
 // ── 401(k) ──────────────────────────────────────────────────────
 function c401k(){
   const age=+gel('k4-age').value||0;
@@ -1846,6 +2357,57 @@ function c401k(){
 }
 
 // ── Stock ────────────────────────────────────────────────────────
+function calcOptions(){
+  const type=gel('op-type').value,position=gel('op-position').value;
+  const strike=+gel('op-strike').value||0,premium=+gel('op-premium').value||0;
+  const contracts=+gel('op-contracts').value||1,target=+gel('op-target').value||0;
+  const mult=100*contracts;
+
+  const breakeven=type==='call'?strike+premium:strike-premium;
+  const intrinsicAt=(price)=>type==='call'?Math.max(price-strike,0):Math.max(strike-price,0);
+  const totalPremium=premium*mult;
+
+  let maxProfit,maxLoss;
+  if(position==='long'){
+    maxLoss=totalPremium;
+    maxProfit=(type==='call')?Infinity:Math.max(strike-premium,0)*mult;
+  }else{
+    maxProfit=totalPremium;
+    maxLoss=(type==='call')?Infinity:Math.max(strike-premium,0)*mult;
+  }
+
+  const intrinsicTarget=intrinsicAt(target);
+  const targetPL=position==='long'?(intrinsicTarget-premium)*mult:(premium-intrinsicTarget)*mult;
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('op-breakeven',f$(breakeven));
+  se('op-maxprofit',isFinite(maxProfit)?f$(maxProfit):'Unlimited');
+  se('op-maxloss',isFinite(maxLoss)?f$(maxLoss):'Unlimited');
+  const targetEl=gel('op-targetpl');
+  if(targetEl){targetEl.textContent=(targetPL<0?'-':'')+f$(Math.abs(targetPL));targetEl.style.color=targetPL>=0?'var(--g)':'var(--r)';}
+  se('op-totalpremium',f$(totalPremium));
+
+  const rangeLow=strike*0.6,rangeHigh=strike*1.4,steps=40,vals=[];
+  for(let i=0;i<=steps;i++){
+    const price=rangeLow+(rangeHigh-rangeLow)*i/steps;
+    const intr=intrinsicAt(price);
+    const pl=position==='long'?(intr-premium)*mult:(premium-intr)*mult;
+    vals.push(pl);
+  }
+  drawLine('op-chart',[{data:vals,color:position==='long'?'#0ECB81':'#F65E72',fill:true}],175);
+
+  const insights=[];
+  const posLabel=position==='long'?'Long':'Short',typeLabel=type==='call'?'Call':'Put';
+  insights.push({type:'neutral',text:`This ${posLabel} ${typeLabel} breaks even at a stock price of <strong>${f$(breakeven)}</strong>.`});
+  if(!isFinite(maxLoss)){
+    insights.push({type:'bad',text:`This position has <strong>unlimited</strong> theoretical loss potential — risk grows without a cap as the stock price moves against the position.`});
+  }
+  if(!isFinite(maxProfit)){
+    insights.push({type:'good',text:`This position has <strong>unlimited</strong> theoretical profit potential above the breakeven price.`});
+  }
+  insights.push({type:targetPL>=0?'good':'bad',text:`At your target price of <strong>${f$(target)}</strong>, this position would show a <strong>${targetPL>=0?'profit':'loss'}</strong> of <strong>${f$(Math.abs(targetPL))}</strong>.`});
+  renderInsights('op-insights',insights);
+}
 function cStock(){
   const sh=+gel('sk-sh').value||0,buy=+gel('sk-buy').value||0,sell=+gel('sk-sell').value||0,bc=(+gel('sk-bc').value||0)/100,sc=(+gel('sk-sc').value||0)/100,days=+gel('sk-days').value||1;
   const bt=sh*buy,st=sh*sell,bc_=bt*bc,sc_=st*sc,pnl=st-bt-bc_-sc_,ret=bt?pnl/bt*100:0,ann=(Math.pow(1+ret/100,365/days)-1)*100,bep=buy*(1+bc)/(1-sc);
@@ -1904,6 +2466,83 @@ function cSplit(){
 }
 
 // ── Retirement ───────────────────────────────────────────────────
+function ssFRAMonths(by){
+  if(by<=1937)return 65*12;
+  if(by===1938)return 65*12+2;
+  if(by===1939)return 65*12+4;
+  if(by===1940)return 65*12+6;
+  if(by===1941)return 65*12+8;
+  if(by===1942)return 65*12+10;
+  if(by>=1943&&by<=1954)return 66*12;
+  if(by===1955)return 66*12+2;
+  if(by===1956)return 66*12+4;
+  if(by===1957)return 66*12+6;
+  if(by===1958)return 66*12+8;
+  if(by===1959)return 66*12+10;
+  return 67*12;
+}
+function ssBenefitAtAge(claimAgeYears,fraMo,pia){
+  const claimMo=claimAgeYears*12;
+  const diff=claimMo-fraMo;
+  if(diff<0){
+    const earlyMonths=-diff;
+    const first36=Math.min(earlyMonths,36),extra=Math.max(earlyMonths-36,0);
+    const reduction=first36*(5/9)/100+extra*(5/12)/100;
+    return pia*(1-Math.min(reduction,1));
+  }else if(diff>0){
+    const maxDelayMo=70*12-fraMo;
+    const delayMonths=Math.min(diff,maxDelayMo);
+    const increase=delayMonths*(2/3)/100;
+    return pia*(1+increase);
+  }
+  return pia;
+}
+function calcSocialSecurity(){
+  const pia=+gel('ss-pia').value||0;
+  const birthYear=+gel('ss-birthyear').value||1990;
+  const claimAgeRaw=+gel('ss-claimage').value||67;
+  const claimClamped=Math.max(62,Math.min(70,claimAgeRaw));
+
+  const fraMo=ssFRAMonths(birthYear);
+  const fraYears=Math.floor(fraMo/12),fraRemMonths=fraMo%12;
+  const benefit=ssBenefitAtAge(claimClamped,fraMo,pia);
+  const benefit62=ssBenefitAtAge(62,fraMo,pia);
+  const benefit70=ssBenefitAtAge(70,fraMo,pia);
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('ss-fra',fraYears+(fraRemMonths?(' yr '+fraRemMonths+'mo'):' yr'));
+  se('ss-benefit',f$(benefit)+'/mo');
+  const vsFraPct=pia?((benefit/pia-1)*100):0;
+  se('ss-vsfra',(vsFraPct>=0?'+':'')+vsFraPct.toFixed(1)+'%');
+  se('ss-annual',f$(benefit*12));
+  se('ss-age62',f$(benefit62)+'/mo');
+  se('ss-agefra',f$(pia)+'/mo');
+  se('ss-age70',f$(benefit70)+'/mo');
+
+  let breakevenAge=null;
+  if(benefit70>benefit62){
+    breakevenAge=(70*benefit70-62*benefit62)/(benefit70-benefit62);
+  }
+  se('ss-breakeven',(breakevenAge&&isFinite(breakevenAge))?('~age '+breakevenAge.toFixed(0)):'—');
+
+  const ages=[],vals=[];
+  for(let a=62;a<=70;a++){ages.push(String(a));vals.push(ssBenefitAtAge(a,fraMo,pia));}
+  drawBars('ss-chart',ages,vals,['#1890FF'],150);
+
+  const insights=[];
+  if(claimAgeRaw<62||claimAgeRaw>70){
+    insights.push({type:'neutral',text:'Social Security can only be claimed between ages 62 and 70 — using the closest valid age for this calculation.'});
+  }
+  if(claimClamped*12<fraMo){
+    insights.push({type:'neutral',text:`Claiming at ${claimClamped} is <strong>${Math.abs(vsFraPct).toFixed(1)}% lower</strong> than waiting until your Full Retirement Age of ${fraYears}${fraRemMonths?(' and '+fraRemMonths+' months'):''}, and that reduction is permanent for the life of the benefit.`});
+  }else if(claimClamped*12>fraMo){
+    insights.push({type:'good',text:`Claiming at ${claimClamped} is <strong>${vsFraPct.toFixed(1)}% higher</strong> than your Full Retirement Age benefit, thanks to delayed retirement credits.`});
+  }
+  if(breakevenAge){
+    insights.push({type:'neutral',text:`Delaying from 62 to 70 breaks even in cumulative total (before investment growth or inflation) around age <strong>${breakevenAge.toFixed(0)}</strong> — collecting past that age means delaying paid off in total dollars received.`});
+  }
+  renderInsights('ss-insights',insights);
+}
 function cRetire(){
   const age=+gel('rt-age').value||30,ret=+gel('rt-ret').value||65,save=+gel('rt-save').value||0,contrib=+gel('rt-contrib').value||0;
   const rate=(+gel('rt-rate').value||0)/100,inf=(+gel('rt-inf').value||0)/100,exp=+gel('rt-exp').value||0,life=+gel('rt-life').value||85;
@@ -2017,16 +2656,105 @@ function cFire(){
 }
 
 // ── Debt Payoff ──────────────────────────────────────────────────
+let bsPeople=[{name:'Alex'},{name:'Sam'},{name:'Jordan'}];
+let bsItems=[{desc:'Ribeye Steak',price:32,person:0},{desc:'Caesar Salad',price:12,person:1},{desc:'Fries (shared)',price:8,person:-1}];
+function renderBSPeople(){
+  const el=gel('bs-people-rows');if(!el)return;el.innerHTML='';
+  bsPeople.forEach((p,i)=>{
+    el.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 36px;gap:8px;margin-bottom:6px;align-items:center">
+      <input type="text" value="${p.name}" oninput="bsPeople[${i}].name=this.value;calcBillSplit()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
+      <button class="btn-del" aria-label="Remove person ${(p.name||('person '+(i+1))).replace(/"/g,'&quot;')}" onclick="removeBSPerson(${i})">✕</button>
+    </div>`;
+  });
+  renderBSItems();
+}
+function addBSPerson(){bsPeople.push({name:'Person '+(bsPeople.length+1)});renderBSPeople();}
+function removeBSPerson(i){
+  bsPeople.splice(i,1);
+  bsItems.forEach(it=>{
+    if(it.person===i)it.person=-1;
+    else if(it.person>i)it.person--;
+  });
+  renderBSPeople();
+}
+function renderBSItems(){
+  const el=gel('bs-items-rows');if(!el)return;el.innerHTML='';
+  bsItems.forEach((it,i)=>{
+    const options=bsPeople.map((p,pi)=>`<option value="${pi}" ${it.person===pi?'selected':''}>${p.name}</option>`).join('')+`<option value="-1" ${it.person===-1?'selected':''}>Split Evenly</option>`;
+    el.innerHTML+=`<div class="row-bs" style="margin-bottom:6px;align-items:center">
+      <input type="text" value="${it.desc}" oninput="bsItems[${i}].desc=this.value;calcBillSplit()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
+      <div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${it.price}" oninput="bsItems[${i}].price=+this.value;calcBillSplit()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
+      <select onchange="bsItems[${i}].person=+this.value;calcBillSplit()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--fn);font-size:13px;outline:none">${options}</select>
+      <button class="btn-del" aria-label="Remove item ${(it.desc||('item '+(i+1))).replace(/"/g,'&quot;')}" onclick="bsItems.splice(${i},1);renderBSItems();">✕</button>
+    </div>`;
+  });
+  calcBillSplit();
+  attachInputGuards();
+}
+function addBSItem(){bsItems.push({desc:'New Item',price:10,person:bsPeople.length?0:-1});renderBSItems();}
+function calcBillSplit(){
+  const taxEl=gel('bs-tax'),tipEl=gel('bs-tip'),basisEl=gel('bs-tipbasis');
+  if(!taxEl||!tipEl||!basisEl)return;
+  const tax=+taxEl.value||0,tipPct=(+tipEl.value||0)/100,tipBasis=basisEl.value;
+  const subtotal=bsItems.reduce((a,it)=>a+(it.price||0),0);
+  const tipBase=tipBasis==='total'?subtotal+tax:subtotal;
+  const tip=tipBase*tipPct;
+  const grand=subtotal+tax+tip;
+
+  const se=(id,v)=>{const e=gel(id);if(e)e.textContent=v;};
+  se('bs-subtotal',f$(subtotal));
+  se('bs-taxout',f$(tax));
+  se('bs-tipout',f$(tip));
+  se('bs-grandtotal',f$(grand));
+
+  const n=bsPeople.length;
+  const personItemTotal=bsPeople.map(()=>0);
+  bsItems.forEach(it=>{
+    const price=it.price||0;
+    if(it.person===-1){
+      if(n>0)personItemTotal.forEach((_,i)=>personItemTotal[i]+=price/n);
+    }else if(it.person>=0&&it.person<n){
+      personItemTotal[it.person]+=price;
+    }
+  });
+
+  const breakdownEl=gel('bs-breakdown');
+  if(breakdownEl){
+    if(n===0){
+      breakdownEl.innerHTML='<div style="color:var(--m);font-size:13px;padding:8px 0">Add at least one person to see the breakdown.</div>';
+    }else{
+      breakdownEl.innerHTML=bsPeople.map((p,i)=>{
+        const share=subtotal>0?personItemTotal[i]/subtotal:1/n;
+        const personTax=tax*share,personTip=tip*share,personTotal=personItemTotal[i]+personTax+personTip;
+        return `<div class="rrow"><span class="rk">${p.name||('Person '+(i+1))}</span><span class="rv">${f$(personTotal)}</span></div>`;
+      }).join('');
+    }
+  }
+
+  const insights=[];
+  if(n===0){
+    insights.push({type:'neutral',text:'Add people above, then assign items to see a fair per-person breakdown.'});
+  }else if(subtotal===0){
+    insights.push({type:'neutral',text:'Add item prices above to calculate the split.'});
+  }else{
+    const sorted=personItemTotal.map((t,i)=>({name:bsPeople[i].name||('Person '+(i+1)),t})).sort((a,b)=>b.t-a.t);
+    if(sorted.length>1&&sorted[0].t>0){
+      insights.push({type:'neutral',text:`${sorted[0].name} ordered the most (<strong>${f$(sorted[0].t)}</strong> of items) and will pay a proportionally larger share of tax and tip too — an even split would have charged everyone the same regardless of what they ordered.`});
+    }
+    insights.push({type:'good',text:`Tip is calculated on the ${tipBasis==='total'?'subtotal + tax':'pre-tax subtotal'} (<strong>${f$(tipBase)}</strong>) at <strong>${(tipPct*100).toFixed(0)}%</strong>, for a total tip of <strong>${f$(tip)}</strong>.`});
+  }
+  renderInsights('bs-insights',insights);
+}
 let debts=[{name:'Credit Card',bal:8000,rate:22,min:200},{name:'Car Loan',bal:15000,rate:7,min:300},{name:'Student Loan',bal:25000,rate:5.5,min:280}];
 function renderDebtRows(){
   const el=gel('debt-rows');el.innerHTML='';
-  debts.forEach((d,i)=>{el.innerHTML+=`<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 36px;gap:8px;margin-bottom:6px;align-items:center">
+  debts.forEach((d,i)=>{el.innerHTML+=`<div class="row-debt" style="margin-bottom:6px;align-items:center">
     <input type="text" value="${d.name}" oninput="debts[${i}].name=this.value;cDebt()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
     <div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${d.bal}" oninput="debts[${i}].bal=+this.value;cDebt()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
     <input type="text" inputmode="decimal" value="${d.rate}" step="0.1" oninput="debts[${i}].rate=+this.value;cDebt()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;width:100%">
     <div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${d.min}" oninput="debts[${i}].min=+this.value;cDebt()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
-    <button class="btn-del" onclick="debts.splice(${i},1);renderDebtRows()">✕</button>
-  </div>`;});cDebt();
+    <button class="btn-del" aria-label="Remove debt ${(d.name||('debt '+(i+1))).replace(/"/g,'&quot;')}" onclick="debts.splice(${i},1);renderDebtRows()">✕</button>
+  </div>`;});cDebt();attachInputGuards();
 }
 function addDebt(){debts.push({name:'New Debt',bal:5000,rate:10,min:100});renderDebtRows();}
 function cDebt(){
@@ -2099,10 +2827,11 @@ function renderCFRows(){
   gel('cf-i-rows').innerHTML='';cfIncome.forEach((r,i)=>{gel('cf-i-rows').innerHTML+=cfRowHtml('i',i,r);});
   gel('cf-e-rows').innerHTML='';cfExpense.forEach((r,i)=>{gel('cf-e-rows').innerHTML+=cfRowHtml('e',i,r);});
   cCF();
+  attachInputGuards();
 }
 function cfRowHtml(type,i,r){
   const arr=type==='i'?'cfIncome':'cfExpense';
-  return`<div style="display:grid;grid-template-columns:1.5fr 1fr 90px 36px;gap:8px;margin-bottom:6px;align-items:center">
+  return`<div class="row-cf" style="margin-bottom:6px;align-items:center">
     <input type="text" value="${r.name}" oninput="${arr}[${i}].name=this.value;cCF()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:13px;outline:none;width:100%">
     <div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" value="${r.amt}" oninput="${arr}[${i}].amt=+this.value;cCF()" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 8px 8px 20px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none"></div>
     <select onchange="${arr}[${i}].freq=this.value;cCF()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;color:var(--t);font-size:12px;outline:none;width:100%">
@@ -2111,7 +2840,7 @@ function cfRowHtml(type,i,r){
       <option value="biweekly" ${r.freq==='biweekly'?'selected':''}>Bi-weekly</option>
       <option value="annually" ${r.freq==='annually'?'selected':''}>Annual</option>
     </select>
-    <button class="btn-del" onclick="${arr}.splice(${i},1);renderCFRows()">✕</button>
+    <button class="btn-del" aria-label="Remove ${(r.name||('entry '+(i+1))).replace(/"/g,'&quot;')}" onclick="${arr}.splice(${i},1);renderCFRows()">✕</button>
   </div>`;
 }
 function addCF(type){if(type==='i')cfIncome.push({name:'New Income',amt:1000,freq:'monthly'});else cfExpense.push({name:'New Expense',amt:200,freq:'monthly'});renderCFRows();}
@@ -2631,10 +3360,10 @@ const DISCLAIMER_CAT={
   currency:'Exchange rates are pulled from a live rates provider and cached for up to 24 hours — they are indicative reference rates, not real-time interbank or market rates, and do not include the spread or fees your bank or payment provider will charge. <strong>Check with your bank or payment provider for the exact rate on any actual transaction.</strong>'
 };
 const PANEL_DISCLAIMER={
-  loan:'credit',prepay:'credit',loancomp:'credit',autoloan:'credit',debtcomp:'credit',debt:'credit',
+  loan:'credit',prepay:'credit',loancomp:'credit',autoloan:'credit',debtcomp:'credit',debt:'credit',loaneligibility:'credit',dti:'credit',
   tax:'tax',salary:'tax',
   mortgage:'realestate',mortcomp:'realestate',rental:'realestate',rentalprop:'realestate',rentvsbuy:'realestate',
-  savings:'investing',provident:'investing',retirement:'investing',fire:'investing',savingsgoal:'investing',emergencyfund:'investing',healthscore:'investing','401k':'investing',millionaire:'investing',lifeinsurance:'investing',
+  savings:'investing',provident:'investing',retirement:'investing',fire:'investing',savingsgoal:'investing',emergencyfund:'investing',healthscore:'investing','401k':'investing',millionaire:'investing',lifeinsurance:'investing',healthinsurance:'investing',
   cagr:'investing',xirr:'investing',drip:'investing',divgrowth:'investing',etf:'investing',allocation:'investing',dcf:'investing',peg:'investing',evebitda:'investing',invest:'investing',swp:'investing',stock:'investing',dilutionimpact:'investing',dca:'investing',
   burnrate:'business',pricing:'business',equity:'business',revenue:'business',breakeven:'business',cashflow:'business',
   currency:'currency',remit:'currency'
@@ -2941,7 +3670,7 @@ function _getCalcBtnRow(panel){
 
 function injectPrintButtons(){
   document.querySelectorAll('.panel').forEach(panel=>{
-    if(panel.id==='home'||panel.id==='privacy'||panel.id==='about'||panel.id==='terms'||panel.id==='scientific'||panel.id==='currency'||panel.id.indexOf('blog')===0)return;
+    if(panel.id==='home'||panel.id==='privacy'||panel.id==='about'||panel.id==='terms'||panel.id==='scientific'||panel.id==='currency'||panel.id==='personal-finance'||panel.id==='investing-valuation'||panel.id==='startup-business'||panel.id==='tools'||panel.id==='404'||panel.id.indexOf('blog')===0)return;
     if(panel.querySelector('.download-btn'))return;
     const btn=document.createElement('button');
     btn.className='download-btn';
@@ -2954,7 +3683,7 @@ function injectPrintButtons(){
 // ── Share Result ────────────────────────────────────────────────
 function injectShareButtons(){
   document.querySelectorAll('.panel').forEach(panel=>{
-    if(panel.id==='home'||panel.id==='privacy'||panel.id==='about'||panel.id==='terms'||panel.id==='scientific'||panel.id==='currency'||panel.id.indexOf('blog')===0)return;
+    if(panel.id==='home'||panel.id==='privacy'||panel.id==='about'||panel.id==='terms'||panel.id==='scientific'||panel.id==='currency'||panel.id==='personal-finance'||panel.id==='investing-valuation'||panel.id==='startup-business'||panel.id==='tools'||panel.id==='404'||panel.id.indexOf('blog')===0)return;
     if(panel.querySelector('.share-btn'))return;
     const btn=document.createElement('button');
     btn.className='share-btn';
@@ -3087,10 +3816,27 @@ function buildNavDropdowns(){
 }
 function toggleNavDD(btn){
   const dd=btn.closest('.nav-dd');
+  const menu=dd.querySelector('.nav-dd-menu');
   const wasOpen=dd.classList.contains('open');
   document.querySelectorAll('.nav-dd.open').forEach(d=>{d.classList.remove('open');d.querySelector('.nav-dd-btn').setAttribute('aria-expanded','false');});
-  if(!wasOpen){dd.classList.add('open');btn.setAttribute('aria-expanded','true');}
+  if(!wasOpen){
+    const r=btn.getBoundingClientRect();
+    menu.style.top=(r.bottom+6)+'px';
+    let left=r.left;
+    const maxLeft=window.innerWidth-Math.min(560,window.innerWidth*0.88)-8;
+    if(left>maxLeft)left=Math.max(maxLeft,8);
+    menu.style.left=left+'px';
+    dd.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+  }
 }
+window.addEventListener('resize',()=>{
+  document.querySelectorAll('.nav-dd.open').forEach(d=>{d.classList.remove('open');d.querySelector('.nav-dd-btn').setAttribute('aria-expanded','false');});
+});
+window.addEventListener('scroll',e=>{
+  if(e.target && e.target.closest && e.target.closest('.nav-dd-menu'))return;
+  document.querySelectorAll('.nav-dd.open').forEach(d=>{d.classList.remove('open');d.querySelector('.nav-dd-btn').setAttribute('aria-expanded','false');});
+},true);
 document.addEventListener('click',e=>{
   if(!e.target.closest('.nav-dd')){
     document.querySelectorAll('.nav-dd.open').forEach(d=>{d.classList.remove('open');d.querySelector('.nav-dd-btn').setAttribute('aria-expanded','false');});
@@ -3117,18 +3863,77 @@ function highlightNavTab(id){
     });
   });
 }
+const PAGE_FNS={
+  '401k':[c401k],
+  'allocation':[cAllocRecommend],
+  'autoloan':[cAutoLoan],
+  'billsplit':[renderBSPeople],
+  'breakeven':[cBE],
+  'budget':[calcBudget],
+  'burnrate':[cBurn],
+  'cac':[calcCAC],
+  'cagr':[calcCAGR],
+  'cashflow':[renderCFRows,cCF],
+  'ccpayoff':[calcCCPayoff],
+  'currency':[buildCurrency,cCurrency],
+  'dca':[cDCA],
+  'dcf':[calcDCF],
+  'debt':[renderDebtRows,cDebt],
+  'debtcomp':[renderDC2],
+  'dilutionimpact':[cDilutionImpact],
+  'divgrowth':[cDivGrowth],
+  'drip':[calcDRIP],
+  'dti':[cDTI],
+  'emergencyfund':[cEmergency],
+  'equity':[renderFounders,renderRounds,calcEquity],
+  'etf':[calcETF],
+  'evebitda':[cEVEBITDA],
+  'fire':[cFire],
+  'healthinsurance':[cHealthIns],
+  'healthscore':[cHealthScore],
+  'heloc':[cHeloc],
+  'home':[buildDir],
+  'inflation':[calcInflation],
+  'invest':[cSip],
+  'lifeinsurance':[cLifeIns],
+  'loan':[cLoan],
+  'loancomp':[buildLoanComp],
+  'loaneligibility':[cLoanElig],
+  'millionaire':[cMillionaire],
+  'mortcomp':[buildMortComp],
+  'mortgage':[cMortgage],
+  'networth':[calcNetWorth],
+  'options':[calcOptions],
+  'peg':[cPEG],
+  'prepay':[cPrepay],
+  'pricing':[cPricing],
+  'provident':[cProvident],
+  'refinance':[calcRefinance],
+  'remit':[buildRemit],
+  'rental':[cRental],
+  'rentalprop':[calcRP],
+  'rentvsbuy':[cRentVsBuy],
+  'retirement':[cRetire],
+  'revenue':[calcRevenue],
+  'salary':[cSalary],
+  'savings':[cSavings],
+  'savingsgoal':[cSavingsGoal],
+  'socialsecurity':[calcSocialSecurity],
+  'scientific':[buildSci],
+  'split':[cSplit],
+  'stock':[cStock],
+  'swp':[cSWP],
+  'tax':[cTax],
+  'xirr':[renderXIRR]
+};
 function initPage(id){
   document.body.dataset.page = id;
   window.__isHome = (id === 'home');
   buildNavDropdowns();
   highlightNavTab(id);
-  const calls = [buildDir,buildSci,buildCurrency,buildMortComp,buildLoanComp,initGuideAccordions,
-    renderXIRR,renderFounders,renderRounds,renderDebtRows,renderCFRows,renderDC2,
-    calcCAGR,calcDRIP,cDivGrowth,calcETF,calcDCF,cBurn,cPricing,calcEquity,cDilutionImpact,calcRevenue,
-    cLoan,cPrepay,cAutoLoan,cSip,cSWP,cTax,cMortgage,cHeloc,cRentVsBuy,cSavings,cProvident,cAllocRecommend,cSalary,c401k,cMillionaire,cDCA,cLifeIns,buildRemit,
-    cStock,cSplit,cPEG,cEVEBITDA,cRetire,cFire,cDebt,cRental,calcRP,cCF,cBE,cSavingsGoal,cEmergency,cHealthScore,
-    cCurrency, injectDisclaimers, injectInputHints, injectPrintButtons, injectShareButtons, attachChartTooltips, applyCommaFormatting];
-  calls.forEach(fn=>{ try{ fn(); }catch(e){ /* element not on this page — expected */ } });
+  const shared = [initGuideAccordions,injectDisclaimers,injectInputHints,injectPrintButtons,injectShareButtons,attachChartTooltips,applyCommaFormatting,attachInputGuards];
+  shared.forEach(fn=>{ try{ fn(); }catch(e){ /* utility fn, expected to be safe site-wide */ } });
+  (PAGE_FNS[id] || []).forEach(fn=>{ try{ fn(); }catch(e){ console.error('initPage: error running', fn.name, 'on page', id, e); } });
   if(window.__isHome){
     const params = new URLSearchParams(location.search);
     const q = params.get('q');

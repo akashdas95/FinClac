@@ -7,22 +7,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<title>Salary Calculator — Hourly to Yearly Pay | FinCalc</title>
-<meta name="description" content="Convert your pay between hourly, daily, monthly, and yearly salary instantly. Free salary calculator with weekly, bi-weekly, and semi-monthly breakdowns.">
-<link rel="canonical" href="https://finclac.com/salary">
+<title>Personal Finance Calculators — Free &amp; Instant | FinCalc</title>
+<meta name="description" content="The calculators here cover the money decisions most people run into repeatedly over a lifetime: loans, mortgages, taxes, savings, and retirement. If…">
+<link rel="canonical" href="https://finclac.com/personal-finance">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Salary Calculator — Hourly to Yearly Pay | FinCalc">
-<meta property="og:description" content="Convert your pay between hourly, daily, monthly, and yearly salary instantly. Free salary calculator with weekly, bi-weekly, and semi-monthly breakdowns.">
-<meta property="og:url" content="https://finclac.com/salary">
+<meta property="og:title" content="Personal Finance Calculators — Free &amp; Instant | FinCalc">
+<meta property="og:description" content="The calculators here cover the money decisions most people run into repeatedly over a lifetime: loans, mortgages, taxes, savings, and retirement. If…">
+<meta property="og:url" content="https://finclac.com/personal-finance">
 <meta property="og:site_name" content="FinCalc">
 <meta property="og:image" content="https://finclac.com/android-chrome-512x512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://finclac.com/android-chrome-512x512.png">
-<meta name="twitter:title" content="Salary Calculator — Hourly to Yearly Pay | FinCalc">
-<meta name="twitter:description" content="Convert your pay between hourly, daily, monthly, and yearly salary instantly. Free salary calculator with weekly, bi-weekly, and semi-monthly breakdowns.">
+<meta name="twitter:title" content="Personal Finance Calculators — Free &amp; Instant | FinCalc">
+<meta name="twitter:description" content="The calculators here cover the money decisions most people run into repeatedly over a lifetime: loans, mortgages, taxes, savings, and retirement. If…">
 <style>html{scrollbar-gutter:stable;overflow-y:scroll}*{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#F6F4EE;--s:#FFFFFF;--s2:#EFEBE1;--bd:#DBD5C4;--t:#171B17;--m:#807965;--tb:#464C46;--a:#0F4F35;--g:#0F4F35;--r:#8C2E22;--b:#1B3A5C;--p:#6B4A7A;--fn:'IBM Plex Sans',sans-serif;--mo:'IBM Plex Mono',monospace;--disp:'Fraunces',serif}
 html[data-theme="light"]{--bg:#14170F;--s:#1B1F16;--s2:#222619;--bd:#33392C;--t:#EDE7D6;--m:#9A9480;--tb:#C9C3AF;--a:#6FBF95;--g:#6FBF95;--r:#D08877;--b:#7FA8CC;--p:#B79CC9;--disp:'Fraunces',serif}
@@ -376,6 +376,18 @@ footer.site-footer .foot-col a:hover{color:var(--bg)}
 footer.site-footer .foot-bottom{max-width:1180px;margin:36px auto 0;padding-top:20px;border-top:1px solid #2C3129;font-family:var(--mo);font-size:11px;color:#6F6A5A;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;align-items:center}
 footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 @media(max-width:700px){footer.site-footer{padding:32px 20px 24px}footer.site-footer .foot-grid{gap:24px}footer.site-footer .foot-cols{gap:32px}}
+
+/* ---- ledger row-list (matches homepage directory) ---- */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bd);border-left:1px solid var(--bd)}
+.row{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:20px 22px;transition:background-color .15s;display:flex;flex-direction:column;gap:6px;min-height:112px;text-decoration:none;color:inherit}
+.row:hover{background:var(--s2)}
+.row-top{display:flex;align-items:center;justify-content:space-between}
+.row-name{font-size:14.5px;font-weight:500;letter-spacing:-.01em;color:var(--t)}
+.row-arrow{font-size:13px;color:var(--m);transition:transform .15s}
+.row:hover .row-arrow{transform:translateX(3px);color:var(--a)}
+.row-desc{font-size:12.5px;color:var(--tb);line-height:1.5}
+.row-pop{font-family:var(--mo);font-size:9.5px;color:#8A6D33;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -390,9 +402,8 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
   gtag('config', 'G-61RHHG8E6Q');
 </script>
 <meta name="msvalidate.01" content="175D12831D109E3E7E1A856004E0F393" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Salary Calculator", "url": "https://finclac.com/salary", "description": "Convert your pay between hourly, daily, monthly, and yearly salary instantly. Free salary calculator with weekly, bi-weekly, and semi-monthly breakdowns.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "isPartOf": {"@type": "WebSite", "name": "FinCalc", "url": "https://finclac.com/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I convert hourly pay to an annual salary?", "acceptedAnswer": {"@type": "Answer", "text": "Annual = Hourly × Hours/Day × Days/Week × Weeks/Year At a standard full-time schedule of 8 hours a day, 5 days a week, 52 weeks a year, multiply your hourly rate by 2,080 to get your annual salary. A $25/hr rate works out to $52,000 a year."}}, {"@type": "Question", "name": "Why isn't monthly pay just weekly pay times 4?", "acceptedAnswer": {"@type": "Answer", "text": "Because most months have slightly more than 4 weeks — 52 weeks ÷ 12 months = 4.33 weeks per month on average. Multiplying weekly pay by exactly 4 understates your real monthly income. The accurate method is to divide your annual salary by 12 directly."}}, {"@type": "Question", "name": "What's the difference between bi-weekly and semi-monthly pay?", "acceptedAnswer": {"@type": "Answer", "text": "Bi-weekly pay happens every two weeks, giving you 26 paychecks a year (occasionally 27). Semi-monthly pay happens twice a month on fixed dates (like the 1st and 15th), giving you exactly 24 paychecks a year. Bi-weekly paychecks are a consistent amount; semi-monthly paychecks are also consistent, but the two schedules land on different calendar dates."}}, {"@type": "Question", "name": "Are these figures gross pay or take-home pay?", "acceptedAnswer": {"@type": "Answer", "text": "All figures shown are gross pay — before taxes and deductions. Your actual take-home pay will be lower after federal and state income tax, Social Security, Medicare, and any benefit contributions. Use the Tax Estimator calculator for an estimate of your after-tax income."}}, {"@type": "Question", "name": "How many hours does a full-time employee work per year?", "acceptedAnswer": {"@type": "Answer", "text": "The standard assumption is 2,080 hours per year — 8 hours a day, 5 days a week, 52 weeks a year. Some employers use 2,000 hours (assuming 2 unpaid weeks off) or slightly less to account for holidays and PTO, so check your specific employer's assumption when comparing offers."}}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://finclac.com/"}, {"@type": "ListItem", "position": 2, "name": "Personal Finance", "item": "https://finclac.com/personal-finance"}, {"@type": "ListItem", "position": 3, "name": "Salary Calculator", "item": "https://finclac.com/salary"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://finclac.com/"}, {"@type": "ListItem", "position": 2, "name": "Personal Finance", "item": "https://finclac.com/personal-finance"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Personal Finance Calculators", "url": "https://finclac.com/personal-finance", "hasPart": {"@type": "ItemList", "itemListElement": [{"@type":"ListItem","position":1,"name":"Loan / EMI","url":"https://finclac.com/loan"},{"@type":"ListItem","position":2,"name":"Loan Eligibility","url":"https://finclac.com/loaneligibility"},{"@type":"ListItem","position":3,"name":"Debt-to-Income Ratio","url":"https://finclac.com/dti"},{"@type":"ListItem","position":4,"name":"Loan Prepayment","url":"https://finclac.com/prepay"},{"@type":"ListItem","position":5,"name":"Refinance Break-Even","url":"https://finclac.com/refinance"},{"@type":"ListItem","position":6,"name":"Loan Comparison","url":"https://finclac.com/loancomp"},{"@type":"ListItem","position":7,"name":"Auto Loan Calculator","url":"https://finclac.com/autoloan"},{"@type":"ListItem","position":8,"name":"Tax Estimator","url":"https://finclac.com/tax"},{"@type":"ListItem","position":9,"name":"Salary Calculator","url":"https://finclac.com/salary"},{"@type":"ListItem","position":10,"name":"Mortgage","url":"https://finclac.com/mortgage"},{"@type":"ListItem","position":11,"name":"HELOC Calculator","url":"https://finclac.com/heloc"},{"@type":"ListItem","position":12,"name":"Rent vs Buy Calculator","url":"https://finclac.com/rentvsbuy"},{"@type":"ListItem","position":13,"name":"Mortgage Comparison","url":"https://finclac.com/mortcomp"},{"@type":"ListItem","position":14,"name":"Savings Estimator","url":"https://finclac.com/savings"},{"@type":"ListItem","position":15,"name":"Inflation Calculator","url":"https://finclac.com/inflation"},{"@type":"ListItem","position":16,"name":"Provident Fund Calculator","url":"https://finclac.com/provident"},{"@type":"ListItem","position":17,"name":"Retirement Planner","url":"https://finclac.com/retirement"},{"@type":"ListItem","position":18,"name":"Social Security Estimator","url":"https://finclac.com/socialsecurity"},{"@type":"ListItem","position":19,"name":"401(k) Calculator","url":"https://finclac.com/401k"},{"@type":"ListItem","position":20,"name":"Millionaire Calculator","url":"https://finclac.com/millionaire"},{"@type":"ListItem","position":21,"name":"FIRE Calculator","url":"https://finclac.com/fire"},{"@type":"ListItem","position":22,"name":"Net Worth Calculator","url":"https://finclac.com/networth"},{"@type":"ListItem","position":23,"name":"Snowball vs Avalanche","url":"https://finclac.com/debtcomp"},{"@type":"ListItem","position":24,"name":"Debt Payoff Planner","url":"https://finclac.com/debt"},{"@type":"ListItem","position":25,"name":"Credit Card Payoff","url":"https://finclac.com/ccpayoff"},{"@type":"ListItem","position":26,"name":"Rental Yield","url":"https://finclac.com/rental"},{"@type":"ListItem","position":27,"name":"Rental Property","url":"https://finclac.com/rentalprop"},{"@type":"ListItem","position":28,"name":"Savings Goal Calculator","url":"https://finclac.com/savingsgoal"},{"@type":"ListItem","position":29,"name":"50/30/20 Budget Calculator","url":"https://finclac.com/budget"},{"@type":"ListItem","position":30,"name":"Emergency Fund Calculator","url":"https://finclac.com/emergencyfund"},{"@type":"ListItem","position":31,"name":"Financial Health Score","url":"https://finclac.com/healthscore"},{"@type":"ListItem","position":32,"name":"Life Insurance Needs","url":"https://finclac.com/lifeinsurance"},{"@type":"ListItem","position":33,"name":"Health Insurance Cost","url":"https://finclac.com/healthinsurance"}]}}</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -410,128 +421,10 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 </nav>
 <div class="ledger-ticker"><div class="ledger-ticker-track"><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div></div></div>
 <main class="content" id="main-content">
-<div id="salary" class="panel on">
-<div class="calc-header">
-<h1 class="calc-page-title">Salary Calculator</h1>
-<h2 class="calc-subtitle">Convert your pay between hourly, daily, monthly, and yearly in one click</h2>
-<p class="calc-desc">This salary calculator converts any pay rate into hourly, daily, monthly, and yearly equivalents, plus weekly and bi-weekly figures, based on your actual working hours and days.</p>
-</div>
-<button class="btn-example" onclick="fillExampleValues()">✨ Use example values</button>
-
-
-
-<div class="two">
-  <div class="card">
-    <div class="card-title">Pay Details</div>
-    <div class="field"><label>Amount ($) <span class="tip-ic" tabindex="0" role="button" aria-label="More info: The dollar amount you're calculating with.">i<span class="tip-box">The dollar amount you're calculating with.</span></span></label><div class="ip"><span class="pfx">$</span><input type="text" inputmode="decimal" id="sl-amount" placeholder="e.g. 25" oninput="cSalary()"></div></div>
-    <div class="field"><label>This Amount Is Paid <span class="tip-ic" tabindex="0" role="button" aria-label="More info: How often this payment is made.">i<span class="tip-box">How often this payment is made.</span></span></label><select id="sl-period" onchange="cSalary()">
-      <option value="hourly">Hourly</option>
-      <option value="daily">Daily</option>
-      <option value="monthly">Monthly</option>
-      <option value="yearly">Yearly</option>
-    </select></div>
-    <div class="g2">
-      <div class="field"><label>Hours per Day <span class="tip-ic" tabindex="0" role="button" aria-label="More info: How many hours per day this applies — used to annualize an hourly rate.">i<span class="tip-box">How many hours per day this applies — used to annualize an hourly rate.</span></span></label><input type="text" inputmode="decimal" id="sl-hours" placeholder="e.g. 8" oninput="cSalary()"></div>
-      <div class="field"><label>Days per Week <span class="tip-ic" tabindex="0" role="button" aria-label="More info: How many days per week this applies — used to annualize an hourly or daily rate.">i<span class="tip-box">How many days per week this applies — used to annualize an hourly or daily rate.</span></span></label><input type="text" inputmode="decimal" id="sl-days" placeholder="e.g. 5" oninput="cSalary()"></div>
-    </div>
-    <div class="field"><label>Weeks Worked per Year <span class="tip-ic" tabindex="0" role="button" aria-label="More info: How many weeks per year you work — used to annualize pay.">i<span class="tip-box">How many weeks per year you work — used to annualize pay.</span></span></label><input type="text" inputmode="decimal" id="sl-weeks" placeholder="e.g. 52" oninput="cSalary()"></div>
-    <div class="sgrid">
-      <div class="sbox"><div class="lbl">Hourly</div><div class="val" style="color:var(--a)" id="sl-hourly">$0</div></div>
-      <div class="sbox"><div class="lbl">Daily</div><div class="val" style="color:var(--a)" id="sl-daily">$0</div></div>
-      <div class="sbox"><div class="lbl">Monthly</div><div class="val" style="color:var(--g)" id="sl-monthly">$0</div></div>
-      <div class="sbox"><div class="lbl">Yearly</div><div class="val" style="color:var(--g)" id="sl-yearly">$0</div></div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-title">Full Pay Breakdown</div>
-    <div class="rrow"><span class="rk">Weekly</span><span class="rv" id="sl-weekly">$0</span></div>
-    <div class="rrow"><span class="rk">Bi-Weekly</span><span class="rv" id="sl-biweekly">$0</span></div>
-    <div class="rrow"><span class="rk">Semi-Monthly</span><span class="rv" id="sl-semimonthly">$0</span></div>
-    <div class="rrow"><span class="rk">Working Days / Year</span><span class="rv" id="sl-workdays">0</span></div>
-    <div class="rrow"><span class="rk">Working Hours / Year</span><span class="rv" id="sl-workhours">0</span></div>
-    <div class="insight-box" id="sl-insights"></div>
-  </div>
-</div>
-
-<div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links"><span class="calc-links-label">🔗 Related Calculators</span><a class="calc-link-btn" href="/budget" onclick="go('budget',null);return false;">🥧 Budget Calculator</a><a class="calc-link-btn" href="/tax" onclick="go('tax',null);return false;">🧾 Tax</a><a class="calc-link-btn" href="/cashflow" onclick="go('cashflow',null);return false;">💵 Cash Flow</a><a class="calc-link-btn" href="/retirement" onclick="go('retirement',null);return false;">👴 Retirement</a><a class="calc-link-btn" href="/savingsgoal" onclick="go('savingsgoal',null);return false;">🎯 Savings Goal</a><a class="calc-link-btn" href="/breakeven" onclick="go('breakeven',null);return false;">📊 Break-even</a><a class="calc-link-btn" href="/healthscore" onclick="go('healthscore',null);return false;">💯 Health Score</a></div></div>
-<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/budgeting-guide-that-works">The Beginner's Guide to Budgeting That Actually Works<span class="related-arrow">→</span></a></div>
-<div class="calc-guide">
-  <div class="guide-toggle">
-    <div class="guide-toggle-title">📖 Salary Conversions — Hourly, Daily, Monthly &amp; Yearly Pay</div>
-  </div>
-  <div class="guide-body">
-<div class="guide-p">Job offers, freelance rates, and pay stubs rarely use the same time period, which makes comparing them directly harder than it should be. An hourly contract rate, a monthly salary, and an annual package all describe the same thing — your earning power — just measured on different clocks. Converting everything to one common basis is the fastest way to compare offers apples-to-apples.</div>
-
-<div class="guide-h3">The Core Conversion Formula</div>
-<div class="guide-formula">Annual Pay = Hourly Rate × Hours per Day × Days per Week × Weeks per Year</div>
-<div class="guide-p">Once you know your annual pay, every other period falls out of it: divide by 12 for monthly, by the number of weeks worked for weekly, by working days for daily, and by total working hours for hourly. The two assumptions that matter most are hours worked per day and days worked per week — change either one and every converted figure shifts with it.</div>
-
-<div class="guide-h3">Worked Example: $25/Hour, Full-Time</div>
-<div class="guide-p">At a standard full-time schedule — 8 hours a day, 5 days a week, 52 weeks a year — that's 2,080 working hours annually:</div>
-<table class="guide-table"><thead><tr><th>Period</th><th>Amount</th></tr></thead><tbody>
-<tr><td>Hourly</td><td>$25.00</td></tr>
-<tr><td>Daily</td><td>$200.00</td></tr>
-<tr><td>Weekly</td><td>$1,000.00</td></tr>
-<tr><td>Monthly</td><td>$4,333.33</td></tr>
-<tr><td>Yearly</td><td>$52,000</td></tr>
-</tbody></table>
-<div class="guide-p">Notice monthly isn't just weekly × 4 — since most years have slightly more than 4 weeks per month (52 ÷ 12 = 4.33), the monthly figure comes from dividing the annual total by 12 instead, which is the more accurate method.</div>
-
-<div class="guide-h3">Gross Pay vs Take-Home Pay</div>
-<div class="guide-p">Every figure this calculator produces is <strong>gross pay</strong> — your earnings before taxes, insurance premiums, retirement contributions, and other payroll deductions. Take-home ("net") pay is typically 10–30% lower than gross pay depending on your tax bracket, state, and benefit elections. Use the <a href="/tax" style="color:var(--a);text-decoration:underline">Tax Estimator</a> alongside this calculator to see roughly what lands in your bank account.</div>
-
-<div class="guide-h3">Common Pay Period Assumptions</div>
-<table class="guide-table"><thead><tr><th>Schedule</th><th>Typical Assumption</th></tr></thead><tbody>
-<tr><td>Standard full-time</td><td>8 hrs/day, 5 days/week, 52 weeks/year (2,080 hrs/year)</td></tr>
-<tr><td>Full-time with 2 weeks unpaid leave</td><td>8 hrs/day, 5 days/week, 50 weeks/year (2,000 hrs/year)</td></tr>
-<tr><td>Part-time (4 days/week)</td><td>8 hrs/day, 4 days/week, 52 weeks/year (1,664 hrs/year)</td></tr>
-<tr><td>Compressed schedule (10-hr days)</td><td>10 hrs/day, 4 days/week, 52 weeks/year (2,080 hrs/year)</td></tr>
-</tbody></table>
-<div class="guide-tip">💡 When comparing a salaried offer to a contract or freelance hourly rate, remember the salaried role usually also includes paid time off, health insurance, and employer retirement matching — benefits with real dollar value that a straight hourly comparison misses.</div>
-
-  </div>
-</div>
-
-<div class="faq-section">
-<div class="faq-section-title">❓ Frequently Asked Questions</div>
-<div class="faq-item">
-  <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>How do I convert hourly pay to an annual salary?</span>
-    <span class="faq-icon">+</span>
-  </div>
-  <div class="faq-a"><span class="faq-formula">Annual = Hourly × Hours/Day × Days/Week × Weeks/Year</span>At a standard full-time schedule of 8 hours a day, 5 days a week, 52 weeks a year, multiply your hourly rate by 2,080 to get your annual salary. A $25/hr rate works out to $52,000 a year.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Why isn't monthly pay just weekly pay times 4?</span>
-    <span class="faq-icon">+</span>
-  </div>
-  <div class="faq-a">Because most months have slightly more than 4 weeks — 52 weeks ÷ 12 months = 4.33 weeks per month on average. Multiplying weekly pay by exactly 4 understates your real monthly income. The accurate method is to divide your annual salary by 12 directly.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>What's the difference between bi-weekly and semi-monthly pay?</span>
-    <span class="faq-icon">+</span>
-  </div>
-  <div class="faq-a"><strong>Bi-weekly</strong> pay happens every two weeks, giving you 26 paychecks a year (occasionally 27). <strong>Semi-monthly</strong> pay happens twice a month on fixed dates (like the 1st and 15th), giving you exactly 24 paychecks a year. Bi-weekly paychecks are a consistent amount; semi-monthly paychecks are also consistent, but the two schedules land on different calendar dates.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>Are these figures gross pay or take-home pay?</span>
-    <span class="faq-icon">+</span>
-  </div>
-  <div class="faq-a">All figures shown are <strong>gross pay</strong> — before taxes and deductions. Your actual take-home pay will be lower after federal and state income tax, Social Security, Medicare, and any benefit contributions. Use the Tax Estimator calculator for an estimate of your after-tax income.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q" onclick="toggleFAQ(this)">
-    <span>How many hours does a full-time employee work per year?</span>
-    <span class="faq-icon">+</span>
-  </div>
-  <div class="faq-a">The standard assumption is <strong>2,080 hours per year</strong> — 8 hours a day, 5 days a week, 52 weeks a year. Some employers use 2,000 hours (assuming 2 unpaid weeks off) or slightly less to account for holidays and PTO, so check your specific employer's assumption when comparing offers.</div>
-</div>
-</div>
-
-
+<div id="personal-finance" class="panel on">
+<div class="calc-header"><h1 class="calc-page-title">Personal Finance Calculators</h1><p class="calc-desc">The calculators here cover the money decisions most people run into repeatedly over a lifetime: loans, mortgages, taxes, savings, and retirement. If a decision involves your paycheck, your home, or your long-term savings, it's probably in this section.</p></div>
+<div class="grid" style="margin-top:1.5rem"><a class="row" href="/loan"><div class="row-top"><span class="row-name">Loan / EMI</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Find your monthly loan payment and see exactly how much of it goes to interest vs principal</span></a><a class="row" href="/loaneligibility"><div class="row-top"><span class="row-name">Loan Eligibility</span><span class="row-arrow">→</span></div><span class="row-desc">Find out how much loan you may qualify for based on your income and existing debts</span></a><a class="row" href="/dti"><div class="row-top"><span class="row-name">Debt-to-Income Ratio</span><span class="row-arrow">→</span></div><span class="row-desc">Check your DTI against what lenders typically look for</span></a><a class="row" href="/prepay"><div class="row-top"><span class="row-name">Loan Prepayment</span><span class="row-arrow">→</span></div><span class="row-desc">See how much time and interest you can save by paying extra toward your loan each month</span></a><a class="row" href="/refinance"><div class="row-top"><span class="row-name">Refinance Break-Even</span><span class="row-arrow">→</span></div><span class="row-desc">Find out how many months it takes to recoup closing costs, and whether refinancing is worth it</span></a><a class="row" href="/loancomp"><div class="row-top"><span class="row-name">Loan Comparison</span><span class="row-arrow">→</span></div><span class="row-desc">Compare up to 3 loan offers side by side to see which one actually costs less overall</span></a><a class="row" href="/autoloan"><div class="row-top"><span class="row-name">Auto Loan Calculator</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Calculate your car payment including trade-in, sales tax, and new vs used loan rates</span></a><a class="row" href="/tax"><div class="row-top"><span class="row-name">Tax Estimator</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Estimate your US federal income tax, effective rate, and what you actually take home</span></a><a class="row" href="/salary"><div class="row-top"><span class="row-name">Salary Calculator</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Convert your pay between hourly, daily, monthly, and yearly instantly</span></a><a class="row" href="/mortgage"><div class="row-top"><span class="row-name">Mortgage</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Estimate your full monthly home payment including property tax, insurance, and PMI</span></a><a class="row" href="/heloc"><div class="row-top"><span class="row-name">HELOC Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Find out how much you can borrow against your home equity and what payments look like in the draw vs repayment period</span></a><a class="row" href="/rentvsbuy"><div class="row-top"><span class="row-name">Rent vs Buy Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Compare your net worth over time if you rent vs buy a home, and find the breakeven year</span></a><a class="row" href="/mortcomp"><div class="row-top"><span class="row-name">Mortgage Comparison</span><span class="row-arrow">→</span></div><span class="row-desc">Compare up to 3 mortgage offers side by side to see which one actually costs less</span></a><a class="row" href="/savings"><div class="row-top"><span class="row-name">Savings Estimator</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">See how your savings grow over time with compound interest, and how long it takes to double</span></a><a class="row" href="/inflation"><div class="row-top"><span class="row-name">Inflation Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">See what an amount then is worth now, or will be worth in the future, using your own inflation rate</span></a><a class="row" href="/provident"><div class="row-top"><span class="row-name">Provident Fund Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Project your provident fund (EPF/PF) maturity value from your monthly contributions and interest rate</span></a><a class="row" href="/retirement"><div class="row-top"><span class="row-name">Retirement Planner</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Find out if you're saving enough to retire comfortably, adjusted for inflation</span></a><a class="row" href="/socialsecurity"><div class="row-top"><span class="row-name">Social Security Estimator</span><span class="row-arrow">→</span></div><span class="row-desc">See how claiming early or delaying to 70 changes your monthly Social Security benefit</span></a><a class="row" href="/401k"><div class="row-top"><span class="row-name">401(k) Calculator</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Project your 401(k) balance at retirement, including employer match</span></a><a class="row" href="/millionaire"><div class="row-top"><span class="row-name">Millionaire Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Find out exactly what age you'll hit $1,000,000 based on your savings and investment rate</span></a><a class="row" href="/fire"><div class="row-top"><span class="row-name">FIRE Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Find out how many years until you reach financial independence based on your savings rate</span></a><a class="row" href="/networth"><div class="row-top"><span class="row-name">Net Worth Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Total your assets and liabilities to see your net worth, liquidity split, and debt-to-asset ratio</span></a><a class="row" href="/debtcomp"><div class="row-top"><span class="row-name">Snowball vs Avalanche</span><span class="row-arrow">→</span></div><span class="row-desc">Compare two popular debt payoff strategies to see which clears your debt faster and cheaper</span></a><a class="row" href="/debt"><div class="row-top"><span class="row-name">Debt Payoff Planner</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Build a custom plan to pay off your debt and see exactly how much interest you'll save</span></a><a class="row" href="/ccpayoff"><div class="row-top"><span class="row-name">Credit Card Payoff</span><span class="row-arrow">→</span></div><span class="row-desc">Compare minimum payments vs a fixed payment to see the real payoff time and interest cost</span></a><a class="row" href="/rental"><div class="row-top"><span class="row-name">Rental Yield</span><span class="row-arrow">→</span></div><span class="row-desc">Check whether a rental property's income justifies its price using gross and net yield</span></a><a class="row" href="/rentalprop"><div class="row-top"><span class="row-name">Rental Property</span><span class="row-arrow">→</span></div><span class="row-desc">Run the full numbers on a rental property — cash flow, returns, and a 10-year outlook</span></a><a class="row" href="/savingsgoal"><div class="row-top"><span class="row-name">Savings Goal Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Figure out exactly how much to save each month to hit a specific savings target on time</span></a><a class="row" href="/budget"><div class="row-top"><span class="row-name">50/30/20 Budget Calculator</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Compare your actual spending against the 50/30/20 rule for needs, wants, and savings</span></a><a class="row" href="/emergencyfund"><div class="row-top"><span class="row-name">Emergency Fund Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Find out how big your emergency fund should be and how long it'll take to build it</span></a><a class="row" href="/healthscore"><div class="row-top"><span class="row-name">Financial Health Score</span><span class="row-arrow">→</span></div><span class="row-desc">Get a single score out of 100 that sums up how healthy your overall finances really are</span></a><a class="row" href="/lifeinsurance"><div class="row-top"><span class="row-name">Life Insurance Needs</span><span class="row-arrow">→</span></div><span class="row-desc">Find out how much life insurance coverage your family would actually need</span></a><a class="row" href="/healthinsurance"><div class="row-top"><span class="row-name">Health Insurance Cost</span><span class="row-arrow">→</span></div><span class="row-desc">Compare two health plans by their true total annual cost, not just the premium</span></a></div>
+<div class="related-box" style="margin-top:1.75rem"><div class="related-box-title">📖 Related Reading</div><a class="related-item" href="/blog/best-free-financial-calculators">12 Free Financial Calculators Worth Bookmarking in 2026<span class="related-arrow">→</span></a><a class="related-item" href="/blog/how-much-house-can-you-afford">How Much House Can You Actually Afford in 2026?<span class="related-arrow">→</span></a></div>
 
 </div>
 </main><!-- content -->
@@ -610,6 +503,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="app.js?v=20260731h"></script>
-<script>initPage('salary');</script>
+<script>initPage('personal-finance');</script>
 </body>
 </html>

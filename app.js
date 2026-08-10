@@ -80,6 +80,17 @@ function fillExampleValues(){
     input.dispatchEvent(new Event('blur',{bubbles:true}));
   });
 }
+function resetCalculatorValues(){
+  document.querySelectorAll('input[inputmode="decimal"]').forEach(input=>{
+    input.value='';
+    input.classList.remove('field-warn');
+    const handler=input.getAttribute('oninput');
+    if(handler){ try{ new Function(handler).call(input); }catch(e){} }
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.dispatchEvent(new Event('blur',{bubbles:true}));
+  });
+  document.querySelectorAll('.field-warn-msg').forEach(msg=>{ msg.style.display='none'; });
+}
 function attachInputGuards(){
   const GROWTH_WORDS=/growth|change in|decline/i;
   document.querySelectorAll('input[inputmode="decimal"]').forEach(input=>{
@@ -3658,7 +3669,7 @@ function _getCalcBtnRow(panel){
   if(row)return row;
   row=document.createElement('div');
   row.className='calc-btn-row';
-  const anchor=panel.querySelector('.calc-links');
+  const anchor=panel.querySelector('.calc-links-label')||panel.querySelector('.calc-links');
   if(anchor)anchor.insertAdjacentElement('beforebegin',row);
   else{
     const back=panel.querySelector('.back-btn');

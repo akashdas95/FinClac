@@ -3,10 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinCalc — Financial Calculators, Done Properly</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+<title>FinCalc — Free Financial Calculators Online</title>
+<meta name="description" content="60 free financial calculators for loans, investing, retirement & taxes — CAGR, XIRR, SIP, EMI, mortgage & more. No signup.">
+<link rel="canonical" href="https://finclac.com/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FinCalc — Free Financial Calculators Online">
+<meta property="og:description" content="60 free financial calculators for loans, investing, retirement & taxes — CAGR, XIRR, SIP, EMI, mortgage & more. No signup.">
+<meta property="og:url" content="https://finclac.com/">
+<meta property="og:site_name" content="FinCalc">
+<meta property="og:image" content="https://finclac.com/android-chrome-512x512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://finclac.com/android-chrome-512x512.png">
+<meta name="twitter:title" content="FinCalc — Free Financial Calculators Online">
+<meta name="twitter:description" content="60 free financial calculators for loans, investing, retirement & taxes — CAGR, XIRR, SIP, EMI, mortgage & more. No signup.">
 <style>
 :root{
   --paper:#F6F4EE;
@@ -57,7 +71,7 @@ a{color:inherit;text-decoration:none}
 }
 .brand{display:flex;align-items:center;gap:10px}
 .brand-mark{
-  width:30px;height:30px;background:var(--ledger);color:var(--paper);
+  width:30px;height:30px;background:#F0B90B;color:#000;
   display:flex;align-items:center;justify-content:center;
   font-family:var(--serif);font-weight:600;font-size:13px;
   border-radius:6px;
@@ -185,7 +199,8 @@ footer{
   padding:44px 40px 30px;
 }
 .foot-grid{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px}
-.foot-brand{font-family:var(--serif);color:var(--paper);font-size:18px;margin-bottom:8px}
+.foot-brand{font-family:var(--serif);color:var(--paper);font-size:18px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.foot-brand .logo-mark{width:26px;height:26px;background:#F0B90B;color:#000;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:var(--serif)}
 .foot-desc{font-size:12.5px;max-width:34ch;line-height:1.6;color:#948E7B}
 .foot-cols{display:flex;gap:56px;flex-wrap:wrap}
 .foot-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7F7A69;margin-bottom:14px}
@@ -214,7 +229,7 @@ footer{
   <div class="brand">
     <div class="brand-mark">FC</div>
     <div class="brand-name">FinCalc</div>
-    <div class="brand-tag">EST. LEDGER NO. 60</div>
+    
   </div>
   <nav class="top-links">
     <a href="/personal-finance">Personal Finance</a>
@@ -233,9 +248,9 @@ footer{
   <div class="hero-row">
     <div class="searchbox">
       <span>⌕</span>
-      <input type="text" placeholder="Search 60 calculators — try &quot;refinance&quot;">
+      <input type="text" id="homeSearch" placeholder="Search 60 calculators — try &quot;refinance&quot;" autocomplete="off">
     </div>
-    <div class="hero-stat">Most opened this week: <b>Mortgage</b>, <b>401(k)</b>, <b>CAGR</b></div>
+    <div class="hero-stat" id="searchStat">Most opened this week: <b>Mortgage</b>, <b>401(k)</b>, <b>CAGR</b></div>
   </div>
 </section>
 
@@ -268,7 +283,10 @@ footer{
 <main class="directory" id="directory">
   <div class="dir-head">
     <h2>The Directory</h2>
-    <span>60 calculators / 4 ledgers</span>
+    <span id="dirCount">60 calculators / 4 ledgers</span>
+  </div>
+  <div id="noResults" style="display:none;padding:40px 0;font-family:var(--mono);font-size:13px;color:var(--muted);border-top:1px solid var(--line)">
+    No calculators match <span id="noResultsQuery" style="color:var(--ink);font-weight:500"></span>. Try a different search term.
   </div>
 
   <!-- A — Personal Finance -->
@@ -389,7 +407,7 @@ footer{
 <footer>
   <div class="foot-grid">
     <div>
-      <div class="foot-brand">FinCalc</div>
+      <div class="foot-brand"><div class="logo-mark">FC</div>FinCalc</div>
       <p class="foot-desc">Sixty financial calculators, kept in one place, built to run entirely in your browser.</p>
     </div>
     <div class="foot-cols">
@@ -404,7 +422,7 @@ footer{
         <h4>Company</h4>
         <a href="/about">About</a>
         <a href="/blog">Journal</a>
-        <a href="/pricing">Pricing</a>
+        <a href="/sitemap.xml">Sitemap</a>
       </div>
       <div class="foot-col">
         <h4>Legal</h4>
@@ -415,9 +433,80 @@ footer{
   </div>
   <div class="foot-bottom">
     <span>© 2026 FinCalc. All calculations are estimates, not financial advice.</span>
-    <span>Ledger No. 60 — updated 2026</span>
-  </div>
+    </div>
 </footer>
 
+<script>
+(function(){
+  const input = document.getElementById('homeSearch');
+  const sections = Array.from(document.querySelectorAll('.directory .section'));
+  const noResults = document.getElementById('noResults');
+  const noResultsQuery = document.getElementById('noResultsQuery');
+  const dirCount = document.getElementById('dirCount');
+  const defaultCountText = dirCount ? dirCount.textContent : '';
+
+  const rows = sections.map(sec => ({
+    section: sec,
+    items: Array.from(sec.querySelectorAll('.row')).map(row => ({
+      el: row,
+      name: (row.querySelector('.row-name')?.textContent || '').toLowerCase(),
+      desc: (row.querySelector('.row-desc')?.textContent || '').toLowerCase(),
+      href: row.getAttribute('href') || ''
+    }))
+  }));
+
+  function runSearch(q){
+    q = q.trim().toLowerCase();
+    let totalVisible = 0;
+    let firstMatchHref = null;
+
+    rows.forEach(({section, items}) => {
+      let sectionVisible = 0;
+      items.forEach(item => {
+        const match = !q || item.name.includes(q) || item.desc.includes(q);
+        item.el.style.display = match ? '' : 'none';
+        if (match) {
+          sectionVisible++;
+          totalVisible++;
+          if (firstMatchHref === null) firstMatchHref = item.href;
+        }
+      });
+      section.style.display = sectionVisible === 0 ? 'none' : '';
+    });
+
+    if (noResults) {
+      noResults.style.display = (q && totalVisible === 0) ? 'block' : 'none';
+      if (noResultsQuery) noResultsQuery.textContent = '"' + q + '"';
+    }
+    if (dirCount) {
+      dirCount.textContent = q ? (totalVisible + ' result' + (totalVisible === 1 ? '' : 's') + ' for "' + q + '"') : defaultCountText;
+    }
+    return firstMatchHref;
+  }
+
+  if (input) {
+    input.addEventListener('input', () => runSearch(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const href = runSearch(input.value);
+        if (href) window.location.href = href;
+      } else if (e.key === 'Escape') {
+        input.value = '';
+        runSearch('');
+        input.blur();
+      }
+    });
+
+    // pick up ?q= from links like the 404 page's search redirect
+    const params = new URLSearchParams(window.location.search);
+    const initialQ = params.get('q');
+    if (initialQ) {
+      input.value = initialQ;
+      runSearch(initialQ);
+      document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+})();
+</script>
 </body>
 </html>

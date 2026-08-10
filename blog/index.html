@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 
 <title>FinCalc Blog — Guides on Investing, Retirement, Loans & More</title>
 <meta name="description" content="Practical guides on CAGR, FIRE, debt payoff, mortgages, and more — the real math behind common financial decisions, from the FinCalc team.">
@@ -21,7 +19,7 @@ html[data-theme="light"] .dir-card{background:linear-gradient(135deg,#FFFFFF 60%
 html[data-theme="light"] .dir-card .dir-name{color:var(--t)}
 html[data-theme="light"] .dir-card .dir-desc{color:var(--m)}
 html[data-theme="light"] .skip-link,html[data-theme="light"] .btn,html[data-theme="light"] .sci-btn.eq,html[data-theme="light"] .calc-link-btn:hover,html[data-theme="light"] .guide-step-num{color:#fff}
-html[data-theme="light"] .logo-mark{background:#6FBF95!important;color:#000!important}
+html[data-theme="light"] .logo-mark{background:#F0B90B!important;color:#000!important}
 html[data-theme="light"] .ntab.on{color:#6FBF95!important;border-bottom-color:#6FBF95!important}
 html[data-theme="light"] .nav-dd-btn.on{color:#6FBF95!important;border-bottom-color:#6FBF95!important}
 html[data-theme="light"] .hero-wrap{background:radial-gradient(ellipse 120% 100% at 15% 20%,rgba(111,191,149,.09),transparent 55%),radial-gradient(ellipse 100% 90% at 90% 80%,rgba(111,191,149,.10),transparent 55%),var(--s2)!important}
@@ -46,7 +44,7 @@ body,.card,.dir-card,.topbar,.nav,.nav-dd-menu,.searchbox,.footer{transition:bac
 body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
 .topbar{background:var(--s);border-bottom:1px solid var(--bd);padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:200}
 .logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600;font-family:var(--disp),serif;color:var(--t);text-decoration:none}
-.logo-mark{width:28px;height:28px;background:var(--a);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--bg);font-size:13px;font-weight:700;font-family:var(--disp),serif}
+.logo-mark{width:28px;height:28px;background:#F0B90B;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#000;font-size:13px;font-weight:700;font-family:var(--disp),serif}
 .searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--g);border-radius:9px;padding:10px 16px;width:340px;transition:border-color .15s}
 .searchbox:focus-within{border-color:var(--a)}
 .searchbox input{background:none;border:none;outline:none;color:#0D1117;font-family:var(--fn);font-size:15px;font-weight:500;width:100%}
@@ -300,28 +298,50 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
   canvas{display:block!important}
 }
 
-.blog-post-list{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto}
-.blog-serif{font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif}
-.blog-cat-tag{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;margin-bottom:.9rem;letter-spacing:.2px}
-.blog-avatar{width:36px;height:36px;border-radius:50%;background:#6FBF95;color:#000;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
-.blog-avatar-sm{width:26px;height:26px;font-size:10px}
+.blog-index-wrap{max-width:1180px;margin:0 auto}
+.blog-hero{padding:8px 0 40px;border-bottom:1px solid var(--bd);margin-bottom:40px}
+.blog-eyebrow{font-family:var(--mo);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--a);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.blog-eyebrow::before{content:'';width:22px;height:1px;background:var(--a)}
+.blog-index-title{font-family:var(--disp),serif;font-weight:500;font-size:clamp(32px,4.4vw,52px);line-height:1.06;letter-spacing:-.01em;color:var(--t);margin:0 0 18px;max-width:16ch}
+.blog-index-sub{font-size:16px;color:var(--tb);line-height:1.6;max-width:56ch;margin:0}
+.blog-filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.blog-filter-tab{font-family:var(--mo);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--bd);border-radius:2px;color:var(--tb);background:var(--s);cursor:default}
+.blog-filter-tab.on{background:var(--a);border-color:var(--a);color:var(--bg)}
+
+.blog-post-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin:0 auto}
+.blog-serif{font-family:var(--disp),serif}
+.blog-cat-tag{display:inline-flex;align-items:center;font-family:var(--mo);font-size:10px;font-weight:600;padding:3px 9px;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;text-transform:uppercase}
+.blog-avatar{width:30px;height:30px;border-radius:5px;background:#F0B90B;color:#000;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:var(--disp),serif;flex-shrink:0}
+.blog-avatar-sm{width:24px;height:24px;font-size:10px;border-radius:4px}
 .blog-byline{display:flex;align-items:center;gap:10px;margin-top:1.1rem}
 .blog-post-top{display:flex;align-items:center;gap:8px;margin-bottom:.9rem}
-.blog-byline-text{font-size:13px;color:var(--m)}
-.blog-byline-name{color:var(--t);font-weight:600}
+.blog-byline-text{font-family:var(--mo);font-size:11.5px;color:var(--m)}
+.blog-byline-name{color:var(--t);font-weight:500;font-family:var(--fn)}
 .blog-byline-dot{margin:0 6px;color:var(--bd)}
-.blog-featured{display:block;text-decoration:none;color:inherit;padding:0 0 2.5rem;margin-bottom:2.5rem;border-bottom:1px solid var(--bd)}
-.blog-featured-title{font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;font-size:34px;font-weight:700;color:var(--t);line-height:1.25;margin:0 0 .8rem;letter-spacing:-.4px;transition:color .15s}
-.blog-featured:hover .blog-featured-title{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
-.blog-featured-excerpt{font-size:17px;color:var(--tb);line-height:1.65;margin:0;max-width:640px}
-.blog-post-card{display:block;padding:2.25rem 0;text-decoration:none;color:inherit;border-bottom:1px solid var(--bd);transition:transform .15s}
-.blog-post-card:first-child{padding-top:0}
-.blog-post-card:hover .blog-post-title{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
-.blog-post-meta{font-size:12.5px;color:var(--m);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:.6rem}
-.blog-post-title{font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;font-size:23px;font-weight:700;color:var(--t);line-height:1.35;margin:0 0 .6rem;letter-spacing:-.2px;transition:color .15s}
-.blog-post-excerpt{font-size:15px;color:var(--tb);line-height:1.6;margin:0 0 1rem;max-width:620px}
+
+.blog-featured{grid-column:1/-1;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;text-decoration:none;color:inherit;padding:0 0 40px;margin-bottom:40px;border-bottom:1px solid var(--bd)}
+.blog-featured .blog-cat-tag{grid-column:1;grid-row:1}
+.blog-featured .blog-featured-title{grid-column:1;grid-row:2}
+.blog-featured .blog-featured-excerpt{grid-column:1;grid-row:3}
+.blog-featured .blog-byline{grid-column:1;grid-row:4}
+.blog-featured .blog-featured-media{grid-column:2;grid-row:1/5}
+.blog-featured-title{font-family:var(--disp),serif;font-size:32px;font-weight:500;color:var(--t);line-height:1.15;margin:0 0 .9rem;letter-spacing:-.01em;transition:color .15s}
+.blog-featured:hover .blog-featured-title{color:var(--a)}
+.blog-featured-excerpt{font-size:16px;color:var(--tb);line-height:1.65;margin:0;max-width:520px}
+
+.blog-post-card{display:block;padding:0;text-decoration:none;color:inherit;border:1px solid var(--bd);border-radius:2px;margin:-1px -1px 0 0;transition:background-color .15s}
+.blog-post-card:hover{background:var(--s2)}
+.blog-post-card > div:first-child{margin:0!important;border-radius:0!important}
+.blog-post-card .blog-post-top,.blog-post-card .blog-post-title,.blog-post-card .blog-post-excerpt,.blog-post-card .blog-post-footer{padding-left:1.5rem;padding-right:1.5rem}
+.blog-post-card .blog-post-top{padding-top:1.5rem}
+.blog-post-card .blog-post-footer{padding-bottom:1.5rem}
+.blog-post-card:hover .blog-post-title{color:var(--a)}
+.blog-post-meta{font-family:var(--mo);font-size:11px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:.6rem}
+.blog-post-title{font-family:var(--disp),serif;font-size:20px;font-weight:500;color:var(--t);line-height:1.3;margin:0 0 .6rem;letter-spacing:-.01em;transition:color .15s}
+.blog-post-excerpt{font-size:14px;color:var(--tb);line-height:1.6;margin:0 0 1rem;max-width:620px}
 .blog-post-footer{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.blog-post-cta{font-size:13px;font-weight:600;color:var(--a)}
+.blog-post-cta{font-family:var(--mo);font-size:11.5px;font-weight:500;color:var(--a);text-transform:uppercase;letter-spacing:.03em}
+@media(max-width:900px){.blog-featured{grid-template-columns:1fr}.blog-featured>div:first-of-type{order:0}.blog-post-list{grid-template-columns:1fr}}
 @media(max-width:640px){.blog-featured-title{font-size:26px}.blog-post-title{font-size:19px}.blog-featured-excerpt{font-size:15px}}
 
 /* ---- ledger mockup skin ---- */
@@ -343,7 +363,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 @media(prefers-reduced-motion:reduce){.ledger-ticker-track{animation:none}}
 .site-footer{background:var(--t)!important;border-top:none!important;color:var(--bg)!important;padding:1.5rem 2.5rem!important}
 .site-footer .footer-brand{color:var(--bg)!important;font-family:var(--disp),serif;font-size:16px}
-.site-footer .footer-brand .logo-mark{color:var(--bg)!important}
+.site-footer .footer-brand .logo-mark{background:#F0B90B!important;color:#000!important}
 .site-footer .footer-copy{color:color-mix(in srgb, var(--bg) 55%, transparent)!important}
 .site-footer .footer-copy a{color:color-mix(in srgb, var(--bg) 75%, transparent)!important}
 @media(max-width:700px){.topbar{padding:14px 20px!important}.nav{padding:.6rem 20px 0!important}.site-footer{padding:1.25rem 1.25rem!important}}
@@ -352,7 +372,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 footer.site-footer{position:relative;margin-top:2.5rem;border-top:none;background:var(--t);color:#B9B39F;padding:44px 40px 30px;display:block}
 footer.site-footer .foot-grid{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px}
 footer.site-footer .foot-brand{font-family:var(--disp),serif;color:var(--bg);font-size:18px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-footer.site-footer .foot-brand .logo-mark{width:22px;height:22px;font-size:11px;background:var(--a);color:var(--bg);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--disp),serif}
+footer.site-footer .foot-brand .logo-mark{width:22px;height:22px;font-size:11px;background:#F0B90B;color:#000;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--disp),serif}
 footer.site-footer .foot-desc{font-size:12.5px;max-width:34ch;line-height:1.6;color:#948E7B}
 footer.site-footer .foot-cols{display:flex;gap:56px;flex-wrap:wrap}
 footer.site-footer .foot-col h4{font-family:var(--mo);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7F7A69;margin-bottom:14px}
@@ -365,7 +385,7 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 footer.site-footer, div.site-footer{position:relative;margin-top:2.5rem;border-top:none;background:var(--t);color:#B9B39F;padding:44px 40px 30px;display:block}
 div.site-footer .foot-grid{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px}
 div.site-footer .foot-brand{font-family:var(--disp),serif;color:var(--bg);font-size:18px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-div.site-footer .foot-brand .logo-mark{width:22px;height:22px;font-size:11px;background:var(--a);color:var(--bg);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--disp),serif}
+div.site-footer .foot-brand .logo-mark{width:22px;height:22px;font-size:11px;background:#F0B90B;color:#000;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--disp),serif}
 div.site-footer .foot-desc{font-size:12.5px;max-width:34ch;line-height:1.6;color:#948E7B}
 div.site-footer .foot-cols{display:flex;gap:56px;flex-wrap:wrap}
 div.site-footer .foot-col h4{font-family:var(--mo);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7F7A69;margin-bottom:14px}
@@ -391,7 +411,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
 </head>
 <body>
 <div class="topbar">
-  <a class="logo" href="/"><div class="logo-mark">FC</div>FinCalc<span class="brand-tag">LEDGER NO. 60</span></a>
+  <a class="logo" href="/"><div class="logo-mark">FC</div>FinCalc</a>
   <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">🌙 Dark</button>
 </div>
 <div class="nav">
@@ -406,13 +426,24 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
 <div class="ledger-ticker"><div class="ledger-ticker-track"><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div></div></div>
 <div class="content">
 <div class="panel on" id="blog-index">
-<h1 class="blog-serif" style="font-size:40px;font-weight:700;margin:1.75rem auto .5rem;max-width:700px;letter-spacing:-.5px;line-height:1.15">FinCalc Blog</h1>
-<p style="color:var(--tb);font-size:16px;margin:0 auto 3rem;max-width:700px;line-height:1.5">Practical, honest guides on the math behind money decisions — loans, investing, retirement, and everything in between.</p>
+<div class="blog-index-wrap">
+<div class="blog-hero">
+  <div class="blog-eyebrow">65 guides · updated 2026</div>
+  <h1 class="blog-index-title">The Journal</h1>
+  <p class="blog-index-sub">Practical, honest guides on the math behind money decisions — loans, investing, retirement, and everything in between.</p>
+  <div class="blog-filter-row">
+    <span class="blog-filter-tab on">All</span>
+    <span class="blog-filter-tab">Personal Finance</span>
+    <span class="blog-filter-tab">Investing</span>
+    <span class="blog-filter-tab">Business</span>
+    <span class="blog-filter-tab">Tools</span>
+  </div>
+</div>
 <div class="blog-post-list">
 
   <a href="/blog/building-wealth-step-by-step" class="blog-featured">
   <div class="blog-cat-tag" style="background:color-mix(in srgb, var(--a) 14%, transparent);color:var(--a)">Investing</div>
-  <div style="margin:1rem 0 1.25rem;border-radius:12px;overflow:hidden"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+  <div class="blog-featured-media" style="margin:0;border-radius:2px;overflow:hidden;border:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -436,7 +467,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
 </a>
 
   <a href="/blog/best-free-financial-calculators" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="260" y="60" width="70" height="70" rx="8" fill="var(--m)" opacity="0.7"/><rect x="345" y="60" width="70" height="70" rx="8" fill="var(--a)" opacity="0.7"/><rect x="430" y="60" width="70" height="70" rx="8" fill="var(--g)" opacity="0.7"/><rect x="260" y="145" width="70" height="20" rx="4" fill="var(--m)" opacity="0.35"/><rect x="345" y="145" width="70" height="20" rx="4" fill="var(--a)" opacity="0.35"/><rect x="430" y="145" width="70" height="20" rx="4" fill="var(--g)" opacity="0.35"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="260" y="60" width="70" height="70" rx="8" fill="var(--m)" opacity="0.7"/><rect x="345" y="60" width="70" height="70" rx="8" fill="var(--a)" opacity="0.7"/><rect x="430" y="60" width="70" height="70" rx="8" fill="var(--g)" opacity="0.7"/><rect x="260" y="145" width="70" height="20" rx="4" fill="var(--m)" opacity="0.35"/><rect x="345" y="145" width="70" height="20" rx="4" fill="var(--a)" opacity="0.35"/><rect x="430" y="145" width="70" height="20" rx="4" fill="var(--g)" opacity="0.35"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 6 min read</div>
@@ -447,7 +478,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/after-tax-cash-flow-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="280" y="70" width="90" height="90" rx="10" fill="var(--p)" opacity="0.7"/><text x="325" y="128" font-size="30" text-anchor="middle" fill="var(--bg)" font-family="Arial,sans-serif" font-weight="700">$</text><path d="M400 115 L470 115" stroke="var(--t)" stroke-width="4"/><polygon points="460,105 478,115 460,125" fill="var(--t)"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="280" y="70" width="90" height="90" rx="10" fill="var(--p)" opacity="0.7"/><text x="325" y="128" font-size="30" text-anchor="middle" fill="var(--bg)" font-family="Arial,sans-serif" font-weight="700">$</text><path d="M400 115 L470 115" stroke="var(--t)" stroke-width="4"/><polygon points="460,105 478,115 460,125" fill="var(--t)"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -458,7 +489,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-to-forecast-saas-revenue" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><polyline points="260,160 320,120 380,140 440,80 500,95" fill="none" stroke="var(--g)" stroke-width="5"/><polyline points="260,160 320,140 380,150 440,120 500,130" fill="none" stroke="var(--m)" stroke-width="4" opacity="0.5" stroke-dasharray="6,4"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><polyline points="260,160 320,120 380,140 440,80 500,95" fill="none" stroke="var(--g)" stroke-width="5"/><polyline points="260,160 320,140 380,150 440,120 500,130" fill="none" stroke="var(--m)" stroke-width="4" opacity="0.5" stroke-dasharray="6,4"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 5 min read</div>
@@ -469,7 +500,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/why-minimum-payments-never-shrink-your-balance" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M280 120 Q380 60 480 120 Q380 180 280 120" fill="none" stroke="var(--r)" stroke-width="5"/><circle cx="480" cy="120" r="6" fill="var(--r)"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M280 120 Q380 60 480 120 Q380 180 280 120" fill="none" stroke="var(--r)" stroke-width="5"/><circle cx="480" cy="120" r="6" fill="var(--r)"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -480,7 +511,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/when-to-claim-social-security" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="290" y="150" width="40" height="35" fill="var(--g)" opacity="0.5"/><rect x="350" y="120" width="40" height="65" fill="var(--g)" opacity="0.7"/><rect x="410" y="80" width="40" height="105" fill="var(--g)"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="290" y="150" width="40" height="35" fill="var(--g)" opacity="0.5"/><rect x="350" y="120" width="40" height="65" fill="var(--g)" opacity="0.7"/><rect x="410" y="80" width="40" height="105" fill="var(--g)"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 5 min read</div>
@@ -491,7 +522,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/should-you-refinance-your-mortgage" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M320 90 L280 120 L320 150" fill="none" stroke="var(--b)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M440 90 L480 120 L440 150" fill="none" stroke="var(--b)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="320" y1="120" x2="440" y2="120" stroke="var(--b)" stroke-width="4"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M320 90 L280 120 L320 150" fill="none" stroke="var(--b)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M440 90 L480 120 L440 150" fill="none" stroke="var(--b)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="320" y1="120" x2="440" y2="120" stroke="var(--b)" stroke-width="4"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 5 min read</div>
@@ -502,7 +533,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/options-trading-basics-breakeven-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><polyline points="260,150 340,150 420,80 500,80" fill="none" stroke="var(--a)" stroke-width="5"/><line x1="340" y1="60" x2="340" y2="180" stroke="var(--m)" stroke-width="2" stroke-dasharray="5,4" opacity="0.5"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><polyline points="260,150 340,150 420,80 500,80" fill="none" stroke="var(--a)" stroke-width="5"/><line x1="340" y1="60" x2="340" y2="180" stroke="var(--m)" stroke-width="2" stroke-dasharray="5,4" opacity="0.5"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 5 min read</div>
@@ -513,7 +544,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/why-splitting-the-bill-evenly-is-usually-unfair" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><circle cx="330" cy="120" r="35" fill="var(--m)" opacity="0.6"/><circle cx="430" cy="120" r="22" fill="var(--a)" opacity="0.6"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><circle cx="330" cy="120" r="35" fill="var(--m)" opacity="0.6"/><circle cx="430" cy="120" r="22" fill="var(--a)" opacity="0.6"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -524,7 +555,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/budgeting-guide-that-works" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -547,7 +578,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/building-financial-discipline" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -570,7 +601,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/goal-planning-mistakes" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -593,7 +624,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/self-employed-emergency-fund" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <ellipse cx="380" cy="130" rx="90" ry="60" fill="var(--g)"/>
@@ -616,7 +647,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/saving-vs-investing" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -641,7 +672,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/smart-financial-goals" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -664,7 +695,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/improving-financial-health" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -687,7 +718,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/annual-financial-review" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -710,7 +741,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/common-financial-mistakes" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -733,7 +764,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-much-to-retire-at-40" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="640" cy="55" r="38" fill="var(--a)" opacity="0.85"/>
 <path d="M60,190 L220,80 L340,150 L480,40 L620,190 Z" fill="var(--g)" opacity="0.16"/>
@@ -752,7 +783,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/retirement-savings-per-month" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="640" cy="55" r="38" fill="var(--a)" opacity="0.85"/>
 <path d="M60,190 L220,80 L340,150 L480,40 L620,190 Z" fill="var(--g)" opacity="0.16"/>
@@ -771,7 +802,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-much-emi-can-you-afford" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -794,7 +825,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/emi-mistakes-first-time-borrowers" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -817,7 +848,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-banks-calculate-loan-eligibility" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -840,7 +871,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/first-time-home-buyer-guide" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="300" cy="110" r="95" fill="var(--b)" opacity="0.10"/>
 <path d="M220,120 L300,60 L380,120 Z" fill="var(--b)"/>
@@ -861,7 +892,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/does-prepayment-affect-credit-score" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -884,7 +915,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/loan-closure-process-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -907,7 +938,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/loan-foreclosure-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--r)" opacity="0.10"/>
 <ellipse cx="290" cy="110" rx="34" ry="46" fill="none" stroke="var(--r)" stroke-width="14" transform="rotate(-20 290 110)"/>
@@ -926,7 +957,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/psychological-effects-of-debt" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--r)" opacity="0.10"/>
 <ellipse cx="290" cy="110" rx="34" ry="46" fill="none" stroke="var(--r)" stroke-width="14" transform="rotate(-20 290 110)"/>
@@ -945,7 +976,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/good-debt-vs-bad-debt" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--r)" opacity="0.10"/>
 <ellipse cx="290" cy="110" rx="34" ry="46" fill="none" stroke="var(--r)" stroke-width="14" transform="rotate(-20 290 110)"/>
@@ -964,7 +995,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/power-of-reinvesting-dividends" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -989,7 +1020,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/etf-vs-individual-stocks" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -1014,7 +1045,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/peg-ratio-cheap-stock" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -1039,7 +1070,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/ev-ebitda-vs-pe" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -1064,7 +1095,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-to-price-your-product" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="420" cy="100" r="95" fill="var(--p)" opacity="0.10"/>
 <path d="M400,40 C430,70 435,110 420,150 L380,150 C365,110 370,70 400,40 Z" fill="var(--p)"/>
@@ -1084,7 +1115,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/saas-revenue-forecasting-scenarios" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="420" cy="100" r="95" fill="var(--p)" opacity="0.10"/>
 <path d="M400,40 C430,70 435,110 420,150 L380,150 C365,110 370,70 400,40 Z" fill="var(--p)"/>
@@ -1104,7 +1135,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/us-federal-tax-brackets-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--a)" opacity="0.10"/>
 <rect x="310" y="40" width="140" height="170" rx="10" fill="var(--s)" stroke="var(--a)" stroke-width="3"/>
@@ -1125,7 +1156,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/15-year-vs-30-year-mortgage" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -1148,7 +1179,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/power-of-starting-early-compound-interest" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -1173,7 +1204,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/financial-health-score-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="130" cy="110" r="90" fill="var(--m)" opacity="0.10"/>
 <circle cx="640" cy="60" r="60" fill="var(--m)" opacity="0.08"/>
@@ -1196,7 +1227,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-much-house-can-you-afford" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="300" cy="110" r="95" fill="var(--b)" opacity="0.10"/>
 <path d="M220,120 L300,60 L380,120 Z" fill="var(--b)"/>
@@ -1217,7 +1248,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/dcf-valuation-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -1242,7 +1273,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/sip-vs-lump-sum" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -1267,7 +1298,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/hidden-cost-loan-processing-fees" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -1290,7 +1321,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-big-should-emergency-fund-be" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <ellipse cx="380" cy="130" rx="90" ry="60" fill="var(--g)"/>
@@ -1313,7 +1344,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/startup-burn-rate-runway" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="420" cy="100" r="95" fill="var(--p)" opacity="0.10"/>
 <path d="M400,40 C430,70 435,110 420,150 L380,150 C365,110 370,70 400,40 Z" fill="var(--p)"/>
@@ -1333,7 +1364,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/rental-property-cap-rate-vs-cash-on-cash" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="300" cy="110" r="95" fill="var(--b)" opacity="0.10"/>
 <path d="M220,120 L300,60 L380,120 Z" fill="var(--b)"/>
@@ -1354,7 +1385,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/equity-dilution-101" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="420" cy="100" r="95" fill="var(--p)" opacity="0.10"/>
 <path d="M400,40 C430,70 435,110 420,150 L380,150 C365,110 370,70 400,40 Z" fill="var(--p)"/>
@@ -1374,7 +1405,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/retirement-withdrawal-rate-4-percent-rule" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="640" cy="55" r="38" fill="var(--a)" opacity="0.85"/>
 <path d="M60,190 L220,80 L340,150 L480,40 L620,190 Z" fill="var(--g)" opacity="0.16"/>
@@ -1393,7 +1424,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/auto-loan-new-vs-used" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="100" fill="var(--b)" opacity="0.08"/>
 <path d="M270,90 L380,40 L490,90 Z" fill="var(--b)"/>
@@ -1416,7 +1447,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/best-investments-for-fire" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <path d="M380,50 C420,90 420,120 400,140 C410,120 395,105 385,115 C390,130 370,150 345,140 C320,128 320,100 345,75 C340,95 355,100 360,90 C350,75 360,55 380,50 Z" fill="var(--a)"/>
@@ -1434,7 +1465,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/fire-in-the-us" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <path d="M380,50 C420,90 420,120 400,140 C410,120 395,105 385,115 C390,130 370,150 345,140 C320,128 320,100 345,75 C340,95 355,100 360,90 C350,75 360,55 380,50 Z" fill="var(--a)"/>
@@ -1452,7 +1483,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/fire-in-europe" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <path d="M380,50 C420,90 420,120 400,140 C410,120 395,105 385,115 C390,130 370,150 345,140 C320,128 320,100 345,75 C340,95 355,100 360,90 C350,75 360,55 380,50 Z" fill="var(--a)"/>
@@ -1470,7 +1501,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/fire-in-asia" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <path d="M380,50 C420,90 420,120 400,140 C410,120 395,105 385,115 C390,130 370,150 345,140 C320,128 320,100 345,75 C340,95 355,100 360,90 C350,75 360,55 380,50 Z" fill="var(--a)"/>
@@ -1488,7 +1519,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/mutual-funds-for-retirement" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="640" cy="55" r="38" fill="var(--a)" opacity="0.85"/>
 <path d="M60,190 L220,80 L340,150 L480,40 L620,190 Z" fill="var(--g)" opacity="0.16"/>
@@ -1507,7 +1538,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/retirement-planning-by-age" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="640" cy="55" r="38" fill="var(--a)" opacity="0.85"/>
 <path d="M60,190 L220,80 L340,150 L480,40 L620,190 Z" fill="var(--g)" opacity="0.16"/>
@@ -1526,7 +1557,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/common-savings-mistakes" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <ellipse cx="380" cy="130" rx="90" ry="60" fill="var(--g)"/>
@@ -1549,7 +1580,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/fire-number-how-to-calculate" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--g)" opacity="0.10"/>
 <path d="M380,50 C420,90 420,120 400,140 C410,120 395,105 385,115 C390,130 370,150 345,140 C320,128 320,100 345,75 C340,95 355,100 360,90 C350,75 360,55 380,50 Z" fill="var(--a)"/>
@@ -1567,7 +1598,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/cagr-vs-average-return" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <line x1="60" y1="30" x2="60" y2="190" stroke="var(--bd)" stroke-width="2"/>
 <line x1="60" y1="190" x2="700" y2="190" stroke="var(--bd)" stroke-width="2"/>
@@ -1592,7 +1623,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/pay-off-debt-or-invest" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true">
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true">
 <rect width="760" height="220" fill="var(--s2)"/>
 <circle cx="380" cy="110" r="95" fill="var(--r)" opacity="0.10"/>
 <ellipse cx="290" cy="110" rx="34" ry="46" fill="none" stroke="var(--r)" stroke-width="14" transform="rotate(-20 290 110)"/>
@@ -1611,7 +1642,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/stock-splits-explained" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="300" y="90" width="80" height="60" rx="8" fill="var(--a)" opacity="0.85"/><rect x="410" y="70" width="60" height="45" rx="6" fill="var(--a)" opacity="0.6"/><rect x="490" y="100" width="60" height="45" rx="6" fill="var(--a)" opacity="0.6"/><rect x="230" y="100" width="50" height="40" rx="6" fill="var(--a)" opacity="0.6"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><rect x="300" y="90" width="80" height="60" rx="8" fill="var(--a)" opacity="0.85"/><rect x="410" y="70" width="60" height="45" rx="6" fill="var(--a)" opacity="0.6"/><rect x="490" y="100" width="60" height="45" rx="6" fill="var(--a)" opacity="0.6"/><rect x="230" y="100" width="50" height="40" rx="6" fill="var(--a)" opacity="0.6"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -1622,7 +1653,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/mid-market-rate-vs-bank-rate" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><circle cx="330" cy="110" r="55" fill="none" stroke="var(--m)" stroke-width="8" opacity="0.7"/><text x="330" y="120" font-size="34" text-anchor="middle" fill="var(--m)" font-family="Arial,sans-serif" font-weight="700">$</text><circle cx="450" cy="110" r="55" fill="none" stroke="var(--a)" stroke-width="8"/><text x="450" y="120" font-size="34" text-anchor="middle" fill="var(--a)" font-family="Arial,sans-serif" font-weight="700">€</text></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><circle cx="330" cy="110" r="55" fill="none" stroke="var(--m)" stroke-width="8" opacity="0.7"/><text x="330" y="120" font-size="34" text-anchor="middle" fill="var(--m)" font-family="Arial,sans-serif" font-weight="700">$</text><circle cx="450" cy="110" r="55" fill="none" stroke="var(--a)" stroke-width="8"/><text x="450" y="120" font-size="34" text-anchor="middle" fill="var(--a)" font-family="Arial,sans-serif" font-weight="700">€</text></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -1633,7 +1664,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/premium-vs-deductible-health-insurance" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M380 60 L430 85 L430 135 Q430 165 380 180 Q330 165 330 135 L330 85 Z" fill="none" stroke="var(--g)" stroke-width="8"/><path d="M362 122 L374 134 L400 104" fill="none" stroke="var(--g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M380 60 L430 85 L430 135 Q430 165 380 180 Q330 165 330 135 L330 85 Z" fill="none" stroke="var(--g)" stroke-width="8"/><path d="M362 122 L374 134 L400 104" fill="none" stroke="var(--g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -1644,7 +1675,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/remittance-transfer-costs" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><circle cx="300" cy="110" r="40" fill="var(--m)" opacity="0.15"/><circle cx="460" cy="110" r="40" fill="var(--a)" opacity="0.25"/><path d="M340 110 L420 110" stroke="var(--t)" stroke-width="4" marker-end="url(#arrow)"/><polygon points="410,100 425,110 410,120" fill="var(--t)"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><circle cx="300" cy="110" r="40" fill="var(--m)" opacity="0.15"/><circle cx="460" cy="110" r="40" fill="var(--a)" opacity="0.25"/><path d="M340 110 L420 110" stroke="var(--t)" stroke-width="4" marker-end="url(#arrow)"/><polygon points="410,100 425,110 410,120" fill="var(--t)"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -1655,7 +1686,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
   <a href="/blog/how-much-life-insurance-do-you-need" class="blog-post-card">
-    <div style="height:130px;overflow:hidden;border-radius:10px;margin-bottom:1rem"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:12px;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M380 55 C 420 55 450 85 450 120 C 450 160 380 185 380 185 C 380 185 310 160 310 120 C 310 85 340 55 380 55 Z" fill="none" stroke="var(--m)" stroke-width="8"/></svg></div>
+    <div style="height:150px;overflow:hidden;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--bd)"><svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-hidden="true"><rect width="760" height="220" fill="var(--s2)"/><path d="M380 55 C 420 55 450 85 450 120 C 450 160 380 185 380 185 C 380 185 310 160 310 120 C 310 85 340 55 380 55 Z" fill="none" stroke="var(--m)" stroke-width="8"/></svg></div>
     <div class="blog-post-top">
       <div class="blog-avatar blog-avatar-sm">FC</div>
       <div class="blog-byline-text"><span class="blog-byline-name">FinCalc Team</span><span class="blog-byline-dot">·</span>July 2026 · 4 min read</div>
@@ -1666,6 +1697,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </a>
 
 </div>
+</div><!-- /blog-index-wrap -->
 </div>
 </div><!-- content -->
 <div class="site-footer">
@@ -1686,7 +1718,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
         <h4>Company</h4>
         <a href="/about">About</a>
         <a href="/blog">Journal</a>
-        <a href="/pricing">Pricing</a>
+        <a href="/sitemap.xml">Sitemap</a>
       </div>
       <div class="foot-col">
         <h4>Legal</h4>
@@ -1697,27 +1729,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   </div>
   <div class="foot-bottom">
     <span>© 2026 FinCalc. All calculations are estimates, not financial advice.</span>
-    <span>Ledger No. 60 — updated 2026</span>
-  </div>
-  <div class="foot-badges">
-    <!-- tinystartups · Launched on Tiny Startups -->
-    <a href="https://www.tinystartups.com/startup/finclaccom" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:12px;text-decoration:none;font-family:'Inter',system-ui,sans-serif;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(90deg,#3525E6,#D81FE0,#22B8F0) border-box;border:2px solid transparent;color:#0E0B1F;flex-shrink:0">
-      <svg width="34" height="34" viewBox="0 0 100 100">
-        <defs><linearGradient id="tsg-b" x1=".1" y1="0" x2=".9" y2="1">
-          <stop offset="0%" stop-color="#3525E6"/><stop offset="55%" stop-color="#D81FE0"/><stop offset="100%" stop-color="#22B8F0"/>
-        </linearGradient></defs>
-        <path d="M50 6C52 32 68 48 94 50C68 52 52 68 50 94C48 68 32 52 6 50C32 48 48 32 50 6Z" fill="url(#tsg-b)"/>
-      </svg>
-      <span style="display:flex;flex-direction:column;line-height:1.1">
-        <span style="font-family:monospace;font-size:7px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#6A6585">Launched on</span>
-        <span style="font-size:14px;font-weight:800;letter-spacing:-0.02em">Tiny Startups</span>
-      </span>
-    </a>
-    <a href="https://devglobe.app/projects/fincalc?utm_source=badge&utm_medium=embed" target="_blank" rel="noopener">
-      <img src="https://devglobe.app/badges/launched-on-devglobe-dark.svg" alt="Launched on DevGlobe" width="250" height="54" />
-    </a>
-  </div>
+    </div>
 </div>
 <script>
 (function(){

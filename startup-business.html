@@ -169,11 +169,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 
 /* Inter-calculator links */
-.related-box{clear:both;margin-top:28px;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-.related-box-title{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.related-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:7px;text-decoration:none;color:var(--t);font-size:13px;line-height:1.5;font-weight:500;transition:background .15s,color .15s}
-.related-item:not(:last-child){margin-bottom:2px}
-.related-item:hover{background:var(--s2);color:var(--a)}
+.related-box{clear:both;margin-top:28px;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.related-box-title{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.related-item{display:block;text-decoration:none;color:var(--t);padding:10px;margin:-10px -10px 0;border-radius:7px;transition:background-color .15s}
+.related-item:not(:last-child){margin-bottom:8px}
+.related-item:hover{background:var(--s2)}
+.related-item-title{font-size:14.5px;font-weight:600;line-height:1.4;margin-bottom:5px;color:var(--t);transition:color .15s}
+.related-item:hover .related-item-title{color:var(--a)}
+.related-item-desc{font-size:13px;color:var(--m);line-height:1.55;margin-bottom:9px}
+.related-item-cta{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--a)}
+.related-item:hover .related-arrow{transform:translateX(3px)}
+.related-arrow{color:var(--a);flex-shrink:0;font-size:14px;transition:transform .15s}
+
+
+
 .related-arrow{color:var(--a);flex-shrink:0;font-size:14px;transition:transform .15s}
 .related-item:hover .related-arrow{transform:translateX(3px)}
 
@@ -373,10 +382,10 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 
 /* ---- ledger row-list (matches homepage directory) ---- */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bd);border-left:1px solid var(--bd)}
-.row{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:20px 22px;transition:background-color .15s;display:flex;flex-direction:column;gap:6px;min-height:112px;text-decoration:none;color:inherit}
+.row{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:20px 22px;transition:background-color .15s;display:flex;flex-direction:column;gap:7px;min-height:132px;text-decoration:none;color:inherit}
 .row:hover{background:var(--s2)}
 .row-top{display:flex;align-items:center;justify-content:space-between}
-.row-name{font-size:14.5px;font-weight:500;letter-spacing:-.01em;color:var(--t)}
+.row-name{font-size:16.5px;font-weight:600;letter-spacing:-.01em;font-family:var(--disp),serif;color:var(--t)}
 .row-arrow{font-size:13px;color:var(--m);transition:transform .15s}
 .row:hover .row-arrow{transform:translateX(3px);color:var(--a)}
 .row-desc{font-size:12.5px;color:var(--tb);line-height:1.5}
@@ -417,8 +426,8 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 <main class="content" id="main-content">
 <div id="startup-business" class="panel on">
 <div class="calc-header"><h1 class="calc-page-title">Startup &amp; Business Calculators</h1><p class="calc-desc">Built for founders and operators — burn rate, pricing and margin, equity dilution across funding rounds, and revenue forecasting. These calculators are less about personal money decisions and more about the numbers that keep a company running.</p></div>
-<div class="grid" style="margin-top:1.5rem"><a class="row" href="/burnrate"><div class="row-top"><span class="row-name">Burn Rate</span><span class="row-arrow">→</span></div><span class="row-desc">Find out how many months of cash your startup has left before it runs out of money</span></a><a class="row" href="/pricing"><div class="row-top"><span class="row-name">Pricing Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Work out the right price for your product using cost-plus, value-based, or competitor pricing</span></a><a class="row" href="/equity"><div class="row-top"><span class="row-name">Equity Dilution</span><span class="row-arrow">→</span></div><span class="row-desc">See how much of your company you'll still own after future funding rounds and option pools</span></a><a class="row" href="/dilutionimpact"><div class="row-top"><span class="row-name">Stock Dilution Impact Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">See how a new share offering affects EPS and the value of your existing shares</span></a><a class="row" href="/revenue"><div class="row-top"><span class="row-name">Revenue Forecast</span><span class="row-arrow">→</span></div><span class="row-desc">Forecast your monthly recurring revenue under best-case, expected, and worst-case scenarios</span></a><a class="row" href="/cac"><div class="row-top"><span class="row-name">CAC &amp; LTV:CAC Ratio</span><span class="row-arrow">→</span></div><span class="row-desc">Find your customer acquisition cost and whether your growth engine is actually profitable</span></a><a class="row" href="/breakeven"><div class="row-top"><span class="row-name">Break-even Analysis</span><span class="row-arrow">→</span></div><span class="row-desc">Find out exactly how many units you need to sell before your business starts turning a profit</span></a><a class="row" href="/cashflow"><div class="row-top"><span class="row-name">Cash Flow Analyzer</span><span class="row-arrow">→</span></div><span class="row-desc">See whether more money is coming in than going out, and what's left over each month</span></a></div>
-<div class="related-box" style="margin-top:1.75rem"><div class="related-box-title">📖 Related Reading</div><a class="related-item" href="/blog/best-free-financial-calculators">12 Free Financial Calculators Worth Bookmarking in 2026<span class="related-arrow">→</span></a></div>
+<div class="grid" style="margin-top:1.5rem"><a class="row" href="/burnrate"><div class="row-top"><span class="row-name">Burn Rate</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates how many months of cash your business has left at its current spending rate. The single number every founder needs to know before it's too late.</span></a><a class="row" href="/pricing"><div class="row-top"><span class="row-name">Pricing Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Works out a product price using cost-plus, value-based, or competitor-based methods. Useful when you're not sure how to price something from scratch.</span></a><a class="row" href="/equity"><div class="row-top"><span class="row-name">Equity Dilution</span><span class="row-arrow">→</span></div><span class="row-desc">Projects your ownership percentage after future funding rounds and option pool top-ups. Know how diluted your stake will be before you sign a term sheet.</span></a><a class="row" href="/dilutionimpact"><div class="row-top"><span class="row-name">Stock Dilution Impact Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Shows how a new share offering affects existing shareholders' EPS and ownership value. Useful for evaluating the real cost of a company raising more equity.</span></a><a class="row" href="/revenue"><div class="row-top"><span class="row-name">Revenue Forecast</span><span class="row-arrow">→</span></div><span class="row-desc">Forecasts monthly recurring revenue under best-case, expected, and worst-case scenarios. Built for planning and investor conversations, not just a single guess.</span></a><a class="row" href="/cac"><div class="row-top"><span class="row-name">CAC &amp; LTV:CAC Ratio</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates customer acquisition cost and your LTV:CAC ratio to judge if growth is actually profitable. The metric that separates healthy growth from growth that's quietly losing money.</span></a><a class="row" href="/breakeven"><div class="row-top"><span class="row-name">Break-even Analysis</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates how many units you need to sell before the business turns a profit. The first number any new product or business plan should be built around.</span></a><a class="row" href="/cashflow"><div class="row-top"><span class="row-name">Cash Flow Analyzer</span><span class="row-arrow">→</span></div><span class="row-desc">Analyzes what's coming in, what's going out, and what's left over for your business. A clearer picture than your bank balance alone gives you.</span></a></div>
+<div class="related-box" style="margin-top:1.75rem"><div class="related-box-title">📖 Related Reading</div><a class="related-item" href="/blog/best-free-financial-calculators"><div class="related-item-title">12 Free Financial Calculators Worth Bookmarking in 2026</div><div class="related-item-desc">No signup, no paywall. Twelve free calculators for loans, retirement, investing, and the big life decisions, grouped by what they actually help you decide.</div><span class="related-item-cta">Read more<span class="related-arrow">→</span></span></a></div>
 
 </div>
 </main><!-- content -->

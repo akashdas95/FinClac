@@ -172,11 +172,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .calc-links-label{font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.6px;font-weight:600;white-space:nowrap;margin-bottom:10px}.calc-links{display:flex;flex-wrap:wrap;gap:12px 10px;margin:0 0 2.5rem;padding:14px 16px;background:var(--s2);border-radius:8px;border-left:3px solid var(--g);align-items:center;clear:both}@media(max-width:520px){.calc-links{gap:12px 10px;padding:16px 14px}.calc-link-btn{padding:9px 16px;font-size:13px}}
 .calc-link-btn{padding:9px 18px;background:var(--bg);border:1.5px solid var(--g);border-radius:24px;color:var(--g);font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(--fn);transition:all .18s;white-space:nowrap;text-decoration:none}
 .calc-link-btn:hover{background:var(--g);color:#fff;border-color:var(--g)}
-.related-box{clear:both;margin-top:28px;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-.related-box-title{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.related-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:7px;text-decoration:none;color:var(--t);font-size:13px;line-height:1.5;font-weight:500;transition:background .15s,color .15s}
-.related-item:not(:last-child){margin-bottom:2px}
-.related-item:hover{background:var(--s2);color:var(--a)}
+.related-box{clear:both;margin-top:28px;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.related-box-title{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.related-item{display:block;text-decoration:none;color:var(--t);padding:10px;margin:-10px -10px 0;border-radius:7px;transition:background-color .15s}
+.related-item:not(:last-child){margin-bottom:8px}
+.related-item:hover{background:var(--s2)}
+.related-item-title{font-size:14.5px;font-weight:600;line-height:1.4;margin-bottom:5px;color:var(--t);transition:color .15s}
+.related-item:hover .related-item-title{color:var(--a)}
+.related-item-desc{font-size:13px;color:var(--m);line-height:1.55;margin-bottom:9px}
+.related-item-cta{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--a)}
+.related-item:hover .related-arrow{transform:translateX(3px)}
+.related-arrow{color:var(--a);flex-shrink:0;font-size:14px;transition:transform .15s}
+
+
+
 .related-arrow{color:var(--a);flex-shrink:0;font-size:14px;transition:transform .15s}
 .related-item:hover .related-arrow{transform:translateX(3px)}
 
@@ -455,7 +464,7 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 </div>
 
 <div style="margin-top:1.75rem;margin-bottom:1.75rem"><div class="calc-links-label">🔗 Related Calculators</div><div class="calc-links"><a class="calc-link-btn" href="/drip" onclick="go('drip',null);return false;">💧 DRIP</a><a class="calc-link-btn" href="/cagr" onclick="go('cagr',null);return false;">📐 CAGR</a><a class="calc-link-btn" href="/retirement" onclick="go('retirement',null);return false;">👴 Retirement</a><a class="calc-link-btn" href="/fire" onclick="go('fire',null);return false;">🔥 FIRE Calculator</a></div></div>
-<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/power-of-reinvesting-dividends">The Power of Reinvesting Dividends: A Long-Term Growth Case Study<span class="related-arrow">→</span></a></div>
+<div class="related-box"><div class="related-box-title">📖 Related Articles</div><a class="related-item" href="/blog/power-of-reinvesting-dividends"><div class="related-item-title">The Power of Reinvesting Dividends: A Long-Term Growth Case Study</div><div class="related-item-desc">Taking dividends as cash feels good today — reinvesting them can mean a dramatically larger portfolio decades from now.</div><span class="related-item-cta">Read more<span class="related-arrow">→</span></span></a></div>
 <div class="calc-guide">
   <div class="guide-toggle">
     <div class="guide-toggle-title">📖 Dividend Growth Investing — Building Rising Income</div>

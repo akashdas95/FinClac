@@ -169,11 +169,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 
 /* Inter-calculator links */
-.related-box{clear:both;margin-top:28px;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-.related-box-title{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.related-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:7px;text-decoration:none;color:var(--t);font-size:13px;line-height:1.5;font-weight:500;transition:background .15s,color .15s}
-.related-item:not(:last-child){margin-bottom:2px}
-.related-item:hover{background:var(--s2);color:var(--a)}
+.related-box{clear:both;margin-top:28px;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.related-box-title{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.related-item{display:block;text-decoration:none;color:var(--t);padding:10px;margin:-10px -10px 0;border-radius:7px;transition:background-color .15s}
+.related-item:not(:last-child){margin-bottom:8px}
+.related-item:hover{background:var(--s2)}
+.related-item-title{font-size:14.5px;font-weight:600;line-height:1.4;margin-bottom:5px;color:var(--t);transition:color .15s}
+.related-item:hover .related-item-title{color:var(--a)}
+.related-item-desc{font-size:13px;color:var(--m);line-height:1.55;margin-bottom:9px}
+.related-item-cta{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--a)}
+.related-item:hover .related-arrow{transform:translateX(3px)}
+.related-arrow{color:var(--a);flex-shrink:0;font-size:14px;transition:transform .15s}
+
+
+
 .related-arrow{color:var(--a);flex-shrink:0;font-size:14px;transition:transform .15s}
 .related-item:hover .related-arrow{transform:translateX(3px)}
 
@@ -373,10 +382,10 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 
 /* ---- ledger row-list (matches homepage directory) ---- */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bd);border-left:1px solid var(--bd)}
-.row{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:20px 22px;transition:background-color .15s;display:flex;flex-direction:column;gap:6px;min-height:112px;text-decoration:none;color:inherit}
+.row{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:20px 22px;transition:background-color .15s;display:flex;flex-direction:column;gap:7px;min-height:132px;text-decoration:none;color:inherit}
 .row:hover{background:var(--s2)}
 .row-top{display:flex;align-items:center;justify-content:space-between}
-.row-name{font-size:14.5px;font-weight:500;letter-spacing:-.01em;color:var(--t)}
+.row-name{font-size:16.5px;font-weight:600;letter-spacing:-.01em;font-family:var(--disp),serif;color:var(--t)}
 .row-arrow{font-size:13px;color:var(--m);transition:transform .15s}
 .row:hover .row-arrow{transform:translateX(3px);color:var(--a)}
 .row-desc{font-size:12.5px;color:var(--tb);line-height:1.5}
@@ -417,8 +426,8 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 <main class="content" id="main-content">
 <div id="tools" class="panel on">
 <div class="calc-header"><h1 class="calc-page-title">Tools Calculators</h1><p class="calc-desc">General-purpose calculators that don't fit neatly into a single financial category, but are genuinely useful alongside the ones that do — currency conversion, cross-border transfer costs, and a full scientific calculator for checking the math behind everything else.</p></div>
-<div class="grid" style="margin-top:1.5rem"><a class="row" href="/currency"><div class="row-top"><span class="row-name">Currency Converter</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Quickly convert between 15 major world currencies using live, daily-updated exchange rates</span></a><a class="row" href="/billsplit"><div class="row-top"><span class="row-name">Itemized Bill Splitter</span><span class="row-arrow">→</span></div><span class="row-desc">Split a restaurant bill fairly by what each person ordered, with tax and tip split proportionally</span></a><a class="row" href="/remit"><div class="row-top"><span class="row-name">International Transfer Cost</span><span class="row-arrow">→</span></div><span class="row-desc">See the true cost of sending money abroad, including hidden exchange rate markup</span></a><a class="row" href="/scientific"><div class="row-top"><span class="row-name">Scientific Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">A full scientific calculator with trig, logarithms, powers, factorials, and memory functions</span></a></div>
-<div class="related-box" style="margin-top:1.75rem"><div class="related-box-title">📖 Related Reading</div><a class="related-item" href="/blog/mid-market-rate-vs-bank-rate">Why the Exchange Rate You See Online Isn't the Rate You Get<span class="related-arrow">→</span></a><a class="related-item" href="/blog/remittance-transfer-costs">The Real Cost of Sending Money Abroad (It's Not the Fee)<span class="related-arrow">→</span></a></div>
+<div class="grid" style="margin-top:1.5rem"><a class="row" href="/currency"><div class="row-top"><span class="row-name">Currency Converter</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Converts between 15 major currencies using live daily rates. Useful for travel budgeting, invoicing abroad, or checking if you're getting a fair exchange rate.</span></a><a class="row" href="/billsplit"><div class="row-top"><span class="row-name">Itemized Bill Splitter</span><span class="row-arrow">→</span></div><span class="row-desc">Splits a shared bill fairly based on what each person actually ordered, not an even split. Ends the awkward math at the end of a group dinner.</span></a><a class="row" href="/remit"><div class="row-top"><span class="row-name">International Transfer Cost</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates the true cost of sending money abroad, including the hidden markup on the exchange rate. Most transfer services aren't as "fee-free" as they advertise.</span></a><a class="row" href="/scientific"><div class="row-top"><span class="row-name">Scientific Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">A full scientific calculator with trig, logarithms, powers, factorials, and memory functions. Handy for the occasional calculation none of the finance tools cover.</span></a></div>
+<div class="related-box" style="margin-top:1.75rem"><div class="related-box-title">📖 Related Reading</div><a class="related-item" href="/blog/mid-market-rate-vs-bank-rate"><div class="related-item-title">Why the Exchange Rate You See Online Isn't the Rate You Get</div><div class="related-item-desc">The mid-market rate on Google isn't what your bank or card charges you. Here's where the difference goes.</div><span class="related-item-cta">Read more<span class="related-arrow">→</span></span></a><a class="related-item" href="/blog/remittance-transfer-costs"><div class="related-item-title">The Real Cost of Sending Money Abroad (It's Not the Fee)</div><div class="related-item-desc">The advertised transfer fee is often the smallest cost. The exchange rate markup is where providers actually make money.</div><span class="related-item-cta">Read more<span class="related-arrow">→</span></span></a></div>
 
 </div>
 </main><!-- content -->

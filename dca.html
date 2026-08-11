@@ -114,10 +114,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .ip{position:relative}
 .ip .pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:13px;pointer-events:none;font-family:var(--mo)}
 .ip input{padding-left:22px}
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem}
-.sbox{background:var(--s2);border-radius:8px;padding:10px}
+.sgrid{display:flex;flex-direction:column;background:var(--s);border:1px solid var(--bd);border-radius:10px;margin-top:1rem;overflow:hidden}
+.sbox{padding:13px 18px;border-bottom:1px solid var(--bd);background:transparent;border-radius:0}
+.sbox:last-child{border-bottom:none}
 .sbox .lbl{font-size:10px;color:var(--m);margin-bottom:3px;font-weight:500;text-transform:uppercase;letter-spacing:.4px}
 .sbox .val{font-size:15px;font-weight:600;font-family:var(--mo)}
+.sbox:first-child{background:var(--s2);padding:22px 20px 20px;display:flex;flex-direction:column;gap:5px}
+.sbox:first-child .lbl{font-size:11.5px;letter-spacing:.6px;margin-bottom:0}
+.sbox:first-child .val{font-size:32px;font-weight:700;line-height:1.15}
+.sbox:not(:first-child){display:flex;align-items:center;justify-content:space-between;gap:14px}
+.sbox:not(:first-child) .lbl{margin-bottom:0;flex-shrink:0}
+.sbox:not(:first-child) .val{text-align:right}
 .rrow{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13px}
 .rrow:last-child{border:none}
 .rk{color:var(--m);font-size:12px}

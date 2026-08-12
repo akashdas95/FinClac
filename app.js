@@ -60,7 +60,7 @@ function renderInsights(id,lines){
   const el=gel(id);if(!el)return;
   if(!lines||!lines.length){el.innerHTML='';el.style.display='none';return;}
   el.style.display='';
-  el.innerHTML='<div class="insight-title">💡 Insights</div>'+lines.map(l=>
+  el.innerHTML='<div class="insight-title">💡 What This Means</div>'+lines.map(l=>
     `<div class="insight-line ${l.type}"><span class="ic">${ICN[l.type]||'i'}</span><span>${l.text}</span></div>`
   ).join('');
 }

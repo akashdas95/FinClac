@@ -109,7 +109,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .field{margin-bottom:.9rem}
 .field label{display:block;font-size:14px;font-weight:500;color:var(--t);margin-bottom:6px}
 .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 11px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;transition:border .15s}
-.field input:focus,.field select:focus{border-color:var(--a)}
+.field input:focus,.field select:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(15,79,53,.14)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible,.row:focus-visible,.calc-link-btn:focus-visible,.related-item:focus-visible,.blog-post-card:focus-visible{outline:2px solid var(--a);outline-offset:2px;border-radius:4px}
 .field select option{background:var(--s2)}
 .ip{position:relative}
 .ip .pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:13px;pointer-events:none;font-family:var(--mo)}
@@ -194,14 +195,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 /* Calculator Guide Articles */
 .calc-guide{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
-.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0;max-width:980px}
+.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0;max-width:980px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.guide-toggle:hover{border-color:var(--g);box-shadow:0 4px 14px rgba(15,79,53,.1)}
 @media(min-width:1048px){.guide-toggle{margin-left:auto;margin-right:auto}}
 .guide-toggle-title{font-size:14px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:8px;letter-spacing:.1px}
 .guide-body{display:block;padding:1.5rem 0 0;max-width:980px}
 @media(min-width:1048px){.guide-body{margin:0 auto}}
 .guide-h2{font-size:22px;font-weight:700;color:var(--t);margin:1.75rem 0 .85rem;letter-spacing:-.2px;line-height:1.3}
 .guide-h2:first-child{margin-top:0}
-.guide-h3{font-size:16px;font-weight:700;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.1px;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
+.guide-h3{font-size:18px;font-weight:600;font-family:var(--disp,var(--fn)),serif;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.01em;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
 .guide-h3:first-child{margin-top:0;padding-top:0;border-top:none}
 .guide-p{font-size:14.5px;color:var(--tb);line-height:1.75;margin-bottom:1.1rem}
 .guide-p strong{color:var(--t);font-weight:600}
@@ -237,8 +239,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .faq-section{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
 .faq-section-title{font-size:13px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1.1rem;display:flex;align-items:center;gap:8px}
 .faq-section-title::after{content:'';flex:1;height:1px;background:var(--bd)}
-.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
-.faq-item:hover{border-color:var(--g)}
+.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+.faq-item:hover{border-color:var(--g);box-shadow:0 4px 14px rgba(15,79,53,.1);transform:translateY(-1px)}
 .faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-size:14px;font-weight:600;color:var(--t);user-select:none;gap:12px;line-height:1.45}
 .faq-q .faq-icon{font-size:16px;color:var(--a);transition:transform .3s;flex-shrink:0}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
@@ -295,7 +297,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 /* Print stylesheet: show only the active calculator's inputs/outputs, hide everything else */
 @media print{
   html,body{background:#fff!important;color:#000!important}
-  .topbar,.nav,.site-footer,#srch-results,.search-overlay{display:none!important}
+  .topbar,.nav,.site-footer,#srch-results,.search-overlay,.mobile-menu-btn,.mobile-menu,.calc-links,.related-panel{display:none!important}
   .content{padding:0!important}
   .panel{display:none!important}
   .panel.on{display:block!important}
@@ -378,12 +380,27 @@ footer.site-footer .foot-bottom{max-width:1180px;margin:36px auto 0;padding-top:
 footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 @media(max-width:700px){footer.site-footer{padding:32px 20px 24px}footer.site-footer .foot-grid{gap:24px}footer.site-footer .foot-cols{gap:32px}}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.row{border:1px solid var(--bd);border-radius:8px;padding:16px 20px;transition:background-color .15s,box-shadow .15s;display:flex;flex-direction:column;gap:6px;min-height:60px;text-decoration:none;color:inherit}
-.row:hover{background:var(--s2);box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.row-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.row-name{font-size:14px;font-weight:500;letter-spacing:-.01em;color:var(--t)}
-.row-arrow{font-size:13px;color:var(--m);transition:transform .15s}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.row{
+  border:1px solid rgba(23,27,23,.06);border-radius:14px;
+  padding:18px 20px;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,background-color .2s;
+  display:flex;flex-direction:column;gap:8px;min-height:60px;
+  text-decoration:none;color:inherit;position:relative;background:var(--s);
+  box-shadow:0 1px 2px rgba(23,27,23,.04),0 4px 14px rgba(23,27,23,.05);
+}
+.row:hover{background:var(--s);box-shadow:0 4px 10px rgba(23,27,23,.06),0 14px 32px rgba(23,27,23,.09);transform:translateY(-3px)}
+.row-top{display:flex;align-items:center;gap:10px}
+.row-icon{
+  width:32px;height:32px;flex-shrink:0;font-size:15px;
+  background:var(--s2);border:1px solid rgba(23,27,23,.05);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,background-color .2s,border-color .2s;
+}
+.row:hover .row-icon{background:var(--g);border-color:var(--g);transform:scale(1.08) rotate(-4deg)}
+.row-name{font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--t);flex:1;min-width:0}
+.row-arrow{font-size:13px;color:var(--m);transition:transform .2s,color .2s;flex-shrink:0}
+.row:hover .row-arrow{transform:translateX(4px);color:var(--g)}
+.row-desc{font-size:12px;color:var(--tb);line-height:1.5}
 .row:hover .row-arrow{transform:translateX(3px);color:var(--a)}
 @media(max-width:860px){.grid{grid-template-columns:1fr}}
 
@@ -403,6 +420,9 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 .mobile-menu a:last-child{border-bottom:none}
 .mobile-menu.open{display:flex}
 @media(max-width:860px){.mobile-menu-btn{display:flex}}
+.calc-links{display:flex;flex-wrap:wrap;gap:12px 10px;justify-content:center}
+.calc-link-btn{display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:var(--bg);border:1.5px solid var(--g);border-radius:24px;color:var(--g);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--fn);transition:all .18s;white-space:nowrap;text-decoration:none}
+.calc-link-btn:hover{background:var(--g);color:#fff;border-color:var(--g);transform:translateY(-2px);box-shadow:0 6px 16px rgba(15,79,53,.2)}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -445,7 +465,8 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 <main class="content" id="main-content">
 <div id="404" class="panel on">
 <div class="calc-header" style="text-align:center;max-width:640px;margin:2.5rem auto 0">
-  <div style="font-size:64px;font-weight:700;color:var(--a);line-height:1;margin-bottom:.5rem;font-family:var(--mo)">404</div>
+  <div style="width:56px;height:2px;background:var(--a);margin:0 auto 18px;opacity:.6"></div>
+  <div style="font-size:76px;font-weight:600;color:var(--a);line-height:1;margin-bottom:.6rem;font-family:var(--disp,var(--fn)),serif;letter-spacing:-.02em">404</div>
   <h1 class="calc-page-title">Page Not Found</h1>
   <p class="calc-desc">The page you're looking for doesn't exist, may have been moved, or the URL was mistyped. Try searching below or jump straight to a calculator.</p>
 </div>
@@ -463,17 +484,17 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
   <a class="calc-link-btn" href="/blog">📖 Blog</a>
 </div>
 
-<div style="max-width:640px;margin:1.75rem auto 0;text-align:center">
+<div style="max-width:900px;margin:1.75rem auto 0;text-align:center">
   <div class="related-box-title" style="justify-content:center;display:flex">Popular calculators</div>
-  <div class="grid" style="margin-top:.75rem;max-width:640px">
-    <a class="row" href="/mortgage"><div class="row-top"><span class="row-name">Mortgage Calculator</span><span class="row-arrow">→</span></div></a>
-    <a class="row" href="/loan"><div class="row-top"><span class="row-name">Loan / EMI Calculator</span><span class="row-arrow">→</span></div></a>
-    <a class="row" href="/retirement"><div class="row-top"><span class="row-name">Retirement Planner</span><span class="row-arrow">→</span></div></a>
-    <a class="row" href="/cagr"><div class="row-top"><span class="row-name">CAGR Calculator</span><span class="row-arrow">→</span></div></a>
-    <a class="row" href="/tax"><div class="row-top"><span class="row-name">Tax Estimator</span><span class="row-arrow">→</span></div></a>
-    <a class="row" href="/fire"><div class="row-top"><span class="row-name">FIRE Calculator</span><span class="row-arrow">→</span></div></a>
-    <a class="row" href="/autoloan"><div class="row-top"><span class="row-name">Auto Loan Calculator</span><span class="row-arrow">→</span></div></a>
-    <a class="row" href="/debtcomp"><div class="row-top"><span class="row-name">Snowball vs Avalanche</span><span class="row-arrow">→</span></div></a>
+  <div class="grid" style="margin-top:.9rem;max-width:900px;text-align:left">
+    <a class="row" href="/mortgage"><div class="row-top"><span class="row-icon">🏠</span><span class="row-name">Mortgage Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Full monthly payment including taxes, insurance, and PMI.</span></a>
+    <a class="row" href="/loan"><div class="row-top"><span class="row-icon">🏦</span><span class="row-name">Loan / EMI Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Your exact monthly payment and interest breakdown.</span></a>
+    <a class="row" href="/retirement"><div class="row-top"><span class="row-icon">👴</span><span class="row-name">Retirement Planner</span><span class="row-arrow">→</span></div><span class="row-desc">Check if your savings rate is on track, adjusted for inflation.</span></a>
+    <a class="row" href="/cagr"><div class="row-top"><span class="row-icon">📐</span><span class="row-name">CAGR Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">The steady annual growth rate behind an investment's returns.</span></a>
+    <a class="row" href="/tax"><div class="row-top"><span class="row-icon">🧾</span><span class="row-name">Tax Estimator</span><span class="row-arrow">→</span></div><span class="row-desc">Your effective tax rate and take-home pay.</span></a>
+    <a class="row" href="/fire"><div class="row-top"><span class="row-icon">🔥</span><span class="row-name">FIRE Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Years to financial independence at your savings rate.</span></a>
+    <a class="row" href="/autoloan"><div class="row-top"><span class="row-icon">🚗</span><span class="row-name">Auto Loan Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Car payment with trade-in, tax, and loan rate.</span></a>
+    <a class="row" href="/debtcomp"><div class="row-top"><span class="row-icon">❄️</span><span class="row-name">Snowball vs Avalanche</span><span class="row-arrow">→</span></div><span class="row-desc">Which debt payoff strategy saves you more, faster.</span></a>
   </div>
 </div>
 

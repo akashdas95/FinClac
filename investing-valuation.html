@@ -109,7 +109,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .field{margin-bottom:.9rem}
 .field label{display:block;font-size:14px;font-weight:500;color:var(--t);margin-bottom:6px}
 .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 11px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;transition:border .15s}
-.field input:focus,.field select:focus{border-color:var(--a)}
+.field input:focus,.field select:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(15,79,53,.14)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible,.row:focus-visible,.calc-link-btn:focus-visible,.related-item:focus-visible,.blog-post-card:focus-visible{outline:2px solid var(--a);outline-offset:2px;border-radius:4px}
 .field select option{background:var(--s2)}
 .ip{position:relative}
 .ip .pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:13px;pointer-events:none;font-family:var(--mo)}
@@ -203,14 +204,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 /* Calculator Guide Articles */
 .calc-guide{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
-.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0;max-width:980px}
+.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0;max-width:980px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.guide-toggle:hover{border-color:var(--g);box-shadow:0 4px 14px rgba(15,79,53,.1)}
 @media(min-width:1048px){.guide-toggle{margin-left:auto;margin-right:auto}}
 .guide-toggle-title{font-size:14px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:8px;letter-spacing:.1px}
 .guide-body{display:block;padding:1.5rem 0 0;max-width:980px}
 @media(min-width:1048px){.guide-body{margin:0 auto}}
 .guide-h2{font-size:22px;font-weight:700;color:var(--t);margin:1.75rem 0 .85rem;letter-spacing:-.2px;line-height:1.3}
 .guide-h2:first-child{margin-top:0}
-.guide-h3{font-size:16px;font-weight:700;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.1px;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
+.guide-h3{font-size:18px;font-weight:600;font-family:var(--disp,var(--fn)),serif;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.01em;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
 .guide-h3:first-child{margin-top:0;padding-top:0;border-top:none}
 .guide-p{font-size:14.5px;color:var(--tb);line-height:1.75;margin-bottom:1.1rem}
 .guide-p strong{color:var(--t);font-weight:600}
@@ -246,8 +248,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .faq-section{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
 .faq-section-title{font-size:13px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1.1rem;display:flex;align-items:center;gap:8px}
 .faq-section-title::after{content:'';flex:1;height:1px;background:var(--bd)}
-.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
-.faq-item:hover{border-color:var(--g)}
+.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+.faq-item:hover{border-color:var(--g);box-shadow:0 4px 14px rgba(15,79,53,.1);transform:translateY(-1px)}
 .faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-size:14px;font-weight:600;color:var(--t);user-select:none;gap:12px;line-height:1.45}
 .faq-q .faq-icon{font-size:16px;color:var(--a);transition:transform .3s;flex-shrink:0}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
@@ -304,7 +306,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 /* Print stylesheet: show only the active calculator's inputs/outputs, hide everything else */
 @media print{
   html,body{background:#fff!important;color:#000!important}
-  .topbar,.nav,.site-footer,#srch-results,.search-overlay{display:none!important}
+  .topbar,.nav,.site-footer,#srch-results,.search-overlay,.mobile-menu-btn,.mobile-menu,.calc-links,.related-panel{display:none!important}
   .content{padding:0!important}
   .panel{display:none!important}
   .panel.on{display:block!important}
@@ -389,14 +391,33 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 
 /* ---- ledger row-list (matches homepage directory) ---- */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.row{border:1px solid var(--bd);border-radius:8px;padding:20px 22px;transition:background-color .15s,box-shadow .15s;display:flex;flex-direction:column;gap:7px;min-height:132px;text-decoration:none;color:inherit}
-.row:hover{background:var(--s2);box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.row-top{display:flex;align-items:center;justify-content:space-between}
-.row-name{font-size:16.5px;font-weight:600;letter-spacing:-.01em;font-family:var(--disp),serif;color:var(--t)}
-.row-arrow{font-size:13px;color:var(--m);transition:transform .15s}
-.row:hover .row-arrow{transform:translateX(3px);color:var(--a)}
-.row-desc{font-size:12.5px;color:var(--tb);line-height:1.5}
-.row-pop{font-family:var(--mo);font-size:9.5px;color:#8A6D33;letter-spacing:.06em;text-transform:uppercase}
+.row{
+  border:1px solid rgba(23,27,23,.06);border-radius:14px;
+  padding:20px 22px;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,background-color .2s;
+  display:flex;flex-direction:column;gap:9px;min-height:132px;
+  text-decoration:none;color:inherit;position:relative;background:var(--s);
+  box-shadow:0 1px 2px rgba(23,27,23,.04),0 4px 14px rgba(23,27,23,.05);
+}
+.row:hover{background:var(--s);box-shadow:0 4px 10px rgba(23,27,23,.06),0 14px 32px rgba(23,27,23,.09);transform:translateY(-3px)}
+.row-top{display:flex;align-items:center;gap:11px}
+.row-icon{
+  width:36px;height:36px;flex-shrink:0;font-size:17px;
+  background:var(--s2);border:1px solid rgba(23,27,23,.05);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,background-color .2s,border-color .2s;
+}
+.row:hover .row-icon{background:var(--a);border-color:var(--a);transform:scale(1.08) rotate(-4deg)}
+.row-name{font-size:16.5px;font-weight:600;letter-spacing:-.01em;font-family:var(--disp),serif;color:var(--t);flex:1;min-width:0}
+.row-arrow{font-size:14px;color:var(--m);transition:transform .2s,color .2s;flex-shrink:0}
+.row:hover .row-arrow{transform:translateX(4px);color:var(--a)}
+.row-desc{font-size:12.5px;color:var(--tb);line-height:1.55}
+.row-pop{
+  position:absolute;top:14px;right:14px;
+  font-family:var(--mo);font-size:9px;font-weight:700;color:#fff;
+  background:#8A6D33;padding:4px 9px;border-radius:20px;
+  letter-spacing:.05em;text-transform:uppercase;
+  box-shadow:0 2px 6px rgba(138,109,51,.35);
+}
 @media(max-width:860px){.grid{grid-template-columns:1fr}}
 
 /* ---- unified homepage-style navbar ---- */
@@ -415,6 +436,14 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 .mobile-menu a:last-child{border-bottom:none}
 .mobile-menu.open{display:flex}
 @media(max-width:860px){.mobile-menu-btn{display:flex}}
+
+/* ---- breadcrumbs ---- */
+.breadcrumb{max-width:1180px;margin:0 auto;padding:14px 20px 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--mo);font-size:11.5px;color:var(--m)}
+.breadcrumb a{color:var(--m);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:var(--a)}
+.breadcrumb .bc-sep{color:var(--bd)}
+.breadcrumb .bc-current{color:var(--t);font-weight:600}
+@media(max-width:640px){.breadcrumb{padding:12px 16px 0;font-size:10.5px}}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -457,10 +486,11 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
   <a href="/blog">Journal</a>
 </nav>
 <div class="ledger-ticker"><div class="ledger-ticker-track"><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div></div></div>
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="bc-sep">/</span><span class="bc-current">Investing &amp; Valuation</span></nav>
 <main class="content" id="main-content">
 <div id="investing-valuation" class="panel on">
 <div class="calc-header"><h1 class="calc-page-title">Investing &amp; Valuation Calculators</h1><p class="calc-desc">These calculators are built for evaluating returns, comparing investments on equal footing, and valuing individual stocks or companies. Whether you're tracking a portfolio or sizing up a single position, this is the toolkit for making sure the numbers actually mean what you think they mean.</p></div>
-<div class="grid" style="margin-top:1.5rem"><a class="row" href="/cagr"><div class="row-top"><span class="row-name">CAGR Calculator</span><span class="row-arrow">→</span></div><span class="row-pop">Popular</span><span class="row-desc">Calculates the steady annual growth rate behind an investment's actual (bumpy) returns. The number that lets you fairly compare two very different-looking investments.</span></a><a class="row" href="/xirr"><div class="row-top"><span class="row-name">XIRR Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates the true annualized return on cash flows that happen on irregular dates. What a normal return calculator gets wrong once you've added or withdrawn money mid-way.</span></a><a class="row" href="/drip"><div class="row-top"><span class="row-name">Dividend Reinvestment</span><span class="row-arrow">→</span></div><span class="row-desc">Projects investment growth when dividends are automatically reinvested rather than taken as cash. Shows how much reinvesting compounds your returns over time.</span></a><a class="row" href="/divgrowth"><div class="row-top"><span class="row-name">Dividend Growth Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Projects your future dividend income growth and yield on cost for a dividend stock. Useful for anyone building toward dividend income as a goal.</span></a><a class="row" href="/etf"><div class="row-top"><span class="row-name">ETF Growth Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Compares growth of popular ETFs like SPY, VTI, and QQQ side by side. A quick way to see how different index funds would have performed on the same money.</span></a><a class="row" href="/allocation"><div class="row-top"><span class="row-name">Asset Allocation Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Suggests a stocks/bonds/cash mix based on your age and risk tolerance. A sanity check before you set (or reset) your portfolio allocation.</span></a><a class="row" href="/dcf"><div class="row-top"><span class="row-name">Stock DCF Valuation</span><span class="row-arrow">→</span></div><span class="row-desc">Estimates what a stock is actually worth based on its projected future cash flows. Goes beyond the current price to ask whether a stock is over- or under-valued.</span></a><a class="row" href="/peg"><div class="row-top"><span class="row-name">PEG Ratio Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates the PEG ratio to judge if a stock's price is justified by its earnings growth, not just its P/E. Catches "expensive-looking" stocks that are actually cheap given their growth.</span></a><a class="row" href="/evebitda"><div class="row-top"><span class="row-name">EV/EBITDA Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates enterprise value and shows what a peer company's multiple implies about a stock's worth. A valuation method that accounts for debt, unlike price-to-earnings alone.</span></a><a class="row" href="/invest"><div class="row-top"><span class="row-name">SIP / Investment</span><span class="row-arrow">→</span></div><span class="row-desc">Projects a future lump sum from monthly SIP investing, including annual step-ups. Shows what consistent monthly investing actually adds up to over the years.</span></a><a class="row" href="/dca"><div class="row-top"><span class="row-name">Dollar Cost Averaging</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates shares bought and average cost under dollar-cost averaging vs a lump-sum investment. Helps decide whether investing gradually or all at once suits your situation.</span></a><a class="row" href="/swp"><div class="row-top"><span class="row-name">SWP Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Shows how long a lump sum lasts under a fixed monthly withdrawal plan (SWP). Essential for anyone drawing down savings in retirement without running out early.</span></a><a class="row" href="/stock"><div class="row-top"><span class="row-name">Stock P&amp;L</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates your real profit or loss on a stock trade after brokerage fees and taxes. The number your brokerage app doesn't always show you clearly.</span></a><a class="row" href="/options"><div class="row-top"><span class="row-name">Options Profit &amp; Breakeven</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates breakeven price, max profit, and max loss for a call or put option. Know your actual risk and reward before placing an options trade.</span></a><a class="row" href="/split"><div class="row-top"><span class="row-name">Stock Split Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates your new share count and adjusted cost basis after a stock split. Keeps your portfolio records accurate after a split you didn't ask for.</span></a></div>
+<div class="grid" style="margin-top:1.5rem"><a class="row" href="/cagr"><span class="row-pop">Popular</span><div class="row-top"><span class="row-icon">📐</span><span class="row-name">CAGR Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates the steady annual growth rate behind an investment's actual (bumpy) returns. The number that lets you fairly compare two very different-looking investments.</span></a><a class="row" href="/xirr"><div class="row-top"><span class="row-icon">📅</span><span class="row-name">XIRR Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates the true annualized return on cash flows that happen on irregular dates. What a normal return calculator gets wrong once you've added or withdrawn money mid-way.</span></a><a class="row" href="/drip"><div class="row-top"><span class="row-icon">💧</span><span class="row-name">Dividend Reinvestment</span><span class="row-arrow">→</span></div><span class="row-desc">Projects investment growth when dividends are automatically reinvested rather than taken as cash. Shows how much reinvesting compounds your returns over time.</span></a><a class="row" href="/divgrowth"><div class="row-top"><span class="row-icon">📈</span><span class="row-name">Dividend Growth Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Projects your future dividend income growth and yield on cost for a dividend stock. Useful for anyone building toward dividend income as a goal.</span></a><a class="row" href="/etf"><div class="row-top"><span class="row-icon">🗂️</span><span class="row-name">ETF Growth Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Compares growth of popular ETFs like SPY, VTI, and QQQ side by side. A quick way to see how different index funds would have performed on the same money.</span></a><a class="row" href="/allocation"><div class="row-top"><span class="row-icon">🥧</span><span class="row-name">Asset Allocation Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Suggests a stocks/bonds/cash mix based on your age and risk tolerance. A sanity check before you set (or reset) your portfolio allocation.</span></a><a class="row" href="/dcf"><div class="row-top"><span class="row-icon">🏦</span><span class="row-name">Stock DCF Valuation</span><span class="row-arrow">→</span></div><span class="row-desc">Estimates what a stock is actually worth based on its projected future cash flows. Goes beyond the current price to ask whether a stock is over- or under-valued.</span></a><a class="row" href="/peg"><div class="row-top"><span class="row-icon">📏</span><span class="row-name">PEG Ratio Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates the PEG ratio to judge if a stock's price is justified by its earnings growth, not just its P/E. Catches "expensive-looking" stocks that are actually cheap given their growth.</span></a><a class="row" href="/evebitda"><div class="row-top"><span class="row-icon">🏢</span><span class="row-name">EV/EBITDA Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates enterprise value and shows what a peer company's multiple implies about a stock's worth. A valuation method that accounts for debt, unlike price-to-earnings alone.</span></a><a class="row" href="/invest"><div class="row-top"><span class="row-icon">📈</span><span class="row-name">SIP / Investment</span><span class="row-arrow">→</span></div><span class="row-desc">Projects a future lump sum from monthly SIP investing, including annual step-ups. Shows what consistent monthly investing actually adds up to over the years.</span></a><a class="row" href="/dca"><div class="row-top"><span class="row-icon">📊</span><span class="row-name">Dollar Cost Averaging</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates shares bought and average cost under dollar-cost averaging vs a lump-sum investment. Helps decide whether investing gradually or all at once suits your situation.</span></a><a class="row" href="/swp"><div class="row-top"><span class="row-icon">📉</span><span class="row-name">SWP Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Shows how long a lump sum lasts under a fixed monthly withdrawal plan (SWP). Essential for anyone drawing down savings in retirement without running out early.</span></a><a class="row" href="/stock"><div class="row-top"><span class="row-icon">📉</span><span class="row-name">Stock P&amp;L</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates your real profit or loss on a stock trade after brokerage fees and taxes. The number your brokerage app doesn't always show you clearly.</span></a><a class="row" href="/options"><div class="row-top"><span class="row-icon">⚡</span><span class="row-name">Options Profit &amp; Breakeven</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates breakeven price, max profit, and max loss for a call or put option. Know your actual risk and reward before placing an options trade.</span></a><a class="row" href="/split"><div class="row-top"><span class="row-icon">🔀</span><span class="row-name">Stock Split Calculator</span><span class="row-arrow">→</span></div><span class="row-desc">Calculates your new share count and adjusted cost basis after a stock split. Keeps your portfolio records accurate after a split you didn't ask for.</span></a></div>
 <div class="related-box" style="margin-top:1.75rem"><div class="related-box-title">📖 Related Reading</div><a class="related-item" href="/blog/cagr-vs-average-return"><div class="related-item-title">CAGR vs. Average Return: Why Your Investment App Is Lying to You</div><div class="related-item-desc">The two numbers look similar but tell very different stories — here's the actual math and why it matters.</div><span class="related-item-cta">Read more<span class="related-arrow">→</span></span></a><a class="related-item" href="/blog/dcf-valuation-explained"><div class="related-item-title">DCF Valuation Explained</div><div class="related-item-desc">The core idea behind discounted cash flow analysis, without the spreadsheet overwhelm.</div><span class="related-item-cta">Read more<span class="related-arrow">→</span></span></a></div>
 
 </div>

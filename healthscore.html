@@ -109,7 +109,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .field{margin-bottom:.9rem}
 .field label{display:block;font-size:14px;font-weight:500;color:var(--t);margin-bottom:6px}
 .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 11px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;transition:border .15s}
-.field input:focus,.field select:focus{border-color:var(--a)}
+.field input:focus,.field select:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(15,79,53,.14)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible,.row:focus-visible,.calc-link-btn:focus-visible,.related-item:focus-visible,.blog-post-card:focus-visible{outline:2px solid var(--a);outline-offset:2px;border-radius:4px}
 .field select option{background:var(--s2)}
 .ip{position:relative}
 .ip .pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:13px;pointer-events:none;font-family:var(--mo)}
@@ -206,14 +207,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 
 /* Calculator Guide Articles */
 .calc-guide{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
-.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0;max-width:980px}
+.guide-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;margin-bottom:0;max-width:980px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.guide-toggle:hover{border-color:var(--g);box-shadow:0 4px 14px rgba(15,79,53,.1)}
 @media(min-width:1048px){.guide-toggle{margin-left:auto;margin-right:auto}}
 .guide-toggle-title{font-size:14px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:8px;letter-spacing:.1px}
 .guide-body{display:block;padding:1.5rem 0 0;max-width:980px}
 @media(min-width:1048px){.guide-body{margin:0 auto}}
 .guide-h2{font-size:22px;font-weight:700;color:var(--t);margin:1.75rem 0 .85rem;letter-spacing:-.2px;line-height:1.3}
 .guide-h2:first-child{margin-top:0}
-.guide-h3{font-size:16px;font-weight:700;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.1px;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
+.guide-h3{font-size:18px;font-weight:600;font-family:var(--disp,var(--fn)),serif;color:var(--t);margin:2rem 0 .75rem;letter-spacing:-.01em;line-height:1.35;padding-top:.25rem;border-top:1px solid var(--bd)}
 .guide-h3:first-child{margin-top:0;padding-top:0;border-top:none}
 .guide-p{font-size:14.5px;color:var(--tb);line-height:1.75;margin-bottom:1.1rem}
 .guide-p strong{color:var(--t);font-weight:600}
@@ -249,8 +251,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .faq-section{margin-top:2.5rem;border-top:1px solid var(--bd);padding-top:1.75rem}
 .faq-section-title{font-size:13px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1.1rem;display:flex;align-items:center;gap:8px}
 .faq-section-title::after{content:'';flex:1;height:1px;background:var(--bd)}
-.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
-.faq-item:hover{border-color:var(--g)}
+.faq-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+.faq-item:hover{border-color:var(--g);box-shadow:0 4px 14px rgba(15,79,53,.1);transform:translateY(-1px)}
 .faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-size:14px;font-weight:600;color:var(--t);user-select:none;gap:12px;line-height:1.45}
 .faq-q .faq-icon{font-size:16px;color:var(--a);transition:transform .3s;flex-shrink:0}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
@@ -307,7 +309,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 /* Print stylesheet: show only the active calculator's inputs/outputs, hide everything else */
 @media print{
   html,body{background:#fff!important;color:#000!important}
-  .topbar,.nav,.site-footer,#srch-results,.search-overlay{display:none!important}
+  .topbar,.nav,.site-footer,#srch-results,.search-overlay,.mobile-menu-btn,.mobile-menu,.calc-links,.related-panel{display:none!important}
   .content{padding:0!important}
   .panel{display:none!important}
   .panel.on{display:block!important}
@@ -406,6 +408,14 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
 .mobile-menu a:last-child{border-bottom:none}
 .mobile-menu.open{display:flex}
 @media(max-width:860px){.mobile-menu-btn{display:flex}}
+
+/* ---- breadcrumbs ---- */
+.breadcrumb{max-width:1180px;margin:0 auto;padding:14px 20px 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--mo);font-size:11.5px;color:var(--m)}
+.breadcrumb a{color:var(--m);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:var(--a)}
+.breadcrumb .bc-sep{color:var(--bd)}
+.breadcrumb .bc-current{color:var(--t);font-weight:600}
+@media(max-width:640px){.breadcrumb{padding:12px 16px 0;font-size:10.5px}}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -448,6 +458,7 @@ footer.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex
   <a href="/tools">Tools</a>
   <a href="/blog">Journal</a>
 </nav>
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="bc-sep">/</span><a href="/personal-finance">Personal Finance</a><span class="bc-sep">/</span><span class="bc-current">Financial Health Score</span></nav>
 <main class="content" id="main-content">
 <div id="healthscore" class="panel on">
 <div class="calc-header">

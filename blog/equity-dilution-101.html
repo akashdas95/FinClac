@@ -99,7 +99,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--fn);font-size:14px;li
 .field{margin-bottom:.9rem}
 .field label{display:block;font-size:12px;color:var(--t);margin-bottom:5px}
 .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 11px;color:var(--t);font-family:var(--mo);font-size:13px;outline:none;transition:border .15s}
-.field input:focus,.field select:focus{border-color:var(--a)}
+.field input:focus,.field select:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(15,79,53,.14)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible,.row:focus-visible,.calc-link-btn:focus-visible,.related-item:focus-visible,.blog-post-card:focus-visible{outline:2px solid var(--a);outline-offset:2px;border-radius:4px}
 .field select option{background:var(--s2)}
 .ip{position:relative}
 .ip .pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:13px;pointer-events:none;font-family:var(--mo)}
@@ -370,6 +371,14 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
 .mobile-menu a:last-child{border-bottom:none}
 .mobile-menu.open{display:flex}
 @media(max-width:860px){.mobile-menu-btn{display:flex}}
+
+/* ---- breadcrumbs ---- */
+.breadcrumb{max-width:1180px;margin:0 auto;padding:14px 20px 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--mo);font-size:11.5px;color:var(--m)}
+.breadcrumb a{color:var(--m);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:var(--a)}
+.breadcrumb .bc-sep{color:var(--bd)}
+.breadcrumb .bc-current{color:var(--t);font-weight:600}
+@media(max-width:640px){.breadcrumb{padding:12px 16px 0;font-size:10.5px}}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -410,6 +419,7 @@ div.site-footer .foot-badges{max-width:1180px;margin:20px auto 0;display:flex;fl
   <a href="/blog">Journal</a>
 </nav>
 <div class="ledger-ticker"><div class="ledger-ticker-track"><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div><div class="tick"><span class="tk-lbl">MORTGAGE·30YR@6.8%</span><span class="tk-val up">$2,847/mo</span></div><div class="tick"><span class="tk-lbl">CAGR·2019→2026</span><span class="tk-val up">14.2%</span></div><div class="tick"><span class="tk-lbl">FIRE·SAVINGS 32%</span><span class="tk-val">18.4 yrs</span></div><div class="tick"><span class="tk-lbl">CC PAYOFF·MIN PMT</span><span class="tk-val down">9.1 yrs</span></div><div class="tick"><span class="tk-lbl">401(K)·EMPLOYER 4%</span><span class="tk-val up">$1.42M</span></div><div class="tick"><span class="tk-lbl">DTI RATIO</span><span class="tk-val">28%</span></div><div class="tick"><span class="tk-lbl">XIRR·IRREGULAR CF</span><span class="tk-val up">11.7%</span></div><div class="tick"><span class="tk-lbl">BURN RATE·RUNWAY</span><span class="tk-val down">7.2 mo</span></div><div class="tick"><span class="tk-lbl">RENT VS BUY·B/E YR</span><span class="tk-val">6</span></div><div class="tick"><span class="tk-lbl">SIP·STEP-UP 10%</span><span class="tk-val up">$981K</span></div></div></div>
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="bc-sep">/</span><a href="/blog">Blog</a><span class="bc-sep">/</span><span class="bc-current">Equity Dilution 101: What Happens to Your Shares After Each Funding Round</span></nav>
 <div class="content">
 <div class="panel on" id="blog-equity-dilution-101">
 <div class="card" style="max-width:760px;margin:0 auto">
